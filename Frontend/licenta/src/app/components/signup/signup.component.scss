@@ -7,12 +7,11 @@
     gap: 20px;
 }
 
-
 .image-container {
     flex: 1;
     max-width: 35%;
     margin-left: 200px; 
-    margin-top:50px;
+    margin-top: 50px;
 
     img {
         width: 100%;
@@ -20,6 +19,7 @@
         border-radius: 8px;
     }
 }
+
 .register-container {
     flex: 1;
     max-width: 30%;
@@ -29,35 +29,44 @@
     margin-left: auto;
     margin-right: 50px;
     margin-top: 20px;
-    text-align: center; /* Aliniază textul la centru */
-
+    text-align: center;
 
     h2 {
         margin-bottom: 20px;
     }
 
     .custom-mat-form-field {
-        margin-bottom: 10px;
-        width: 80%;
-    }
-    
-
-    label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    input {
         width: 100%;
-        padding: 10px;
-        font-size: 14px;
+        margin-bottom: 10px;
+
+        .mat-form-field-wrapper {
+            padding-bottom: 0.25em;
+        }
+
+        .mat-form-field-flex {
+            padding: 0.5em;
+        }
+
+        .mat-form-field-infix {
+            border: none;
+            padding: 0 0.75em;
+        }
+    }
+
+    ::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+        transform: translateY(-1.5em) scale(0.75);
+    }
+
+    ::ng-deep .mat-form-field .mat-icon {
+        height: 1em;
+        width: 1em;
     }
 
     .register-button {
         width: 100%;
         margin-top: 15px;
-        font-size: 14px;
-        padding: 8px;
+        padding: 0.5em 1em;
+        font-size: 0.875em;
         background-color: blue;
         color: white;
         border: none;
@@ -68,11 +77,8 @@
         font-size: 14px;
     }
 }
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-label {
-    // Ajustează poziția când label-ul este în starea de plutire
-    &.mat-form-field-empty.mat-form-field-label:not(.mat-form-field-empty) {
-      transform: translateY(-150%) scale(0.75);
-    }
-  }
-  
-  
+
+/* Opțional, dacă dorești să ajustezi în continuare spațiul dintre etichetă și câmp când câmpul nu este selectat */
+::ng-deep .register-container .mat-form-field-appearance-outline .mat-form-field-label {
+    transform: translateY(-1em);
+}
