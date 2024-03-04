@@ -1,0 +1,78 @@
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+
+.image-container {
+    flex: 1;
+    max-width: 35%;
+    margin-left: 200px; 
+    margin-top:50px;
+
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+}
+.register-container {
+    flex: 1;
+    max-width: 30%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: 50px;
+    margin-top: 20px;
+    text-align: center; /* Aliniază textul la centru */
+
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .custom-mat-form-field {
+        margin-bottom: 10px;
+        width: 80%;
+    }
+    
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .register-button {
+        width: 100%;
+        margin-top: 15px;
+        font-size: 14px;
+        padding: 8px;
+        background-color: blue;
+        color: white;
+        border: none;
+    }
+
+    .register-link {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-label {
+    // Ajustează poziția când label-ul este în starea de plutire
+    &.mat-form-field-empty.mat-form-field-label:not(.mat-form-field-empty) {
+      transform: translateY(-150%) scale(0.75);
+    }
+  }
+  
+  
