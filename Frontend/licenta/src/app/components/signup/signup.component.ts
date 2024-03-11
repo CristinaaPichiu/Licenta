@@ -1,19 +1,31 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
+  registerForm: FormGroup;
 
-  onRegister(form: NgForm) {
-    if (form.valid) {
-      // Implementați logica de autentificare aici
-      console.log(form.value); // Afișați valorile formularului în consolă pentru testare
-      // De exemplu, trimiteți datele formularului către un serviciu de autentificare
-    }
+  constructor(private formBuilder: FormBuilder) {
+    this.registerForm = this.formBuilder.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/)]],
+      confirmPassword: ['', Validators.required]
+    });
   }
 
+  ngOnInit() {
+    // Logica suplimentară de inițializare, dacă este necesar
+  }
+
+  onRegister() {
+    if (this.registerForm.valid) {
+      console.log(this.registerForm.value); // Logica de înregistrare
+    }
+  }
 }

@@ -1,3 +1,8 @@
+$overlay-z-index: 10;
+$container-padding: 20px;
+$border-radius: 8px;
+
+
 .container {
   display: flex;
   align-items: flex-start;
@@ -9,14 +14,14 @@
 
 .image-container {
   flex: 1;
-  max-width: 35%;
-  margin-left: 200px;
-  margin-top: 50px;
+  max-width: 60%;
+  margin-left: 100px; 
+  margin-top: -40px;
 
   img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+      width: 100%;
+      height: auto;
+      border-radius: $border-radius;
   }
 }
 
@@ -27,16 +32,17 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   margin-left: auto;
-  margin-right: 50px;
-  margin-top: 100px; /* Începe cu această valoare și ajustează-o conform necesităților tale */
+  margin-right: 70px;
+  margin-top: 180px; 
   text-align: center;
 
   h2 {
     margin-bottom: 20px;
+    color: #787D7D;
   }
 
   .custom-mat-form-field {
-    width: 100%; // La fel ca în formularul de înregistrare
+    width: 100%;
     margin-bottom: 10px;
 
     .mat-form-field-wrapper {
@@ -66,19 +72,50 @@
     width: 100%;
     margin-top: 15px;
     padding: 0.5em 1em;
-    font-size: 0.875em; // La fel ca în formularul de înregistrare
-    background-color: blue;
+    font-size: 0.875em; 
+    background-color: #90CAF9;
     color: white;
     border: none;
   }
 
   .login-link {
     margin-top: 15px;
-    font-size: 14px; // La fel ca în formularul de înregistrare
+    font-size: 14px; 
   }
 }
 
-/* Opțional, dacă dorești să ajustezi în continuare spațiul dintre etichetă și câmp când câmpul nu este selectat */
 ::ng-deep .login-container .mat-form-field-appearance-outline .mat-form-field-label {
   transform: translateY(-1em);
 }
+mat-icon
+{
+    color: #787D7D;
+}
+
+.overlay-container {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: $overlay-z-index; 
+  display: flex;
+  justify-content: flex-start; 
+  padding-left: $container-padding;
+}
+.welcome-text {
+  font-family: 'Rubik', sans-serif;
+  font-size: 25px;
+  font-weight: 100; 
+  color: #787D7D; 
+  margin-left: 10px; 
+  margin-top: 35px; 
+
+}
+
+.logo {
+  width: 120px; 
+  height: auto;
+  margin-left: 0;
+}
+
+

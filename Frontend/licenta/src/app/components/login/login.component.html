@@ -1,26 +1,27 @@
 <div class="container">
+  <div class="overlay-container">
+    <img src="/assets/logo.png" alt="Logo" class="logo">
+    <p class="welcome-text">Welcome back!<br><br>Make the most of your professional life</p>
+  </div>
+
   <div class="image-container">
-    <img src="/assets/login.png" alt="Descriere Imagine">
+    <img src="/assets/team2.png" alt="Descriere Imagine">
   </div>
 
   <div class="login-container">
     <h2>Login</h2>
-    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
-      
-
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label>Email</mat-label>
-        <input matInput type="email" placeholder="Type your email" name="email" ngModel required>
+        <input matInput type="email" placeholder="Type your email" formControlName="email">
         <mat-icon matSuffix>email</mat-icon>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Type your password" name="password" ngModel required>
+        <input matInput type="password" placeholder="Type your password" formControlName="password">
         <mat-icon matSuffix>lock</mat-icon>
       </mat-form-field>
-      
-      
 
       <button type="submit" mat-raised-button color="primary" class="login-button">Login</button>
     </form>

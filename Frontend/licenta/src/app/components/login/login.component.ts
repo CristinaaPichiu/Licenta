@@ -1,22 +1,29 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
 
-  constructor() { }
-
-  // Adăugați această metodă în clasa LoginComponent
-  onLogin(form: NgForm) {
-    if (form.valid) {
-      // Implementați logica de autentificare aici
-      console.log(form.value); // Afișați valorile formularului în consolă pentru testare
-      // De exemplu, trimiteți datele formularului către un serviciu de autentificare
-    }
+  constructor(private formBuilder: FormBuilder) {
+    // Inițializarea formularului în constructor
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 
+  ngOnInit() {
+    // orice logică suplimentară de inițializare
+  }
+
+  onLogin() {
+    if (this.loginForm.valid) {
+      // Logica de autentificare
+    }
+  }
 }

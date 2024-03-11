@@ -1,40 +1,45 @@
 <div class="container">
+  <div class="overlay-container">
+    <img src="/assets/logo.png" alt="Logo" class="logo">
+    <p class="welcome-text">Welcome!<br><br>Make the most of your professional life</p>
+  </div>
+
   <div class="image-container">
-    <img src="/assets/register.png" alt="Descriere Imagine">
+    <img src="/assets/team.png" alt="Descriere Imagine" class="background-image">
   </div>
 
   <div class="register-container">
     <h2>Register</h2>
-    <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <div class="name-container">
         <mat-form-field appearance="outline" class="custom-mat-form-field">
           <mat-label>First name</mat-label>
-          <input matInput type="text" placeholder="Type your first name" name="firstname" ngModel required>
+          <input matInput placeholder="Type your first name" formControlName="firstname">
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="custom-mat-form-field">
           <mat-label>Last name</mat-label>
-          <input matInput type="text" placeholder="Type your last name" name="lastname" ngModel required>
+          <input matInput placeholder="Type your last name" formControlName="lastname">
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
       </div>
 
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label>Email</mat-label>
-        <input matInput type="email" placeholder="Type your email" name="email" ngModel required>
+        <input matInput type="email" placeholder="Type your email" formControlName="email">
         <mat-icon matSuffix>email</mat-icon>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Type your password" name="password" ngModel required>
+        <input matInput type="password" placeholder="Type your password" formControlName="password">
         <mat-icon matSuffix>lock</mat-icon>
       </mat-form-field>
       
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label>Confirm Password</mat-label>
-        <input matInput type="password" placeholder="Confirm Password" name="confirmPassword" ngModel required>
+        <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword">
         <mat-icon matSuffix>lock</mat-icon>
       </mat-form-field>
 
