@@ -42,6 +42,9 @@
         <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword">
         <mat-icon matSuffix>lock</mat-icon>
       </mat-form-field>
+      <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched" class="error-message">
+        Password must be at least 8 characters long and contain at least one uppercase letter and one special character.
+      </div>
 
       <button type="submit" mat-raised-button color="primary" class="register-button">Register</button>
     </form>
