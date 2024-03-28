@@ -1,0 +1,39 @@
+
+    <mat-card class="example-card">
+        <!-- Profile upload div should be the first element inside the card -->
+        <div class="profile-upload">
+            <input type="file" id="file-input" hidden (change)="onFileSelected($event)" accept="image/*" />
+            <mat-icon class="badge-icon" (click)="triggerFileInput()">camera_enhance</mat-icon>
+    
+            <div class="profile-picture" (click)="triggerFileInput()">
+                <!-- Placeholder for profile image -->
+            </div>
+        </div>
+    
+        <mat-card-header>
+            <!-- Title container -->
+            <div class="editable-title-container">
+                <mat-card-title contenteditable="true" class="editable-title">Email</mat-card-title>
+                <mat-icon class="edit-icon">edit</mat-icon>
+            </div>
+        </mat-card-header>
+    
+        <mat-card-content>
+            <!-- Text content container -->
+            <div class="text-upload">
+                <div contenteditable="true" class="editable-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div>
+                <mat-icon class="edit-icon text-edit-icon">edit</mat-icon>
+            </div>
+            
+                
+        </mat-card-content>
+    
+        <mat-card-actions>
+            <button mat-button>SAVE</button>
+        </mat-card-actions>
+    </mat-card>
+    
+
+    

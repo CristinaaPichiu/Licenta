@@ -9,6 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+
+  hidePassword = true;
+  hideConfirmPassword = true;
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+  }
   passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
   registerForm!: FormGroup;
 
@@ -42,7 +53,7 @@ const confirmPassword = group.get('confirmPassword')!.value;
         next: (response) => {
           console.log('User registered successfully', response);
           // Navighează către o pagină, de exemplu la pagina de login
-          this.router.navigate(['/login']);
+          this.router.navigate(['/welcome']);
         },
         error: (error) => {
           console.error('Registration error', error);

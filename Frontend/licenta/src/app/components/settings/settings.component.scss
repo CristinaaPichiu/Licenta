@@ -1,0 +1,123 @@
+.settings-container {
+  display: flex;
+  padding: 20px;
+  align-items: flex-start; 
+  
+
+  .tabs {
+    margin-left: 100px;
+    width: calc(100% - 100px);
+  }
+
+  .card {
+    margin-left: 150px;
+  }
+
+  .form {
+
+    margin-left: 150px; 
+    margin-bottom: 30px;
+  }
+
+  .card-and-form-container {
+    display: flex;
+    justify-content: flex-end; 
+    width: 60%;
+    margin-left: 400px; 
+  }
+
+  .personal-info {
+    margin-top: 80px;
+    width: 600px; 
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+  }
+
+  .mat-form-field {
+    background-color: white; 
+    width: 100%;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+    border-radius: 4px;
+  }
+  
+ .details-container {
+  margin-left:150px;
+  margin-top:50px;
+  display: flex;
+  justify-content: flex-start; 
+  gap: 20px; 
+  margin-bottom: 30px;
+}
+
+.details-column {
+  display: flex;
+  flex-direction: column;
+  width: calc(50% - 150px); 
+}
+
+.details-column:first-child {
+  margin-right: 40px; 
+}
+
+.details-column:last-child {
+  margin-left: 40px; 
+}
+.password-section {
+  display: flex;
+  width: 100%; 
+  align-items: flex-start;
+  justify-content: space-between; 
+}
+
+.password-img-container {
+  width: 40%; 
+  display: flex;
+  justify-content: flex-end; 
+  padding-right: 20px; 
+}
+
+.password-img {
+  max-width: 100%; 
+  height: auto; 
+}
+
+.password-form-container {
+  margin-top:140px;
+  width: 50%; 
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  margin-right:10px;
+  
+}
+
+mat-form-field {
+  width: 100%; 
+  margin-bottom: 16px;
+}
+.fixed-button {
+  position: fixed; /* Poziționare fixă pentru a rămâne în colțul dreapta jos */
+  bottom: 80px; /* Distanță de 20px de partea de jos a viewportului */
+  right: 100px; /* Distanță de 20px de partea dreaptă a viewportului */
+  padding: 10px 20px; /* Padding pentru buton */
+  background-color: #a3d1de; /* Culoarea de fundal inițială */
+  border: none; /* Fără bordură */
+  border-radius: 5px; /* Margini rotunjite */
+  color: white; /* Culoarea textului */
+  cursor: pointer; /* Schimbă cursorul în pointer când este deasupra butonului */
+  transition: background-color 0.3s ease; /* Tranziție lină pentru schimbarea culorii */
+}
+
+.fixed-button:hover {
+  background-color: #7ba4db; /* Schimbă culoarea de fundal la hover */
+}
+  
+}
+
+
+
+
+
+

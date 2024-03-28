@@ -11,6 +11,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { SettingsComponent } from './components/settings/settings.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+
+
+
 
 
 
@@ -18,7 +29,13 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DashboardComponent,
+    WelcomeComponent,
+    SidebarComponent,
+    SettingsComponent,
+    ProfileCardComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -29,7 +46,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatIconModule, 
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTabsModule
 
     
   ],

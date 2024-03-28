@@ -9,6 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  hidePassword = true;
+  hideConfirmPassword = true;
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+  }
   loginForm!: FormGroup;
   errorMessage: string = '';
 
@@ -32,7 +43,7 @@ export class LoginComponent implements OnInit {
       this.authService.authenticate(email, password).subscribe({
         next: (response) => {
           console.log('User logged in successfully', response);
-          this.router.navigate(['/signup']); // Ajustează calea după caz
+          this.router.navigate(['/dashboard']); // Ajustează calea după caz
         },
         error: (error) => {
           console.error('Login error', error);

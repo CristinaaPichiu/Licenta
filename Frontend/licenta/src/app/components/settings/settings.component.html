@@ -1,0 +1,138 @@
+<app-sidebar></app-sidebar>
+<div class="settings-container">
+  <div class="tabs">
+    <mat-tab-group>
+
+
+      <mat-tab label="Profile"> 
+        
+        <div class="card-and-form-container">
+          <div class="card">
+            <app-profile-card></app-profile-card>
+          </div>
+          <div class="form">
+            <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
+              <div class="personal-info">
+                <mat-form-field appearance="outline">
+                  <mat-label>Account Type</mat-label>
+                  <input matInput formControlName="accountType" placeholder="User">
+                </mat-form-field>
+          
+                <mat-form-field appearance="outline">
+                  <mat-label>First name</mat-label>
+                  <input matInput formControlName="firstName">
+                </mat-form-field>
+          
+                <mat-form-field appearance="outline">
+                  <mat-label>Last name</mat-label>
+                  <input matInput formControlName="lastName">
+                </mat-form-field>
+          
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email">
+                </mat-form-field>
+              </div>
+              <button mat-button type="submit" class="fixed-button">Save Profile</button>
+
+            </form>
+            
+          </div>
+        </div>
+
+      </mat-tab>
+
+
+      <mat-tab label="My Details">
+        <form [formGroup]="detailsInfoForm" (ngSubmit)="onSubmitDetails()">
+          <div class="details-container">
+            <div class="details-column">
+              <!-- Câmpuri în prima coloană -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phoneNumber">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Adress</mat-label>
+                <input matInput formControlName="address">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Post Code</mat-label>
+                <input matInput formControlName="postcode">
+              </mat-form-field>
+            </div>
+            
+            <div class="details-column">
+              <!-- Câmpuri în a doua coloană -->
+              <mat-form-field appearance="outline" class="full-width" >
+                <mat-label>GitHub</mat-label>
+                <input matInput formControlName="githubLink">
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>LinkedIn</mat-label>
+                <input matInput formControlName="linkedinLink">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Language</mat-label>
+                <input matInput formControlName="language">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Skills</mat-label>
+                <input matInput formControlName="skills">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Status</mat-label>
+                <input matInput formControlName="status">
+              </mat-form-field>
+            </div>
+          </div>
+          <button mat-button type="submit" class="fixed-button">Save Details</button>
+
+        </form>
+
+      </mat-tab>
+      
+      <mat-tab label="Password">
+        <div class="password-section">
+          <div class="password-img-container">
+            <img src="/assets/password.png" class="password-img" alt="Password Image">
+          </div>
+          <div class="password-form-container">
+            <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+              <mat-form-field appearance="outline">
+                <mat-label>Current Password</mat-label>
+                <input matInput formControlName="currentPassword" type="Current_password">
+              </mat-form-field>
+            
+              <mat-form-field appearance="outline">
+                <mat-label>New Password</mat-label>
+                <input matInput formControlName="newPassword" type="new_password1">
+              </mat-form-field>
+            
+              <mat-form-field appearance="outline">
+                <mat-label>Confirm New Password</mat-label>
+                <input matInput formControlName="confirmNewPassword" type="new_password2">
+              </mat-form-field>
+              <button mat-button type="submit" class="fixed-button">Update Password</button>
+
+            </form>
+          </div>
+        </div>
+
+      </mat-tab>
+      
+    </mat-tab-group>
+
+  
+  </div>
+</div>

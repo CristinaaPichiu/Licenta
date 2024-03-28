@@ -1,0 +1,89 @@
+.container {
+    position: relative;
+    
+  }
+  
+  .welcome-text {
+    font-family: 'Rubik', sans-serif;
+    font-size: 25px;
+    font-weight: 100; 
+    color: #787D7D; 
+    margin-left: 150px; 
+    margin-top: 50px; 
+
+}
+  
+  .background-image {
+    width: 90%;
+    margin-left: 400px;
+    max-width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  
+  .custom-header {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 250;
+    font-size: 3.5rem; 
+    color: black;
+    margin-left: 150px;
+    margin-top: 80px;
+    white-space: nowrap; 
+    line-height: 4rem; 
+}
+
+
+.custom-paragraph {
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    font-weight: 100; 
+    color: #787D7D; 
+    margin-top: 30px;
+    margin-left: 150px;
+    margin-right: 200px; 
+    line-height: 1.6; 
+}
+
+
+.custom-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem; 
+    color: black;
+    
+}
+
+
+
+/* Stiluri comune pentru ambele butoane */
+.custom-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem; 
+    font-weight: 500;
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    margin-top: 50px;
+    cursor: pointer; 
+    outline: none; 
+    transition: background-color 0.3s; 
+}
+
+.custom-button.get-started {
+    margin-left: 150px;
+    background-color:#a3d1de;
+}
+
+.custom-button:hover {
+    background-color: #7ba4db;
+}
+
+.custom-button.demo-button {
+    background-color: #a3d1de; 
+    margin-left: 20px;
+}
+
+
