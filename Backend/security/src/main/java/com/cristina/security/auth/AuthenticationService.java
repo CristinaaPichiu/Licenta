@@ -5,10 +5,14 @@ import com.cristina.security.user.Role;
 import com.cristina.security.user.User;
 import com.cristina.security.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.cristina.security.email.EmailService;
+
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +22,10 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
+
+
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .firstName(request.getFirstName())
@@ -27,6 +35,11 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         repository.save(user);
+
+
+
+
+
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
@@ -44,6 +57,8 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+
+
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)

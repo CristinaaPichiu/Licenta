@@ -2,10 +2,11 @@
     <mat-card class="example-card">
         <!-- Profile upload div should be the first element inside the card -->
         <div class="profile-upload">
-            <input type="file" id="file-input" hidden (change)="onFileSelected($event)" accept="image/*" />
+            <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*" />
             <mat-icon class="badge-icon" (click)="triggerFileInput()">camera_enhance</mat-icon>
+            
     
-            <div class="profile-picture" (click)="triggerFileInput()">
+            <div class="profile-picture" [style.background-image]="imagePreview ? 'url(' + imagePreview + ')' : ''" (click)="triggerFileInput()">
                 <!-- Placeholder for profile image -->
             </div>
         </div>

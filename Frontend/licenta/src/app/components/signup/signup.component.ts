@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service'; // Actualizează calea dacă este necesar
+import { AuthService } from 'src/app/services/auth.service'; // Asigură-te că ai calea corectă aici
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,21 +12,14 @@ export class SignupComponent implements OnInit {
 
   hidePassword = true;
   hideConfirmPassword = true;
-
-  togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
-  }
-
-  toggleConfirmPasswordVisibility(): void {
-    this.hideConfirmPassword = !this.hideConfirmPassword;
-  }
-  passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  passwordPattern = '^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$'; // Asigură-te că acest pattern este cel dorit
   registerForm!: FormGroup;
+  errorMessage: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router // Injectăm Router pentru a naviga utilizatorul după înregistrare
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -39,27 +32,37 @@ export class SignupComponent implements OnInit {
     }, {validator: this.checkPasswords});
   }
 
-  // O funcție helper pentru a verifica dacă parolele se potrivesc
-  checkPasswords(group: FormGroup) {
+  checkPasswords(group: FormGroup) { // folosit pentru a valida dacă parolele introduse se potrivesc
     const password = group.get('password')!.value;
-const confirmPassword = group.get('confirmPassword')!.value;
+    const confirmPassword = group.get('confirmPassword')!.value;
     return password === confirmPassword ? null : { notSame: true };
   }
 
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+  }
+
   onRegister(): void {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid && !this.registerForm.hasError('notSame')) {
       const { firstname, lastname, email, password } = this.registerForm.value;
       this.authService.register(firstname, lastname, email, password).subscribe({
         next: (response) => {
           console.log('User registered successfully', response);
-          // Navighează către o pagină, de exemplu la pagina de login
-          this.router.navigate(['/welcome']);
+          this.router.navigate(['/welcome']); // Aici vei naviga către pagina de login după înregistrare
         },
         error: (error) => {
           console.error('Registration error', error);
-          // Aici poți adăuga logica pentru a gestiona erorile de înregistrare
+          this.errorMessage = 'Registration failed. Please try again later.';
+          // Poți să customizezi acest mesaj de eroare în funcție de eroarea primită de la backend
         }
       });
+    } else {
+      this.errorMessage = 'Please check your registration details and try again.';
+      // Afișează acest mesaj de eroare în template-ul tău pentru feedback utilizator
     }
   }
 }

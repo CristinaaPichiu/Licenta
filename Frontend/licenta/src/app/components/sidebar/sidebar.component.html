@@ -1,49 +1,45 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="side" opened="true" class="sidenav" fixedInViewport="true">
-
     <div class="sidebar-header">
       <div class="user-info">
-        <img src="/assets/logo.png" alt="Image" class="img">
+        <img src="/assets/logo.png" alt="Image" class="img" routerLink="/welcome">
       </div>
     </div>
 
     <!-- Content for nav items -->
     <mat-nav-list class="nav-list">
-      <a mat-list-item routerLink="/dashboard">
+      <a mat-list-item routerLink="/dashboard" matTooltip="Dashboard" matTooltipClass="custom-tooltip">
         <mat-icon>dashboard</mat-icon>
       </a>
-      <a mat-list-item routerLink="/cv">
-          <mat-icon>article</mat-icon>
-        </a>
-      <a mat-list-item routerLink="/project">
-          <mat-icon>web</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/statistics">
-          <mat-icon>equalizer</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/calendar">
-          <mat-icon>event</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/courses">
-          <mat-icon>bookmark</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/feedback">
-          <mat-icon>feedback</mat-icon>
-        </a>
-        <a mat-list-item routerLink="/settings">
-          <mat-icon>settings</mat-icon>
-        </a>
-         <div class="logout-wrapper">
-      <a mat-list-item routerLink="/login">
-        <mat-icon>logout</mat-icon>
+      <a mat-list-item routerLink="/cv" matTooltip="CV" matTooltipClass="custom-tooltip">
+        <mat-icon>article</mat-icon>
       </a>
-    </div>
+      <a mat-list-item routerLink="/project" matTooltip="Projects" matTooltipClass="custom-tooltip">
+        <mat-icon>web</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/statistics" matTooltip="Statistics" matTooltipClass="custom-tooltip">
+        <mat-icon>equalizer</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/calendar" matTooltip="Calendar" matTooltipClass="custom-tooltip">
+        <mat-icon>event</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/courses" matTooltip="Courses" matTooltipClass="custom-tooltip">
+        <mat-icon>bookmark</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/feedback" matTooltip="Feedback" matTooltipClass="custom-tooltip">
+        <mat-icon>feedback</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/settings" matTooltip="Settings" matTooltipClass="custom-tooltip">
+        <mat-icon>settings</mat-icon>
+      </a>
+      <div class="logout-wrapper">
+        <a mat-list-item routerLink="/login" matTooltip="Logout" matTooltipClass="custom-tooltip">
+          <mat-icon>logout</mat-icon>
+        </a>
+      </div>
     </mat-nav-list>
-
-   
-
   </mat-sidenav>
-  
+
   <mat-sidenav-content>
     <!-- Main content goes here -->
   </mat-sidenav-content>

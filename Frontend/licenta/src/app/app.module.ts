@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { SettingsComponent } from './components/settings/settings.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -49,7 +50,9 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
     HttpClientModule,
     MatSidenavModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule,
+
 
     
   ],

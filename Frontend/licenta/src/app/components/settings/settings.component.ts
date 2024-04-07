@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,10 +16,41 @@ export class SettingsComponent implements OnInit {
   // De asemenea, utilizăm operatorul de non-null assertion pentru ViewChild.
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private userProfileService: UserProfileService // Injectează serviciul aici
+  ) {}
+
 
   ngOnInit(): void {
     this.initializeForms();
+    this.loadUserProfile();
+  }
+
+  loadUserProfile(): void {
+    // Presupunând că token-ul de autorizare este stocat în localStorage sub cheia 'auth_token'
+    const token = localStorage.getItem('auth_token');
+  
+    if (token) {
+      this.userProfileService.getUserDetails(token).subscribe({
+        next: (details) => {
+          this.personalInfoForm.patchValue({
+            firstName: details.firstName,
+            lastName: details.lastName,
+            email: details.email,
+            // completează restul câmpurilor dacă este necesar
+          });
+        },
+        error: (err) => {
+          // Aici poți de asemenea să verifici erorile specifice legate de autentificare și să acționezi în consecință
+          console.error('Eroare la încărcarea detaliilor utilizatorului:', err);
+        }
+      });
+    } else {
+      // Tratează cazul în care token-ul nu există sau a expirat
+      console.error('Nu s-a găsit niciun token de autorizare. Utilizatorul trebuie să se autentifice.');
+      // Aici poți să redirecționezi utilizatorul spre pagina de login sau să afișezi un mesaj corespunzător
+    }
   }
 
   initializeForms(): void {
