@@ -1,6 +1,7 @@
 package com.cristina.security.auth;
 
 import com.cristina.security.config.JwtService;
+import com.cristina.security.email.EmailDetails;
 import com.cristina.security.user.Role;
 import com.cristina.security.user.User;
 import com.cristina.security.user.UserRepository;
@@ -37,10 +38,31 @@ public class AuthenticationService {
         repository.save(user);
 
 
-
-
-
         var jwtToken = jwtService.generateToken(user);
+
+        try {
+            EmailDetails emailDetails = new EmailDetails();
+            emailDetails.setRecipient(user.getEmail());
+            String messageBody = "<div style='font-family: Arial, sans-serif; color: #333;'>"
+                    + "<p>Dear user,</p>"
+                    + "<p>Welcome to <strong>SkillMap</strong>!</p>"
+                    + "<p>We're excited to have you join our community of talented individuals. "
+                    + "<strong>SkillMap</strong> is your platform to showcase your unique skills "
+                    + "and talents in a digital portfolio format.</p>"
+                    + "<p>Don't hesitate to reach out if you have any questions or need assistance. "
+                    + "Our team is dedicated to providing you with the best possible experience on <strong>SkillMap</strong>.</p>"
+                    + "<p>Best regards,<br>The SkillMap Team</p>"
+                    + "</div>";
+            emailDetails.setMsgBody(messageBody);
+            emailDetails.setSubject("Welcome email");
+            emailDetails.setAttachment("C:/Users/Hp/Desktop/logo.png");
+            String emailStatus = emailService.sendMailWithAttachment(emailDetails);
+            LOGGER.info("E-mail status: {}", emailStatus);
+        } catch (Exception e) {
+            LOGGER.error("Eroare la trimiterea e-mailului: {}", e.getMessage());
+        }
+
+
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)

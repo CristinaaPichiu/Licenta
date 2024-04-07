@@ -7,14 +7,18 @@ package com.cristina.security.email;
 // Importing required classes
 import com.cristina.security.email.EmailDetails;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 // Annotation
@@ -29,31 +33,35 @@ public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    // Metoda pentru a trimite un email simplu
-    public String sendSimpleMail(EmailDetails details) {
+
+
+
+    public String sendMailWithAttachment(EmailDetails details) {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper;
+
         try {
-            // Crearea unui mesaj de email simplu
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            helper = new MimeMessageHelper(mimeMessage, true); // true pentru atașamente
+            helper.setFrom(new InternetAddress(sender, "SkillMap Team"));
+            helper.setTo(details.getRecipient());
+            helper.setSubject(details.getSubject());
+            helper.setText(details.getMsgBody(), true); // true pentru a interpreta string-ul ca HTML
 
-            // Setarea detaliilor necesare
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
-            mailMessage.setSubject(details.getSubject());
+            // Adăugarea atașamentului, dacă este prezent
+            if (details.getAttachment() != null && !details.getAttachment().isEmpty()) {
+                FileSystemResource file = new FileSystemResource(new File(details.getAttachment()));
+                helper.addAttachment(file.getFilename(), file);
+            }
 
-            // Trimiterea emailului
-            javaMailSender.send(mailMessage);
-
-            // Returnarea unui mesaj de succes în caz de trimitere reușită
-            return "Mail sent successfully!";
-        } catch (Exception e) {
-            // Înregistrarea detaliilor excepției
+            // Trimiterea e-mailului
+            javaMailSender.send(mimeMessage);
+            return "Mail sent Successfully";
+        } catch (jakarta.mail.MessagingException e) {
+            // Logarea și returnarea mesajului de eroare
             e.printStackTrace();
-
-            // Returnarea unui mesaj de eroare în caz de excepție
             return "Error while sending mail: " + e.getMessage();
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
-
-    
 }
