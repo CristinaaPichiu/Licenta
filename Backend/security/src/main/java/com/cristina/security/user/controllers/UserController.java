@@ -2,10 +2,7 @@ package com.cristina.security.user.controllers;
 
 
 
-import com.cristina.security.user.User;
-import com.cristina.security.user.UserDetailsDTO;
-import com.cristina.security.user.UserDetailsProfile;
-import com.cristina.security.user.UserResponseDTO;
+import com.cristina.security.user.*;
 import com.cristina.security.user.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +34,14 @@ public class UserController {
 
         User user = userService.updateUserProfile(email, userResponseDTO);
         return ResponseEntity.ok(user);
+    }
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDTO passwordChangeDto,
+                                            Authentication authentication) {
+        // Email-ul utilizatorului autentificat
+        String userEmail = authentication.getName();
+        userService.changeUserPassword(userEmail, passwordChangeDto.getOldPassword(), passwordChangeDto.getNewPassword());
+        return ResponseEntity.ok("Password changed successfully");
     }
 
 
