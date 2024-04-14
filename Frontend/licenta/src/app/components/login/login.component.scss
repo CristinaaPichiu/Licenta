@@ -16,7 +16,7 @@ $border-radius: 8px;
   flex: 1;
   max-width: 50%;
   margin-left: 100px; 
-  margin-top: 0px;
+  margin-top: 50px;
 
   img {
       width: 100%;
@@ -123,4 +123,49 @@ mat-icon
   /* Alte stilizări aici */
 }
 
+// Media queries pentru responsivitate
+@media (max-width: 600px) {
+  .container {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+  }
+
+  .image-container, .login-container {
+      max-width: 100%;
+      margin-left: 0;
+      margin-top: 20px;
+      padding: 10px;
+  }
+
+  .overlay-container {
+      justify-content: center;
+      padding: 10px;
+  }
+
+  .login-container {
+      margin-top: 20px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .image-container, .login-container {
+      max-width: 45%;
+      margin-top: 10px;
+  }
+
+  .login-container {
+      margin-top: 90px; // Ajustează după nevoie
+  }
+}
+
+@media (min-width: 901px) {
+  .image-container, .login-container {
+      max-width: 40%;
+  }
+
+  .login-container {
+      margin-top: 180px; // Revin la margin-ul inițial pentru ecrane mari
+  }
+}
 

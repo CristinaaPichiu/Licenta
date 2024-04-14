@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened="true" class="sidenav" fixedInViewport="true">
+  <mat-sidenav #sidenav [mode]="isSmallScreen ? 'over' : 'side'" [opened]="!isSmallScreen" class="sidenav" fixedInViewport="true">
     <div class="sidebar-header">
       <div class="user-info">
         <img src="/assets/logo.png" alt="Image" class="img" routerLink="/welcome">
@@ -41,6 +41,9 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <!-- Main content goes here -->
-  </mat-sidenav-content>
+    <button *ngIf="isSmallScreen" (click)="sidenav.toggle()" class="toggle-button">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+    
+   </mat-sidenav-content>
 </mat-sidenav-container>

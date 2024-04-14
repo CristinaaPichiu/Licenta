@@ -31,36 +31,78 @@ mat-nav-list {
   margin-left: -5px;
 }
 
-/* Responsive adjustments */
+.toggle-button {
+  position: fixed;
+  top: 50%;
+  left: 0; 
+  z-index: 100;
+  background-color: white; 
+  border: none;
+  padding: 10px;
+  width: 48px; // O lățime suficientă pentru iconiță
+  height: 48px; // O înălțime egală pentru a face butonul pătrat
+  transform: translateY(-50%); // Centrează butonul vertical pe ecran
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 2px 5px #787D7D;
+  display: flex;
+  align-items: center; // Acesta centrează iconița vertical în buton
+  justify-content: center; // Acesta centrează iconița orizontal în buton
+  
+  mat-icon {
+    margin-top: 0px;
+    font-size: 24px; // Mărimea iconiței
+  }
+}
+
+
+/* Ajustări pentru ecrane mici */
 @media (max-width: 768px) {
   .sidenav {
-    width: 75px; /* Smaller width on smaller screens */
+    width: 75px;
   }
   .mat-icon, .logout-wrapper {
-    margin-left: 10px; /* Adjust spacing for smaller screens */
+    margin-left: 10px;
   }
   .mat-icon {
-    margin-top: 15px; /* Smaller margin for icons */
+    margin-top: 15px;
   }
   .img {
-    width: 75px; /* Adjust image width for smaller screens */
+    width: 75px;
     margin-top: 10px;
-    margin-left: 0; /* Adjust margin for smaller screens */
+    margin-left: 0;
   }
 }
 
 @media (max-width: 480px) {
   .sidenav {
-    width: 60px; /* Even smaller width for very small screens */
+    width: 60px;
   }
   .mat-icon, .logout-wrapper {
-    margin-left: 5px; /* Further adjust spacing for very small screens */
+    margin-left: 5px;
   }
   .mat-icon {
-    margin-top: 10px; /* Further reduce margin top for icons */
+    margin-top: 10px;
   }
   .img {
-    width: 60px; /* Adjust image width for very small screens */
+    width: 60px;
     margin-top: 5px;
+  }
+}
+
+/* Ascunde titlul elementelor pentru ecrane foarte mici */
+@media (max-width: 360px) {
+  .sidenav {
+    width: 50px; /* Mai îngust pentru ecrane foarte mici */
+  }
+  .mat-icon {
+    margin-top: 8px; /* Reducem spațiu suplimentar */
+  }
+  .img {
+    width: 50px; /* Ajustează imaginea */
+    margin-top: 5px;
+    margin-left: 0;
+  }
+  .nav-text {
+    display: none; /* Ascundem textul pentru a economisi spațiu */
   }
 }
