@@ -1,4 +1,4 @@
-package com.cristina.security.userProfile;
+package com.cristina.security.user;
 
 
 
@@ -7,8 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserDetailsResponse {
+public class UserResponseDTO {
     private String firstName;
     private String lastName;
-    private String email;
 }

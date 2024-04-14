@@ -4,7 +4,7 @@ import com.cristina.security.config.JwtService;
 import com.cristina.security.email.EmailDetails;
 import com.cristina.security.user.Role;
 import com.cristina.security.user.User;
-import com.cristina.security.user.UserRepository;
+import com.cristina.security.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

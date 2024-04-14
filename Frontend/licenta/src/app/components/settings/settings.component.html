@@ -28,13 +28,12 @@
                   <input matInput formControlName="lastName">
                 </mat-form-field>
           
-                <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Email</mat-label>
-                  <input matInput formControlName="email">
-                </mat-form-field>
+                
               </div>
               <button mat-button type="submit" class="fixed-button">Save Profile</button>
-
+              <div *ngIf="saveSuccess" class="alert-success" role="alert">
+                The details have been successfully saved.
+              </div>
             </form>
             
           </div>
@@ -66,7 +65,7 @@
               </mat-form-field>
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Post Code</mat-label>
-                <input matInput formControlName="postcode">
+                <input matInput formControlName="postCode">
               </mat-form-field>
             </div>
             
@@ -74,12 +73,12 @@
               <!-- Câmpuri în a doua coloană -->
               <mat-form-field appearance="outline" class="full-width" >
                 <mat-label>GitHub</mat-label>
-                <input matInput formControlName="githubLink">
+                <input matInput formControlName="github">
               </mat-form-field>
               
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>LinkedIn</mat-label>
-                <input matInput formControlName="linkedinLink">
+                <input matInput formControlName="linkedIn">
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
@@ -97,6 +96,9 @@
             </div>
           </div>
           <button mat-button type="submit" class="fixed-button">Save Details</button>
+          <div *ngIf="saveSuccess" class="alert-success" role="alert">
+            The details have been successfully saved.
+          </div>
 
         </form>
 
@@ -132,6 +134,7 @@
       </mat-tab>
       
     </mat-tab-group>
+    
 
   
   </div>

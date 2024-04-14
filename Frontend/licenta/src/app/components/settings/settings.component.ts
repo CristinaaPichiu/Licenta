@@ -12,6 +12,7 @@ export class SettingsComponent implements OnInit {
   personalInfoForm!: FormGroup; 
   detailsInfoForm!: FormGroup; 
   passwordForm!: FormGroup;
+  saveSuccess: boolean = false;
 
   // De asemenea, utilizăm operatorul de non-null assertion pentru ViewChild.
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -25,6 +26,24 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForms();
     this.loadUserProfile();
+    this.loadUserDetails();
+    
+  }
+  loadUserDetails(): void {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      this.userProfileService.getUserDetailsFromServer(token).subscribe({
+        next: (details) => {
+          this.detailsInfoForm.patchValue(details); // Presupunând că structura obiectului `details` corespunde cu formularul
+        },
+        error: (err) => {
+          console.error('Eroare la încărcarea detaliilor utilizatorului din server:', err);
+        }
+      });
+    } else {
+      console.error('Token de autorizare lipsă sau expirat.');
+      // Redirecționare la login sau afișarea unui mesaj de eroare
+    }
   }
 
   loadUserProfile(): void {
@@ -59,7 +78,6 @@ export class SettingsComponent implements OnInit {
       accountType: ['User', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
     });
 
     this.detailsInfoForm = this.fb.group({
@@ -67,11 +85,11 @@ export class SettingsComponent implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.pattern('^\\+?1?\\d{9,15}$')]], // Exemplu de pattern pentru telefon
       city: [''],
       address: [''],
-      githubLink: [''],
-      linkedinLink: [''],
+      github: [''],
+      linkedIn: [''],
       language: [''],
       skills: [''],
-      postcode: [''],
+      postCode: [''],
       status: ['']
       
     });
@@ -118,8 +136,25 @@ export class SettingsComponent implements OnInit {
 
   onSubmit(): void {
     if (this.personalInfoForm.valid) {
-      console.log('Personal Info Form Data:', this.personalInfoForm.value);
-      // Aici ar fi logica de trimitere a datelor formularului personalInfoForm
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        this.userProfileService.updateUserProfile(token, this.personalInfoForm.value).subscribe({
+          next: (response) => {
+            console.log('Profile updated successfully', response);
+            this.saveSuccess = true;
+            setTimeout(() => this.saveSuccess = false, 5000);
+
+            // Aici poți actualiza UI-ul sau naviga către o altă pagină
+          },
+          error: (error) => {
+            console.error('Error updating profile', error);
+            // Aici poți afișa un mesaj de eroare
+          }
+        });
+      } else {
+        console.error('No authorization token found. User must log in.');
+        // Redirect to login or show an error message
+      }
     } else {
       console.error('Personal Info Form is not valid');
     }
@@ -127,16 +162,48 @@ export class SettingsComponent implements OnInit {
 
   onSubmitDetails(): void {
     if (this.detailsInfoForm.valid) {
-      console.log('Details Info Form Data:', this.detailsInfoForm.value);
-      // Aici ar fi logica de trimitere a datelor formularului detailsInfoForm
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+
+        // Preia datele formularului
+        const userDetails = this.detailsInfoForm.value;
+        console.log(userDetails)
+  
+        this.userProfileService.updateUserDetails(token, userDetails).subscribe({
+          next: (response) => {
+            console.log('Detaliile utilizatorului au fost actualizate cu succes', response);
+            this.saveSuccess = true;
+          
+            setTimeout(() => this.saveSuccess = false, 5000);
+          this.personalInfoForm.patchValue(userDetails);
+
+      
+          },
+          error: (error) => {
+            console.error('A apărut o eroare la actualizarea detaliilor utilizatorului', error);
+            
+          }
+        });
+      } else {
+        console.error('Nu s-a găsit niciun token de autorizare. Utilizatorul trebuie să se autentifice.');
+      }
     } else {
-      console.error('Details Info Form is not valid');
+      console.error('Formularul cu detaliile nu este valid.');
+      // Afișează mesaje de eroare sau validează din nou formularul
     }
   }
+  
   onChangePassword(): void {
     if (this.passwordForm.valid) {
       // Logica pentru schimbarea parolei
     }
   }
-  
+  private setFormValuesFromLocalData(): void {
+    const userDetailsString = localStorage.getItem('userDetails');
+    if (userDetailsString) {
+      const userDetails = JSON.parse(userDetailsString);
+      this.detailsInfoForm.patchValue(userDetails);
+    }
+  }
 }
+
