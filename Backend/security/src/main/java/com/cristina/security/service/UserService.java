@@ -1,7 +1,7 @@
-package com.cristina.security.user.services;
-import com.cristina.security.user.User;
-import com.cristina.security.user.repository.UserRepository;
-import com.cristina.security.user.UserResponseDTO;
+package com.cristina.security.service;
+import com.cristina.security.entity.User;
+import com.cristina.security.repository.UserRepository;
+import com.cristina.security.dto.UserResponseDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

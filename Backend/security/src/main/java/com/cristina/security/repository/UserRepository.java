@@ -1,6 +1,6 @@
-package com.cristina.security.user.repository;
+package com.cristina.security.repository;
 
-import com.cristina.security.user.User;
+import com.cristina.security.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

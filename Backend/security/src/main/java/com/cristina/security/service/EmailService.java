@@ -1,4 +1,4 @@
-package com.cristina.security.email;
+package com.cristina.security.service;
 
 import com.cristina.security.email.EmailDetails;
 import java.io.File;

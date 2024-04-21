@@ -1,8 +1,8 @@
-package com.cristina.security.email;
+package com.cristina.security.controller;
 
 // Importing required classes
 import com.cristina.security.email.EmailDetails;
-import com.cristina.security.email.EmailService;
+import com.cristina.security.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

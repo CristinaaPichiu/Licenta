@@ -1,5 +1,9 @@
-package com.cristina.security.auth;
+package com.cristina.security.controller;
 
+import com.cristina.security.auth.AuthenticationRequest;
+import com.cristina.security.auth.AuthenticationResponse;
+import com.cristina.security.service.AuthenticationService;
+import com.cristina.security.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

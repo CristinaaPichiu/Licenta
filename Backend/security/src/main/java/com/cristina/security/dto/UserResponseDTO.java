@@ -1,4 +1,4 @@
-package com.cristina.security.user;
+package com.cristina.security.dto;
 
 
 

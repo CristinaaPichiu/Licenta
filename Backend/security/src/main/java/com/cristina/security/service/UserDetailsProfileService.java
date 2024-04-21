@@ -1,11 +1,11 @@
-package com.cristina.security.user.services;
+package com.cristina.security.service;
 
 
-import com.cristina.security.user.User;
-import com.cristina.security.user.UserDetailsDTO;
-import com.cristina.security.user.UserDetailsProfile;
-import com.cristina.security.user.repository.UserDetailsProfileRepository;
-import com.cristina.security.user.repository.UserRepository;
+import com.cristina.security.entity.User;
+import com.cristina.security.dto.UserDetailsDTO;
+import com.cristina.security.entity.UserDetailsProfile;
+import com.cristina.security.repository.UserDetailsProfileRepository;
+import com.cristina.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,5 @@
-package com.cristina.security.user;
+package com.cristina.security.entity;
+import com.cristina.security.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

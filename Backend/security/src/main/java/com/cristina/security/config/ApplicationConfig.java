@@ -1,6 +1,6 @@
 package com.cristina.security.config;
 
-import com.cristina.security.user.repository.UserRepository;
+import com.cristina.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

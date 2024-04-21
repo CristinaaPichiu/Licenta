@@ -1,4 +1,4 @@
-package com.cristina.security.user;
+package com.cristina.security.dto;
 
 public class PasswordChangeDTO {
     private String oldPassword;

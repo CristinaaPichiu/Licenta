@@ -1,18 +1,14 @@
-package com.cristina.security.user.controllers;
+package com.cristina.security.controller;
 
-import com.cristina.security.user.User;
-import com.cristina.security.user.UserDetailsDTO;
-import com.cristina.security.user.UserDetailsProfile;
-import com.cristina.security.user.repository.UserRepository;
-import com.cristina.security.user.services.UserDetailsProfileService;
+import com.cristina.security.dto.UserDetailsDTO;
+import com.cristina.security.entity.UserDetailsProfile;
+import com.cristina.security.service.UserDetailsProfileService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import com.cristina.security.user.controllers.UserDetailsProfileController;
-import com.cristina.security.user.repository.UserDetailsProfileRepository;
 
 
 @RestController

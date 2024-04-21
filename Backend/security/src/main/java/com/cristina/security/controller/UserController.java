@@ -1,9 +1,11 @@
-package com.cristina.security.user.controllers;
+package com.cristina.security.controller;
 
 
 
-import com.cristina.security.user.*;
-import com.cristina.security.user.services.UserService;
+import com.cristina.security.dto.PasswordChangeDTO;
+import com.cristina.security.dto.UserResponseDTO;
+import com.cristina.security.entity.User;
+import com.cristina.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

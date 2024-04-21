@@ -1,10 +1,13 @@
-package com.cristina.security.auth;
+package com.cristina.security.service;
 
+import com.cristina.security.auth.AuthenticationRequest;
+import com.cristina.security.auth.AuthenticationResponse;
+import com.cristina.security.auth.RegisterRequest;
 import com.cristina.security.config.JwtService;
 import com.cristina.security.email.EmailDetails;
-import com.cristina.security.user.Role;
-import com.cristina.security.user.User;
-import com.cristina.security.user.repository.UserRepository;
+import com.cristina.security.enums.Role;
+import com.cristina.security.entity.User;
+import com.cristina.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.cristina.security.email.EmailService;
 
 
 @Service
