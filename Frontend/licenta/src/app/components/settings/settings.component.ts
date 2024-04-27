@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userProfileService: UserProfileService // Injectează serviciul aici
+    private userProfileService: UserProfileService, // Injectează serviciul aici
+    private router: Router
   ) {}
 
 
@@ -195,9 +197,39 @@ export class SettingsComponent implements OnInit {
   
   onChangePassword(): void {
     if (this.passwordForm.valid) {
-      // Logica pentru schimbarea parolei
+      // Verificăm dacă parola nouă și confirmarea acesteia se potrivesc
+      if (this.passwordForm.value.newPassword !== this.passwordForm.value.confirmNewPassword) {
+        console.error('Parolele nu se potrivesc.');
+        return;
+      }
+      const changePasswordRequest = {
+        oldPassword: this.passwordForm.value.currentPassword,
+        newPassword: this.passwordForm.value.newPassword,
+      };
+      
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        this.userProfileService.changePassword(token, changePasswordRequest).subscribe({
+          next: () => {
+            console.log('Parola a fost schimbată cu succes.');
+            // Redirecționăm utilizatorul către pagina de login
+           // this.router.navigate(['/login']);
+          },
+          error: (error) => {
+            console.error('A apărut o eroare la schimbarea parolei', error);
+          }
+        });
+      } else {
+        console.error('Nu s-a găsit niciun token de autorizare. Utilizatorul trebuie să se autentifice.');
+        this.router.navigate(['/login']); // Îl redirecționăm pe utilizator către pagina de login
+      }
+    } else {
+      console.error('Formularul de schimbare a parolei nu este valid.');
+      // Aici poți să afișezi erori de validare specifice formularului dacă este cazul
     }
   }
+  
+  
   private setFormValuesFromLocalData(): void {
     const userDetailsString = localStorage.getItem('userDetails');
     if (userDetailsString) {

@@ -1,0 +1,474 @@
+// Define colors, font-sizes, and other reusable properties as variables
+$font-primary: 'Open Sans', sans-serif;
+$font-secondary: 'Julius Sans One', sans-serif;
+$color-background: #484444;
+$color-text: #bebebe;
+$color-white: #fff;
+$color-highlight: #111;
+$base-font-size: 0.35cm;
+
+@mixin responsive-font-size($size) {
+  font-size: ($size / 16) * 1rem; // Convert pixel to rem
+  @media (max-width: 1200px) {
+    font-size: ($size / 16) * 0.9rem; // Slightly smaller on smaller screens
+  }
+  @media (max-width: 992px) {
+    font-size: ($size / 16) * 0.8rem; // Even smaller on medium screens
+  }
+  @media (max-width: 768px) {
+    font-size: ($size / 16) * 0.7rem; // Smaller on small screens
+  }
+  @media (max-width: 576px) {
+    font-size: ($size / 16) * 0.6rem; // Smallest on extra small screens
+  }
+}
+
+
+
+// Base styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-primary;
+  background: rgb(204,204,204);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+h1 { 
+    font-family: 'Julius Sans One', sans-serif;
+  }
+  
+  h2 { /* Contact, Skills, Education, About me, Work Experience */
+    font-family: 'Archivo Narrow', sans-serif;
+  }
+  
+  h3 { /* Accountant */
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .jobPosition span, 
+.projectName span {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.upperCase {
+  text-transform: uppercase; 
+}
+
+.smallText, 
+.smallText span, 
+.smallText p, 
+.smallText a {
+  font-family: 'Source Sans Pro', sans-serif;
+  text-align: justify;
+}
+
+/* End Family */
+
+/* Colors */
+h1 { 
+  color: #111; 
+}
+
+.leftPanel, 
+.leftPanel a {
+  color: #bebebe;
+  text-decoration: none;
+}
+
+.leftPanel h2 {
+  color: white;
+}
+
+/* End Colors */
+
+/* Sizes */
+h1 { 
+  font-weight: 300; 
+  font-size: 1.2cm;
+  transform:scale(1,1.15); 
+  margin-bottom: 0.2cm;
+  margin-top: 0.2cm;
+  text-transform: uppercase; 
+}
+
+h2 {
+  margin-top: 0.1cm;
+  margin-bottom: 0.1cm;
+}
+
+.leftPanel, 
+.leftPanel a {
+  font-size: 0.38cm;
+}
+
+.projectName span, 
+.jobPosition span {
+  font-size: 0.35cm;
+}
+
+.smallText, 
+.smallText span, 
+.smallText p, 
+.smallText a {
+  font-size: 0.35cm;
+}
+
+.leftPanel .smallText, 
+.leftPanel .smallText, 
+.leftPanel .smallText span, 
+.leftPanel .smallText p, 
+.smallText a {
+  font-size: 0.45cm;
+}
+
+.contactIcon {
+  width: 0.5cm;
+  text-align: center;
+}
+
+p {
+  margin-top: 0.05cm;
+  margin-bottom: 0.05cm;
+}
+/* End Sizes */
+
+.bolded {
+  font-weight: bold;
+}
+
+.white {
+  color: white;
+}
+/* End Fonts */
+
+/* Layout */
+body {
+  background: rgb(204,204,204); 
+  width: 21cm;
+  height: 29.7cm;
+  margin: 0 auto;
+}
+
+/* Printing */
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+}
+
+page[size="A4"] {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+
+@page {
+   size: 21cm 29.7cm;
+   padding: 0;
+   margin: 0mm;
+   border: none;
+   border-collapse: collapse;
+}
+/* End Printing */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+}
+
+.leftPanel {
+  width: 27%;
+  background-color: #ADD8E6;
+  padding: 0.7cm;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rightPanel {
+  width: 73%;
+  padding: 0.7cm;
+}
+
+.leftPanel img {
+  width: 4cm;
+  height: 4cm;
+  margin-bottom: 0.7cm;
+  border-radius: 50%;
+  border: 0.15cm solid white;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.leftPanel .details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.skill {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bottomLineSeparator {
+  border-bottom: 0.05cm solid white;
+}
+
+.yearsOfExperience {
+  width: 1.6cm;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.alignleft {
+  text-align: left !important;
+  width: 1cm;
+}
+
+.alignright {
+  text-align: right !important;
+  width: 0.6cm;
+  margin-right: 0.1cm
+}
+
+.workExperience>ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.workExperience>ul>li {
+  position: relative;
+  margin: 0;
+  padding-bottom: 0.5cm;
+  padding-left: 0.5cm;
+}
+
+.workExperience>ul>li:before {
+  background-color: #b8abab;
+  width: 0.05cm;
+  content: '';
+  position: absolute;
+  top: 0.1cm;
+  bottom: -0.2cm; /* change this after border removal */
+  left: 0.05cm;
+}
+
+.workExperience>ul>li::after {
+  content: '';
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  left: -0.09cm;
+  top: 0;
+  width: 0.35cm;
+  height: 0.35cm;
+}
+
+.jobPosition {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item {
+  padding-bottom: 0.7cm;
+  padding-top: 0.7cm;
+}
+
+.item h2{
+  margin-top: 0;
+}
+
+.lastParagrafNoMarginBottom {
+  margin-bottom: 0;
+}
+
+.workExperience>ul>li ul {
+  padding-left: 0.5cm;
+  list-style-type: disc;
+}
+  
+// Structure
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 21cm;
+  height: 29.7cm;
+  margin: 0 auto;
+
+  .leftPanel {
+    width: 27%;
+    background-color: $color-background;
+    padding: 0.7cm;
+    color: $color-text;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    img {
+      width: 4cm;
+      height: 4cm;
+      margin-bottom: 0.7cm;
+      border-radius: 50%;
+      border: 0.15cm solid $color-white;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+  }
+
+  .rightPanel {
+    width: 73%;
+    padding: 0.7cm;
+
+    .smallText {
+      font-family: 'Source Sans Pro', sans-serif;
+      text-align: justify;
+      font-size: $base-font-size;
+    }
+  }
+
+
+  .work-experience {
+    position: relative;
+    padding-left: 40px; // adjust as needed
+  
+    h2 {
+      padding-bottom: 10px; // spacing for the header
+    }
+  
+    .timeline {
+      position: relative;
+      padding-left: 0px; // align with the timeline icons
+  
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -20px; // adjust to center line with icons
+        width: 2px;
+        background: #b8abab; // line color
+      }
+  
+      .timeline-item {
+        position: relative;
+        padding-bottom: 20px; // spacing between items
+  
+        .timeline-icon {
+          position: absolute;
+          left: -25px; // center horizontally with the timeline
+          top: 0; // align with the title of the job position
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #fff;
+          border: 2px solid gray; // match your icon color
+          z-index: 100;
+        }
+  
+        .timeline-content {
+          margin-left: 20px; // adjust as needed for content indentation
+          padding-top: 2px; // adjust as needed for alignment
+  
+          h3, h4 {
+            margin: 0; // remove default margins
+          }
+  
+          ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px; // space above bullet list
+  
+            li:before {
+              content: '•'; // bullet character
+              color: #111; // bullet color
+              font-weight: bold;
+              display: inline-block; 
+              width: 1em; // space for bullet
+              margin-left: -1em; // negative margin to align bullets
+            }
+          }
+  
+          .skills {
+            display: block;
+            margin-top: 10px; // space above skills list
+          }
+        }
+      }
+    }
+  }
+  .work-experience
+  {
+    margin-top:10px;
+    margin-left: -25px;
+  }
+  .work_{
+    margin-left: -15px;
+
+  }
+
+  .job-title {
+    display: flex;
+    align-items: baseline; // align items to the baseline for better control
+    justify-content: flex-start;
+    flex-wrap: wrap; // allows the content to wrap onto the next line if space is constrained
+  
+    h3 {
+      flex: 1 0 auto; // allow the title to grow and shrink as needed, but not to be smaller than its content
+      margin-right: 10px; // ensures a margin between the title and the period
+    }
+  
+    .job-period {
+      flex: 0 1 auto; // this will not grow but can shrink, and will start at the size of its content
+      white-space: nowrap; // prevents the period from wrapping
+      color: #6e6e6e; // Example color for the period text
+      font-size: 0.35cm;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .leftPanel,
+    .rightPanel {
+      width: 100%;
+      padding: 0.5cm;
+    }
+  
+    .leftPanel img {
+      width: 3cm; // Adjust image size for small screens
+      height: 3cm;
+    }
+  }
+  
+  // Printing styles
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  
+  .page {
+    background: white;
+    display: block;
+    margin: 0 auto;
+    width: 21cm;
+    height: 29.7cm;
+  }
+  
+  
+}
+
+// Additional nested rules and other SCSS features would go here...

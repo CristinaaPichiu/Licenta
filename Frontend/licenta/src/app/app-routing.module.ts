@@ -6,6 +6,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { ResumeComponent } from './components/resume/resume.component';
+import { CreateResumeComponent } from './components/create-resume/create-resume.component';
 
 const routes: Routes = [
   {
@@ -31,7 +34,20 @@ const routes: Routes = [
   {
     path: 'profile-card',
     component: ProfileCardComponent
+  }, 
+  {
+    path: 'projects',
+    component: ProjectsComponent
+  },
+  {
+    path: 'resume',
+    component: ResumeComponent
+  },
+  {
+    path: 'create-resume',
+    component: CreateResumeComponent
   }
+
 
 
 ];

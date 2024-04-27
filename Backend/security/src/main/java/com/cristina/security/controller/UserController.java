@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
@@ -29,6 +31,13 @@ public class UserController {
         UserResponseDTO userDetailsResponse = userService.getUserDetails(authentication.getName());
         return ResponseEntity.ok(userDetailsResponse);
     }
+    @GetMapping("/email")
+    public ResponseEntity<String> getUserEmail(Authentication authentication) {
+        // Presupunem că metoda `getUserEmail` din serviciul tău returnează doar email-ul
+        String userEmail = userService.getUserEmail(authentication.getName());
+        return ResponseEntity.ok(userEmail);
+    }
+
     @PostMapping("/update_profile")
     public ResponseEntity<User> updateUserDetails(@RequestBody UserResponseDTO userResponseDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -43,7 +52,7 @@ public class UserController {
         // Email-ul utilizatorului autentificat
         String userEmail = authentication.getName();
         userService.changeUserPassword(userEmail, passwordChangeDto.getOldPassword(), passwordChangeDto.getNewPassword());
-        return ResponseEntity.ok("Password changed successfully");
+        return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
     }
 
 

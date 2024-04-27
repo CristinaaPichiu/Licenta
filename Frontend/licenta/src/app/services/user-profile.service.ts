@@ -39,7 +39,26 @@ export class UserProfileService {
     
     return this.http.get(`${this.baseUrl}/my_details`, { headers });
   }
+   
+ // UserProfileService
+ getUserEmail(token: string): Observable<string> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  return this.http.get<string>(`${this.baseUrl}/email`, { headers, responseType: 'text' as 'json' });
+}
 
+  
+changePassword(token: string, passwords: any): Observable<any> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json', // Adaugă acest header dacă lipsește
+  });
+  return this.http.post(`${this.baseUrl}/change-password`, passwords, { headers, responseType: 'text' });
+}
+
+
+  
   
 
 }

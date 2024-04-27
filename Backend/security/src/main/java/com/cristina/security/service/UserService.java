@@ -24,6 +24,12 @@ public class UserService {
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+    public String getUserEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+        return user.getEmail();
+    }
+
     @Transactional
     public User updateUserProfile(String currentEmail, UserResponseDTO userResponseDTO) {
         User user = userRepository.findByEmail(currentEmail)

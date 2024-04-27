@@ -1,0 +1,48 @@
+.dashboard-container {
+    display: flex;
+  }
+  
+  .dashboard-content {
+    width: 100%; 
+    margin-left: 50px;
+  }
+  
+  .dashboard-header h2 {
+    margin: 20px; 
+  }
+  
+  .resume-container {
+    display: flex;
+    flex-direction: column; 
+    margin: 20px; 
+    font-weight: bold;
+    color: #a1cfdc;
+  }
+  
+  .resume-text {
+    font-size: 18px; 
+    margin-bottom: 5px;
+    margin-bottom: -10px; 
+  }
+  
+  .resume-line-and-button-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .resume-line {
+    flex-grow: 0.9; 
+    height: 3px;
+    background-color: #a1cfdc; 
+    margin-right: 20px; 
+  }
+  
+  .create-new-btn {
+    padding: 10px 20px;
+    background-color: #a1cfdc;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  

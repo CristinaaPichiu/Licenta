@@ -1,0 +1,178 @@
+.resume-builder-container {
+    margin-top: 100px;
+    text-align: center;
+  
+    h2 {
+      font-size: 44px;
+      margin-bottom: 100px;
+      font-weight: 600;
+    }
+  
+    span {
+      color: #507d95;
+    }
+     
+   
+    .options {
+      margin-left: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap; // Allow options to wrap on smaller screens
+  
+      .option {
+        width: 350px;
+        height: 350px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          background-color: #f8f8f8;
+        }
+  
+        .icon-bg {
+          border-radius: 50%;
+          padding: 10px;
+          img {
+            width: 200px;
+          }
+        }
+  
+        .btn {
+          background-color: #507d95;
+          border: none;
+          padding: 15px 30px;
+          margin-top: 20px;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: darken(#507d95, 5%);
+          }
+        }
+  
+        p {
+          font-size: 16px;
+          margin-top: 15px;
+          color: #7274a9;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+  /* Stiluri pentru overlay-ul de încărcare */
+  #loading-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF; /* Fundal alb */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  
+  .loading-logo {
+    max-width: 200px;
+  }
+  
+  .loader {
+    border: 4px solid #f3f3f3; /* Culoarea exteriorului cercului într-o nuanță de gri deschis */
+    border-top: 4px solid #3498db; /* Albastru pentru partea de sus a cercului */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  // Clasa pentru a estompa conținutul când overlay-ul este activ
+  .content-blur {
+    filter: blur(5px);
+  }
+  
+  // Media queries for responsiveness
+  @media (max-width: 1200px) {
+    .resume-builder-container {
+      h2 {
+        font-size: 36px; // Smaller font size for smaller screens
+        margin-bottom: 50px;
+      }
+  
+      .options {
+        margin-left: 20px;
+        gap: 30px;
+      }
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .resume-builder-container .options .option {
+      width: 300px; // Smaller width for medium screens
+      height: auto; // Make the height automatic to accommodate content
+      padding: 15px;
+      
+      .icon-bg img {
+        width: 150px; // Smaller icon size
+      }
+  
+      .btn {
+        padding: 10px 20px;
+      }
+  
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .resume-builder-container {
+      margin-top: 50px;
+  
+      .options {
+        flex-direction: column; // Stack the options on top of each other
+        margin-left: 0; // Reset margin
+        align-items: center; // Center align the options
+      }
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .resume-builder-container h2 {
+      font-size: 28px; // Even smaller font size for small screens
+      margin-bottom: 30px;
+    }
+  
+    .resume-builder-container .options .option {
+      width: 100%; // Full width on small screens
+      margin-bottom: 20px; // Add space between stacked options
+    }
+  }
+  

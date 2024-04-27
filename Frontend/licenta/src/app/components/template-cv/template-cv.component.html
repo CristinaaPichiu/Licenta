@@ -1,0 +1,68 @@
+<!-- resume.component.html -->
+<div class="page-preview"> <!-- Div adăugat pentru scalarea container-ului pentru preview -->
+  <div class="container">
+    <div class="leftPanel">
+      <img src="assets/profile.png" alt="Avatar"/>
+      <div class="details">
+        <div class="item bottomLineSeparator">
+          <h2>CONTACT</h2>
+          <div class="smallText">
+            <p><mat-icon>phone</mat-icon> {{ resume.contact.phone }}</p>
+            <p><mat-icon>email</mat-icon> {{ resume.contact.email }}</p>
+            <p><mat-icon>place</mat-icon> {{ resume.contact.address }}</p>
+            <p><mat-icon>linkedin</mat-icon> {{ resume.contact.linkedin }}</p>
+            <p class="lastParagraphNoMarginBottom">
+              <mat-icon>linkedin</mat-icon> {{ resume.contact.skype }}
+            </p>
+          </div>
+        </div>
+        
+        <div class="item bottomLineSeparator">
+          <h2>SKILLS</h2>
+          <div class="smallText">
+            <div class="skill" *ngFor="let skill of resume.skills">
+              <span>{{ skill.name }}</span>
+              <span class="yearsOfExperience">{{ skill.years }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <h2>EDUCATION</h2>
+          <div class="smallText">
+            <p class="bolded">{{ resume.education.degree }}</p>
+            <p>{{ resume.education.school }}</p>
+            <p>{{ resume.education.period }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rightPanel">
+      <h1>{{ resume.header.name }}</h1>
+      <h3>{{ resume.header.title }}</h3>
+      <h2>About me</h2>
+      <p class="smallText">{{ resume.about }}</p>
+      <div class="work-experience">
+        <div class = "work_">
+        <h2>Work Experience</h2>
+      </div>
+        <div class="timeline">
+          <div *ngFor="let job of resume.experience" class="timeline-item">
+            <div class="timeline-icon"></div>
+            <div class="timeline-content">
+              <div class="job-title">
+                <h3>{{ job.position }}</h3>
+                <span class="job-period">{{ job.period }}</span>
+              </div>
+              <h4>{{ job.companyName }}</h4>
+              <p>{{ job.description }}</p>
+              <ul>
+                <li *ngFor="let bullet of job.bullets">{{ bullet }}</li>
+              </ul>
+              <div class="skills"><strong>Skills:</strong> {{ job.skills.join(', ') }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

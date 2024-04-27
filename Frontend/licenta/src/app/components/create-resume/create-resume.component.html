@@ -1,0 +1,242 @@
+<div class="main-layout">
+    <div class="right-container">
+        <div class="progress-bar-container">
+            <ul class="progress-bar">
+                <li *ngFor="let step of steps; let i = index" [class.active]="i === currentStepIndex" (click)="setCurrentStep(step)">
+                    <span>{{ step }}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="form-container">
+
+
+
+
+            <form *ngIf="currentStep === 'Contact'" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+                <h1>Please enter your <span> contact info</span></h1>
+                <p>It allows employers to see how they can contact you.</p>
+                <div class="input-group">
+                    <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="firstName" placeholder="First Name" formControlName="firstName">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="lastName" placeholder="Last Name" formControlName="lastName">
+                    </mat-form-field>
+                </div>
+                <div class="input-group">
+                    <mat-form-field appearance="outline" class="adress-field">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="address" placeholder="Address" formControlName="address">
+                    </mat-form-field>
+                </div>
+                <div class="input-group">
+                    <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>City</mat-label>
+                        <input matInput type="city" placeholder="City" formControlName="city">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput type="postalCode" placeholder="Postal Code" formControlName = "postalCode">
+                    </mat-form-field>
+                </div>
+                
+                <div class="input-group">
+                    <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>Phone</mat-label>
+                        <input matInput type="phone" placeholder="Phone" formControlName="phone">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" placeholder="Email" formControlName="email">
+                    </mat-form-field>
+                </div>
+                
+                <button type="submit" class="next-button">Next to Experience</button>
+            </form>
+
+
+
+
+
+            <form *ngIf="currentStep === 'Experience'" [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+                <h1>Tell us about your <span>experience</span></h1>
+                <p>Start with your recent job</p>
+                <div formArrayName="experiences">
+                  <div *ngFor="let experience of experiences.controls; let i = index" [formGroupName]="i" class="experience-group">
+                    <div class="input-group">
+                    <mat-form-field appearance="outline" class="input-field">
+                      <mat-label>Job Title</mat-label>
+                      <input matInput placeholder="JOB TITLE" formControlName="jobTitle">
+                    </mat-form-field>
+              
+                    <mat-form-field appearance="outline" class="input-field">
+                      <mat-label>Employer</mat-label>
+                      <input matInput placeholder="EMPLOYER" formControlName="employer">
+                    </mat-form-field>
+                    </div>
+
+
+                    <div class="input-group">
+              
+                    <mat-form-field appearance="outline" class="input-field">
+                    
+                      <mat-label>Start Date</mat-label>
+                      <input matInput [matDatepicker]="startPicker" placeholder="Select Date" formControlName="startDate">
+                      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startPicker></mat-datepicker>
+                    </mat-form-field>
+              
+                    <mat-form-field appearance="outline" class="input-field">
+                      <mat-label>End Date</mat-label>
+                      <input matInput [matDatepicker]="endPicker" placeholder="Select Date" formControlName="endDate">
+                      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                      <mat-datepicker #endPicker></mat-datepicker>
+                    </mat-form-field>
+              
+                    <mat-form-field appearance="outline" class="input-field">
+                      <mat-label>City</mat-label>
+                      <input matInput placeholder="CITY" formControlName="city">
+                    </mat-form-field>
+
+                    </div>
+              
+                    <mat-form-field appearance="outline" class="description-field">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput placeholder="Write your work experience" formControlName="description"></textarea>
+                    </mat-form-field>
+              
+                    <mat-icon class="delete-icon" (click)="removeExperience(i)">delete</mat-icon> <!-- Iconiță de ștergere -->
+              
+                  </div>
+                </div>
+                <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                <span class="spacer"></span>
+                <button mat-raised-button color="primary" (click)="addExperience()" type="button">Add Experience</button> <!-- Buton pentru adăugare experiență -->
+                <button type="submit" class="next-button">Next to Education</button>
+              </form>
+
+
+
+              
+
+
+              <form *ngIf="currentStep === 'Education'" [formGroup]="educationForm" (ngSubmit)="onSubmit()"> 
+                <h1>Tell us about your <span>education</span></h1>
+                <p>Start with your last diploma</p>
+                <div formArrayName="educations">
+                  <div *ngFor="let education of educations.controls; let i = index" [formGroupName]="i" class="education-group">
+              
+                    <div class="input-group">
+                        <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>School</mat-label>
+                        <input matInput placeholder="SCHOOL" formControlName="school">
+                      </mat-form-field>
+              
+                      <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>Degree</mat-label>
+                        <mat-select formControlName="degree">
+                          <mat-option value="highschool">Highschool</mat-option>
+                          <mat-option value="bachelors">Bachelor's</mat-option>
+                          <mat-option value="masters">Master's</mat-option>
+                          <mat-option value="doctorate">Doctorate</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                    </div>
+              
+                  
+                      <div class="input-group">
+                        <mat-form-field appearance="outline" class="input-field">
+                          <mat-label>Graduation Date</mat-label>
+                          <input matInput [matDatepicker]="gradDatePicker" placeholder="Select date" formControlName="graduationDate">
+                          <mat-datepicker-toggle matSuffix [for]="gradDatePicker"></mat-datepicker-toggle>
+                          <mat-datepicker #gradDatePicker></mat-datepicker>
+                        </mat-form-field>
+                  
+                        <mat-form-field appearance="outline" class="input-field">
+                          <mat-label>City</mat-label>
+                          <input matInput placeholder="CITY" formControlName="city">
+                        </mat-form-field>
+                      </div>
+                  
+                      <mat-form-field appearance="outline" class="description-field">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Write your educational experience" formControlName="description"></textarea>
+                      </mat-form-field>
+              
+                      <mat-icon class="delete-icon" (click)="removeEducation(i)">delete</mat-icon> <!-- Iconiță de ștergere -->
+
+                    </div>
+                  </div>
+                  <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                  <span class="spacer"></span>
+                  <button mat-raised-button color="primary" (click)="addEducation()" type="button">Add Education</button> <!-- Buton pentru adăugare educație -->
+                  <button type="submit" class="next-button">Next to Skills</button>
+                </form>
+
+
+
+
+
+                <form *ngIf="currentStep === 'Skills'" [formGroup]="skillsForm" (ngSubmit)="onSubmit()"> 
+                    <h1>Tell us about your <span>skills</span></h1>
+                    <p>Start with the one you are most experienced at</p>
+                    <div formArrayName="skills">
+                      <div *ngFor="let skill of skills.controls; let i=index" [formGroupName]="i" class="skill-group">
+                        <mat-form-field appearance="outline" class="input-field">
+                          <mat-label>Skill</mat-label>
+                          <input matInput placeholder="Type your skill here" formControlName="name">
+                        </mat-form-field>
+                       
+                   
+                        <mat-icon (click)="removeSkill(i)">delete</mat-icon> <!-- Trash icon for removing skill -->
+                        
+                      </div>
+                    </div>
+                    <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                    <span class="spacer"></span>
+                    <button type="button" (click)="addSkill()">Add Skill</button>
+                    
+                    <button type="submit" class="next-button">Next to About</button>
+
+                    
+                </form>
+
+                <form *ngIf="currentStep === 'About'" [formGroup]="aboutForm" (ngSubmit)="onSubmit()">
+                    <h1>Write down your professional <span>summary</span></h1>
+                    <p>Include up to 3 sentences that describe your general experience</p>
+                    
+                    <mat-form-field appearance="outline" class="summary-field">
+                      <mat-label>Summary</mat-label>
+                      <textarea matInput placeholder="e.g. Accomplished Marketing Manager with expertise in developing campaigns, copywriting and advertising..." formControlName="summary"></textarea>
+                    </mat-form-field>
+                    
+                    <!-- Optionally, add rich text editor controls here -->
+                    
+                    <div class="editor-controls">
+                      <!-- Icons for B (bold), I (italic), U (underline), etc. -->
+                    </div>
+                  
+                    <div class="button-container">
+                        <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                        <button type="submit" class="next-button">Next to Finish</button>
+                    </div>
+                      
+                </form>
+
+
+                
+
+        
+        
+    </div>
+
+    <div class="cv-preview-container">
+      <app-template-cv></app-template-cv>
+    </div>
+</div>
+</div>
+

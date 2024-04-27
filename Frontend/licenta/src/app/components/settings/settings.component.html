@@ -113,17 +113,17 @@
             <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
               <mat-form-field appearance="outline">
                 <mat-label>Current Password</mat-label>
-                <input matInput formControlName="currentPassword" type="Current_password">
+                <input matInput formControlName="currentPassword" type="password">
               </mat-form-field>
             
               <mat-form-field appearance="outline">
                 <mat-label>New Password</mat-label>
-                <input matInput formControlName="newPassword" type="new_password1">
+                <input matInput formControlName="newPassword" type="password">
               </mat-form-field>
             
               <mat-form-field appearance="outline">
                 <mat-label>Confirm New Password</mat-label>
-                <input matInput formControlName="confirmNewPassword" type="new_password2">
+                <input matInput formControlName="confirmNewPassword" type="password">
               </mat-form-field>
               <button mat-button type="submit" class="fixed-button">Update Password</button>
 

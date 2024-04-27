@@ -1,0 +1,33 @@
+<div class="main-container">
+    <app-sidebar></app-sidebar>
+    <div class="content">
+
+        <div class="resume-builder-container">
+            <h2>How do you want to  <span>build your resume? </span></h2>
+            <div class="options">
+              <div class="option">
+                <div class="icon-bg">
+                  <img src="assets/cv1.png" alt="Create Resume Icon">
+                </div>
+                <button class="btn" (click)="navigateToCreateResume()">Create a new resume manually</button>
+                <p>We will guide you through the process of creating a comprehensive resume</p>
+              </div>
+              
+              <div class="option">
+                <div class="icon-bg">
+                  <img src="assets/cv2.png" alt="Import Resume Icon">
+                </div>
+                <button class="btn">I already have a resume</button>
+                <p>We will manage the formatting and finalization of your resume, so you don’t have to.</p>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+
+    <div id="loading-overlay" *ngIf="loading">
+      <img src="assets/logo.png" alt="Logo" class="loading-logo">
+      <div class="loader"></div>
+    </div>
+
+</div>
