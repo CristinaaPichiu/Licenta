@@ -7,58 +7,62 @@
         <div class="item bottomLineSeparator">
           <h2>CONTACT</h2>
           <div class="smallText">
-            <p><mat-icon>phone</mat-icon> {{ resume.contact.phone }}</p>
-            <p><mat-icon>email</mat-icon> {{ resume.contact.email }}</p>
-            <p><mat-icon>place</mat-icon> {{ resume.contact.address }}</p>
-            <p><mat-icon>linkedin</mat-icon> {{ resume.contact.linkedin }}</p>
-            <p class="lastParagraphNoMarginBottom">
+            <p *ngIf="resume.contact.phone"><mat-icon>phone</mat-icon> {{ resume.contact.phone }}</p>
+            <p *ngIf="resume.contact.email"><mat-icon>email</mat-icon> {{ resume.contact.email }}</p>
+            <p *ngIf="resume.contact.address"><mat-icon>place</mat-icon> {{ resume.contact.address }}</p>
+            <p *ngIf="resume.contact.linkedin"><mat-icon>linkedin</mat-icon> {{ resume.contact.linkedin }}</p>
+            <p *ngIf="resume.contact.skype" class="lastParagraphNoMarginBottom">
               <mat-icon>linkedin</mat-icon> {{ resume.contact.skype }}
             </p>
           </div>
+          
         </div>
         
         <div class="item bottomLineSeparator">
           <h2>SKILLS</h2>
           <div class="smallText">
-            <div class="skill" *ngFor="let skill of resume.skills">
-              <span>{{ skill.name }}</span>
-              <span class="yearsOfExperience">{{ skill.years }}</span>
+            <div *ngFor="let skill of resume.skills" class="skill">
+              <span>{{ skill.name }}</span> <!-- presupunând că fiecare skill are o proprietate 'name' -->
+              <span class="yearsOfExperience">{{ skill.years }}</span> <!-- presupunând că fiecare skill are o proprietate 'years' pentru ani de experiență -->
+              <!-- Dacă ai un nivel de competență sau alte detalii, le poți adăuga aici -->
             </div>
           </div>
         </div>
+        
         <div class="item">
           <h2>EDUCATION</h2>
-          <div class="smallText">
-            <p class="bolded">{{ resume.education.degree }}</p>
-            <p>{{ resume.education.school }}</p>
-            <p>{{ resume.education.period }}</p>
+          <div *ngFor="let edu of resume.education" class="smallText">
+            <p class="bolded">{{ edu.school }}</p>
+            <p>{{ edu.degree }}</p>
+            <p>{{ edu.graduationDate | date }}</p>
+            <p>{{ edu.city }}</p>
+            <p>{{ edu.description }}</p>
           </div>
         </div>
+        
       </div>
     </div>
     <div class="rightPanel">
-      <h1>{{ resume.header.name }}</h1>
-      <h3>{{ resume.header.title }}</h3>
+      <h1>{{ resume.contact?.firstName }}</h1>
+      <h3>{{ resume.contact?.lastName }}</h3>
+      
       <h2>About me</h2>
-      <p class="smallText">{{ resume.about }}</p>
+      <p class="smallText">{{ resume.about  }}</p>
       <div class="work-experience">
         <div class = "work_">
         <h2>Work Experience</h2>
       </div>
         <div class="timeline">
-          <div *ngFor="let job of resume.experience" class="timeline-item">
+          <div *ngFor="let job of resume.experiences" class="timeline-item">
             <div class="timeline-icon"></div>
             <div class="timeline-content">
               <div class="job-title">
-                <h3>{{ job.position }}</h3>
-                <span class="job-period">{{ job.period }}</span>
+                <h3>{{ job?.jobTitle }}</h3>
+                <span class="job-period">{{ job.startDate | date }} - {{ job.endDate | date }}</span>
               </div>
-              <h4>{{ job.companyName }}</h4>
+              <h4>{{ job.employer }}</h4>
               <p>{{ job.description }}</p>
-              <ul>
-                <li *ngFor="let bullet of job.bullets">{{ bullet }}</li>
-              </ul>
-              <div class="skills"><strong>Skills:</strong> {{ job.skills.join(', ') }}</div>
+             
             </div>
           </div>
         </div>

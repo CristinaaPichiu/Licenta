@@ -32,11 +32,30 @@ export class CreateResumeComponent implements OnInit {
     this.initializeForms();
     this.addSkillLevelDescriptions();
 
-    this.initializeForms();
+     
+  this.resumeForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({ ...this.resumeDataService.getCurrentResumeSnapshot(), contact: values });
+  });
 
-    this.resumeForm.valueChanges.subscribe(values => {
-      this.resumeDataService.updateResumeForm(this.resumeForm);
+  this.experienceForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({
+      ...this.resumeDataService.getCurrentResumeSnapshot(),
+      experiences: values.experiences // Aici folosește 'experiences', nu 'experience'
     });
+  });
+  
+
+  this.educationForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({ ...this.resumeDataService.getCurrentResumeSnapshot(), education: values.educations });
+  });
+
+  this.skillsForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({ ...this.resumeDataService.getCurrentResumeSnapshot(), skills: values.skills });
+  });
+
+  this.aboutForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({ ...this.resumeDataService.getCurrentResumeSnapshot(), about: values.summary });
+  });
 
   }
 
@@ -47,37 +66,40 @@ export class CreateResumeComponent implements OnInit {
       address: [''],
       city: [''],
       postalCode: [''],
-      phone: [''], // exemplu de pattern pentru telefon
+      phone: [''],
       email: ['']
     });
+
     this.experienceForm = this.fb.group({
       experiences: this.fb.array([])
     });
     this.educationForm = this.fb.group({
       educations: this.fb.array([])
     });
-    // Adaugă o educație inițială pentru a începe
+
     this.addEducation();
+
     this.skillsForm = this.fb.group({
       skills: this.fb.array([this.createSkillFormGroup()])
     });
+
     this.aboutForm = this.fb.group({
       summary: ['', [Validators.required, Validators.maxLength(1000)]] 
     });
+
     this.addExperience();
   }
 
   addSkillLevelDescriptions() {
     this.skills.controls.forEach((skillControl, index) => {
-      this.skillLevelDescriptions[index] = this.skillLevels[0]; // Default to 'Novice'
+      this.skillLevelDescriptions[index] = this.skillLevels[0]; 
     });
   }
 
-  // This function will be called when a skill level is clicked
   selectSkillLevel(skillIndex: number, levelIndex: number): void {
     const levelControl = this.skills.at(skillIndex).get('level');
     if (levelControl) {
-      levelControl.setValue(levelIndex + 1); // Set the level based on the index (1-5)
+      levelControl.setValue(levelIndex + 1); 
       this.skillLevelDescriptions[skillIndex] = this.skillLevels[levelIndex];
     }
   }
@@ -86,7 +108,7 @@ export class CreateResumeComponent implements OnInit {
   createSkillFormGroup(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
-      level: [0, Validators.required] // Adjust the form control according to your skill level input
+      level: [0, Validators.required] 
     });
   }
 
@@ -120,7 +142,6 @@ export class CreateResumeComponent implements OnInit {
   onSubmit() {
     const currentFormGroup = this.getCurrentFormGroup();
     if (currentFormGroup.valid) {
-      this.resumeDataService.updateResumeForm(currentFormGroup); // actualizarea datelor în serviciu
       this.goToNextStep();
     } else {
       console.log('Form is not valid.');
@@ -153,18 +174,26 @@ export class CreateResumeComponent implements OnInit {
   
   addExperience(): void {
     const experienceGroup = this.fb.group({
-      jobTitle: [''],
-      employer: [''],
-      startDate: [''],
-      endDate: [''],
-      city: [''],
-      description: ['']
+      jobTitle: ['', Validators.required],
+      employer: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      city: ['', Validators.required],
+      description: ['', Validators.required]
     });
     this.experiences.push(experienceGroup);
+    this.emitResumeData();
   }
   
   removeExperience(index: number): void {
     this.experiences.removeAt(index);
+    this.emitResumeData();
+  }
+  private emitResumeData() {
+    this.resumeDataService.updateResumeForm({
+      ...this.resumeDataService.getCurrentResumeSnapshot(),
+      experiences: this.experiences.value // Asigură-te că folosești valoarea corectă aici
+    });
   }
 
   get educations(): FormArray {

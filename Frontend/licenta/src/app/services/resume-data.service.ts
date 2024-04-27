@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResumeDataService {
-  private resumeFormSubject = new BehaviorSubject<FormGroup | null>(null);
-  resumeForm$ = this.resumeFormSubject.asObservable();
+  private resume = new BehaviorSubject<any>({}); // Inițializează cu un obiect gol
 
-  updateResumeForm(form: FormGroup) {
-    console.log('Updating form data', form.value);
-    this.resumeFormSubject.next(form);
+  currentResume = this.resume.asObservable(); // Observable pentru a urmări schimbările
+
+  constructor() {}
+
+  updateResumeForm(data: any) {
+    this.resume.next(data); 
+    console.log(data);
+    
+  }
+  getCurrentResumeSnapshot(): any {
+    return this.resume.getValue();
   }
 }
