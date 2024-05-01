@@ -136,6 +136,77 @@
     
 }
 
+.experience-accordion {
+  margin-bottom: 100px; // Acesta adaugă spațiu sub ultimul panou de expansiune
+}
+.actions-container {
+  display: flex;
+  justify-content: flex-start; // Asta va începe poziționarea elementelor din container de la stânga
+  margin-top: 20px; // Spațiu deasupra containerului de butoane
+
+  button {
+    margin-right: 10px; // Adaugă un spațiu între butoane
+  }
+
+  .next-button {
+    margin-left: auto; // Acesta va împinge butonul "Next to Education" spre dreapta
+  }
+}
+
+
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinează butoanele la stânga */
+  gap: 10px; /* Spațiu între butoane */
+}
+
+
+
+/* Stiluri generale pentru sidebar */
+.sidenav-container {
+  height: 100vh;
+  width: 100%; /* Ajustează după nevoie */
+  background-color: transparent; /* Elimină orice fundal implicit */
+}
+
+.mat-drawer-container,
+.mat-drawer-content,
+.mat-drawer {
+  background-color: transparent; /* Asigură-te că toate elementele sidenav sunt transparente */
+}
+
+/* Stiluri pentru sidenav specific */
+.sidenav {
+  width: 60px; /* Latimea sidebar-ului */
+  border-right: 1px solid #ececec; /* Adaugă o linie subtilă de separare, dacă este necesar */
+}
+
+.mat-nav-list a {
+  display: flex;
+  justify-content: center; /* Centrează iconițele */
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.mat-nav-list a:hover {
+  background-color: #f0f0f0; /* Adaugă un mic feedback la hover, ajustează culoarea după preferințe */
+}
+
+.mat-icon {
+  color: #666; /* Schimbă culoarea iconițelor, dacă este necesar */
+}
+
+/* Elimină padding-ul implicit din mat-sidenav-content pentru a permite conținutului să umple spațiul */
+.mat-drawer-content {
+  padding: 0;
+}
+
+
+
+
 
 .next-button {
     background-color: #507d95;
@@ -148,7 +219,6 @@
     position: absolute;
     bottom: 20px; 
     right: 20px; 
-    margin-top: 20px;
 }
 .spacer {
     margin-right: 10px; /* Ajustează dimensiunea marginei după preferințele tale */
@@ -180,6 +250,8 @@
         color: #507d95;
     
 }
+
+
 .cv-preview-container {
   margin-top: 20px;
   position: absolute; 

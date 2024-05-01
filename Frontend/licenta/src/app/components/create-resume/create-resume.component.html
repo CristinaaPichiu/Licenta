@@ -62,11 +62,17 @@
 
 
             <form *ngIf="currentStep === 'Experience'" [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
-                <h1>Tell us about your <span>experience</span></h1>
-                <p>Start with your recent job</p>
-                <div formArrayName="experiences">
-                  <div *ngFor="let experience of experiences.controls; let i = index" [formGroupName]="i" class="experience-group">
-                    <div class="input-group">
+              <h1>Tell us about your <span>experience</span></h1>
+              <p>Start with your recent job</p>
+              <mat-accordion formArrayName="experiences" multi="true" class="experience-accordion">
+                <mat-expansion-panel *ngFor="let experience of experiences.controls; let i = index" [formGroupName]="i" 
+                                     (opened)="setActivePanel(i)" (closed)="setActivePanel(null)">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ experience.get('jobTitle')?.value || 'Job Title'}} - {{ experience.get('employer')?.value || 'Employer' }}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="input-group">
                     <mat-form-field appearance="outline" class="input-field">
                       <mat-label>Job Title</mat-label>
                       <input matInput placeholder="JOB TITLE" formControlName="jobTitle">
@@ -81,41 +87,48 @@
 
                     <div class="input-group">
               
-                    <mat-form-field appearance="outline" class="input-field">
-                    
-                      <mat-label>Start Date</mat-label>
-                      <input matInput [matDatepicker]="startPicker" placeholder="Select Date" formControlName="startDate">
-                      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-                      <mat-datepicker #startPicker></mat-datepicker>
-                    </mat-form-field>
+                      <mat-form-field appearance="outline" class="input-field">
+                      
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="startPicker" placeholder="Select Date" formControlName="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startPicker></mat-datepicker>
+                      </mat-form-field>
+                
+                      <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="endPicker" placeholder="Select Date" formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endPicker></mat-datepicker>
+                      </mat-form-field>
+                
+                      <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>City</mat-label>
+                        <input matInput placeholder="CITY" formControlName="city">
+                      </mat-form-field>
+  
+                      </div>
+                
+                      <mat-form-field appearance="outline" class="description-field">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Write your work experience" formControlName="description"></textarea>
+                      </mat-form-field>
               
-                    <mat-form-field appearance="outline" class="input-field">
-                      <mat-label>End Date</mat-label>
-                      <input matInput [matDatepicker]="endPicker" placeholder="Select Date" formControlName="endDate">
-                      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-                      <mat-datepicker #endPicker></mat-datepicker>
-                    </mat-form-field>
-              
-                    <mat-form-field appearance="outline" class="input-field">
-                      <mat-label>City</mat-label>
-                      <input matInput placeholder="CITY" formControlName="city">
-                    </mat-form-field>
+                    <mat-action-row>
+                      <button mat-icon-button color="warn" (click)="removeExperience(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-action-row>
+                  </mat-expansion-panel>
+                </mat-accordion>
 
-                    </div>
-              
-                    <mat-form-field appearance="outline" class="description-field">
-                      <mat-label>Description</mat-label>
-                      <textarea matInput placeholder="Write your work experience" formControlName="description"></textarea>
-                    </mat-form-field>
-              
-                    <mat-icon class="delete-icon" (click)="removeExperience(i)">delete</mat-icon> <!-- Iconiță de ștergere -->
-              
-                  </div>
-                </div>
-                <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
-                <span class="spacer"></span>
-                <button mat-raised-button color="primary" (click)="addExperience()" type="button">Add Experience</button> <!-- Buton pentru adăugare experiență -->
-                <button type="submit" class="next-button">Next to Education</button>
+                <div class="actions-container">
+                  <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                  <span class="spacer"></span>
+                  <button mat-raised-button color="primary" (click)="addExperience()" type="button">Add Experience</button> <!-- Buton pentru adăugare experiență -->
+                  <button type="submit" class="next-button">Next to Education</button>
+              </div>
+
               </form>
 
 
@@ -123,11 +136,17 @@
               
 
 
-              <form *ngIf="currentStep === 'Education'" [formGroup]="educationForm" (ngSubmit)="onSubmit()"> 
+              <form *ngIf="currentStep === 'Education'" [formGroup]="educationForm" (ngSubmit)="onSubmit()">
                 <h1>Tell us about your <span>education</span></h1>
                 <p>Start with your last diploma</p>
-                <div formArrayName="educations">
-                  <div *ngFor="let education of educations.controls; let i = index" [formGroupName]="i" class="education-group">
+                <mat-accordion formArrayName="educations" multi="true" class="education-accordion">
+                  <mat-expansion-panel *ngFor="let education of educations.controls; let i = index" [formGroupName]="i"
+                                       (opened)="setActiveEducationPanel(i)" (closed)="setActiveEducationPanel(null)">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{ education.get('degree')?.value || 'Degree' }} - {{ education.get('school')?.value || 'Institution' }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
               
                     <div class="input-group">
                         <mat-form-field appearance="outline" class="input-field">
@@ -148,34 +167,38 @@
                     </div>
               
                   
-                      <div class="input-group">
-                        <mat-form-field appearance="outline" class="input-field">
-                          <mat-label>Graduation Date</mat-label>
-                          <input matInput [matDatepicker]="gradDatePicker" placeholder="Select date" formControlName="graduationDate">
-                          <mat-datepicker-toggle matSuffix [for]="gradDatePicker"></mat-datepicker-toggle>
-                          <mat-datepicker #gradDatePicker></mat-datepicker>
-                        </mat-form-field>
-                  
-                        <mat-form-field appearance="outline" class="input-field">
-                          <mat-label>City</mat-label>
-                          <input matInput placeholder="CITY" formControlName="city">
-                        </mat-form-field>
-                      </div>
-                  
-                      <mat-form-field appearance="outline" class="description-field">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="Write your educational experience" formControlName="description"></textarea>
+                    <div class="input-group">
+                      <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="startPicker" placeholder="Select start date" formControlName="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startPicker></mat-datepicker>
                       </mat-form-field>
-              
-                      <mat-icon class="delete-icon" (click)="removeEducation(i)">delete</mat-icon> <!-- Iconiță de ștergere -->
-
+                    
+                      <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="endPicker" placeholder="Select end date" formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endPicker></mat-datepicker>
+                      </mat-form-field>
                     </div>
-                  </div>
+                    
+              
+                    <mat-action-row>
+                      <button mat-icon-button color="warn" (click)="removeEducation(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-action-row>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              
+                <div class="actions-container">
                   <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
                   <span class="spacer"></span>
                   <button mat-raised-button color="primary" (click)="addEducation()" type="button">Add Education</button> <!-- Buton pentru adăugare educație -->
                   <button type="submit" class="next-button">Next to Skills</button>
-                </form>
+                </div>
+              </form>
 
 
 
@@ -226,6 +249,243 @@
                     </div>
                       
                 </form>
+
+
+                <div *ngIf="currentStep === 'Finish it'">
+                  <mat-sidenav-container class="sidenav-container" style="height: 100vh;">
+                    <mat-sidenav #sidenav mode="side" opened="true" class="sidenav" style="width: 60px;">
+                      <mat-nav-list>
+                        <a mat-list-item (click)="showSection('volunteering')">
+                          <mat-icon>people</mat-icon>
+                        </a>
+                        <a mat-list-item (click)="showSection('projects')">
+                          <mat-icon>library_books</mat-icon>
+                        </a>
+                        <a mat-list-item (click)="showSection('link')">
+                          <mat-icon>link</mat-icon>
+                        </a>
+                        <a mat-list-item (click)="showSection('personalize')">
+                          <mat-icon>view_day</mat-icon>
+                        </a>
+                      </mat-nav-list>
+                    </mat-sidenav>
+                    <mat-sidenav-content>
+                      <div *ngIf="selectedSection === 'volunteering'">
+                        <form  [formGroup]="volunteeringForm" (ngSubmit)="onSubmitVolunteering()">
+                          <h1>Tell us about your <span>volunteering</span></h1>
+                          <p>Start with your most recent volunteering role</p>
+                          <mat-accordion formArrayName="volunteerExperiences" multi="true" class="experience-accordion">
+                              <mat-expansion-panel *ngFor="let volunteer of volunteerExperiences.controls; let i = index" [formGroupName]="i"
+                                                   (opened)="setActivePanel(i)" (closed)="setActivePanel(null)">
+                                  <mat-expansion-panel-header>
+                                      <mat-panel-title>
+                                          {{ volunteer.get('role')?.value || 'Volunteer Role'}} - {{ volunteer.get('organization')?.value || 'Organization' }}
+                                      </mat-panel-title>
+                                  </mat-expansion-panel-header>
+                      
+                                  <div class="input-group">
+                                      <mat-form-field appearance="outline" class="input-field">
+                                          <mat-label>Role</mat-label>
+                                          <input matInput placeholder="Volunteer Role" formControlName="role">
+                                      </mat-form-field>
+                      
+                                      <mat-form-field appearance="outline" class="input-field">
+                                          <mat-label>Organization</mat-label>
+                                          <input matInput placeholder="Organization Name" formControlName="organization">
+                                      </mat-form-field>
+                                  </div>
+                      
+                                  <div class="input-group">
+                                    <mat-form-field appearance="outline" class="input-field">
+                                      <mat-label>Start Date</mat-label>
+                                      <input matInput [matDatepicker]="startPickerRef" placeholder="Select Start Date" formControlName="startDate">
+                                      <mat-datepicker-toggle matSuffix [for]="startPickerRef"></mat-datepicker-toggle>
+                                      <mat-datepicker #startPickerRef="matDatepicker"></mat-datepicker>
+                                    </mat-form-field>
+                                    
+                                    <mat-form-field appearance="outline" class="input-field">
+                                      <mat-label>End Date</mat-label>
+                                      <input matInput [matDatepicker]="endPickerRef" placeholder="Select End Date" formControlName="endDate">
+                                      <mat-datepicker-toggle matSuffix [for]="endPickerRef"></mat-datepicker-toggle>
+                                      <mat-datepicker #endPickerRef="matDatepicker"></mat-datepicker>
+                                    </mat-form-field>
+                                    
+                                      <mat-form-field appearance="outline" class="input-field">
+                                          <mat-label>City</mat-label>
+                                          <input matInput placeholder="City" formControlName="city">
+                                      </mat-form-field>
+                                  </div>
+                      
+                                  <mat-form-field appearance="outline" class="description-field">
+                                      <mat-label>Description</mat-label>
+                                      <textarea matInput placeholder="Describe your volunteering activities" formControlName="description"></textarea>
+                                  </mat-form-field>
+                      
+                                  <mat-action-row>
+                                      <button mat-icon-button color="warn" (click)="removeVolunteerExperience(i)">
+                                          <mat-icon>delete</mat-icon>
+                                      </button>
+                                  </mat-action-row>
+                              </mat-expansion-panel>
+                          </mat-accordion>
+                      
+                          <div class="actions-container">
+                              <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                              <span class="spacer"></span>
+                              <button mat-raised-button color="primary" (click)="addVolunteerExperience()" type="button">Add Volunteering</button>
+                          </div>
+                      </form>
+                      
+                      </div>
+      
+                      <div *ngIf="selectedSection === 'projects'">
+                        <form [formGroup]="projectsForm" (ngSubmit)="onSubmitProjects()">
+                            <h1>Tell us about your <span>projects</span></h1>
+                            <p>Start with your most significant projects</p>
+                            <mat-accordion formArrayName="projectExperiences" multi="true" class="experience-accordion">
+                                <mat-expansion-panel *ngFor="let project of projectExperiences.controls; let i = index" [formGroupName]="i">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{ project.get('projectName')?.value || 'Project Name'}}
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                    
+                                    <div class="input-group">
+                                        <mat-form-field appearance="outline" class="input-field">
+                                            <mat-label>Project Name</mat-label>
+                                            <input matInput placeholder="Project Name" formControlName="projectName">
+                                        </mat-form-field>
+                    
+                                        <mat-form-field appearance="outline" class="input-field">
+                                            <mat-label>Technologies Used</mat-label>
+                                            <input matInput placeholder="Technologies Used" formControlName="technologies">
+                                        </mat-form-field>
+                                    </div>
+                    
+                                    <div class="input-group">
+                                      <mat-form-field appearance="outline" class="input-field">
+                                        <mat-label>Start Date</mat-label>
+                                        <input matInput [matDatepicker]="startPicker" placeholder="Select Start Date" formControlName="startDate">
+                                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #startPicker="matDatepicker"></mat-datepicker>
+                                      </mat-form-field>
+                                      
+                                      <mat-form-field appearance="outline" class="input-field">
+                                        <mat-label>End Date</mat-label>
+                                        <input matInput [matDatepicker]="endPicker" placeholder="Select End Date" formControlName="endDate">
+                                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #endPicker="matDatepicker"></mat-datepicker>
+                                      </mat-form-field>
+                                      
+                                    </div>
+                    
+                                    <mat-form-field appearance="outline" class="description-field">
+                                        <mat-label>Description</mat-label>
+                                        <textarea matInput placeholder="Describe the project, your role, and the outcome" formControlName="description"></textarea>
+                                    </mat-form-field>
+                    
+                                    <mat-action-row>
+                                        <button mat-icon-button color="warn" (click)="removeProjectExperience(i)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </mat-action-row>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                    
+                            <div class="actions-container">
+                                <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                                <span class="spacer"></span>
+                                <button mat-raised-button color="primary" (click)="addProjectExperience()" type="button">Add Project</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div *ngIf="selectedSection === 'link'">
+                      <form [formGroup]="linksForm" (ngSubmit)="onSubmitLinks()">
+                        <h1>Add Your <span>Links</span></h1>
+                        <p>Manage your website and social links here.</p>
+                        <mat-accordion formArrayName="linkEntries" multi="true" class="link-accordion">
+                          <mat-expansion-panel *ngFor="let link of linkEntries().controls; let i = index" [formGroupName]="i">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                {{ link.get('label')?.value || 'No Label Specified' }}
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                    
+                            <div class="input-group">
+                              <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Label</mat-label>
+                                <input matInput placeholder="Label for the link" formControlName="label">
+                              </mat-form-field>
+                    
+                              <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>URL</mat-label>
+                                <input matInput placeholder="Enter URL" formControlName="url">
+                              </mat-form-field>
+                            </div>
+                    
+                            <mat-action-row>
+                              <button mat-icon-button color="warn" (click)="removeLink(i)">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                            </mat-action-row>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                    
+                        <div class="actions-container">
+                          <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                          <span class="spacer"></span>
+                          <button mat-raised-button color="primary" (click)="addLink()" type="button">Add Link</button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div *ngIf="selectedSection === 'personalize'">
+                      <form [formGroup]="customSectionForm" (ngSubmit)="onSubmitCustomSection()">
+                          <mat-accordion formArrayName="customSections" multi="true" class="custom-section-accordion">
+                              <mat-expansion-panel *ngFor="let section of customSections.controls; let i = index" [formGroupName]="i">
+                                  <mat-expansion-panel-header>
+                                      <mat-panel-title>
+                                          {{ section.get('title')?.value || 'Custom Section' }}
+                                      </mat-panel-title>
+                                  </mat-expansion-panel-header>
+                  
+                                  <div class="input-group">
+                                      <mat-form-field appearance="outline" class="input-field">
+                                          <mat-label>Title</mat-label>
+                                          <input matInput placeholder="Title of the section" formControlName="title">
+                                      </mat-form-field>
+                  
+                                      <mat-form-field appearance="outline" class="input-field">
+                                          <mat-label>Description</mat-label>
+                                          <textarea matInput placeholder="Description of the section" formControlName="description"></textarea>
+                                      </mat-form-field>
+                                  </div>
+                  
+                                  <mat-action-row>
+                                      <button mat-icon-button color="warn" (click)="removeCustomSection(i)">
+                                          <mat-icon>delete</mat-icon>
+                                      </button>
+                                  </mat-action-row>
+                              </mat-expansion-panel>
+                          </mat-accordion>
+                  
+                          <div class="actions-container">
+                              <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
+                              <span class="spacer"></span>
+                              <button mat-raised-button color="primary" (click)="addCustomSection()" type="button">Add Section</button>
+                          </div>
+                      </form>
+                  </div>
+                  
+                    
+                    
+                  </mat-sidenav-content>
+                  </mat-sidenav-container>
+                </div>
+                
+                
+                
+                
 
 
                 

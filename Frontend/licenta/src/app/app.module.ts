@@ -31,6 +31,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { ResumeDataService } from './services/resume-data.service';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 
@@ -74,7 +75,8 @@ import { ResumeDataService } from './services/resume-data.service';
     MatCheckboxModule,
     MatNativeDateModule,
     MatSelectModule, 
-    MatSliderModule
+    MatSliderModule,
+    MatExpansionModule
 
     
   ],

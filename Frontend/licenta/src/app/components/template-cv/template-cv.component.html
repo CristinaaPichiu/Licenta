@@ -9,11 +9,19 @@
           <div class="smallText">
             <p *ngIf="resume.contact.phone"><mat-icon>phone</mat-icon> {{ resume.contact.phone }}</p>
             <p *ngIf="resume.contact.email"><mat-icon>email</mat-icon> {{ resume.contact.email }}</p>
-            <p *ngIf="resume.contact.address"><mat-icon>place</mat-icon> {{ resume.contact.address }}</p>
-            <p *ngIf="resume.contact.linkedin"><mat-icon>linkedin</mat-icon> {{ resume.contact.linkedin }}</p>
-            <p *ngIf="resume.contact.skype" class="lastParagraphNoMarginBottom">
-              <mat-icon>linkedin</mat-icon> {{ resume.contact.skype }}
+            <p *ngIf="resume.contact.address">
+              <mat-icon>place</mat-icon> {{ resume.contact.address + ', ' + resume.contact.city + ', ' + resume.contact.postalCode }}
             </p>
+            <div *ngIf="resume.linkEntries && resume.linkEntries.length > 0">
+              <div *ngFor="let link of resume.linkEntries">
+                <!-- Folosește eticheta ca link -->
+               
+                  <mat-icon>link</mat-icon>  <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+                
+              </div>
+            </div>
+            
+            
           </div>
           
         </div>
@@ -28,45 +36,75 @@
             </div>
           </div>
         </div>
-        
         <div class="item">
           <h2>EDUCATION</h2>
-          <div *ngFor="let edu of resume.education" class="smallText">
-            <p class="bolded">{{ edu.school }}</p>
-            <p>{{ edu.degree }}</p>
-            <p>{{ edu.graduationDate | date }}</p>
-            <p>{{ edu.city }}</p>
-            <p>{{ edu.description }}</p>
+          <div *ngFor="let edu of resume.education" class="education-entry">
+            <p class="degree">{{ edu.degree }}</p>
+            <p class="school">{{ edu.school }}</p>
+            <p class="dates">
+              {{ edu.startDate ? (edu.startDate | date: 'yyyy') : '' }} - 
+              {{ edu.endDate ? ((edu.startDate | date: 'yyyy') === (edu.endDate | date: 'yyyy') ? 'Present' : (edu.endDate | date: 'yyyy')) : (edu.startDate ? 'Present' : '') }}
+            </p>
+            
+            
           </div>
         </div>
+        
         
       </div>
     </div>
     <div class="rightPanel">
       <h1>{{ resume.contact?.firstName }}</h1>
       <h3>{{ resume.contact?.lastName }}</h3>
-      
+      <div *ngIf="resume.about && resume.about.trim().length > 0">
       <h2>About me</h2>
+ 
       <p class="smallText">{{ resume.about  }}</p>
-      <div class="work-experience">
-        <div class = "work_">
-        <h2>Work Experience</h2>
-      </div>
-        <div class="timeline">
-          <div *ngFor="let job of resume.experiences" class="timeline-item">
-            <div class="timeline-icon"></div>
-            <div class="timeline-content">
-              <div class="job-title">
-                <h3>{{ job?.jobTitle }}</h3>
-                <span class="job-period">{{ job.startDate | date }} - {{ job.endDate | date }}</span>
+    </div>
+      
+      <div *ngIf="resume.experiences && resume.experiences.length > 0">
+        <div class="work-experience">
+          <div class="work_">
+            <h2>Work Experience</h2>
+          </div>
+          <div class="timeline">
+            <div *ngFor="let job of resume.experiences" class="timeline-item">
+              <div class="timeline-icon"></div>
+              <div class="timeline-content">
+                <div class="job-title">
+                  <h3>{{ job?.jobTitle }}</h3>
+                  <span class="job-period">{{ job.startDate | date:'mediumDate' }} - {{ job.endDate | date:'mediumDate' }}</span>
+                  <span class="city-experience">{{job.city}}</span>
+                </div>
+                <h4>{{ job.employer }}</h4>
+                <p>{{ job.description }}</p>
               </div>
-              <h4>{{ job.employer }}</h4>
-              <p>{{ job.description }}</p>
-             
             </div>
           </div>
         </div>
       </div>
+
+      <div *ngIf="resume.projectExperiences && resume.projectExperiences.length > 0">
+        <div *ngFor="let project of resume.projectExperiences">
+          <h3>{{ project.projectName }} - Technologies Used: {{ project.technologies }}</h3>
+          <div class="timeline-details">
+            <span>{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
+          </div>
+          <p>{{ project.description }}</p>
+        </div>
+      </div>
+      
+
+      <div *ngFor="let volunteer of resume.volunteerExperiences" >
+            <h3>{{ volunteer.role }} at {{ volunteer.organization }}</h3>
+            <div class="timeline-details">
+                <span>{{ volunteer.city }}</span>
+                <span>{{ volunteer.startDate | date:'longDate' }} - {{ volunteer.endDate | date:'longDate' }}</span>
+            </div>
+            <p>{{ volunteer.description }}</p>
+    </div>
+    
+      
     </div>
   </div>
 </div>

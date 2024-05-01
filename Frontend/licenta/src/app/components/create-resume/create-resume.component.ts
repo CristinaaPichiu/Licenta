@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ResumeDataService } from 'src/app/services/resume-data.service';
 
 
@@ -13,6 +13,7 @@ export class CreateResumeComponent implements OnInit {
   steps = ['Contact', 'Experience', 'Education', 'Skills', 'About', 'Finish it'];
   skillLevels = ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert'];
   skillLevelDescriptions: string[] = [];
+  
 
   currentStepIndex = 0; // Păstrează indexul etapei curente
   resumeForm!: FormGroup;
@@ -20,6 +21,18 @@ export class CreateResumeComponent implements OnInit {
   educationForm!: FormGroup;
   skillsForm!: FormGroup;
   aboutForm!: FormGroup;
+  finishForm!: FormGroup;
+  volunteeringForm!: FormGroup;
+  projectsForm!: FormGroup;
+  linksForm!: FormGroup;
+  customSectionForm!: FormGroup;
+
+
+
+  activeEducationPanel: number | null = null;
+  selectedSection: string | null = null;
+
+
 
 
 
@@ -57,6 +70,29 @@ export class CreateResumeComponent implements OnInit {
     this.resumeDataService.updateResumeForm({ ...this.resumeDataService.getCurrentResumeSnapshot(), about: values.summary });
   });
 
+  this.volunteeringForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({
+      ...this.resumeDataService.getCurrentResumeSnapshot(),
+      volunteerExperiences: values.volunteerExperiences
+    });
+  });
+  this.projectsForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({
+      ...this.resumeDataService.getCurrentResumeSnapshot(),
+      projectExperiences: values.projectExperiences
+    });
+  });
+
+  this.linksForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({
+      ...this.resumeDataService.getCurrentResumeSnapshot(),
+      linkEntries: values.linkEntries
+    });
+  });
+  
+  
+  
+
   }
 
   initializeForms() {
@@ -88,6 +124,20 @@ export class CreateResumeComponent implements OnInit {
     });
 
     this.addExperience();
+
+    this.volunteeringForm = this.fb.group({
+      volunteerExperiences: this.fb.array([])
+    });
+    this.projectsForm = this.fb.group({
+      projectExperiences: this.fb.array([])
+    });
+    this.linksForm = this.fb.group({
+      linkEntries: this.fb.array([])
+    });
+    this.customSectionForm = this.fb.group({
+      customSections: this.fb.array([])
+  });
+
   }
 
   addSkillLevelDescriptions() {
@@ -149,11 +199,23 @@ export class CreateResumeComponent implements OnInit {
   }
   
   goToNextStep() {
-    // Mărește indexul pentru a trece la următoarea secțiune
+    console.log('Attempting to go to next step');
     if (this.currentStepIndex < this.steps.length - 1) {
       this.currentStepIndex++;
+      console.log('Current step index after increment:', this.currentStepIndex);
     }
   }
+
+  onFinalSubmit() {
+    if (this.finishForm.valid) {
+      console.log('Resume Submitted:', this.finishForm.value);
+      // Here, you could add logic to actually submit the data to a server or another service
+    } else {
+      console.log('Please confirm that all information is correct');
+    }
+  }
+  
+  
   
   // Funcție utilitară pentru a obține FormGroup-ul curent pe baza etapei
   getCurrentFormGroup(): FormGroup {
@@ -172,46 +234,207 @@ export class CreateResumeComponent implements OnInit {
     return this.experienceForm.get('experiences') as FormArray;
   }
   
-  addExperience(): void {
-    const experienceGroup = this.fb.group({
-      jobTitle: ['', Validators.required],
-      employer: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      city: ['', Validators.required],
-      description: ['', Validators.required]
-    });
-    this.experiences.push(experienceGroup);
-    this.emitResumeData();
-  }
   
-  removeExperience(index: number): void {
-    this.experiences.removeAt(index);
-    this.emitResumeData();
+  
+  activeExperiencePanel: number | null = null;
+
+setActivePanel(index: number | null) {
+  if (this.activeExperiencePanel !== index) {
+    if (this.activeExperiencePanel !== null && this.experiences.at(this.activeExperiencePanel)) {
+      // Ascundem panoul anterior
+      this.experiences.at(this.activeExperiencePanel)!.get('isHidden')!.setValue(true);
+    }
+    if (index !== null && this.experiences.at(index)) {
+      // Arătăm panoul curent
+      this.experiences.at(index)!.get('isHidden')!.setValue(false);
+    }
+    this.activeExperiencePanel = index;
   }
-  private emitResumeData() {
-    this.resumeDataService.updateResumeForm({
-      ...this.resumeDataService.getCurrentResumeSnapshot(),
-      experiences: this.experiences.value // Asigură-te că folosești valoarea corectă aici
-    });
+}
+
+
+addExperience(): void {
+  this.experiences.push(this.fb.group({
+    jobTitle: ['', Validators.required],
+    employer: ['', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required],
+    city: ['', Validators.required],
+    description: ['', Validators.required],
+    isHidden: [false] // Noul panou va fi vizibil
+  }));
+  
+  // Setăm panoul recent adăugat ca activ
+  this.setActivePanel(this.experiences.length - 1);
+}
+
+removeExperience(index: number): void {
+  this.experiences.removeAt(index);
+  // Dacă panoul activ este șters, resetăm activePanel la null
+  if (this.activeExperiencePanel === index) {
+    this.setActivePanel(null);
+  }
+}
+
+get educations(): FormArray {
+  return this.educationForm.get('educations') as FormArray;
+}
+
+addEducation(): void {
+  const educationGroup = this.fb.group({
+    school: ['', Validators.required],
+    degree: ['', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required],
+    isHidden: [false] // Folosit pentru a controla vizibilitatea panoului
+  });
+  this.educations.push(educationGroup);
+  // Opțional: Setează noul panou ca fiind cel activ
+  this.setActiveEducationPanel(this.educations.length - 1);
+}
+
+removeEducation(index: number): void {
+  this.educations.removeAt(index);
+  // Dacă panoul activ este șters, resetează activeEducationPanel la null
+  if (this.activeEducationPanel === index) {
+    this.activeEducationPanel = null;
+  }
+}
+
+// Ajustează metoda setActiveEducationPanel pentru a verifica că indexul nu este null
+// înainte de a încerca să accesezi form group-ul din form array.
+setActiveEducationPanel(index: number | null): void {
+  // Close any previously open expansion panels
+  if (this.activeEducationPanel !== null && this.activeEducationPanel !== index) {
+    const currentActive = this.educations.at(this.activeEducationPanel);
+    // Ensure that currentActive is not null
+    if (currentActive) {
+      const isHiddenControl = currentActive.get('isHidden');
+      if (isHiddenControl) {
+        isHiddenControl.setValue(true);
+      }
+    }
   }
 
-  get educations(): FormArray {
-    return this.educationForm.get('educations') as FormArray;
+  // Open the new expansion panel
+  if (index !== null) {
+    const activePanel = this.educations.at(index);
+    // Ensure that activePanel is not null
+    if (activePanel) {
+      const isHiddenControl = activePanel.get('isHidden');
+      if (isHiddenControl) {
+        isHiddenControl.setValue(false);
+      }
+    }
   }
   
-  addEducation(): void {
-    const educationGroup = this.fb.group({
-      school: [''],
-      degree: [''],
-      graduationDate: [''],
-      city: [''],
-      description: ['']
-    });
-    this.educations.push(educationGroup);
+  this.activeEducationPanel = index;
+}
+
+addVolunteerExperience(): void {
+  const group = this.fb.group({
+    role: ['', Validators.required],
+    organization: ['', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required],
+    city: ['', Validators.required],
+    description: ['', Validators.required]
+  });
+  this.volunteerExperiences.push(group);
+}
+
+removeVolunteerExperience(index: number): void {
+  this.volunteerExperiences.removeAt(index);
+}
+
+onSubmitVolunteering(): void {
+  if (this.volunteeringForm.valid) {
+    console.log('Volunteering Data:', this.volunteeringForm.value);
+  } else {
+    console.error('Form is not valid');
   }
-  
-  removeEducation(index: number): void {
-    this.educations.removeAt(index);
+}
+
+get volunteerExperiences(): FormArray {
+  return this.volunteeringForm.get('volunteerExperiences') as FormArray;
+}
+
+showSection(section: string): void {
+  this.selectedSection = section;
+}
+addProjectExperience(): void {
+  const projectGroup = this.fb.group({
+      projectName: ['', Validators.required],
+      technologies: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      description: ['', Validators.required]
+  });
+  this.projectExperiences.push(projectGroup);
+}
+
+removeProjectExperience(index: number): void {
+  this.projectExperiences.removeAt(index);
+}
+
+get projectExperiences(): FormArray {
+  return this.projectsForm.get('projectExperiences') as FormArray;
+}
+onSubmitProjects(): void {
+  if (this.projectsForm.valid) {
+      console.log('Projects Data:', this.projectsForm.value);
+      // Additional logic to handle the submission of project data
+  } else {
+      console.error('Projects form is not valid');
   }
+}
+
+linkEntries(): FormArray {
+  return this.linksForm.get('linkEntries') as FormArray;
+}
+
+newLink(): FormGroup {
+  return this.fb.group({
+    label: ['', Validators.required],
+    url: ['', [Validators.required, Validators.pattern('https?://.+')]]
+  });
+}
+
+addLink(): void {
+  this.linkEntries().push(this.newLink());
+}
+
+removeLink(index: number): void {
+  this.linkEntries().removeAt(index);
+}
+
+onSubmitLinks(): void {
+  console.log('Links:', this.linksForm.value);
+}
+addCustomSection(): void {
+  const customGroup = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required]
+  });
+  this.customSections.push(customGroup);
+}
+
+
+removeCustomSection(index: number): void {
+  this.customSections.removeAt(index);
+}
+
+get customSections(): FormArray {
+  return this.customSectionForm.get('customSections') as FormArray;
+}
+
+onSubmitCustomSection() {
+  if (this.customSectionForm.valid) {
+      console.log('Custom Sections:', this.customSectionForm.value.customSections);
+      // Adițional: Logică pentru salvarea sau procesarea secțiunilor personalizate
+  } else {
+      console.error('Form is not valid');
+  }
+}
+
 }
