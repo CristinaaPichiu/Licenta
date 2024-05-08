@@ -55,7 +55,7 @@
     </div>
     <div class="rightPanel">
       <h1>{{ resume.contact?.firstName }}</h1>
-      <h3>{{ resume.contact?.lastName }}</h3>
+      <h3>{{ resume.contact?.status }}</h3>
       <div *ngIf="resume.about && resume.about.trim().length > 0">
       <h2>About me</h2>
  
@@ -85,6 +85,8 @@
       </div>
 
       <div *ngIf="resume.projectExperiences && resume.projectExperiences.length > 0">
+        <h2>Projects</h2>
+
         <div *ngFor="let project of resume.projectExperiences">
           <h3>{{ project.projectName }} - Technologies Used: {{ project.technologies }}</h3>
           <div class="timeline-details">
@@ -93,15 +95,19 @@
           <p>{{ project.description }}</p>
         </div>
       </div>
-      
+       
 
+      <div *ngIf="resume.volunteerExperiences && resume.volunteerExperiences.length > 0">
+        <h2>Volunteering</h2>
       <div *ngFor="let volunteer of resume.volunteerExperiences" >
+
             <h3>{{ volunteer.role }} at {{ volunteer.organization }}</h3>
             <div class="timeline-details">
                 <span>{{ volunteer.city }}</span>
                 <span>{{ volunteer.startDate | date:'longDate' }} - {{ volunteer.endDate | date:'longDate' }}</span>
             </div>
             <p>{{ volunteer.description }}</p>
+    </div>
     </div>
     
       

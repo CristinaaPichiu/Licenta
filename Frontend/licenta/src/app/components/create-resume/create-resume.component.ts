@@ -98,7 +98,7 @@ export class CreateResumeComponent implements OnInit {
   initializeForms() {
     this.resumeForm = this.fb.group({
       firstName: [''],
-      lastName: [''],
+      status: [''],
       address: [''],
       city: [''],
       postalCode: [''],
