@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,14 +42,17 @@ public class ResumeService {
         User user = userRepository.findById(resumeDTO.getUserId()).orElseThrow(
                 () -> new RuntimeException("User not found with id: " + resumeDTO.getUserId()));
 
+        // Generate a UUID for the resume
+        UUID resumeUUID = UUID.randomUUID();
+
         // Create a new Resume instance
         Resume resume = new Resume();
+        resume.setId(resumeUUID);  // Set the generated UUID
         resume.setUser(user);
-        resume = resumeRepository.saveAndFlush(resume);
+        resumeRepository.save(resume);
+        System.out.print("AAAAAAAAAAAAAAAAA");
+        System.out.println(resumeUUID);
 
-        System.out.println(resume.getId());
-
-        // Save sections
         resume.setAboutSection(saveAboutSection(resumeDTO.getAboutSection(), user, resume));
         resume.setContactSection(saveContactSection(resumeDTO.getContactSection(), user, resume));
         resume.setEducationSections(saveEducationSections(resumeDTO.getEducationSections(), user, resume));

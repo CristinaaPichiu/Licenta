@@ -14,7 +14,6 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "contact_info")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ContactSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
