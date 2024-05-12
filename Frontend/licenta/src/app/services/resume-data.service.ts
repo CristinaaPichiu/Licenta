@@ -13,7 +13,6 @@ export class ResumeDataService {
 
   updateResumeForm(data: any) {
     this.resume.next(data); 
-    console.log(data);
     
   }
   getCurrentResumeSnapshot(): any {

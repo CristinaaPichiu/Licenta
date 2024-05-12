@@ -18,7 +18,6 @@ public class ResumeDTO {
     private List<CustomSectionDTO> customSections;
     private AboutDTO aboutSection;
 
-    private Long userId;
     public ContactDTO getContactSection() {
         return contactSection;
     }
@@ -91,10 +90,7 @@ public class ResumeDTO {
         this.aboutSection = aboutSection;
     }
 
-   public Integer getUserId()
-   {
-       return Math.toIntExact(userId);
-   }
+
 
     // Getters and Setters
 }

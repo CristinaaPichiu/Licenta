@@ -12,13 +12,13 @@
 
 
 
-            <form *ngIf="currentStep === 'Contact'" [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+            <form *ngIf="currentStep === 'Contact'" [formGroup]="resumeForm" >
                 <h1>Please enter your <span> contact info</span></h1>
                 <p>It allows employers to see how they can contact you.</p>
                 <div class="input-group">
                     <mat-form-field appearance="outline" class="input-field">
                         <mat-label>Name</mat-label>
-                        <input matInput type="firstName" placeholder="Name" formControlName="firstName">
+                        <input matInput type="name" placeholder="Name" formControlName="name">
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="input-field">
@@ -54,14 +54,14 @@
                     </mat-form-field>
                 </div>
                 
-                <button type="submit" class="next-button">Next to Experience</button>
+                <button type="submit" class="next-button" (click)="updateContactData()"  >Next to Experience</button>
             </form>
 
 
 
 
 
-            <form *ngIf="currentStep === 'Experience'" [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+            <form *ngIf="currentStep === 'Experience'" [formGroup]="experienceForm">
               <h1>Tell us about your <span>experience</span></h1>
               <p>Start with your recent job</p>
               <mat-accordion formArrayName="experiences" multi="true" class="experience-accordion">
@@ -126,7 +126,7 @@
                   <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
                   <span class="spacer"></span>
                   <button mat-raised-button color="primary" (click)="addExperience()" type="button">Add Experience</button> <!-- Buton pentru adăugare experiență -->
-                  <button type="submit" class="next-button">Next to Education</button>
+                  <button type="submit" class="next-button" (click)="updateExperienceData()">Next to Education</button>
               </div>
 
               </form>
@@ -136,7 +136,7 @@
               
 
 
-              <form *ngIf="currentStep === 'Education'" [formGroup]="educationForm" (ngSubmit)="onSubmit()">
+              <form *ngIf="currentStep === 'Education'" [formGroup]="educationForm">
                 <h1>Tell us about your <span>education</span></h1>
                 <p>Start with your last diploma</p>
                 <mat-accordion formArrayName="educations" multi="true" class="education-accordion">
@@ -196,7 +196,7 @@
                   <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
                   <span class="spacer"></span>
                   <button mat-raised-button color="primary" (click)="addEducation()" type="button">Add Education</button> <!-- Buton pentru adăugare educație -->
-                  <button type="submit" class="next-button">Next to Skills</button>
+                  <button type="submit" class="next-button" (click)="updateEducationData()">Next to Skills</button>
                 </div>
               </form>
 
@@ -204,14 +204,14 @@
 
 
 
-                <form *ngIf="currentStep === 'Skills'" [formGroup]="skillsForm" (ngSubmit)="onSubmit()"> 
+                <form *ngIf="currentStep === 'Skills'" [formGroup]="skillsForm"> 
                     <h1>Tell us about your <span>skills</span></h1>
                     <p>Start with the one you are most experienced at</p>
                     <div formArrayName="skills">
                       <div *ngFor="let skill of skills.controls; let i=index" [formGroupName]="i" class="skill-group">
                         <mat-form-field appearance="outline" class="input-field">
                           <mat-label>Skill</mat-label>
-                          <input matInput placeholder="Type your skill here" formControlName="name">
+                          <input matInput placeholder="Type your skill here" formControlName="skillName">
                         </mat-form-field>
                        
                    
@@ -223,12 +223,12 @@
                     <span class="spacer"></span>
                     <button type="button" (click)="addSkill()">Add Skill</button>
                     
-                    <button type="submit" class="next-button">Next to About</button>
+                    <button type="submit" class="next-button" (click)="updateSkillsData()">Next to About</button>
 
                     
                 </form>
 
-                <form *ngIf="currentStep === 'About'" [formGroup]="aboutForm" (ngSubmit)="onSubmit()">
+                <form *ngIf="currentStep === 'About'" [formGroup]="aboutForm">
                     <h1>Write down your professional <span>summary</span></h1>
                     <p>Include up to 3 sentences that describe your general experience</p>
                     
@@ -245,7 +245,7 @@
                   
                     <div class="button-container">
                         <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
-                        <button type="submit" class="next-button">Next to Finish</button>
+                        <button type="submit" class="next-button" (click)="updateAboutData()">Next to Finish</button>
                     </div>
                       
                 </form>
@@ -253,6 +253,7 @@
 
                 <div *ngIf="currentStep === 'Finish it'">
                   <mat-sidenav-container class="sidenav-container" style="height: 100vh;">
+                   
                     <mat-sidenav #sidenav mode="side" opened="true" class="sidenav" style="width: 60px;">
                       <mat-nav-list>
                         <a mat-list-item (click)="showSection('volunteering')">
@@ -270,8 +271,13 @@
                       </mat-nav-list>
                     </mat-sidenav>
                     <mat-sidenav-content>
+
+                      <div *ngIf="selectedSection === null" class="finish-step-content">
+                        <h1>You're doing great! A few <span>final touches</span> and you're all set</h1>
+                        <img src="assets/process4.png" alt="Process" class="process-image">
+                    </div>
                       <div *ngIf="selectedSection === 'volunteering'">
-                        <form  [formGroup]="volunteeringForm" (ngSubmit)="onSubmitVolunteering()">
+                        <form  [formGroup]="volunteeringForm">
                           <h1>Tell us about your <span>volunteering</span></h1>
                           <p>Start with your most recent volunteering role</p>
                           <mat-accordion formArrayName="volunteerExperiences" multi="true" class="experience-accordion">
@@ -333,13 +339,15 @@
                               <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
                               <span class="spacer"></span>
                               <button mat-raised-button color="primary" (click)="addVolunteerExperience()" type="button">Add Volunteering</button>
+                              <button type="submit" class="next-button" (click)="updateVolunteeringData()">Finish</button>
+
                           </div>
                       </form>
                       
                       </div>
       
                       <div *ngIf="selectedSection === 'projects'">
-                        <form [formGroup]="projectsForm" (ngSubmit)="onSubmitProjects()">
+                        <form [formGroup]="projectsForm">
                             <h1>Tell us about your <span>projects</span></h1>
                             <p>Start with your most significant projects</p>
                             <mat-accordion formArrayName="projectExperiences" multi="true" class="experience-accordion">
@@ -358,7 +366,7 @@
                     
                                         <mat-form-field appearance="outline" class="input-field">
                                             <mat-label>Technologies Used</mat-label>
-                                            <input matInput placeholder="Technologies Used" formControlName="technologies">
+                                            <input matInput placeholder="Technologies Used" formControlName="technologiesUsed">
                                         </mat-form-field>
                                     </div>
                     
@@ -396,11 +404,16 @@
                                 <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
                                 <span class="spacer"></span>
                                 <button mat-raised-button color="primary" (click)="addProjectExperience()" type="button">Add Project</button>
+                                <button type="submit" class="next-button" (click)="updateProjectsData()">Finish</button>
+
                             </div>
                         </form>
                     </div>
+
+
+
                     <div *ngIf="selectedSection === 'link'">
-                      <form [formGroup]="linksForm" (ngSubmit)="onSubmitLinks()">
+                      <form [formGroup]="linksForm">
                         <h1>Add Your <span>Links</span></h1>
                         <p>Manage your website and social links here.</p>
                         <mat-accordion formArrayName="linkEntries" multi="true" class="link-accordion">
@@ -435,12 +448,15 @@
                           <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
                           <span class="spacer"></span>
                           <button mat-raised-button color="primary" (click)="addLink()" type="button">Add Link</button>
+                          <button type="submit" class="next-button" (click)="updateLinksData()">Finish</button>
+
                         </div>
                       </form>
                     </div>
 
+
                     <div *ngIf="selectedSection === 'personalize'">
-                      <form [formGroup]="customSectionForm" (ngSubmit)="onSubmitCustomSection()">
+                      <form [formGroup]="customSectionForm">
                           <mat-accordion formArrayName="customSections" multi="true" class="custom-section-accordion">
                               <mat-expansion-panel *ngFor="let section of customSections.controls; let i = index" [formGroupName]="i">
                                   <mat-expansion-panel-header>
@@ -473,8 +489,12 @@
                               <button mat-stroked-button (click)="goToPreviousStep()">Back</button>
                               <span class="spacer"></span>
                               <button mat-raised-button color="primary" (click)="addCustomSection()" type="button">Add Section</button>
+                              <button type="submit" class="next-button" (click)="updateCustomSectionsData()">Finish</button>
+
                           </div>
                       </form>
+
+                      
                   </div>
                   
                     
@@ -484,8 +504,17 @@
                 </div>
                 
                 
-                
-                
+                <div *ngIf="currentStep === 'Save'" class="end-step-container">
+                  <div class="finish-message">
+                      <p class="congratulations-text">
+                          Congratulations! Now that you have completed all the steps, you can <span>save your entire CV</span> by pressing the button below.<br> This way, your information will be securely stored.
+                      </p>
+                      <button class="button-save" (click)="onSaveResume()">Save Resume</button> <!-- Save Resume button -->
+
+                  </div>
+              </div>
+              
+              
 
 
                 

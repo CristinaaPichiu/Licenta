@@ -30,7 +30,7 @@
           <h2>SKILLS</h2>
           <div class="smallText">
             <div *ngFor="let skill of resume.skills" class="skill">
-              <span>{{ skill.name }}</span> <!-- presupunând că fiecare skill are o proprietate 'name' -->
+              <span>{{ skill.skillName }}</span> <!-- presupunând că fiecare skill are o proprietate 'name' -->
               <span class="yearsOfExperience">{{ skill.years }}</span> <!-- presupunând că fiecare skill are o proprietate 'years' pentru ani de experiență -->
               <!-- Dacă ai un nivel de competență sau alte detalii, le poți adăuga aici -->
             </div>
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="rightPanel">
-      <h1>{{ resume.contact?.firstName }}</h1>
+      <h1>{{ resume.contact?.name }}</h1>
       <h3>{{ resume.contact?.status }}</h3>
       <div *ngIf="resume.about && resume.about.trim().length > 0">
       <h2>About me</h2>
@@ -73,8 +73,7 @@
               <div class="timeline-content">
                 <div class="job-title">
                   <h3>{{ job?.jobTitle }}</h3>
-                  <span class="job-period">{{ job.startDate | date:'mediumDate' }} - {{ job.endDate | date:'mediumDate' }}</span>
-                  <span class="city-experience">{{job.city}}</span>
+                  <span class="job-period">{{ job.startDate | date:'mediumDate' }} - {{ job.endDate | date:'mediumDate' }} - {{job.city}}</span>
                 </div>
                 <h4>{{ job.employer }}</h4>
                 <p>{{ job.description }}</p>
@@ -86,29 +85,47 @@
 
       <div *ngIf="resume.projectExperiences && resume.projectExperiences.length > 0">
         <h2>Projects</h2>
-
-        <div *ngFor="let project of resume.projectExperiences">
-          <h3>{{ project.projectName }} - Technologies Used: {{ project.technologies }}</h3>
-          <div class="timeline-details">
-            <span>{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
+    
+        <div *ngFor="let project of resume.projectExperiences" class="project-item">
+            <div class="project-header">
+                <h3>{{ project.projectName }}</h3>
+                <span class="project-date">{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
+            </div>
+           
+            <p>{{ project.description }}</p>
+            <div class="project-technologies">
+              Technologies Used: {{ project.technologiesUsed }}
           </div>
-          <p>{{ project.description }}</p>
         </div>
-      </div>
+    </div>
+    
        
 
       <div *ngIf="resume.volunteerExperiences && resume.volunteerExperiences.length > 0">
         <h2>Volunteering</h2>
-      <div *ngFor="let volunteer of resume.volunteerExperiences" >
-
-            <h3>{{ volunteer.role }} at {{ volunteer.organization }}</h3>
-            <div class="timeline-details">
-                <span>{{ volunteer.city }}</span>
-                <span>{{ volunteer.startDate | date:'longDate' }} - {{ volunteer.endDate | date:'longDate' }}</span>
+        <div *ngFor="let volunteer of resume.volunteerExperiences">
+            <div class="volunteer-header">
+                <h3>{{ volunteer.role }} at {{ volunteer.organization }}</h3>
+                <div class="dates-and-city">
+                    <span class="date">{{ volunteer.startDate | date: 'longDate' }} - {{ volunteer.endDate | date: 'longDate' }}</span>
+                    <span class="city">{{ volunteer.city }}</span>
+                </div>
             </div>
             <p>{{ volunteer.description }}</p>
+        </div>
     </div>
-    </div>
+
+
+    <div *ngIf="resume.customSections && resume.customSections.length > 0" class="custom-sections-container">
+      <div *ngFor="let custom of resume.customSections" class="custom-section">
+          <div class="custom-header">
+              <h3>{{ custom.title }}</h3>
+              <p>{{ custom.description }}</p>
+          </div>
+      </div>
+  </div>
+  
+    
     
       
     </div>

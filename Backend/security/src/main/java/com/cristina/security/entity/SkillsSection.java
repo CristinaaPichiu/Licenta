@@ -23,8 +23,6 @@ public class SkillsSection {
     @Column(name = "skill_name")
     private String skillName;
 
-    @Column(name = "proficiency_level")
-    private String proficiencyLevel;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

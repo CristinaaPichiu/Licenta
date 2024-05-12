@@ -4,10 +4,12 @@ import com.cristina.security.dto.*;
 import com.cristina.security.entity.*;
 import com.cristina.security.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -39,9 +41,9 @@ public class ResumeService {
 
     @Transactional
     public Resume createResume(ResumeDTO resumeDTO) {
-        User user = userRepository.findById(resumeDTO.getUserId()).orElseThrow(
-                () -> new RuntimeException("User not found with id: " + resumeDTO.getUserId()));
-
+        String email = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("User not found with email: " + email));
         // Generate a UUID for the resume
         UUID resumeUUID = UUID.randomUUID();
 
@@ -135,7 +137,6 @@ public class ResumeService {
         return dtos.stream().map(dto -> {
             SkillsSection section = new SkillsSection();
             section.setSkillName(dto.getSkillName());
-            section.setProficiencyLevel(dto.getProficiencyLevel());
             section.setUser(user);
             section.setResume(resume);
             return skillsSectionRepository.save(section);
@@ -196,8 +197,22 @@ public class ResumeService {
             return customSectionRepository.save(section);
         }).collect(Collectors.toList());
     }
+
+    public Resume getResumeDetails(UUID resumeId) throws Exception {
+        return resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new Exception("Resume not found with id: " + resumeId));
+    }
+
+    public Optional<Resume> getLatestResumeByUserId(Integer userId) {
+        System.out.println("Fetching latest resume for user ID: " + userId);
+        Optional<Resume> resume = resumeRepository.findLatestByUserId(userId);
+        resume.ifPresent(r -> System.out.println("Found resume ID: " + r.getId()));
+        return resume;
+    }
+
+
+
 }
 
 
 // Methods for Skills, Projects, Links, Volunteering, Custom Sections...
-

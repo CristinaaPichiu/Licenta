@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ResumeDataService } from 'src/app/services/resume-data.service';
+import { ResumeService } from 'src/app/services/save-resume.service';
+
 
 
 @Component({
@@ -10,12 +12,10 @@ import { ResumeDataService } from 'src/app/services/resume-data.service';
 })
 export class CreateResumeComponent implements OnInit {
 
-  steps = ['Contact', 'Experience', 'Education', 'Skills', 'About', 'Finish it'];
+  steps = ['Contact', 'Experience', 'Education', 'Skills', 'About', 'Finish it', 'Save'];
   skillLevels = ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert'];
   skillLevelDescriptions: string[] = [];
-  
-
-  currentStepIndex = 0; // Păstrează indexul etapei curente
+  currentStepIndex = 0; 
   resumeForm!: FormGroup;
   experienceForm!: FormGroup;
   educationForm!: FormGroup;
@@ -26,24 +26,27 @@ export class CreateResumeComponent implements OnInit {
   projectsForm!: FormGroup;
   linksForm!: FormGroup;
   customSectionForm!: FormGroup;
-
-
-
   activeEducationPanel: number | null = null;
   selectedSection: string | null = null;
-
-
+  resumeData: any = {}; // Acesta va stoca toate datele CV-ului
 
 
 
   constructor(
     private fb: FormBuilder,
-    private resumeDataService: ResumeDataService
+    private resumeDataService: ResumeDataService,
+    private resumeService: ResumeService  
+
   ) {}
 
   ngOnInit() {
     this.initializeForms();
     this.addSkillLevelDescriptions();
+
+    const resumeId = this.getCurrentResumeId();
+  if (resumeId) {
+    this.loadResumeData(resumeId);
+  }
 
      
   this.resumeForm.valueChanges.subscribe(values => {
@@ -89,15 +92,21 @@ export class CreateResumeComponent implements OnInit {
       linkEntries: values.linkEntries
     });
   });
-  
-  
-  
 
+  this. customSectionForm.valueChanges.subscribe(values => {
+    this.resumeDataService.updateResumeForm({
+      ...this.resumeDataService.getCurrentResumeSnapshot(),
+      customSections: values.customSections
+    });
+  });
   }
+
+
+  
 
   initializeForms() {
     this.resumeForm = this.fb.group({
-      firstName: [''],
+      name: [''],
       status: [''],
       address: [''],
       city: [''],
@@ -137,7 +146,6 @@ export class CreateResumeComponent implements OnInit {
     this.customSectionForm = this.fb.group({
       customSections: this.fb.array([])
   });
-
   }
 
   addSkillLevelDescriptions() {
@@ -154,11 +162,9 @@ export class CreateResumeComponent implements OnInit {
     }
   }
 
-
   createSkillFormGroup(): FormGroup {
     return this.fb.group({
-      name: ['', Validators.required],
-      level: [0, Validators.required] 
+      skillName: ['', Validators.required],
     });
   }
 
@@ -189,14 +195,6 @@ export class CreateResumeComponent implements OnInit {
     }
   }
   
-  onSubmit() {
-    const currentFormGroup = this.getCurrentFormGroup();
-    if (currentFormGroup.valid) {
-      this.goToNextStep();
-    } else {
-      console.log('Form is not valid.');
-    }
-  }
   
   goToNextStep() {
     console.log('Attempting to go to next step');
@@ -206,29 +204,6 @@ export class CreateResumeComponent implements OnInit {
     }
   }
 
-  onFinalSubmit() {
-    if (this.finishForm.valid) {
-      console.log('Resume Submitted:', this.finishForm.value);
-      // Here, you could add logic to actually submit the data to a server or another service
-    } else {
-      console.log('Please confirm that all information is correct');
-    }
-  }
-  
-  
-  
-  // Funcție utilitară pentru a obține FormGroup-ul curent pe baza etapei
-  getCurrentFormGroup(): FormGroup {
-    switch (this.currentStep) {
-      case 'Contact':
-        return this.resumeForm;
-      case 'Experience':
-        return this.experienceForm;
-      // adaugă cazuri pentru celelalte secțiuni...
-      default:
-        return this.resumeForm; // sau aruncă o eroare dacă etapa nu este cunoscută
-    }
-  }
 
   get experiences(): FormArray {
     return this.experienceForm.get('experiences') as FormArray;
@@ -347,13 +322,7 @@ removeVolunteerExperience(index: number): void {
   this.volunteerExperiences.removeAt(index);
 }
 
-onSubmitVolunteering(): void {
-  if (this.volunteeringForm.valid) {
-    console.log('Volunteering Data:', this.volunteeringForm.value);
-  } else {
-    console.error('Form is not valid');
-  }
-}
+
 
 get volunteerExperiences(): FormArray {
   return this.volunteeringForm.get('volunteerExperiences') as FormArray;
@@ -361,11 +330,12 @@ get volunteerExperiences(): FormArray {
 
 showSection(section: string): void {
   this.selectedSection = section;
+  
 }
 addProjectExperience(): void {
   const projectGroup = this.fb.group({
       projectName: ['', Validators.required],
-      technologies: ['', Validators.required],
+      technologiesUsed: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       description: ['', Validators.required]
@@ -380,14 +350,7 @@ removeProjectExperience(index: number): void {
 get projectExperiences(): FormArray {
   return this.projectsForm.get('projectExperiences') as FormArray;
 }
-onSubmitProjects(): void {
-  if (this.projectsForm.valid) {
-      console.log('Projects Data:', this.projectsForm.value);
-      // Additional logic to handle the submission of project data
-  } else {
-      console.error('Projects form is not valid');
-  }
-}
+
 
 linkEntries(): FormArray {
   return this.linksForm.get('linkEntries') as FormArray;
@@ -408,9 +371,7 @@ removeLink(index: number): void {
   this.linkEntries().removeAt(index);
 }
 
-onSubmitLinks(): void {
-  console.log('Links:', this.linksForm.value);
-}
+
 addCustomSection(): void {
   const customGroup = this.fb.group({
       title: ['', Validators.required],
@@ -428,13 +389,291 @@ get customSections(): FormArray {
   return this.customSectionForm.get('customSections') as FormArray;
 }
 
-onSubmitCustomSection() {
-  if (this.customSectionForm.valid) {
-      console.log('Custom Sections:', this.customSectionForm.value.customSections);
-      // Adițional: Logică pentru salvarea sau procesarea secțiunilor personalizate
+buildResumeObject(): any {
+  return {
+    contactSection: this.resumeForm.value,
+    customSections: this.customSections.value,
+    educationSections: this.educationForm.value.educations,
+    experienceSection: this.experienceForm.value.experiences,
+    linkSections: this.linksForm.value.linkEntries,
+    projectSections: this.projectsForm.value.projectExperiences,
+    skillsSections: this.skillsForm.value.skills,
+    volunteeringSections: this.volunteeringForm.value.volunteerExperiences,
+    aboutSection: this.aboutForm.value
+  };
+}
+
+loadResumeData(resumeId: string) {
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    this.resumeService.getResumeDetails(resumeId, token).subscribe({
+      next: (resumeData: any) => {
+        console.log('Complete Resume Data Received:', resumeData); // Log the entire resume data received from the server
+
+        // Contact section
+        if (resumeData.contactSection) {
+          this.resumeForm.patchValue(resumeData.contactSection);
+          console.log('Contact Data Loaded:', resumeData.contactSection); // Log contact data
+        }
+
+        // Experience sections
+        if (resumeData.experienceSection) {
+          const experienceArray = this.experienceForm.get('experiences') as FormArray;
+          experienceArray.clear();
+          resumeData.experienceSection.forEach((experience: any, index: number) => {
+            console.log(`Adding experience ${index}:`, experience); // Log each experience detail
+            experienceArray.push(this.fb.group({
+              jobTitle: [experience.jobTitle, Validators.required],
+              employer: [experience.employer, Validators.required],
+              startDate: [experience.startDate, Validators.required],
+              endDate: [experience.endDate, Validators.required],
+              city: [experience.city, Validators.required],
+              description: [experience.description, Validators.required]
+            }));
+          });
+          console.log('Updated experiences FormArray:', experienceArray.value); // Verify the structure of FormArray after update
+        }
+
+        // Education sections
+        if (resumeData.educationSections) {
+          const educationArray = this.educationForm.get('educations') as FormArray;
+          educationArray.clear();
+          resumeData.educationSections.forEach((education: any, index: number) => {
+            console.log(`Adding education ${index}:`, education); // Log each education detail
+            educationArray.push(this.fb.group({
+              school: [education.school, Validators.required],
+              degree: [education.degree, Validators.required],
+              startDate: [education.startDate, Validators.required],
+              endDate: [education.endDate, Validators.required]
+            }));
+          });
+          console.log('Updated educations FormArray:', educationArray.value);
+        }
+
+        // Skills section
+        if (resumeData.skillSection) {
+          const skillsArray = this.skillsForm.get('skills') as FormArray;
+          skillsArray.clear();
+          resumeData.skillSection.forEach((skill: any, index: number) => {
+            console.log(`Adding skill ${index}:`, skill); // Log each skill detail
+            skillsArray.push(this.fb.group({
+              skillName: [skill.skillName, Validators.required]
+            }));
+          });
+          console.log('Updated skills FormArray:', skillsArray.value);
+        }
+
+        // Projects section
+        if (resumeData.projectSection) {
+          const projectsArray = this.projectsForm.get('projectExperiences') as FormArray;
+          projectsArray.clear();
+          resumeData.projectSection.forEach((project: any, index: number) => {
+            console.log(`Adding project ${index}:`, project); // Log each project detail
+            projectsArray.push(this.fb.group({
+              projectName: [project.projectName, Validators.required],
+              technologiesUsed: [project.technologiesUsed, Validators.required],
+              startDate: [project.startDate, Validators.required],
+              endDate: [project.endDate, Validators.required],
+              description: [project.description, Validators.required]
+            }));
+          });
+          console.log('Updated projects FormArray:', projectsArray.value);
+        }
+
+        // Volunteering section
+        if (resumeData.volunteeringSection) {
+          const volunteeringArray = this.volunteeringForm.get('volunteerExperiences') as FormArray;
+          volunteeringArray.clear();
+          resumeData.volunteeringSection.forEach((volunteer: any, index: number) => {
+            console.log(`Adding volunteer experience ${index}:`, volunteer); // Log each volunteer detail
+            volunteeringArray.push(this.fb.group({
+              role: [volunteer.role, Validators.required],
+              organization: [volunteer.organization, Validators.required],
+              startDate: [volunteer.startDate, Validators.required],
+              endDate: [volunteer.endDate, Validators.required],
+              city: [volunteer.city, Validators.required],
+              description: [volunteer.description, Validators.required]
+            }));
+          });
+          console.log('Updated volunteering FormArray:', volunteeringArray.value);
+        }
+
+        // Link section
+        if (resumeData.linkSection) {
+          const linksArray = this.linksForm.get('linkEntries') as FormArray;
+          linksArray.clear();
+          resumeData.linkSection.forEach((link: any, index: number) => {
+            console.log(`Adding link ${index}:`, link); // Log each link detail
+            linksArray.push(this.fb.group({
+              label: [link.label, Validators.required],
+              url: [link.url, Validators.required]
+            }));
+          });
+          console.log('Updated links FormArray:', linksArray.value);
+        }
+
+        // Custom section
+        if (resumeData.customSection) {
+          const customArray = this.customSectionForm.get('customSections') as FormArray;
+          customArray.clear();
+          resumeData.customSection.forEach((section: any, index: number) => {
+            console.log(`Adding custom section ${index}:`, section); // Log each custom section detail
+            customArray.push(this.fb.group({
+              title: [section.title, Validators.required],
+              description: [section.description, Validators.required]
+            }));
+          });
+          console.log('Updated custom sections FormArray:', customArray.value);
+        }
+
+        // About section
+        if (resumeData.aboutSection) {
+          console.log('About Data Loaded:', resumeData.aboutSection); // Log about data
+          this.aboutForm.patchValue({
+            summary: resumeData.aboutSection.summary
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error loading resume:', error);
+        alert('Failed to load the resume details.');
+      }
+    });
   } else {
-      console.error('Form is not valid');
+    alert('Authentication token not found. Please log in.');
   }
 }
+
+
+
+selectResume(resumeId: string): void {
+  this.saveCurrentResumeId(resumeId);
+  this.loadResumeData(resumeId);
+}
+
+
+
+onSaveResume(): void {
+  const resumeData = this.buildResumeObject();
+  const token = localStorage.getItem('auth_token'); // Retrieve the JWT token from localStorage
+
+  if (token) {
+    this.resumeService.saveResume(token, resumeData).subscribe({
+      next: (response: any) => {
+        console.log('Resume saved successfully', response);
+        alert('Resume saved successfully!');
+        // Presupunem că backend-ul tău returnează obiectul salvat cu un ID.
+        // Acest ID este salvat în localStorage pentru referințe viitoare.
+        if (response && response.id) {
+          localStorage.setItem('currentResumeId', response.id);
+          console.log('Current resume ID saved:', response.id);
+        }
+      },
+      error: (error: any) => {
+        console.error('Failed to save resume', error);
+        alert('Failed to save resume: ' + error.message);
+      }
+    });
+  } else {
+    console.error('Authentication token not found. Please log in.');
+    alert('Please log in to save your resume.');
+  }
+}
+
+
+// Other methods and logic for handling form data
+
+
+
+
+updateContactData() {
+  if (this.resumeForm.valid) {
+    this.resumeData.contact = this.resumeForm.value;
+    this.goToNextStep(); // Metodă pentru a naviga la următorul pas
+  } else {
+    alert('Please fill all required fields.');
+  }
+}
+updateExperienceData() {
+  if (this.experienceForm.valid) {
+    this.resumeData.experience = this.experienceForm.value.experiences;
+    this.goToNextStep();
+  } else {
+    alert('Please complete the experience details.');
+  }
+}
+updateEducationData() {
+  if (this.educationForm.valid) {
+    this.resumeData.education = this.educationForm.value.educations;
+    this.goToNextStep();
+  } else {
+    alert('Please complete the education details.');
+  }
+}
+updateSkillsData() {
+  if (this.skillsForm.valid) {
+    this.resumeData.skills = this.skillsForm.value.skills;
+    this.goToNextStep();
+  } else {
+    alert('Please add at least one skill.');
+  }
+}
+updateAboutData() {
+  if (this.aboutForm.valid) {
+    this.resumeData.about = this.aboutForm.value.summary;
+    this.goToNextStep();
+  } else {
+    alert('Please provide your professional summary.');
+  }
+}
+
+updateVolunteeringData() {
+  if (this.volunteeringForm.valid) {
+    this.resumeData.volunteering = this.volunteeringForm.value.volunteerExperiences;
+    this.goToNextStep();
+  } else {
+    alert('Please complete the volunteering section.');
+  }
+}
+updateProjectsData() {
+  if (this.projectsForm.valid) {
+    this.resumeData.projects = this.projectsForm.value.projectExperiences;
+    this.goToNextStep();
+  } else {
+    alert('Please complete the projects section.');
+  }
+}
+updateLinksData() {
+  if (this.linksForm.valid) {
+    this.resumeData.links = this.linksForm.value.linkEntries;
+    this.goToNextStep();
+  } else {
+    alert('Please add at least one link.');
+  }
+}
+
+updateCustomSectionsData() {
+  if (this.customSectionForm.valid) {
+    this.resumeData.customSections = this.customSectionForm.value.customSections;
+    this.goToNextStep();
+  } else {
+    alert('Please complete the custom sections.');
+  }
+}
+
+
+
+// Salvarea ID-ului CV-ului în localStorage
+saveCurrentResumeId(resumeId: string): void {
+  localStorage.setItem('currentResumeId', resumeId);
+}
+
+// Recuperarea ID-ului CV-ului din localStorage
+getCurrentResumeId(): string | null {
+  return localStorage.getItem('currentResumeId');
+}
+
+
+
 
 }
