@@ -86,11 +86,25 @@ public class ResumeDTO {
         return aboutSection;
     }
 
+
     public void setAboutSection(AboutDTO aboutSection) {
         this.aboutSection = aboutSection;
     }
 
-
+    @Override
+    public String toString() {
+        return "ResumeDTO{" +
+                "contactSection=" + contactSection +
+                ", experienceSections=" + experienceSections +
+                ", educationSections=" + educationSections +
+                ", skillsSections=" + skillsSections +
+                ", projectSections=" + projectSections +
+                ", linkSections=" + linkSections +
+                ", volunteeringSections=" + volunteeringSections +
+                ", customSections=" + customSections +
+                ", aboutSection=" + aboutSection +
+                '}';
+    }
 
     // Getters and Setters
 }

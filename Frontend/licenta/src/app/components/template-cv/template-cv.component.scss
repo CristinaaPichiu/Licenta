@@ -554,4 +554,10 @@ page[size="A4"] {
   
 }
 
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; // Schimbăm direcția container-ului la coloană pentru ecrane mici
+  }
+}
+
 // Additional nested rules and other SCSS features would go here...

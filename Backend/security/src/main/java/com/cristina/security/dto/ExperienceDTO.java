@@ -59,6 +59,18 @@ public class ExperienceDTO {
         this.description = description;
     }
 
+
+    @Override
+    public String toString() {
+        return "ExperienceDTO{" +
+                "jobTitle='" + jobTitle + '\'' +
+                ", employer='" + employer + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", city='" + city + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
     // Constructori, getters și setters
 }
 

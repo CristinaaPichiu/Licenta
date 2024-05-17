@@ -43,12 +43,7 @@ export class CreateResumeComponent implements OnInit {
     this.initializeForms();
     this.addSkillLevelDescriptions();
 
-    const resumeId = this.getCurrentResumeId();
-  if (resumeId) {
-    this.loadResumeData(resumeId);
-  }
-
-     
+    
   this.resumeForm.valueChanges.subscribe(values => {
     this.resumeDataService.updateResumeForm({ ...this.resumeDataService.getCurrentResumeSnapshot(), contact: values });
   });
@@ -394,7 +389,7 @@ buildResumeObject(): any {
     contactSection: this.resumeForm.value,
     customSections: this.customSections.value,
     educationSections: this.educationForm.value.educations,
-    experienceSection: this.experienceForm.value.experiences,
+    experienceSections: this.experienceForm.value.experiences,
     linkSections: this.linksForm.value.linkEntries,
     projectSections: this.projectsForm.value.projectExperiences,
     skillsSections: this.skillsForm.value.skills,
@@ -403,159 +398,20 @@ buildResumeObject(): any {
   };
 }
 
-loadResumeData(resumeId: string) {
-  const token = localStorage.getItem('auth_token');
-  if (token) {
-    this.resumeService.getResumeDetails(resumeId, token).subscribe({
-      next: (resumeData: any) => {
-        console.log('Complete Resume Data Received:', resumeData); // Log the entire resume data received from the server
-
-        // Contact section
-        if (resumeData.contactSection) {
-          this.resumeForm.patchValue(resumeData.contactSection);
-          console.log('Contact Data Loaded:', resumeData.contactSection); // Log contact data
-        }
-
-        // Experience sections
-        if (resumeData.experienceSection) {
-          const experienceArray = this.experienceForm.get('experiences') as FormArray;
-          experienceArray.clear();
-          resumeData.experienceSection.forEach((experience: any, index: number) => {
-            console.log(`Adding experience ${index}:`, experience); // Log each experience detail
-            experienceArray.push(this.fb.group({
-              jobTitle: [experience.jobTitle, Validators.required],
-              employer: [experience.employer, Validators.required],
-              startDate: [experience.startDate, Validators.required],
-              endDate: [experience.endDate, Validators.required],
-              city: [experience.city, Validators.required],
-              description: [experience.description, Validators.required]
-            }));
-          });
-          console.log('Updated experiences FormArray:', experienceArray.value); // Verify the structure of FormArray after update
-        }
-
-        // Education sections
-        if (resumeData.educationSections) {
-          const educationArray = this.educationForm.get('educations') as FormArray;
-          educationArray.clear();
-          resumeData.educationSections.forEach((education: any, index: number) => {
-            console.log(`Adding education ${index}:`, education); // Log each education detail
-            educationArray.push(this.fb.group({
-              school: [education.school, Validators.required],
-              degree: [education.degree, Validators.required],
-              startDate: [education.startDate, Validators.required],
-              endDate: [education.endDate, Validators.required]
-            }));
-          });
-          console.log('Updated educations FormArray:', educationArray.value);
-        }
-
-        // Skills section
-        if (resumeData.skillSection) {
-          const skillsArray = this.skillsForm.get('skills') as FormArray;
-          skillsArray.clear();
-          resumeData.skillSection.forEach((skill: any, index: number) => {
-            console.log(`Adding skill ${index}:`, skill); // Log each skill detail
-            skillsArray.push(this.fb.group({
-              skillName: [skill.skillName, Validators.required]
-            }));
-          });
-          console.log('Updated skills FormArray:', skillsArray.value);
-        }
-
-        // Projects section
-        if (resumeData.projectSection) {
-          const projectsArray = this.projectsForm.get('projectExperiences') as FormArray;
-          projectsArray.clear();
-          resumeData.projectSection.forEach((project: any, index: number) => {
-            console.log(`Adding project ${index}:`, project); // Log each project detail
-            projectsArray.push(this.fb.group({
-              projectName: [project.projectName, Validators.required],
-              technologiesUsed: [project.technologiesUsed, Validators.required],
-              startDate: [project.startDate, Validators.required],
-              endDate: [project.endDate, Validators.required],
-              description: [project.description, Validators.required]
-            }));
-          });
-          console.log('Updated projects FormArray:', projectsArray.value);
-        }
-
-        // Volunteering section
-        if (resumeData.volunteeringSection) {
-          const volunteeringArray = this.volunteeringForm.get('volunteerExperiences') as FormArray;
-          volunteeringArray.clear();
-          resumeData.volunteeringSection.forEach((volunteer: any, index: number) => {
-            console.log(`Adding volunteer experience ${index}:`, volunteer); // Log each volunteer detail
-            volunteeringArray.push(this.fb.group({
-              role: [volunteer.role, Validators.required],
-              organization: [volunteer.organization, Validators.required],
-              startDate: [volunteer.startDate, Validators.required],
-              endDate: [volunteer.endDate, Validators.required],
-              city: [volunteer.city, Validators.required],
-              description: [volunteer.description, Validators.required]
-            }));
-          });
-          console.log('Updated volunteering FormArray:', volunteeringArray.value);
-        }
-
-        // Link section
-        if (resumeData.linkSection) {
-          const linksArray = this.linksForm.get('linkEntries') as FormArray;
-          linksArray.clear();
-          resumeData.linkSection.forEach((link: any, index: number) => {
-            console.log(`Adding link ${index}:`, link); // Log each link detail
-            linksArray.push(this.fb.group({
-              label: [link.label, Validators.required],
-              url: [link.url, Validators.required]
-            }));
-          });
-          console.log('Updated links FormArray:', linksArray.value);
-        }
-
-        // Custom section
-        if (resumeData.customSection) {
-          const customArray = this.customSectionForm.get('customSections') as FormArray;
-          customArray.clear();
-          resumeData.customSection.forEach((section: any, index: number) => {
-            console.log(`Adding custom section ${index}:`, section); // Log each custom section detail
-            customArray.push(this.fb.group({
-              title: [section.title, Validators.required],
-              description: [section.description, Validators.required]
-            }));
-          });
-          console.log('Updated custom sections FormArray:', customArray.value);
-        }
-
-        // About section
-        if (resumeData.aboutSection) {
-          console.log('About Data Loaded:', resumeData.aboutSection); // Log about data
-          this.aboutForm.patchValue({
-            summary: resumeData.aboutSection.summary
-          });
-        }
-      },
-      error: (error) => {
-        console.error('Error loading resume:', error);
-        alert('Failed to load the resume details.');
-      }
-    });
-  } else {
-    alert('Authentication token not found. Please log in.');
-  }
-}
 
 
 
 selectResume(resumeId: string): void {
   this.saveCurrentResumeId(resumeId);
-  this.loadResumeData(resumeId);
 }
 
 
 
 onSaveResume(): void {
   const resumeData = this.buildResumeObject();
-  const token = localStorage.getItem('auth_token'); // Retrieve the JWT token from localStorage
+  console.log('Resume Data:', resumeData);
+  const token = localStorage.getItem('auth_token');
+  console.log(token); // Retrieve the JWT token from localStorage
 
   if (token) {
     this.resumeService.saveResume(token, resumeData).subscribe({
@@ -582,9 +438,6 @@ onSaveResume(): void {
 
 
 // Other methods and logic for handling form data
-
-
-
 
 updateContactData() {
   if (this.resumeForm.valid) {

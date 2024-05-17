@@ -40,5 +40,15 @@ public class EducationDTO {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
+
+    @Override
+    public String toString() {
+        return "EducationDTO{" +
+                "school='" + school + '\'' +
+                ", degree='" + degree + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }
 

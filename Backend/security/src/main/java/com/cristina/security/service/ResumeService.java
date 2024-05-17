@@ -13,6 +13,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @Service
 public class ResumeService {
 
@@ -41,6 +45,9 @@ public class ResumeService {
 
     @Transactional
     public Resume createResume(ResumeDTO resumeDTO) {
+
+        System.out.println("Attempting to create a resume for {}" + resumeDTO.getContactSection().getEmail());
+
         String email = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("User not found with email: " + email));
@@ -54,6 +61,11 @@ public class ResumeService {
         resumeRepository.save(resume);
         System.out.print("AAAAAAAAAAAAAAAAA");
         System.out.println(resumeUUID);
+
+
+
+
+
 
         resume.setAboutSection(saveAboutSection(resumeDTO.getAboutSection(), user, resume));
         resume.setContactSection(saveContactSection(resumeDTO.getContactSection(), user, resume));
@@ -210,6 +222,19 @@ public class ResumeService {
         return resume;
     }
 
+    /*
+    @Autowired
+    private AboutSectionRepository aboutRepository;
+
+    @Transactional
+    public AboutSection saveAbout(AboutDTO aboutDTO) {
+        AboutSection about = new AboutSection();
+        about.setSummary(aboutDTO.getSummary());
+        return aboutRepository.save(about);
+    }
+
+
+     */
 
 
 }

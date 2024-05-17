@@ -1,47 +1,47 @@
 package com.cristina.security.controller;
 
+import com.cristina.security.dto.ResumeDTO;
 import com.cristina.security.entity.Resume;
 import com.cristina.security.entity.User;
 import com.cristina.security.service.ResumeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-import com.cristina.security.repository.UserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-
-
-
-
-import com.cristina.security.dto.ResumeDTO;
-import com.cristina.security.entity.Resume;
-import com.cristina.security.service.ResumeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/resume") // URL-ul base pentru toate operațiunile legate de resumes
+@RequestMapping("/api/v1/resume")
+@RequiredArgsConstructor
 public class ResumeController {
 
-    private final ResumeService resumeService;
-    private UserRepository userRepository;
-
-    @Autowired
-    public ResumeController(ResumeService resumeService) {
-        this.resumeService = resumeService;
-    }
+    private static final Logger logger = LoggerFactory.getLogger(ResumeController.class);
+    private final ResumeService resumeService; // Final to ensure it's included in the constructor
 
     @PostMapping("/info")
     public ResponseEntity<Resume> createResume(@RequestBody ResumeDTO resumeDTO) {
+        logger.info("Received ResumeDTO:");
+        logger.info("About Section: {}", resumeDTO.getAboutSection());
+        logger.info("Contact Section: {}", resumeDTO.getContactSection());
+        logger.info("Education Sections: {}", resumeDTO.getEducationSections());
+        logger.info("Experience Sections: {}", resumeDTO.getExperienceSections());
+        logger.info("Link Sections: {}", resumeDTO.getLinkSections());
+        logger.info("Project Sections: {}", resumeDTO.getProjectSections());
+        logger.info("Skills Sections: {}", resumeDTO.getSkillsSections());
+        logger.info("Volunteering Sections: {}", resumeDTO.getVolunteeringSections());
+        logger.info("Custom Sections: {}", resumeDTO.getCustomSections());
         Resume resume = resumeService.createResume(resumeDTO);
-        return ResponseEntity.ok(resume); // Răspunde cu resume creat și un status HTTP 200 OK
+        return ResponseEntity.ok(resume);
+    }
+    @PostMapping("/test")
+    public ResponseEntity<String> testPost() {
+        // You can perform any action here. For now, it's just returning a success message.
+        return ResponseEntity.ok("POST request was successful!");
     }
 
     @GetMapping("/{resumeId}")
@@ -54,7 +54,6 @@ public class ResumeController {
         }
     }
 
-
     @GetMapping("/current")
     public ResponseEntity<Resume> getCurrentUserResume() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -62,13 +61,11 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        User user = (User) authentication.getPrincipal(); // Cast direct la User deoarece User implementează UserDetails
-        Integer userId = user.getId(); // Extrage ID-ul direct de pe entitatea User
+        User user = (User) authentication.getPrincipal(); // Cast directly to User as it implements UserDetails
+        Integer userId = user.getId(); // Extract ID directly from the User entity
 
         return resumeService.getLatestResumeByUserId(userId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
 }
