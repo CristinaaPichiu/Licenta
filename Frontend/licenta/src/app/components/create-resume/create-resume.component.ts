@@ -42,6 +42,8 @@ export class CreateResumeComponent implements OnInit {
   ngOnInit() {
     this.initializeForms();
     this.addSkillLevelDescriptions();
+    this.loadResumeData();
+
 
     
   this.resumeForm.valueChanges.subscribe(values => {
@@ -405,6 +407,98 @@ selectResume(resumeId: string): void {
   this.saveCurrentResumeId(resumeId);
 }
 
+loadResumeData() {
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    this.resumeService.getCurrentUserResume(token).subscribe({
+      next: (resume: any) => {
+        console.log('Loaded current user resume data:', resume); // Log pentru datele încărcate ale CV-ului
+        this.populateForms(resume);
+      },
+      error: (error) => {
+        console.error('Failed to load current user resume', error);
+      }
+    });
+  }
+}
+
+
+populateForms(resume: any) {
+  if (resume.contactSection) {
+    this.resumeForm.patchValue(resume.contactSection);
+  }
+  if (resume.aboutSection) {
+    this.aboutForm.patchValue(resume.aboutSection);
+  }
+  if (resume.educationSections) {
+    this.educationForm.setControl('educations', this.fb.array(
+      resume.educationSections.map((education: any) => this.fb.group({
+        school: [education.school, Validators.required],
+        degree: [education.degree, Validators.required],
+        startDate: [education.startDate, Validators.required],
+        endDate: [education.endDate, Validators.required]
+      }))
+    ));
+  }
+  if (resume.experienceSection) {
+    this.experienceForm.setControl('experiences', this.fb.array(
+      resume.experienceSection.map((experience: any) => this.fb.group({
+        jobTitle: [experience.jobTitle, Validators.required],
+        employer: [experience.employer, Validators.required],
+        startDate: [experience.startDate, Validators.required],
+        endDate: [experience.endDate, Validators.required],
+        city: [experience.city, Validators.required],
+        description: [experience.description, Validators.required]
+      }))
+    ));
+  }
+  if (resume.skillSection) {
+    this.skillsForm.setControl('skills', this.fb.array(
+      resume.skillSection.map((skill: any) => this.fb.group({
+        skillName: [skill.skillName, Validators.required]
+      }))
+    ));
+  }
+  if (resume.volunteeringSection) {
+    this.volunteeringForm.setControl('volunteerExperiences', this.fb.array(
+      resume.volunteeringSection.map((volunteer: any) => this.fb.group({
+        role: [volunteer.role, Validators.required],
+        organization: [volunteer.organization, Validators.required],
+        startDate: [volunteer.startDate, Validators.required],
+        endDate: [volunteer.endDate, Validators.required],
+        city: [volunteer.city, Validators.required],
+        description: [volunteer.description, Validators.required]
+      }))
+    ));
+  }
+  if (resume.projectSection) {
+    this.projectsForm.setControl('projectExperiences', this.fb.array(
+      resume.projectSection.map((project: any) => this.fb.group({
+        projectName: [project.projectName, Validators.required],
+        technologiesUsed: [project.technologiesUsed, Validators.required],
+        startDate: [project.startDate, Validators.required],
+        endDate: [project.endDate, Validators.required],
+        description: [project.description, Validators.required]
+      }))
+    ));
+  }
+  if (resume.linkSection) {
+    this.linksForm.setControl('linkEntries', this.fb.array(
+      resume.linkSection.map((link: any) => this.fb.group({
+        label: [link.label, Validators.required],
+        url: [link.url, [Validators.required, Validators.pattern('https?://.+')]]
+      }))
+    ));
+  }
+  if (resume.customSection) {
+    this.customSectionForm.setControl('customSections', this.fb.array(
+      resume.customSection.map((custom: any) => this.fb.group({
+        title: [custom.title, Validators.required],
+        description: [custom.description, Validators.required]
+      }))
+    ));
+  }
+}
 
 
 onSaveResume(): void {

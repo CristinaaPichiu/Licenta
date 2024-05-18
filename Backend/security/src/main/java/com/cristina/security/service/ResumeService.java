@@ -62,7 +62,10 @@ public class ResumeService {
         System.out.print("AAAAAAAAAAAAAAAAA");
         System.out.println(resumeUUID);
 
-
+        System.out.print("Saved initial Resume with ID: {}" + resume.getId());
+        System.out.print("Saved initial Resume with ID: {}" + resume.getAboutSection());
+        System.out.print("Saved initial Resume with ID: {}" + resume.getExperienceSection());
+        System.out.print("Saved initial Resume with ID: {}" + resume.getEducationSections());
 
 
 

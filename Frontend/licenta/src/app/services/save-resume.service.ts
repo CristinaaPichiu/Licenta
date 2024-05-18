@@ -20,7 +20,7 @@ export class ResumeService {
     return this.http.post(`${this.baseUrl}/info`, resumeData, { headers });
   }
 
-   getResumeDetails(resumeId: string, token: string): Observable<any> {
+   getResumeById(resumeId: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export class ResumeService {
     return this.http.get(`${this.baseUrl}/${resumeId}`, { headers });
   }
 
-  getResumeForCurrentUser(token: string): Observable<any> {
+  getCurrentUserResume(token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
