@@ -58,7 +58,6 @@ changePassword(token: string, passwords: any): Observable<any> {
 }
 
 
-  
-  
+
 
 }

@@ -4,6 +4,9 @@ import { ResumeDataService } from 'src/app/services/resume-data.service';
 import { ResumeService } from 'src/app/services/save-resume.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import * as html2pdf from 'html2pdf.js';
+
+
 
 
 
@@ -663,33 +666,19 @@ getCurrentResumeId(): string | null {
   return localStorage.getItem('currentResumeId');
 }
 
- downloadCV() {
-  const data = document.getElementById('cv-template');
-  if (data) {
-    html2canvas(data, { scale: 2 }).then(canvas => { // Adjust the scale as necessary
-      const imgWidth = 210; // Width of A4 in mm
-      const pageHeight = 297; // Height of A4 in mm
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      const contentDataURL = canvas.toDataURL('image/jpeg', 1.0); // Use JPEG with 100% quality
-      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page in portrait mode
-      let position = 0;
-      let heightLeft = imgHeight;
+downloadCV() {
+    const element = document.getElementById('cv-template');
 
-      pdf.addImage(contentDataURL, 'JPEG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
+    const options = {
+      margin: 1,
+      filename: 'CV.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(contentDataURL, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-
-      pdf.save('CV.pdf'); // Generated PDF
-    });
+    html2pdf().from(element).set(options).save();
   }
-}
-
 
 
   previewCV() {

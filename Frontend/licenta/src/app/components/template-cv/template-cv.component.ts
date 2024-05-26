@@ -26,4 +26,6 @@ export class TemplateCVComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  
 }

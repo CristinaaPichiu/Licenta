@@ -4,10 +4,13 @@ import com.cristina.security.dto.*;
 import com.cristina.security.entity.*;
 import com.cristina.security.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -276,10 +279,18 @@ public class ResumeService {
 
     public Optional<Resume> getLatestResumeByUserId(Integer userId) {
         System.out.println("Fetching latest resume for user ID: " + userId);
-        Optional<Resume> resume = resumeRepository.findLatestByUserId(userId);
-        resume.ifPresent(r -> System.out.println("Found resume ID: " + r.getId()));
-        return resume;
+        Pageable topOne = (Pageable) PageRequest.of(0, 1); // Fetch only the first result
+        List<Resume> resumes = resumeRepository.findLatestByUserId(userId, topOne);
+        if (resumes.isEmpty()) {
+            return Optional.empty();
+        } else {
+            Resume latestResume = resumes.get(0);
+            System.out.println("Found resume ID: " + latestResume.getId());
+            return Optional.of(latestResume);
+        }
     }
+
+
 
     /*
     @Autowired

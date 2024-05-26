@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoverLetterDataService } from 'src/app/services/cover-letter-data.service';
+import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.service';
 
 
 @Component({
@@ -19,12 +20,15 @@ export class CoverLetterFormComponent implements OnInit {
   coverLetterData: any = {};
 
   constructor(private fb: FormBuilder,
-    private coverLetterDataService: CoverLetterDataService  ) {
+    private coverLetterDataService: CoverLetterDataService,
+    private saveCoverLetterService: SaveCoverLetterService  ) {
 
   }
 
   ngOnInit() {
     this.initializeForms();
+    this.loadCoverLetterData();
+
 
 
     this.contactForm.valueChanges.subscribe(values => {
@@ -89,15 +93,20 @@ export class CoverLetterFormComponent implements OnInit {
   updateContactData() {
     if (this.contactForm.valid) {
       this.coverLetterData.contact = this.contactForm.value;
-      this.showSection('body');
+      this.showSection('information');
     } else {
       alert('Please fill all required fields.');
     }
   }
 
   updateInformationData() {
-    // Logic to handle form submission
-}
+    if (this.informationForm.valid) {
+      this.coverLetterData.information = this.informationForm.value;
+      this.showSection('body');
+    } else {
+      alert('Please fill all required fields.');
+    }
+  }
 
   updateBodyData() {
     if (this.bodyForm.valid) {
@@ -108,17 +117,109 @@ export class CoverLetterFormComponent implements OnInit {
     }
   }
   
-
-  onSaveCoverLetter() {
-    console.log('Cover Letter Data:', this.coverLetterData);
-    alert('Cover Letter saved successfully!');
-    // Implement save logic here
+  buildCoverLetterObject(): any {
+    return {
+      contactUser: this.contactForm.value,
+      contactEmployer: this.informationForm.value,
+      body: this.bodyForm.value,
+    };
   }
 
-  onUpdateCoverLetter() {
-    console.log('Updated Cover Letter Data:', this.coverLetterData);
-    alert('Cover Letter updated successfully!');
-    // Implement update logic here
+  
+  
+
+  onSaveCoverLetter(): void {
+    const coverLetterData = this.buildCoverLetterObject();
+    console.log('Cover Letter Data:', coverLetterData);
+    const token = localStorage.getItem('auth_token');
+  
+    if (token) {
+      this.saveCoverLetterService.saveCoverLetter(token, coverLetterData).subscribe({
+        next: (response: any) => {
+          console.log('Cover letter saved successfully', response);
+          alert('Cover letter saved successfully!');
+          if (response && response.id) {
+            localStorage.setItem('currentCoverLetterId', response.id);
+            console.log('Current cover letter ID saved:', response.id);
+          }
+        },
+        error: (error: any) => {
+          console.error('Failed to save cover letter', error);
+          alert('Failed to save cover letter: ' + error.message);
+        }
+      });
+    } else {
+      console.error('Authentication token not found. Please log in.');
+      alert('Please log in to save your cover letter.');
+    }
+  }
+  
+  loadCoverLetterData() {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      this.saveCoverLetterService.getCurrentUserCoverLetter(token).subscribe({
+        next: (coverLetter: any) => {
+          console.log('Loaded current user cover letter data:', coverLetter); // Log pentru datele încărcate ale cover letter-ului
+          this.populateForms(coverLetter);
+        },
+        error: (error) => {
+          console.error('Failed to load current user cover letter', error);
+        }
+      });
+    }
+  }
+
+  populateForms(coverLetter: any) {
+    if (coverLetter.coverLetterContactUser) {
+      this.contactForm.patchValue(coverLetter.coverLetterContactUser);
+    }
+    if (coverLetter.coverLetterContactEmployer) {
+      this.informationForm.patchValue(coverLetter.coverLetterContactEmployer);
+    }
+    if (coverLetter.coverLetterBody) {
+      this.bodyForm.patchValue(coverLetter.coverLetterBody);
+    }
+    if (coverLetter.links) {
+      this.linksForm.setControl('linkEntries', this.fb.array(
+        coverLetter.links.map((link: any) => this.fb.group({
+          label: [link.label, Validators.required],
+          url: [link.url, [Validators.required, Validators.pattern('https?://.+')]]
+        }))
+      ));
+    }
+  }
+
+
+  onUpdateCoverLetter(): void {
+    const coverLetterData = this.buildCoverLetterObject(); // Construiește obiectul de date al scrisorii de intenție din formulare
+    const coverLetterId = this.getCurrentCoverLetterId(); // Preluarea ID-ului scrisorii de intenție din localStorage
+    const token = localStorage.getItem('auth_token'); // Preluarea tokenului JWT din localStorage
+
+    if (coverLetterId && token) {
+      this.saveCoverLetterService.updateCoverLetter(coverLetterId, token, coverLetterData).subscribe({
+        next: (response) => {
+          console.log('Cover letter updated successfully', response);
+          alert('Cover letter updated successfully!');
+        },
+        error: (error) => {
+          console.error('Failed to update cover letter', error);
+          alert('Failed to update cover letter: ' + error.message);
+        }
+      });
+    } else {
+      if (!coverLetterId) {
+        console.error('No cover letter ID found. Please select a cover letter to update.');
+        alert('No cover letter ID found. Please select a cover letter to update.');
+      }
+      if (!token) {
+        console.error('Authentication token not found. Please log in.');
+        alert('Please log in to update your cover letter.');
+      }
+    }
+  }
+  
+  getCurrentCoverLetterId(): string | null {
+    return localStorage.getItem('currentCoverLetterId');
   }
 
   goToPreviousSection() {

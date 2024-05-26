@@ -27,3 +27,4 @@ spring:
             required: true
           ssl:
             trust: smtp.gmail.com
+

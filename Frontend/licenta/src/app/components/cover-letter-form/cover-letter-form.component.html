@@ -22,7 +22,7 @@
             </mat-sidenav>
             <mat-sidenav-content>
                 <div *ngIf="selectedSection === 'contact'">
-                    <form [formGroup]="contactForm">
+                    <form [formGroup]="contactForm" (ngSubmit)="updateContactData()">
                         <h1>Please enter your <span>contact info</span></h1>
                         <p>It allows employers to see how they can contact you.</p>
                         <div class="input-group">
@@ -84,47 +84,12 @@
                         <button type="submit" class="next-button" (click)="updateContactData()">Next to Body</button>
                     </form>
 
-                        <form [formGroup]="linksForm">
-                          <mat-accordion formArrayName="linkEntries" multi="true" class="link-accordion">
-                            <mat-expansion-panel *ngFor="let link of linkEntries().controls; let i = index" [formGroupName]="i">
-                              <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                  {{ link.get('label')?.value || 'No Label Specified' }}
-                                </mat-panel-title>
-                              </mat-expansion-panel-header>
-                      
-                              <div class="input-group">
-                                <mat-form-field appearance="outline" class="input-field">
-                                  <mat-label>Label</mat-label>
-                                  <input matInput placeholder="Label for the link" formControlName="label">
-                                </mat-form-field>
-                      
-                                <mat-form-field appearance="outline" class="input-field">
-                                  <mat-label>URL</mat-label>
-                                  <input matInput placeholder="Enter URL" formControlName="url">
-                                </mat-form-field>
-                              </div>
-                      
-                              <mat-action-row>
-                                <button mat-icon-button color="warn" (click)="removeLink(i)">
-                                  <mat-icon>delete</mat-icon>
-                                </button>
-                              </mat-action-row>
-                            </mat-expansion-panel>
-                          </mat-accordion>
-                      
-                          <div class="actions-container">
-                            <span class="spacer"></span>
-                            <button mat-raised-button color="primary" (click)="addLink()" type="button">Add Link</button>
-                          
-  
-                          </div>
-                        </form>
+                       
                     
                 </div> 
                 
                 <div *ngIf="selectedSection === 'information'">
-                    <form [formGroup]="informationForm">
+                    <form [formGroup]="informationForm" (ngSubmit)="updateInformationData()">
                         <h1>Please enter your <span>information</span></h1>
                         <p>It allows employers to know more about your current position and organization.</p>
                         <div class="input-group">
@@ -173,7 +138,7 @@
                 
 
                 <div *ngIf="selectedSection === 'body'">
-                    <form [formGroup]="bodyForm">
+                    <form [formGroup]="bodyForm" (ngSubmit)="updateBodyData()">
                         <h1>Write your <span>cover letter</span></h1>
                         <p>Start with a brief introduction and mention the position you're applying for.</p>
                         
