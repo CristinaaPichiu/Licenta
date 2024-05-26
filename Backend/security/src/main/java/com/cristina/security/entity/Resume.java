@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -67,4 +68,6 @@ public class Resume {
     @JsonManagedReference
     @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomSection> customSection;
+
+
 }

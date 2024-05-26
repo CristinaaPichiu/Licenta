@@ -38,11 +38,20 @@ public class ResumeController {
         Resume resume = resumeService.createResume(resumeDTO);
         return ResponseEntity.ok(resume);
     }
-    @PostMapping("/test")
-    public ResponseEntity<String> testPost() {
-        // You can perform any action here. For now, it's just returning a success message.
-        return ResponseEntity.ok("POST request was successful!");
+
+    @PutMapping("/update/{resumeId}")
+    public ResponseEntity<Resume> updateResume(@PathVariable UUID resumeId, @RequestBody ResumeDTO resumeDTO) {
+        logger.info("Starting update for resume ID: {}", resumeId);
+        try {
+            Resume updatedResume = resumeService.updateResume(resumeId, resumeDTO);
+            return ResponseEntity.ok(updatedResume);
+        } catch (Exception e) {
+            logger.error("Error updating resume: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
+
 
     @GetMapping("/{resumeId}")
     public ResponseEntity<Resume> getResume(@PathVariable UUID resumeId) {

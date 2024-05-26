@@ -1,0 +1,27 @@
+<div class="main-container">
+    <app-sidebar></app-sidebar>
+    <div class="content-container">
+      <div class="text-panel">
+        <h1>Instantly create a unique cover letter with out help</h1>
+        <p class="cover-letter-info">
+            Take advantage of our AI-powered tools to create a cover letter that stands out. 
+            Our templates and suggestions will help you highlight your skills and experience 
+            effectively.
+          </p>
+        <div class="buttons-panel">
+          <button class="option-button create-button" (click)="navigateToCreate()">Create Cover Letter</button>
+          <button class="option-button upload-button">Upload Cover Letter</button>
+        </div>
+      </div>
+      <div class="image-panel">
+        <img [src]="images[currentImageIndex]" alt="Cover Letter Illustration" class="illustration">
+      </div>
+    </div>
+
+    <div id="loading-overlay" *ngIf="loading">
+        <img src="assets/logo.png" alt="Logo" class="loading-logo">
+        <div class="loader"></div>
+      </div>
+    
+  </div>
+  

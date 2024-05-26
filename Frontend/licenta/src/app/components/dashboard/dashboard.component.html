@@ -2,18 +2,64 @@
   <app-sidebar></app-sidebar>
 
   <div class="dashboard-content">
-    <div class="dashboard-header">
+    <header class="dashboard-header">
       <h2>Dashboard</h2>
-    </div>
-    
-    <div class="resume-container">
-      <span class="resume-text">Resume</span>
-      <div class="resume-line-and-button-container">
-        <div class="resume-line"></div>
-        <button class="create-new-btn">CREATE NEW</button>
+    </header>
+
+    <div class="main-content">
+      <div class="info-container">
+        <div class="progress-container">
+          <h3>Progress</h3>
+          <div class="progress-chart">
+            <app-progress-chart></app-progress-chart>
+          </div>
+        </div>
+        <div class="overview-container">
+          <h3>Resume Overview</h3>
+          <div class="overview-content">
+            <div class="overview-item">
+              <span class="overview-label">Resume last update:</span>
+              <span class="overview-value">June 12, 2023</span>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Applied jobs:</span>
+              <span class="overview-value">20</span>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Interviews:</span>
+              <span class="overview-value">05</span>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Skill update:</span>
+              <span class="overview-value">June 12, 2023</span>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Resume views:</span>
+              <span class="overview-value">10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="template-container">
+        <div class="template-preview">
+          <app-template-cv></app-template-cv>
+        </div>
+        <div class="icon-container">
+          <button mat-icon-button aria-label="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Download PDF">
+            <mat-icon>picture_as_pdf</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Duplicate">
+            <mat-icon>file_copy</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
-
-    <!--<app-profile-card></app-profile-card>-->
   </div>
 </div>

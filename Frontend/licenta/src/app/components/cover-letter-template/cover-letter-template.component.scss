@@ -1,0 +1,121 @@
+.cover-letter-container {
+  display: flex;
+  flex-direction: row;
+  width: 21cm;
+  height: 29.7cm;
+  margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  width: 30%;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+}
+
+.contact p {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.contact p span.material-icons {
+  margin-right: 10px;
+  font-size: 18px; /* Adjust this size if necessary */
+}
+
+
+
+
+.content {
+  width: 70%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 36px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.header h2 {
+  font-size: 24px;
+  margin: 5px 0;
+  color: #008080;
+}
+
+.date-and-address {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.body{
+  font-size: 17px;
+  margin-top: 50px;
+}
+.cover-letter-container .content .body p {
+  max-width: 600px; /* Adjust this value to limit characters per line */
+  white-space: pre-wrap; /* Ensures that whitespace is preserved */
+  word-wrap: break-word; /* Breaks long words to avoid overflow */
+}
+
+
+
+.address p, .date {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+
+}
+
+.ceva {
+  margin-top:20px;
+}
+.closure{
+  font-size:17px;
+  margin-top: 60px;
+}
+
+.content p strong {
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cover-letter-container {
+      flex-direction: column;
+      width: 100%;
+      height: auto;
+  }
+
+  .sidebar, .content {
+      width: 100%;
+      padding: 10px;
+  }
+
+  .content h1 {
+      font-size: 20px;
+  }
+
+  .content h2 {
+      font-size: 18px;
+  }
+}

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ResumeDataService } from 'src/app/services/resume-data.service';
 import { ResumeService } from 'src/app/services/save-resume.service';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
+
 
 
 
@@ -29,6 +33,9 @@ export class CreateResumeComponent implements OnInit {
   activeEducationPanel: number | null = null;
   selectedSection: string | null = null;
   resumeData: any = {}; // Acesta va stoca toate datele CV-ului
+  isPreviewMode = false;
+  isEmailModalOpen = false;
+  emailForm!: FormGroup;
 
 
 
@@ -142,6 +149,11 @@ export class CreateResumeComponent implements OnInit {
     });
     this.customSectionForm = this.fb.group({
       customSections: this.fb.array([])
+  });
+  this.emailForm = this.fb.group({
+    to: ['', [Validators.required, Validators.email]],
+    subject: ['', Validators.required],
+    body: ['', Validators.required]
   });
   }
 
@@ -530,6 +542,37 @@ onSaveResume(): void {
   }
 }
 
+onUpdateResume(): void {
+  const resumeData = this.buildResumeObject(); // Construiește obiectul de date al CV-ului din formulare
+  const resumeId = this.getCurrentResumeId(); // Preluarea ID-ului CV-ului din localStorage
+  const token = localStorage.getItem('auth_token'); // Preluarea tokenului JWT din localStorage
+
+  if (resumeId && token) {
+    this.resumeService.updateResume(resumeId, token, resumeData).subscribe({
+      next: (response) => {
+        console.log('Resume updated successfully', response);
+        alert('Resume updated successfully!');
+      },
+      error: (error) => {
+        console.error('Failed to update resume', error);
+        alert('Failed to update resume: ' + error.message);
+      }
+    });
+  } else {
+    if (!resumeId) {
+      console.error('No resume ID found. Please select a resume to update.');
+      alert('No resume ID found. Please select a resume to update.');
+    }
+    if (!token) {
+      console.error('Authentication token not found. Please log in.');
+      alert('Please log in to update your resume.');
+    }
+  }
+}
+
+
+
+
 
 // Other methods and logic for handling form data
 
@@ -620,7 +663,66 @@ getCurrentResumeId(): string | null {
   return localStorage.getItem('currentResumeId');
 }
 
+ downloadCV() {
+  const data = document.getElementById('cv-template');
+  if (data) {
+    html2canvas(data, { scale: 2 }).then(canvas => { // Adjust the scale as necessary
+      const imgWidth = 210; // Width of A4 in mm
+      const pageHeight = 297; // Height of A4 in mm
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const contentDataURL = canvas.toDataURL('image/jpeg', 1.0); // Use JPEG with 100% quality
+      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page in portrait mode
+      let position = 0;
+      let heightLeft = imgHeight;
+
+      pdf.addImage(contentDataURL, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save('CV.pdf'); // Generated PDF
+    });
+  }
+}
 
 
+
+  previewCV() {
+    this.isPreviewMode = true;
+    document.body.classList.add('preview-active');
+  }
+
+  closePreview() {
+    this.isPreviewMode = false;
+    document.body.classList.remove('preview-active');
+  }
+
+
+
+
+openEmailModal() {
+  this.isEmailModalOpen = true;
+  document.body.classList.add('no-scroll'); // Adaugă clasa pentru a dezactiva derularea
+}
+
+closeEmailModal() {
+  this.isEmailModalOpen = false;
+  document.body.classList.remove('no-scroll'); // Elimină clasa pentru a reactiva derularea
+}
+
+sendEmail() {
+  if (this.emailForm.valid) {
+    const emailData = this.emailForm.value;
+    // trimite emailul folosind un serviciu
+    this.closeEmailModal();
+  } else {
+    alert('Please fill all required fields.');
+  }
+}
 
 }

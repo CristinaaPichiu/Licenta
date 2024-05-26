@@ -1,56 +1,19 @@
-// Define colors, font-sizes, and other reusable properties as variables
-$font-primary: 'Open Sans', sans-serif;
-$font-secondary: 'Julius Sans One', sans-serif;
-$color-background: #484444;
-$color-text: #bebebe;
-$color-white: #fff;
-$color-highlight: #111;
-$base-font-size: 0.35cm;
+/* Fonts */
 
-@mixin responsive-font-size($size) {
-  font-size: ($size / 16) * 1rem; // Convert pixel to rem
-  @media (max-width: 1200px) {
-    font-size: ($size / 16) * 0.9rem; // Slightly smaller on smaller screens
-  }
-  @media (max-width: 992px) {
-    font-size: ($size / 16) * 0.8rem; // Even smaller on medium screens
-  }
-  @media (max-width: 768px) {
-    font-size: ($size / 16) * 0.7rem; // Smaller on small screens
-  }
-  @media (max-width: 576px) {
-    font-size: ($size / 16) * 0.6rem; // Smallest on extra small screens
-  }
-}
-
-
-
-// Base styles
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: $font-primary;
-  background: rgb(204,204,204);
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-}
-
+/* Family */
 h1 { 
-    font-family: 'Julius Sans One', sans-serif;
-  }
-  
-  h2 { /* Contact, Skills, Education, About me, Work Experience */
-    font-family: 'Julius Sans One', sans-serif;
-  }
-  
-  h3 { /* Accountant */
-    font-family: 'Open Sans', sans-serif;
-  }
+  font-family: 'Julius Sans One', sans-serif;
+}
 
-  .jobPosition span, 
+h2 { /* Contact, Skills, Education, About me, Work Experience */
+  font-family: 'Archivo Narrow', sans-serif;
+}
+
+h3 { /* Accountant */
+  font-family: 'Open Sans', sans-serif;
+}
+
+.jobPosition span, 
 .projectName span {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -114,7 +77,7 @@ h2 {
 .smallText, 
 .smallText span, 
 .smallText p, 
-.smallText a {
+smallText a {
   font-size: 0.35cm;
 }
 
@@ -155,16 +118,24 @@ body {
 }
 
 /* Printing */
-page {
+.page-wrapper {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 10mm auto;
   background: white;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 0.5cm;
+  box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1);
+  padding: 20mm;
+  overflow: hidden;
+  position: relative;
+  page-break-after: always;
 }
 
-page[size="A4"] {  
-  width: 21cm;
-  height: 29.7cm; 
+@media print {
+  .page-wrapper {
+    box-shadow: none;
+    margin: 0;
+    page-break-after: always;
+  }
 }
 
 @page {
@@ -181,16 +152,17 @@ page[size="A4"] {
   flex-direction: row;
   width: 100%;
   height: 100%;
-  align-items: flex-start;
 }
 
 .leftPanel {
   width: 27%;
-  background-color: #ADD8E6;
+  background-color: #484444;
   padding: 0.7cm;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  color: #bebebe;
+  text-decoration: none;
 }
 
 .rightPanel {
@@ -212,6 +184,36 @@ page[size="A4"] {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+/* Contact Section */
+.leftPanel .details .smallText {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.leftPanel .details .smallText p, 
+.leftPanel .details .smallText a {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.leftPanel .details .smallText mat-icon {
+  margin-right: 10px;
+  font-size: 1em;
+}
+
+.leftPanel .details .smallText .link-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.leftPanel .details .smallText .link-item mat-icon {
+  margin-right: 10px;
+  font-size: 1em;
 }
 
 .skill {
@@ -267,6 +269,7 @@ page[size="A4"] {
 .workExperience>ul>li::after {
   content: '';
   position: absolute;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' viewBox='0 0 32 32' focusable='false'%3E%3C/circle%3E");
   background-repeat: no-repeat;
   background-size: contain;
   left: -0.09cm;
@@ -280,33 +283,6 @@ page[size="A4"] {
   flex-direction: row;
   justify-content: space-between;
 }
-
-.volunteer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start; /* Aligns items at the start of the cross axis */
-}
-
-.volunteer-header h3 {
-  margin: 0; /* Removes default margin from the h3 tag */
-  flex-grow: 1; /* Allows the title to take up any remaining space */
-}
-
-.dates-and-city {
-  text-align: right; /* Right-aligns the date and city */
-  display: block; /* Makes it a block so it takes the full width available */
-}
-
-.date, .city {
-  display: block; /* Each on a new line */
-}
-
-.city {
-  font-size: smaller; /* Optional: Makes city font size smaller */
-  color: gray; /* Optional: Changes the color to gray */
-}
-
-
 
 .item {
   padding-bottom: 0.7cm;
@@ -325,239 +301,158 @@ page[size="A4"] {
   padding-left: 0.5cm;
   list-style-type: disc;
 }
-  
-// Structure
-.container {
-  display: flex;
-  flex-direction: row;
-  width: 21cm;
-  height: 29.7cm;
-  margin: 0 auto;
+/*End Layout*/
 
-  .leftPanel {
-    width: 27%;
-    background-color: $color-background;
-    padding: 0.7cm;
-    color: $color-text;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    img {
-      width: 4cm;
-      height: 4cm;
-      margin-bottom: 0.7cm;
-      border-radius: 50%;
-      border: 0.15cm solid $color-white;
-      object-fit: cover;
-      object-position: 50% 50%;
-    }
-  }
-
-  .rightPanel {
-    width: 73%;
-    padding: 0.7cm;
-
-    .smallText {
-      font-family: 'Source Sans Pro', sans-serif;
-      text-align: justify;
-      font-size: $base-font-size;
-    }
-  }
-
-
-  .work-experience {
-    position: relative;
-    padding-left: 40px; // adjust as needed
-  
-    h2 {
-      padding-bottom: 10px; // spacing for the header
-    }
-  
-    .timeline {
-      position: relative;
-      padding-left: 0px; // align with the timeline icons
-  
-      &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: -20px; // adjust to center line with icons
-        width: 2px;
-        background: #b8abab; // line color
-      }
-  
-      .timeline-item {
-        position: relative;
-        padding-bottom: 20px; // spacing between items
-  
-        .timeline-icon {
-          position: absolute;
-          left: -25px; // center horizontally with the timeline
-          top: 0; // align with the title of the job position
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: #fff;
-          border: 2px solid gray; // match your icon color
-          z-index: 100;
-        }
-  
-        .timeline-content {
-          margin-left: 20px; // adjust as needed for content indentation
-          padding-top: 2px; // adjust as needed for alignment
-  
-          h3, h4 {
-            margin: 0; // remove default margins
-          }
-  
-          ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 10px; // space above bullet list
-  
-            li:before {
-              content: '•'; // bullet character
-              color: #111; // bullet color
-              font-weight: bold;
-              display: inline-block; 
-              width: 1em; // space for bullet
-              margin-left: -1em; // negative margin to align bullets
-            }
-          }
-  
-          .skills {
-            display: block;
-            margin-top: 10px; // space above skills list
-          }
-        }
-      }
-    }
-  }
-  .work-experience
-  {
-    margin-top:10px;
-    margin-left: -25px;
-  }
-  .work_{
-    margin-left: -15px;
-
-  }
-
-  .job-title {
-    display: flex;
-    align-items: baseline; // align items to the baseline for better control
-    justify-content: flex-start;
-    flex-wrap: wrap; // allows the content to wrap onto the next line if space is constrained
-  
-    h3 {
-      flex: 1 0 auto; // allow the title to grow and shrink as needed, but not to be smaller than its content
-      margin-right: 10px; // ensures a margin between the title and the period
-    }
-  
-    .job-period {
-      flex: 0 1 auto; // this will not grow but can shrink, and will start at the size of its content
-      white-space: nowrap; // prevents the period from wrapping
-      color: #6e6e6e; // Example color for the period text
-      font-size: 0.35cm;
-    }
-  }
-
-  .project-item {
-    margin-bottom: 20px;
-}
-
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline; /* Aligns the title and date on their baseline */
-}
-
-.project-item h3 {
-    margin-bottom: 5px;
-    color: #333;
-    font-size: 1.25em;
-}
-
-.project-date {
-    margin-left: 20px; /* Adds spacing between the title and the date */
-    font-weight: normal;
-    color: #666;
-}
-
-.project-technologies {
-    color: #666;
-    margin-bottom: 10px;
-}
-
-
-
-.custom-section {
+/* Additional styles */
+.timeline-content, .education-entry, .project-item, .custom-section {
   margin-bottom: 15px;
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.custom-header h3 {
-  color: #333;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 5px;
+.job-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.custom-header p {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.5;
+.job-period, .project-date, .dates-and-city {
+  margin-left: 10px; /* Adaugă un spațiu între titlul jobului și perioadă */
+  white-space: nowrap; /* Previne împărțirea pe linii noi */
+  color: #6e6e6e; /* Culoare pentru perioada de job */
 }
 
-/* Adding a little space between the title and description for better readability */
-.custom-header {
-  margin-bottom: 10px;
+.timeline-content h3, .timeline-content h4, .project-header h3 {
+  margin: 0;
 }
 
+.timeline-content p {
+  margin-top: 5px;
+}
 
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-  
-    .leftPanel,
-    .rightPanel {
-      width: 100%;
-      padding: 0.5cm;
-    }
-  
-    .leftPanel img {
-      width: 3cm; // Adjust image size for small screens
-      height: 3cm;
-    }
-  }
-  
-  // Printing styles
-  @page {
-    size: A4;
-    margin: 0;
-  }
-  
-  .page {
-    background: white;
-    display: block;
-    margin: 0 auto;
-    width: 21cm;
-    height: 29.7cm;
-  }
-  
-  
+.volunteer-header, .project-header, .custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date, .city {
+  display: inline-block;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 0px; /* align with the timeline icons */
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -10px; /* adjust to center line with icons */
+  width: 2px;
+  background: #b8abab; /* line color */
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 20px; /* spacing between items */
+}
+
+.timeline-icon {
+  position: absolute;
+  left: -15px; /* center horizontally with the timeline */
+  top: 0; /* align with the title of the job position */
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid gray; /* match your icon color */
+  z-index: 100;
+}
+
+.timeline-content {
+  margin-left: 20px; /* adjust as needed for content indentation */
+  padding-top: 2px; /* adjust as needed for alignment */
+}
+
+h3, h4 {
+  margin: 0; /* remove default margins */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px; /* space above bullet list */
+}
+
+li:before {
+  content: '•'; /* bullet character */
+  color: #111; /* bullet color */
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em; /* space for bullet */
+  margin-left: -1em; /* negative margin to align bullets */
+}
+
+.skills {
+  display: block;
+  margin-top: 10px; /* space above skills list */
 }
 
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column; // Schimbăm direcția container-ului la coloană pentru ecrane mici
+  .timeline:before {
+    left: 0; /* Adjust for small screens */
+  }
+
+  .timeline-item:before {
+    left: -6px; /* Adjust for small screens */
   }
 }
 
-// Additional nested rules and other SCSS features would go here...
+/* Adding break points for print layout */
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
+}
+@page {
+  size: A4;
+  margin: 10mm; // Ajustează marginile după cum este necesar
+}
+
+@media print {
+  .page-wrapper {
+    box-shadow: none;
+    margin: 0;
+    page-break-before: always;
+  }
+
+  .leftPanel, .rightPanel, .item {
+    page-break-inside: avoid;
+  }
+
+  .leftPanel {
+    margin-right: 10px; // Ajustează spațierea
+  }
+
+  .rightPanel {
+    margin-left: 10px; // Ajustează spațierea
+  }
+
+  .item {
+    padding-bottom: 10px; // Ajustează spațierea
+  }
+
+  p, h1, h2, h3, h4 {
+    margin: 5px 0; // Ajustează marginile
+  }
+
+  ul {
+    margin: 5px 0; // Ajustează marginile
+    padding-left: 20px; // Ajustează indentarea
+  }
+
+  li {
+    margin-bottom: 5px; // Ajustează spațierea între elemente
+  }
+}

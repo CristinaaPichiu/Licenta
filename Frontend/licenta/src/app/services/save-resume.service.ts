@@ -36,6 +36,14 @@ export class ResumeService {
     return this.http.get(`${this.baseUrl}/current`, { headers });
   }
 
+   // Actualizarea datelor resume
+   updateResume(resumeId: string, token: string, resumeData: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.put(`${this.baseUrl}/update/${resumeId}`, resumeData, { headers });
+  }
   
 
   

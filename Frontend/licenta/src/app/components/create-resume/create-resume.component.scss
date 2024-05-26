@@ -80,7 +80,22 @@
         }
       }
     }
+
+  
+  
+  
+  
   }
+
+  
+  .star-icon {
+    font-size: 25px; /* Ajustează dimensiunea steluței */
+    position: absolute;
+    top: 20px;
+    right: 0;
+    margin-right: 30px; /* Ajustează spațiul față de margine */
+  }
+  
  
   .form-container {
     width: 50%;
@@ -129,6 +144,13 @@
 }
 .adress-field, .summary-field{
     width:calc(100% - 20px) 
+}
+.body-field
+{
+  width:calc(100% - 10px) ;
+
+  height:calc(100% - 5px) ;
+
 }
 .description-field
 {
@@ -260,6 +282,8 @@
 
 
 
+
+
 .button-save:hover {
   background-color: #0056b3; /* A slightly darker blue on hover */
 }
@@ -317,17 +341,219 @@
 
 
 .cv-preview-container {
-  margin-top: 20px;
+  margin-top: 10px;
   position: absolute; 
-  top: 20px; 
+  top: 10px; 
   right: 20px; 
   width: 60%; 
-  height: 140vh; 
   background-color: #fff; 
   transform: scale(0.75); 
   transform-origin: top right; 
   overflow: hidden;
 }
+.icon-buttons {
+  display: flex;
+  gap: 5px; /* Adds space between the icons */
+
+}
+
+.icon-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+  
+}
+
+.icon-buttons button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+.icon-buttons mat-icon {
+  color: #507d95;
+  font-size: 30px; 
+}
+
+.main-layout.preview-mode {
+  filter: blur(5px); // Apply blur when in preview mode
+}
+
+/* Ascunde bara de derulare a paginii principale atunci când este activă previzualizarea */
+/* Ascunde bara de derulare a paginii principale atunci când este activă previzualizarea */
+body.preview-active {
+  overflow: hidden;
+}
+
+/* CSS pentru overlay */
+.preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
+  z-index: 1000; /* Asigură-te că este deasupra */
+  overflow-y: auto; /* Permite derularea pe verticală */
+}
+
+.preview-overlay .close-preview-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #507d95;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1001; /* Asigură-te că este deasupra overlay-ului */
+}
+
+.preview-overlay app-template-cv {
+  max-width: 90%; /* Asigură-te că previzualizarea nu ocupă prea mult din lățime */
+  margin: 20px auto; /* Centrează previzualizarea și adaugă margini de sus și jos */
+  background-color: white; /* Fundal alb pentru CV */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: scale(0.9); /* Scalează previzualizarea */
+  transform-origin: top center; /* Ancorează scalarea la centrul de sus */
+}
+
+@media (max-width: 768px) {
+  .preview-overlay app-template-cv {
+    transform: scale(0.8); /* Scalează mai mult pentru ecrane mai mici */
+  }
+}
+
+body.no-scroll {
+  overflow: hidden; /* Dezactivează derularea */
+}
+
+ .email-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
+  z-index: 1000; /* Asigură-te că este deasupra */
+  overflow-y: auto; /* Permite derularea pe verticală */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ .close-preview-button, .email-modal .close-email-modal-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #507d95;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1001; /* Asigură-te că este deasupra overlay-ului */
+}
+
+.email-modal-content {
+  width: 80%; /* Lățimea modală */
+  height: 90%; /* Înălțimea modală */
+  background-color: white; /* Fundal alb pentru CV */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Permite derularea pe verticală în interiorul modal */
+  padding: 20px;
+  position: relative;
+}
+
+.email-modal-body {
+  display: flex;
+  flex-direction: row; /* Aranjează orizontal imaginea și formularul */
+  width: 100%;
+  justify-content: space-between; /* Spațiu între imagine și formular */
+}
+
+.email-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.email-image app-template-cv {
+  margin-top: -350px;
+  margin-left: -200px;
+  transform: scale(0.5); /* Ajustează dimensiunea imaginii */
+  height: auto;
+  border-radius: 10px; /* Opțional, adaugă colțuri rotunjite imaginii */
+}
+
+.email-form {
+  margin-top: -500px;
+  margin-left: -100px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between; /* Spațiu între câmpuri */
+  width: 100%;
+  margin-bottom: 20px; /* Spațiu între grupurile de câmpuri */
+}
+
+.input-field {
+  flex: 0 0 48%; /* Câmpurile sunt spațiate la 48% pentru a avea spațiu între ele */
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 20px; /* Spațiu sub câmpul de text */
+}
+
+mat-form-field {
+  background: white;
+  border-radius: 5px;
+}
+
+mat-form-field .mat-input-element {
+  background: white; /* Setează fundalul câmpurilor de input la alb */
+}
+
+
+
+.close-preview-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #507d95;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1001; // Ensure it's on top of the overlay
+}
+
+.cv-preview-container {
+  transition: transform 0.3s ease; // Smooth transition for scaling
+}
+
+.main-layout.preview-mode .cv-preview-container {
+  transform: scale(1.2); // Enlarge the preview
+  z-index: 1002; // Ensure it stays on top of everything
+}
+
+/* Ensure the rest of your CSS remains unchanged */
+
+
 
 
 @media (max-width: 1024px) {

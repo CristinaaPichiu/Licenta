@@ -9,6 +9,8 @@ import { ProfileCardComponent } from './components/profile-card/profile-card.com
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ResumeComponent } from './components/resume/resume.component';
 import { CreateResumeComponent } from './components/create-resume/create-resume.component';
+import { CreateCoverletterComponent } from './components/create-coverletter/create-coverletter.component';
+import { CoverLetterFormComponent } from './components/cover-letter-form/cover-letter-form.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,14 @@ const routes: Routes = [
   {
     path: 'create-resume',
     component: CreateResumeComponent
+  },
+  {
+    path: 'create-coverletter',
+    component: CreateCoverletterComponent
+  },
+  {
+    path: 'cover-letter-form',
+    component: CoverLetterFormComponent
   }
 
 

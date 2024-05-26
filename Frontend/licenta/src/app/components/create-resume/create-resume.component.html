@@ -1,4 +1,4 @@
-<div class="main-layout">
+<div class="main-layout" [ngClass]="{'preview-mode': isPreviewMode}">
     <div class="right-container">
         <div class="progress-bar-container">
             <ul class="progress-bar">
@@ -6,6 +6,8 @@
                     <span>{{ step }}</span>
                 </li>
             </ul>
+
+           
         </div>
         <div class="form-container">
 
@@ -229,8 +231,15 @@
                 </form>
 
                 <form *ngIf="currentStep === 'About'" [formGroup]="aboutForm">
+                  <div class="about-header">
                     <h1>Write down your professional <span>summary</span></h1>
-                    <p>Include up to 3 sentences that describe your general experience</p>
+
+                    <button mat-icon-button class="star-icon">
+                      <mat-icon>grain</mat-icon>
+                    </button>
+                  </div>
+                  <p>Include up to 3 sentences that describe your general experience</p>
+
                     
                     <mat-form-field appearance="outline" class="summary-field">
                       <mat-label>Summary</mat-label>
@@ -510,6 +519,9 @@
                           Congratulations! Now that you have completed all the steps, you can <span>save your entire CV</span> by pressing the button below.<br> This way, your information will be securely stored.
                       </p>
                       <button class="button-save" (click)="onSaveResume()">Save Resume</button> <!-- Save Resume button -->
+                      <button class="button-save" (click)="onUpdateResume()">Update Resume</button> <!-- Update Resume button -->
+
+
 
                   </div>
               </div>
@@ -524,8 +536,58 @@
     </div>
 
     <div class="cv-preview-container">
-      <app-template-cv></app-template-cv>
+      <div class="icon-buttons">
+        <button mat-icon-button (click)="downloadCV()">
+            <mat-icon>download</mat-icon>
+        </button>
+        <button mat-icon-button (click)="previewCV()">
+            <mat-icon>pageview</mat-icon>
+        </button>
+         <button mat-icon-button (click)="openEmailModal()">
+            <mat-icon>email</mat-icon>
+        </button>
+
     </div>
-</div>
+    <div id="cv-template">
+      <app-template-cv></app-template-cv>
+  </div>
+    </div>
+    <div *ngIf="isPreviewMode" class="preview-overlay">
+      <button class="close-preview-button" (click)="closePreview()">Close Preview</button>
+      <div class="preview-template">
+        <app-template-cv></app-template-cv>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isEmailModalOpen" class="email-modal">
+    <div class="email-modal-content">
+      <button class="close-email-modal-button" (click)="closeEmailModal()">Close</button>
+      <div class="email-modal-body">
+        <div class="email-image">
+          <app-template-cv></app-template-cv>
+        </div>
+        <div class="email-form">
+          <h2>Please enter the address where you want to send your resume</h2>
+          <form [formGroup]="emailForm" (ngSubmit)="sendEmail()">
+            <div class="input-group">
+            <mat-form-field appearance="outline" class="input-field">
+              <mat-label>To</mat-label>
+              <input matInput type="to" placeholder="To" formControlName="to">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Subject</mat-label>
+            <input matInput type="subject" placeholder="Subject" formControlName="subject">
+        </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" class="body-field">
+          <mat-label>Body</mat-label>
+          <input matInput type="body" placeholder="Body" formControlName="body">
+      </mat-form-field>
+            <button type="submit" mat-raised-button color="primary">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

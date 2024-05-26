@@ -1,0 +1,51 @@
+<!-- src/app/cover-letter-template/cover-letter-template.component.html -->
+
+<div class="cover-letter-container">
+  <div class="sidebar">
+    <div class="photo">
+      <img src="assets/profile.png" alt="Avatar" style="width:100%;">
+    </div>
+    <div class="contact">
+      <h3>Contact</h3>
+      <p *ngIf="resume.contact?.phone"><span class="material-icons">phone</span> {{ resume.contact.phone }}</p>
+      <p *ngIf="resume.contact?.email"><span class="material-icons">email</span> {{ resume.contact.email }}</p>
+      <p *ngIf="resume.contact?.address || resume.contact?.city || resume.contact?.postalCode">
+        <span class="material-icons">place</span>
+        {{ resume.contact.address }}, {{ resume.contact.city }}, {{ resume.contact.postalCode }}
+      </p>
+
+      <div *ngIf="resume.linkEntries && resume.linkEntries.length > 0">
+              <div *ngFor="let link of resume.linkEntries" class="link-item">
+                <mat-icon>link</mat-icon> <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+              </div>
+            </div>
+
+    </div>
+  </div>
+  <div class="content">
+    <div class="header">
+      <h1>{{ resume.contact?.firstName }} {{ resume.contact?.lastName }}</h1>
+      <h2>{{ resume.contact?.status }}</h2>
+    </div>
+    <div class="date-and-address">
+      <div class="address">
+        <p>{{resume.information?.firstName}} {{resume.information?.lastName}}</p>
+        <p>{{resume.information?.position}}</p>
+        <p>{{resume.information?.organisation}}</p>
+        <p>{{resume.information?.address}}</p>
+      </div>
+      <div class="date">
+        <p>{{ resume.contact?.date | date: 'MMMM d, yyyy' }}</p>
+      </div>
+    </div>
+    <div class="body">
+      <p>{{resume.information?.title}} {{resume.information?.lastName}},</p>
+      <p [innerHTML]="resume.smtg?.body"></p>
+    </div>
+    <div class="closure" *ngIf="resume.contact?.firstName && resume.contact?.lastName">
+      <p>Sincerely,</p>
+      <p>{{ resume.contact.firstName }} {{ resume.contact.lastName }}</p>
+    </div>
+    
+  </div>
+</div>

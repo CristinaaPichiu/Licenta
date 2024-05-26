@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, UUID> {
 
-    @Query("SELECT r FROM Resume r WHERE r.user.id = :userId")
+    @Query("SELECT r FROM Resume r WHERE r.user.id = :userId ORDER BY r.id DESC")
     Optional<Resume> findLatestByUserId(@Param("userId") Integer userId);
 }

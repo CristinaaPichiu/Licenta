@@ -1,0 +1,152 @@
+
+  
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+  }
+  
+  .main-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  app-sidebar {
+    flex-shrink: 0;
+  }
+  
+  .content-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    width: 100%;
+  }
+  
+  .text-panel {
+    max-width: 45%;
+    text-align: center;
+  }
+  
+  .text-panel h1 {
+    font-size: 2.5rem;
+    color: var(--text-heading-color);
+    margin-bottom: 30px;
+  }
+  
+  .option-button {
+    display: block;
+    width: 60%;
+    padding: 15px;
+    font-size: 1.2rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px auto;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .create-button {
+    background-color: #7ba4db;
+    border-radius: 20px;
+
+  }
+  
+  .upload-button {
+    background-color: #7ba4db;
+    border-radius: 20px;
+
+  }
+  
+  .create-button:hover,
+  .upload-button:hover {
+    background-color: blue;
+    box-shadow: 0 8px 16px rgba(0, 86, 179, 0.4);
+  }
+  
+  .image-panel {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-panel .illustration {
+    width: auto;
+    height: 650px; /* Increased height for better visibility */
+    max-height: 80vh; /* Ensures the image does not exceed the viewport height */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    font-size: 48px; /* Set the font size */
+    font-weight: bold; /* Make the text bold */
+    color: #4a90e2; /* Set the text color */
+    text-align: center; /* Center the text */
+    margin-top: 20px; /* Add some margin on top */
+    margin-bottom: 20px; /* Add some margin on bottom */
+    font-family: 'Arial', sans-serif; /* Set the font family */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+  }
+
+  .buttons-panel {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .text-panel .cover-letter-info {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 30px;
+  }
+  .image-panel .illustration:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  #loading-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF; /* Fundal alb */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  
+  .loading-logo {
+    max-width: 200px;
+  }
+  
+  .loader {
+    border: 4px solid #f3f3f3; /* Culoarea exteriorului cercului într-o nuanță de gri deschis */
+    border-top: 4px solid #3498db; /* Albastru pentru partea de sus a cercului */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  // Clasa pentru a estompa conținutul când overlay-ul este activ
+  .content-blur {
+    filter: blur(5px);
+  }

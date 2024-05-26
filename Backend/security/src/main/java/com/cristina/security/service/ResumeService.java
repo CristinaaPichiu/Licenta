@@ -85,6 +85,62 @@ public class ResumeService {
         return resumeRepository.save(resume);
     }
 
+    // Metoda pentru actualizarea unui CV existent
+    @Transactional
+    public Resume updateResume(UUID resumeId, ResumeDTO resumeDTO) throws Exception {
+        // Obțineți utilizatorul curent
+        String email = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("User not found with email: " + email));
+        System.out.print("Pas1");
+
+        // Găsiți CV-ul existent
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new Exception("Resume not found with id: " + resumeId));
+        System.out.print("Pas2");
+        // Actualizați secțiunile CV-ului
+        if (resumeDTO.getAboutSection() != null) {
+            resume.setAboutSection(saveAboutSection(resumeDTO.getAboutSection(), user, resume));
+        }
+        if (resumeDTO.getContactSection() != null) {
+            resume.setContactSection(saveContactSection(resumeDTO.getContactSection(), user, resume));
+        }
+        if (resumeDTO.getEducationSections() != null) {
+            resume.getEducationSections().clear(); // Curăță colecția existentă
+            resume.getEducationSections().addAll(saveEducationSections(resumeDTO.getEducationSections(), user, resume)); // Adaugă noile elemente
+        }
+        if (resumeDTO.getExperienceSections() != null) {
+            resume.getExperienceSection().clear(); // Curăță colecția existentă
+            resume.getExperienceSection().addAll(saveExperienceSections(resumeDTO.getExperienceSections(), user, resume)); // Adaugă noile elemente
+        }
+        if (resumeDTO.getLinkSections() != null) {
+            resume.getLinkSection().clear(); // Curăță colecția existentă
+            resume.getLinkSection().addAll(saveLinkSections(resumeDTO.getLinkSections(), user, resume)); // Adaugă noile elemente
+        }
+        if (resumeDTO.getProjectSections() != null) {
+            resume.getProjectSection().clear(); // Curăță colecția existentă
+            resume.getProjectSection().addAll(saveProjectSections(resumeDTO.getProjectSections(), user, resume)); // Adaugă noile elemente
+        }
+        if (resumeDTO.getSkillsSections() != null) {
+            resume.getSkillSection().clear(); // Curăță colecția existentă
+            resume.getSkillSection().addAll(saveSkillsSections(resumeDTO.getSkillsSections(), user, resume)); // Adaugă noile elemente
+        }
+        if (resumeDTO.getVolunteeringSections() != null) {
+            resume.getVolunteeringSection().clear(); // Curăță colecția existentă
+            resume.getVolunteeringSection().addAll(saveVolunteeringSections(resumeDTO.getVolunteeringSections(), user, resume)); // Adaugă noile elemente
+        }
+        if (resumeDTO.getCustomSections() != null) {
+            resume.getCustomSection().clear(); // Curăță colecția existentă
+            resume.getCustomSection().addAll(saveCustomSections(resumeDTO.getCustomSections(), user, resume)); // Adaugă noile elemente
+        }
+
+        System.out.print("Pas3");
+
+
+        // Salvați CV-ul actualizat
+        return resumeRepository.save(resume);
+    }
+
     private AboutSection saveAboutSection(AboutDTO dto, User user, Resume resume) {
         if (dto != null) {
             AboutSection section = new AboutSection();

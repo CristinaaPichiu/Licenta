@@ -1,0 +1,48 @@
+.chart-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  canvas {
+    max-width: 100px;
+    max-height: 100px;
+  }
+  
+  .chart-legend {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+  
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  
+      li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        font-size: 14px;
+  
+        .legend-color {
+          display: inline-block;
+          width: 5px;
+          height: 5px;
+          margin-right: 10px;
+          border-radius: 50%;
+          font-size: 10px;;
+        }
+  
+        .profile { background-color: #ADD8E6; }
+        .skills { background-color: #87CEEB; }
+        .education { background-color: #4682B4; }
+        .work-history { background-color: #5F9EA0; }
+        .summary { background-color: #1E90FF; }
+      }
+    }
+  }
+  

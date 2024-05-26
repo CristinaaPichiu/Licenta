@@ -39,7 +39,7 @@ public class ExperienceSection {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 2048)
     private String description;
 
     @ManyToOne

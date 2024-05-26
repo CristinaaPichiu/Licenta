@@ -32,6 +32,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { ResumeDataService } from './services/resume-data.service';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ProgressChartComponent } from './components/progress-chart/progress-chart.component';
+import { CreateCoverletterComponent } from './components/create-coverletter/create-coverletter.component';
+import { CoverLetterTemplateComponent } from './components/cover-letter-template/cover-letter-template.component';
+import { CoverLetterFormComponent } from './components/cover-letter-form/cover-letter-form.component';
+import { CoverLetterDataService } from './services/cover-letter-data.service'; // Asigură-te că calea este corectă
 
 
 
@@ -53,7 +58,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TemplateCVComponent,
     ProjectsComponent,
     ResumeComponent,
-    CreateResumeComponent    
+    CreateResumeComponent,
+    ProgressChartComponent,
+    CreateCoverletterComponent,
+    CoverLetterTemplateComponent,
+    CoverLetterFormComponent    
   ],
   imports: [
     BrowserModule,

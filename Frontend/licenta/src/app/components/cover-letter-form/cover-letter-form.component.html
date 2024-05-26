@@ -1,0 +1,223 @@
+<div class="main-layout">
+    <div class="form-container">
+        <mat-sidenav-container class="sidenav-container">
+            <mat-sidenav #sidenav mode="side" opened="true" class="sidenav">
+                <mat-nav-list>
+                    <a mat-list-item (click)="showSection('contact')">
+                        <mat-icon>contacts</mat-icon>
+                    </a>
+                    <a mat-list-item (click)="showSection('information')">
+                        <mat-icon>person_pin</mat-icon>
+                    </a>
+                    <a mat-list-item (click)="showSection('body')">
+                        <mat-icon>description</mat-icon>
+                    </a>
+                    <a mat-list-item (click)="showSection('signature')">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                    <a mat-list-item (click)="showSection('finish')">
+                        <mat-icon>done</mat-icon>
+                    </a>
+                </mat-nav-list>
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <div *ngIf="selectedSection === 'contact'">
+                    <form [formGroup]="contactForm">
+                        <h1>Please enter your <span>contact info</span></h1>
+                        <p>It allows employers to see how they can contact you.</p>
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>First Name</mat-label>
+                                <input matInput type="text" placeholder="First Name" formControlName="firstName">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Last Name</mat-label>
+                                <input matInput type="text" placeholder="Last Name" formControlName="lastName">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Status</mat-label>
+                                <input matInput type="text" placeholder="Status" formControlName="status">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Date</mat-label>
+                                <input matInput [matDatepicker]="endPicker" placeholder="Select Date" formControlName="date">
+                                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endPicker></mat-datepicker>
+                              </mat-form-field>
+
+
+                        </div>
+
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="address-field">
+                                <mat-label>Address</mat-label>
+                                <input matInput type="text" placeholder="Address" formControlName="address">
+                            </mat-form-field>
+                        </div>
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>City</mat-label>
+                                <input matInput type="text" placeholder="City" formControlName="city">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Postal Code</mat-label>
+                                <input matInput type="text" placeholder="Postal Code" formControlName="postalCode">
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Phone</mat-label>
+                                <input matInput type="text" placeholder="Phone" formControlName="phone">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Email</mat-label>
+                                <input matInput type="email" placeholder="Email" formControlName="email">
+                            </mat-form-field>
+                        </div>
+                        
+                        <button type="submit" class="next-button" (click)="updateContactData()">Next to Body</button>
+                    </form>
+
+                        <form [formGroup]="linksForm">
+                          <mat-accordion formArrayName="linkEntries" multi="true" class="link-accordion">
+                            <mat-expansion-panel *ngFor="let link of linkEntries().controls; let i = index" [formGroupName]="i">
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                  {{ link.get('label')?.value || 'No Label Specified' }}
+                                </mat-panel-title>
+                              </mat-expansion-panel-header>
+                      
+                              <div class="input-group">
+                                <mat-form-field appearance="outline" class="input-field">
+                                  <mat-label>Label</mat-label>
+                                  <input matInput placeholder="Label for the link" formControlName="label">
+                                </mat-form-field>
+                      
+                                <mat-form-field appearance="outline" class="input-field">
+                                  <mat-label>URL</mat-label>
+                                  <input matInput placeholder="Enter URL" formControlName="url">
+                                </mat-form-field>
+                              </div>
+                      
+                              <mat-action-row>
+                                <button mat-icon-button color="warn" (click)="removeLink(i)">
+                                  <mat-icon>delete</mat-icon>
+                                </button>
+                              </mat-action-row>
+                            </mat-expansion-panel>
+                          </mat-accordion>
+                      
+                          <div class="actions-container">
+                            <span class="spacer"></span>
+                            <button mat-raised-button color="primary" (click)="addLink()" type="button">Add Link</button>
+                          
+  
+                          </div>
+                        </form>
+                    
+                </div> 
+                
+                <div *ngIf="selectedSection === 'information'">
+                    <form [formGroup]="informationForm">
+                        <h1>Please enter your <span>information</span></h1>
+                        <p>It allows employers to know more about your current position and organization.</p>
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Title</mat-label>
+                                <mat-select formControlName="title">
+                                    <mat-option value="Mr.">Mr.</mat-option>
+                                    <mat-option value="Ms.">Ms.</mat-option>
+                                    <mat-option value="Mrs.">Mrs.</mat-option>
+                                    <mat-option value="Miss">Miss</mat-option>
+                                    <mat-option value="Dr.">Dr.</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>First Name</mat-label>
+                                <input matInput type="text" placeholder="First Name" formControlName="firstName">
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Last Name</mat-label>
+                                <input matInput type="text" placeholder="Last Name" formControlName="lastName">
+                            </mat-form-field>
+                        </div>
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Position</mat-label>
+                                <input matInput type="text" placeholder="Position" formControlName="position">
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label>Name of Organisation</mat-label>
+                                <input matInput type="text" placeholder="Name of Organisation" formControlName="organisation">
+                            </mat-form-field>
+                        </div>
+                        <div class="input-group">
+                            <mat-form-field appearance="outline" class="address-field">
+                                <mat-label>Address</mat-label>
+                                <input matInput type="text" placeholder="Address" formControlName="address">
+                            </mat-form-field>
+                        </div>
+                        <button type="submit" class="next-button" (click)="updateInformationData()">Next to Body</button>
+                    </form>
+                </div>
+                
+                
+
+                <div *ngIf="selectedSection === 'body'">
+                    <form [formGroup]="bodyForm">
+                        <h1>Write your <span>cover letter</span></h1>
+                        <p>Start with a brief introduction and mention the position you're applying for.</p>
+                        
+                        <mat-form-field appearance="outline" class="body-field">
+                            <mat-label>Body</mat-label>
+                            <textarea matInput placeholder="Write your cover letter here..." formControlName="body"></textarea>
+                        </mat-form-field>
+                        
+                        <div class="actions-container">
+                            <button mat-stroked-button (click)="goToPreviousSection()">Back</button>
+                            <span class="spacer"></span>
+                            <button type="submit" class="next-button" (click)="updateBodyData()">Next to Signature</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div *ngIf="selectedSection === 'signature'">
+                    <h1>Draw your <span>digital signature</span></h1>
+                    <p>Use the box below to draw your signature.</p>
+                    
+                    <div class="signature-box">
+                    </div>
+                    
+                    <div class="actions-container">
+                        <button mat-stroked-button (click)="goToPreviousSection()">Back</button>
+                        <span class="spacer"></span>
+                        <button class="next-button" (click)="showSection('finish')">Next to Finish</button>
+                    </div>
+                </div>
+
+                <div *ngIf="selectedSection === 'finish'" class="end-step-container">
+                    <div class="finish-message">
+                        <p class="congratulations-text">
+                            Congratulations! Now that you have completed all the steps, you can <span>save your cover letter</span> by pressing the button below.<br> This way, your information will be securely stored.
+                        </p>
+                        <button class="button-save" (click)="onSaveCoverLetter()">Save Cover Letter</button>
+                        <button class="button-save" (click)="onUpdateCoverLetter()">Update Cover Letter</button>
+                    </div>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+
+    <div class="cover-letter-preview-container">
+        <app-cover-letter-template></app-cover-letter-template>
+    </div>
+</div>
