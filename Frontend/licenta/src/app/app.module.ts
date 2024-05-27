@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,12 +37,8 @@ import { CreateCoverletterComponent } from './components/create-coverletter/crea
 import { CoverLetterTemplateComponent } from './components/cover-letter-template/cover-letter-template.component';
 import { CoverLetterFormComponent } from './components/cover-letter-form/cover-letter-form.component';
 import { CoverLetterDataService } from './services/cover-letter-data.service'; // Asigură-te că calea este corectă
-
-
-
-
-
-
+import { SignatureModule } from '@syncfusion/ej2-angular-inputs';
+import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 
 
 @NgModule({
@@ -85,12 +81,14 @@ import { CoverLetterDataService } from './services/cover-letter-data.service'; /
     MatNativeDateModule,
     MatSelectModule, 
     MatSliderModule,
-    MatExpansionModule
-
-    
+    MatExpansionModule,
+    SignatureModule,
+    ToolbarModule
   ],
   providers: [ResumeDataService],
   bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 
 })
 export class AppModule { }

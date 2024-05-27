@@ -1,5 +1,3 @@
-// src/app/cover-letter-template/cover-letter-template.component.ts
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CoverLetterDataService } from 'src/app/services/cover-letter-data.service';
@@ -12,7 +10,9 @@ import { CoverLetterDataService } from 'src/app/services/cover-letter-data.servi
 export class CoverLetterTemplateComponent implements OnInit, OnDestroy {
 
   resume: any;
+  signature: string = '';
   private subscription!: Subscription;
+  private signatureSubscription!: Subscription;
 
   constructor(private coverLetterDataService: CoverLetterDataService) {}
 
@@ -23,11 +23,18 @@ export class CoverLetterTemplateComponent implements OnInit, OnDestroy {
         this.resume.smtg.body = this.convertNewlinesToBreaks(this.resume.smtg.body);
       }
     });
+
+    this.signatureSubscription = this.coverLetterDataService.currentSignature.subscribe(signature => {
+      this.signature = signature;
+    });
   }
 
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if (this.signatureSubscription) {
+      this.signatureSubscription.unsubscribe();
     }
   }
 

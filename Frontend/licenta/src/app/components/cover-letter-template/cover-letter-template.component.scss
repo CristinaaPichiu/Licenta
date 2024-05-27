@@ -77,6 +77,13 @@
   word-wrap: break-word; /* Breaks long words to avoid overflow */
 }
 
+.signature-image {
+  position: absolute;
+  right: 20px; // Ajustează valoarea pentru a deplasa semnătura mai spre dreapta
+  bottom: 300px; // Ajustează valoarea pentru a deplasa semnătura mai jos
+  width: 300px; // Ajustează dimensiunea semnăturii după cum este necesar
+}
+
 
 
 .address p, .date {

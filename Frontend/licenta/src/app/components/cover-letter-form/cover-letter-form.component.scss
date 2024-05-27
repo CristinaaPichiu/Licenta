@@ -267,52 +267,35 @@
     flex-direction: column;
     align-items: center;
     border: 1px solid #ccc;
-    width: 100%;
+    width: 70%;
     height: 300px;
     margin-bottom: 20px;
-    background-color: #f9f9f9;
-    
-    .toolbar {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
+    background-color: white;
+    border-radius: 30px;
+    margin-left: 100px;
+   
+  }
+
+  .signature-buttons {
+    display: flex;
+    margin-top: 10px;
+    width: 100%;
   
-      .tool-button, .color-button {
-        background-color: #3f51b5;
-        color: white;
-        padding: 5px 10px;
-        margin: 0 5px;
-        cursor: pointer;
-        border: none;
-        border-radius: 3px;
+    button {
+      margin: 0 5px;
+      min-width: 100px;
+      color: white; /* Ensure text is white for better contrast */
+      background-color: #1a617f !important;
+      border-color: #1a617f !important;
   
-        &:hover {
-          background-color: #303f9f;
-        }
-      }
-  
-      .color-button {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        padding: 0;
-      }
-    }
-  
-    .drawing-area {
-      border: 2px dashed #3f51b5;
-      width: 400px;
-      height: 200px;
-      background-color: white;
-      position: relative;
-  
-      canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
+      &:hover {
+        background-color: darken(#1a617f, 10%) !important;
       }
     }
   }
+  
+  
+  
   
 
 

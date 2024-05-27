@@ -45,6 +45,8 @@
     <div class="closure" *ngIf="resume.contact?.firstName && resume.contact?.lastName">
       <p>Sincerely,</p>
       <p>{{ resume.contact.firstName }} {{ resume.contact.lastName }}</p>
+      <img *ngIf="signature" [src]="signature" alt="Signature" class="signature-image">
+
     </div>
     
   </div>

@@ -6,8 +6,12 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CoverLetterDataService {
   private coverLetter = new BehaviorSubject<any>({}); // Inițializează cu un obiect gol
+  private signature = new BehaviorSubject<string>('');
+
 
   currentCoverLetter = this.coverLetter.asObservable(); // Observable pentru a urmări schimbările
+  currentSignature = this.signature.asObservable();
+
 
   constructor() {}
 
@@ -17,5 +21,13 @@ export class CoverLetterDataService {
 
   getCurrentCoverLetterSnapshot(): any {
     return this.coverLetter.getValue();
+  }
+
+  updateSignature(signature: string) {
+    this.signature.next(signature);
+  }
+
+  getCurrentSignatureSnapshot(): string {
+    return this.signature.getValue();
   }
 }

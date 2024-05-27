@@ -119,7 +119,7 @@ body {
 
 /* Printing */
 .page-wrapper {
-  width: 210mm;
+  width: 180mm;
   min-height: 297mm;
   margin: 10mm auto;
   background: white;
@@ -152,6 +152,8 @@ body {
   flex-direction: row;
   width: 100%;
   height: 100%;
+  margin-left: -15mm;
+  margin-top: -25mm;
 }
 
 .leftPanel {

@@ -1,35 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import SignaturePad from 'signature_pad';
 import { CoverLetterDataService } from 'src/app/services/cover-letter-data.service';
 import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.service';
-
 
 @Component({
   selector: 'app-cover-letter-form',
   templateUrl: './cover-letter-form.component.html',
   styleUrls: ['./cover-letter-form.component.scss']
 })
-export class CoverLetterFormComponent implements OnInit {
-  selectedSection: string | null = 'contact'; // Default section
+export class CoverLetterFormComponent implements OnInit, AfterViewInit {
+  selectedSection: string | null = 'contact'; // Secțiunea implicită
+
+  @ViewChild('canvas') canvasElement!: ElementRef<HTMLCanvasElement>;
+  signaturePad!: SignaturePad;
 
   contactForm!: FormGroup;
   informationForm!: FormGroup;
   linksForm!: FormGroup;
-
   bodyForm!: FormGroup;
   coverLetterData: any = {};
 
   constructor(private fb: FormBuilder,
-    private coverLetterDataService: CoverLetterDataService,
-    private saveCoverLetterService: SaveCoverLetterService  ) {
-
-  }
+              private coverLetterDataService: CoverLetterDataService,
+              private saveCoverLetterService: SaveCoverLetterService) {}
 
   ngOnInit() {
     this.initializeForms();
     this.loadCoverLetterData();
-
-
 
     this.contactForm.valueChanges.subscribe(values => {
       this.coverLetterDataService.updateCoverLetterForm({ ...this.coverLetterDataService.getCurrentCoverLetterSnapshot(), contact: values });
@@ -48,11 +46,20 @@ export class CoverLetterFormComponent implements OnInit {
         linkEntries: values.linkEntries
       });
     });
-    
+  }
 
+  ngAfterViewInit() {
+    if (this.canvasElement) {
+      this.signaturePad = new SignaturePad(this.canvasElement.nativeElement);
+      this.signaturePad.addEventListener('endStroke', () => this.onSignature());
+    }
+  }
 
-
-
+  ngAfterViewChecked() {
+    if (!this.signaturePad && this.canvasElement) {
+      this.signaturePad = new SignaturePad(this.canvasElement.nativeElement);
+      this.signaturePad.addEventListener('endStroke', () => this.onSignature());
+    }
   }
 
   initializeForms() {
@@ -67,7 +74,7 @@ export class CoverLetterFormComponent implements OnInit {
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
-  
+
     this.informationForm = this.fb.group({
       title: [''],
       firstName: [''],
@@ -75,7 +82,7 @@ export class CoverLetterFormComponent implements OnInit {
       position: [''],
       organisation: [''],
       address: ['']
-  });
+    });
 
     this.bodyForm = this.fb.group({
       body: ['', Validators.required]
@@ -116,7 +123,7 @@ export class CoverLetterFormComponent implements OnInit {
       alert('Please write your cover letter.');
     }
   }
-  
+
   buildCoverLetterObject(): any {
     return {
       contactUser: this.contactForm.value,
@@ -125,41 +132,17 @@ export class CoverLetterFormComponent implements OnInit {
     };
   }
 
-  
-  
-
   onSaveCoverLetter(): void {
     const coverLetterData = this.buildCoverLetterObject();
     console.log('Cover Letter Data:', coverLetterData);
-    const token = localStorage.getItem('auth_token');
-  
-    if (token) {
-      this.saveCoverLetterService.saveCoverLetter(token, coverLetterData).subscribe({
-        next: (response: any) => {
-          console.log('Cover letter saved successfully', response);
-          alert('Cover letter saved successfully!');
-          if (response && response.id) {
-            localStorage.setItem('currentCoverLetterId', response.id);
-            console.log('Current cover letter ID saved:', response.id);
-          }
-        },
-        error: (error: any) => {
-          console.error('Failed to save cover letter', error);
-          alert('Failed to save cover letter: ' + error.message);
-        }
-      });
-    } else {
-      console.error('Authentication token not found. Please log in.');
-      alert('Please log in to save your cover letter.');
-    }
   }
-  
+
   loadCoverLetterData() {
     const token = localStorage.getItem('auth_token');
     if (token) {
       this.saveCoverLetterService.getCurrentUserCoverLetter(token).subscribe({
         next: (coverLetter: any) => {
-          console.log('Loaded current user cover letter data:', coverLetter); // Log pentru datele încărcate ale cover letter-ului
+          console.log('Loaded current user cover letter data:', coverLetter);
           this.populateForms(coverLetter);
         },
         error: (error) => {
@@ -189,11 +172,10 @@ export class CoverLetterFormComponent implements OnInit {
     }
   }
 
-
   onUpdateCoverLetter(): void {
-    const coverLetterData = this.buildCoverLetterObject(); // Construiește obiectul de date al scrisorii de intenție din formulare
-    const coverLetterId = this.getCurrentCoverLetterId(); // Preluarea ID-ului scrisorii de intenție din localStorage
-    const token = localStorage.getItem('auth_token'); // Preluarea tokenului JWT din localStorage
+    const coverLetterData = this.buildCoverLetterObject();
+    const coverLetterId = this.getCurrentCoverLetterId();
+    const token = localStorage.getItem('auth_token');
 
     if (coverLetterId && token) {
       this.saveCoverLetterService.updateCoverLetter(coverLetterId, token, coverLetterData).subscribe({
@@ -217,7 +199,7 @@ export class CoverLetterFormComponent implements OnInit {
       }
     }
   }
-  
+
   getCurrentCoverLetterId(): string | null {
     return localStorage.getItem('currentCoverLetterId');
   }
@@ -233,19 +215,29 @@ export class CoverLetterFormComponent implements OnInit {
   linkEntries(): FormArray {
     return this.linksForm.get('linkEntries') as FormArray;
   }
-  
+
   newLink(): FormGroup {
     return this.fb.group({
       label: ['', Validators.required],
       url: ['', [Validators.required, Validators.pattern('https?://.+')]]
     });
   }
-  
+
   addLink(): void {
     this.linkEntries().push(this.newLink());
   }
-  
+
   removeLink(index: number): void {
     this.linkEntries().removeAt(index);
+  }
+
+  clearSignature() {
+    this.signaturePad.clear();
+    this.coverLetterDataService.updateSignature('');
+  }
+
+  onSignature() {
+    const signatureData = this.signaturePad.toDataURL();
+    this.coverLetterDataService.updateSignature(signatureData);
   }
 }
