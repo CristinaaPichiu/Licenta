@@ -5,6 +5,10 @@ import { ResumeService } from 'src/app/services/save-resume.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as html2pdf from 'html2pdf.js';
+import { MatDialog } from '@angular/material/dialog';
+import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
+import { GenerateSummaryService } from 'src/app/services/generate-summary.service';
+import { SelectTemplateCvService } from 'src/app/services/select-template-cv.service';
 
 
 
@@ -39,20 +43,108 @@ export class CreateResumeComponent implements OnInit {
   isPreviewMode = false;
   isEmailModalOpen = false;
   emailForm!: FormGroup;
+  chatResponse!: string;
+  isHovering: boolean = false;
+  selectedTemplate!: string; // Declară proprietatea aici
+
+
 
 
 
   constructor(
     private fb: FormBuilder,
     private resumeDataService: ResumeDataService,
-    private resumeService: ResumeService  
+    private resumeService: ResumeService,
+    public dialog: MatDialog,
+    private summaryService: GenerateSummaryService,
+    private templateService: SelectTemplateCvService
 
   ) {}
+
+
+  onSuggestionClick(text: string): void {
+    // Access the summary control and set its value to the provided text
+    const summaryControl = this.aboutForm.get('summary');
+    if (summaryControl) {
+      summaryControl.setValue(text);
+    } else {
+      console.error('Summary control does not exist.');
+    }
+  }
+  
+  
+
+  onMouseEnter(): void {
+    this.isHovering = true;
+  }
+
+  onMouseLeave(): void {
+    this.isHovering = false;
+  }
+
+  openDialog(): void {
+    const summaryData = this.getSummaryData();
+    console.log('Summary Data:', summaryData);
+  
+    // Deschidem dialogul de încărcare
+    const loadingDialogRef = this.dialog.open(LoadingDialogComponent, {
+      panelClass: 'custom-dialog-overlay-pane',
+      position: { top: '10vh', right: '18vw' },
+      width: '400px',
+      height: '400px',
+      disableClose: true  // opțional, dezactivează închiderea dialogului de încărcare
+    });
+  
+    // Trimiterea datelor la server și așteptarea răspunsului
+    this.summaryService.sendSummaryData(summaryData).subscribe(
+      response => {
+        console.log('Summary data sent successfully', response);
+        this.displayChatResponse(response); // Afișează răspunsul în interfața utilizatorului
+        loadingDialogRef.close(); // Închide dialogul de încărcare după primirea răspunsului
+      },
+      error => {
+        console.error('Failed to send summary data', error);
+        loadingDialogRef.close(); // Închide dialogul de încărcare chiar și în caz de eroare
+      }
+    );
+  }
+  
+  
+  displayChatResponse(chatResponse: any): void {
+    this.chatResponse = chatResponse.content; // asigură-te că accesezi .content dacă răspunsul este un obiect
+  }
+
+  // Adaugă această metodă în clasa componentei tale Angular
+
+closeAiResponse(chatResponse: any): void {
+  this.chatResponse = ''; // Resetează răspunsul AI pentru a ascunde containerul
+}
+
+  
+  
+  
+  
+  // Metoda pentru deschiderea dialogului de loading
+  private openLoadingDialog(): void {
+    const dialogRef = this.dialog.open(LoadingDialogComponent, {
+      panelClass: 'custom-dialog-overlay-pane', 
+      position: { top: '10vh', right: '18vw' }, 
+      width: '400px', 
+      height: '400px', 
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
   ngOnInit() {
     this.initializeForms();
     this.addSkillLevelDescriptions();
     this.loadResumeData();
+    this.templateService.currentTemplate.subscribe(template => {
+      this.selectedTemplate = template;
+    });
 
 
     
@@ -713,5 +805,28 @@ sendEmail() {
     alert('Please fill all required fields.');
   }
 }
+
+getSummaryData() {
+  const status = this.resumeForm.get('status')?.value || '';
+  const jobTitles = this.experienceForm.value.experiences.map((experience: { jobTitle: string }) => experience.jobTitle);
+  const schools = this.educationForm.value.educations.map((education: { school: string }) => education.school);
+  const skills = this.skillsForm.value.skills.map((skill: { skillName: string }) => skill.skillName);
+
+  const summaryData = { status, jobTitles, schools, skills };
+  return summaryData;
+}
+
+sendSummaryData() {
+  const data = this.getSummaryData();
+  this.summaryService.sendSummaryData(data).subscribe(
+    response => console.log('Summary data sent successfully', response),
+    error => console.error('Failed to send summary data', error)
+  );
+}
+
+
+
+
+
 
 }

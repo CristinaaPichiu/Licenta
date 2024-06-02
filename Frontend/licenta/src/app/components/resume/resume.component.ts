@@ -16,7 +16,7 @@ export class ResumeComponent {
     
     setTimeout(() => {
       this.loading = false; 
-      this.router.navigate(['/create-resume']); 
+      this.router.navigate(['/select-template-resume']); 
     }, 1000);
   }
   

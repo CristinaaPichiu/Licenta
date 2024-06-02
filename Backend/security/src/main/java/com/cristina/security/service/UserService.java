@@ -4,13 +4,19 @@ import com.cristina.security.repository.UserRepository;
 import com.cristina.security.dto.UserResponseDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -55,5 +61,10 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
+
+
+
+
+
 }
 

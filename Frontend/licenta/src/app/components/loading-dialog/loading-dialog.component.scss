@@ -1,0 +1,41 @@
+/* loading-dialog.component.css */
+.content-container {
+    position: relative; /* Setează containerul ca referință pentru poziționarea absolută */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px; /* Spațiu în jurul conținutului */
+    min-height: 200px; /* Setează o înălțime minimă pentru vizualizare decentă */
+}
+/* loading-dialog.component.css */
+
+.loading-dialog p {
+    margin-top: 80px;  /* Mărește această valoare pentru mai mult spațiu */
+    text-align: center;
+    color: #507d95;  /* Culoarea textului */
+    font-size: 16px;  /* Mărimea fontului */
+}
+
+
+mat-dialog-content {
+    display: flex;
+    flex-direction: column; /* Asigură-te că acțiunile sunt la baza conținutului */
+}
+
+mat-dialog-title {
+    font-size: 22px;
+    color: #507d95;
+}
+
+mat-dialog-actions {
+    margin-top: auto; /* Împinge butonul de închidere în partea de jos a containerului */
+    padding: 8px;
+    width: 100%; /* Asigură că butonul poate fi aliniat la dreapta */
+    display: flex;
+    justify-content: flex-end; /* Aliniază butonul de închidere la dreapta */
+}
+
+.spinner{
+    margin-bottom:50px;
+}

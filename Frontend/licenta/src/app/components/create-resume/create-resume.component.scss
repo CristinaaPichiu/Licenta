@@ -145,6 +145,90 @@
 .adress-field, .summary-field{
     width:calc(100% - 20px) 
 }
+
+.summary-field textarea {
+  min-height: 150px;  /* Ajustează această valoare după preferințe */
+}
+.summary-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.summary-field {
+  width: 100%;
+}
+
+.ai-response-container {
+  position: fixed;
+  top: 20vh;
+  right: 18vw;
+  width: 400px;
+  height: 300px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.left-arrow {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #507d95; 
+}
+
+.ai-response-container p {
+  margin: 0 0 20px 0;
+  text-align: center;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.ai-response-container p:hover {
+  color: #507d95;
+  cursor: pointer;
+}
+
+.ai-response-container button {
+  min-width: 80px;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #507d95;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+
+
+.ai-button {
+  position: absolute;
+  top: 70%; /* Centrarea verticală în raport cu containerul */
+  right: 40px; /* Plasează butonul la marginea dreaptă a field-ului */
+  transform: translateY(-50%); /* Ajustează vertical butonul pentru a fi centrat */
+  z-index: 10; /* Asigură-te că butonul este deasupra textului */
+}
+.custom-dialog-overlay-pane {
+  position: fixed;
+  top: 10vh !important; /* Schimbă aceste valori pentru ajustarea poziției verticale */
+  right: 10vw !important; /* Schimbă aceste valori pentru ajustarea poziției orizontale */
+}
+
+
+
+
 .body-field
 {
   width:calc(100% - 10px) ;
@@ -503,15 +587,24 @@ body.no-scroll {
 }
 
 .input-group {
-  display: flex;
-  justify-content: space-between; /* Spațiu între câmpuri */
-  width: 100%;
-  margin-bottom: 20px; /* Spațiu între grupurile de câmpuri */
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping into multiple lines */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Space out the fields evenly */
+    gap: 20px; /* Provides a gap between fields */
 }
 
 .input-field {
-  flex: 0 0 48%; /* Câmpurile sunt spațiate la 48% pentru a avea spațiu între ele */
+    flex: 1 1 20%; /* Allows flexing but gives a reasonable minimum width */
+    min-width: 160px; /* Minimum width to ensure usability */
 }
+
+/* Specific adjustments if necessary, particularly for date pickers which might have wider default styles */
+.mat-datepicker {
+    width: auto; /* Override any default width */
+}
+
+
 
 .full-width-field {
   width: 100%;

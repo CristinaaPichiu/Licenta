@@ -39,6 +39,17 @@ import { CoverLetterFormComponent } from './components/cover-letter-form/cover-l
 import { CoverLetterDataService } from './services/cover-letter-data.service'; // Asigură-te că calea este corectă
 import { SignatureModule } from '@syncfusion/ej2-angular-inputs';
 import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
+import { SecondTemplateCvComponent } from './components/second-template-cv/second-template-cv.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { LoadingDialogComponent } from './components/loading-dialog/loading-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ThirdTemplateComponent } from './components/third-template/third-template.component';
+import { SelectTemplateResumeComponent } from './components/select-template-resume/select-template-resume.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
+
+
+
 
 
 @NgModule({
@@ -58,7 +69,11 @@ import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
     ProgressChartComponent,
     CreateCoverletterComponent,
     CoverLetterTemplateComponent,
-    CoverLetterFormComponent    
+    CoverLetterFormComponent,
+    SecondTemplateCvComponent,
+    LoadingDialogComponent,
+    ThirdTemplateComponent,
+    SelectTemplateResumeComponent    
   ],
   imports: [
     BrowserModule,
@@ -83,7 +98,10 @@ import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
     MatSliderModule,
     MatExpansionModule,
     SignatureModule,
-    ToolbarModule
+    ToolbarModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    ScrollingModule
   ],
   providers: [ResumeDataService],
   bootstrap: [AppComponent],

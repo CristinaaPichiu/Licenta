@@ -234,9 +234,7 @@
                   <div class="about-header">
                     <h1>Write down your professional <span>summary</span></h1>
 
-                    <button mat-icon-button class="star-icon">
-                      <mat-icon>grain</mat-icon>
-                    </button>
+                  
                   </div>
                   <p>Include up to 3 sentences that describe your general experience</p>
 
@@ -245,6 +243,26 @@
                       <mat-label>Summary</mat-label>
                       <textarea matInput placeholder="e.g. Accomplished Marketing Manager with expertise in developing campaigns, copywriting and advertising..." formControlName="summary"></textarea>
                     </mat-form-field>
+
+                    <button mat-button class="ai-button" (click)="openDialog()">
+                      <mat-icon>grain</mat-icon>
+                      Phrases pre-written by AI
+
+                    </button>
+
+                    <div *ngIf="chatResponse" class="ai-response-container">
+                      <span class="left-arrow"></span>
+                      <p [class.hover-effect]="isHovering"
+                         (mouseenter)="onMouseEnter()" 
+                         (mouseleave)="onMouseLeave()"
+                         (click)="onSuggestionClick(chatResponse)">{{ chatResponse }}</p>
+                      <button mat-button (click)="closeAiResponse(chatResponse)">Close</button>
+                    </div>
+                    
+                    
+                    
+
+                    
                     
                     <!-- Optionally, add rich text editor controls here -->
                     
@@ -549,8 +567,13 @@
 
     </div>
     <div id="cv-template">
-      <app-template-cv></app-template-cv>
-  </div>
+      <app-template-cv *ngIf="selectedTemplate === 'app-template-cv'"></app-template-cv>
+
+      <!-- Afișează al doilea template de CV dacă selectedTemplate este 'app-second-template-cv' -->
+      <app-second-template-cv *ngIf="selectedTemplate === 'app-second-template-cv'"></app-second-template-cv>
+    
+      <!-- Afișează al treilea template de CV dacă selectedTemplate este 'app-third-template' -->
+      <app-third-template *ngIf="selectedTemplate === 'app-third-template'"></app-third-template>  </div>
     </div>
     <div *ngIf="isPreviewMode" class="preview-overlay">
       <button class="close-preview-button" (click)="closePreview()">Close Preview</button>

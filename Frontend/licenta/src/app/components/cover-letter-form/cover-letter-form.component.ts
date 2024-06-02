@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import SignaturePad from 'signature_pad';
 import { CoverLetterDataService } from 'src/app/services/cover-letter-data.service';
 import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.service';
+import * as html2pdf from 'html2pdf.js';
+
 
 @Component({
   selector: 'app-cover-letter-form',
@@ -19,7 +21,11 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
   informationForm!: FormGroup;
   linksForm!: FormGroup;
   bodyForm!: FormGroup;
+  emailForm!: FormGroup;
+
   coverLetterData: any = {};
+  isPreviewMode = false;
+  isEmailModalOpen = false;
 
   constructor(private fb: FormBuilder,
               private coverLetterDataService: CoverLetterDataService,
@@ -90,6 +96,11 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
 
     this.linksForm = this.fb.group({
       linkEntries: this.fb.array([])
+    });
+    this.emailForm = this.fb.group({
+      to: ['', [Validators.required, Validators.email]],
+      subject: ['', Validators.required],
+      body: ['', Validators.required]
     });
   }
 
@@ -240,4 +251,52 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
     const signatureData = this.signaturePad.toDataURL();
     this.coverLetterDataService.updateSignature(signatureData);
   }
+
+  downloadCoverLetter() {
+    const element = document.getElementById('letter');
+
+    const options = {
+      margin: 1,
+      filename: 'CoverLetter.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().from(element).set(options).save();
+  }
+
+
+  previewCV() {
+    this.isPreviewMode = true;
+    document.body.classList.add('preview-active');
+  }
+
+  closePreview() {
+    this.isPreviewMode = false;
+    document.body.classList.remove('preview-active');
+  }
+
+
+
+
+openEmailModal() {
+  this.isEmailModalOpen = true;
+  document.body.classList.add('no-scroll'); // Adaugă clasa pentru a dezactiva derularea
+}
+
+closeEmailModal() {
+  this.isEmailModalOpen = false;
+  document.body.classList.remove('no-scroll'); // Elimină clasa pentru a reactiva derularea
+}
+
+sendEmail() {
+  if (this.emailForm.valid) {
+    const emailData = this.emailForm.value;
+    // trimite emailul folosind un serviciu
+    this.closeEmailModal();
+  } else {
+    alert('Please fill all required fields.');
+  }
+}
 }
