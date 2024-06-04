@@ -1,0 +1,127 @@
+.cover-letter-container {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 300px;
+  margin: 5px auto;
+  padding: 5px;
+  box-sizing: border-box;
+  background: white;
+  border: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  border-radius: 8px;
+
+}
+
+.to-label {
+  font-style: italic; /* Keep the 'To:' in italic */
+  margin: 0; /* Remove any default margin */
+  padding: 0; /* Remove any padding to reduce space */
+  display: block; /* Ensures it's on its own line but can be closely aligned */
+  font-size: 5px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 5px;
+  font-weight: bold;
+  color: #2c3e50; /* Dark blue */
+  margin: 0 0 -25px 0; /* Eliminate bottom margin and slightly overlap with the next element */
+}
+
+.header h2 {
+  font-size: 5px;
+  color: #507d95; /* Greenish blue */
+  margin: 0; /* Remove default top and bottom margins */
+}
+
+
+.contact-info, .recipient-info {
+  font-size: 5px;
+  line-height: 1.2;
+  color: #2c3e50;
+  padding: 2px;
+}
+
+.contact-info p, .recipient-info p {
+  display: flex;
+  align-items: center;
+  margin: 2px 0;
+}
+
+.material-icons {
+  font-size: 5px;
+  color: #507d95;
+  margin-right: 2px;
+}
+
+.body {
+  margin-top: 10px;
+  font-size: 5px;
+  line-height: 1.5;
+  margin-left:10px
+}
+.closure {
+  font-size: 5px;
+  margin-top: 2px; /* Minimal top margin to reduce space */
+  text-align: left; /* Ensure the text is centered */
+  margin-left: 10px;
+}
+
+.closure p {
+  margin: 0; /* Remove default margins to reduce space */
+  padding: 0; /* Remove any padding */
+}
+
+/* Specifically target the 'Sincerely,' part if it's in a separate paragraph */
+.closure p:first-child {
+  margin-bottom: -3px; /* Negative margin to pull the name closer */
+}
+
+
+.line {
+  position: relative;
+  margin-left:20px; // Centers the line and provides space above and below
+  width: 80%; // Adjust the line width as needed
+  height: 2px; // Line thickness
+  background-color: #507d95; // Dark green line color
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 5px; // Width of the diamond
+    height: 5px; // Height of the diamond
+    background-color: #507d95; // Dark green color
+    transform: translateY(-50%) rotate(45deg); // Rotate square to form diamond
+    z-index: 1;
+  }
+
+  &::before {
+    left: 0; // Position at the left end of the line
+    transform: translateX(-50%) translateY(-50%) rotate(45deg); // Adjust position and rotate
+  }
+
+  &::after {
+    right: 0; // Position at the right end of the line
+    transform: translateX(50%) translateY(-50%) rotate(45deg); // Adjust position and rotate
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  .cover-letter-container {
+      width: 100%;
+      padding: 10px;
+      font-size: 7px;
+  }
+}

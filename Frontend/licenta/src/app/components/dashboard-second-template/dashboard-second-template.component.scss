@@ -1,0 +1,70 @@
+.cv-container {
+  width: 200px;  /* Lățime fixă pentru container */
+  height: 300px; /* Înălțime fixă pentru container */
+  overflow: hidden; /* Ascunde orice conținut ce depășește dimensiunile containerului */
+  font-family: Arial, sans-serif; /* Font lizibil și compact */
+  background: white;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrează conținutul orizontal */
+  justify-content: space-between; /* Distribuie spațiul între elemente vertical */
+  padding: 2px; /* Minimizează padding-ul pentru a folosi spațiul eficient */
+  box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+
+
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin-bottom: 1px;
+}
+
+header h1 {
+  font-size: 9px; /* Mărime font redusă pentru nume */
+  margin: 0;
+}
+
+header h2 {
+  font-size: 7px; /* Mărime font redusă pentru statut */
+  margin: 0;
+}
+
+.summary {
+  font-size: 6px; /* Font redus pentru rezumat */
+  text-align: justify;
+  padding: 0;
+  margin: 0;
+  width: 90%;
+}
+
+.contact-info {
+  font-size: 6px; /* Font redus pentru informațiile de contact */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px; /* Minimizează spațiul între informații */
+}
+
+.mat-icon {
+  font-size: 10px; /* Iconiță redusă */
+  margin: 0;
+}
+
+.contact-info span, .contact-info a {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+/* Ajustează încă o dată pentru a verifica vizibilitatea și lizibilitatea */
+@media print {
+  .cv-container {
+    page-break-after: always;
+    width: 100%;
+    height: auto;
+  }
+}

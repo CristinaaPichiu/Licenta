@@ -41,25 +41,63 @@
         </div>
       </div>
       
-      <div class="template-container">
-        <div class="template-preview">
-          <app-template-cv></app-template-cv>
-        </div>
-        <div class="icon-container">
-          <button mat-icon-button aria-label="Edit">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button aria-label="Download PDF">
-            <mat-icon>picture_as_pdf</mat-icon>
-          </button>
-          <button mat-icon-button aria-label="Duplicate">
-            <mat-icon>file_copy</mat-icon>
-          </button>
-          <button mat-icon-button aria-label="Delete">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </div>
+      <mat-tab-group>
+        <mat-tab label="Your Resumes">
+          <div class="template-container">
+            <h3>Your Resumes:</h3>
+            <div class="template-wrapper">
+              <div *ngFor="let resume of resumes" class="template-preview">
+                <app-dashboard-first-template *ngIf="resume.templateId === 1" [resume]="resume" class="first-template"></app-dashboard-first-template>
+                <app-dashboard-second-template *ngIf="resume.templateId === 2" [resume]="resume" class="second-template"></app-dashboard-second-template>
+                <app-dashboard-third-template *ngIf="resume.templateId === 3" [resume]="resume" class="third-template"></app-dashboard-third-template>
+                <div class="icon-container">
+                  <button mat-icon-button aria-label="Edit">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Download PDF">
+                    <mat-icon>picture_as_pdf</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Duplicate">
+                    <mat-icon>file_copy</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Delete">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+    
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Your Cover Letters">
+          <div class="template-container">
+            <h3>Your CoverLetters:</h3>
+            <div class="template-wrapper">
+              <div *ngFor="let letter of letters" class="template-preview">
+                <app-dashboard-letter-first *ngIf="letter.templateId === 1" [letter]="letter" class="first-template"></app-dashboard-letter-first>
+                <app-dashboard-letter-second *ngIf="letter.templateId === 2" [letter]="letter" class="second-template"></app-dashboard-letter-second>
+                <app-dashboard-letter-third *ngIf="letter.templateId === 3" [letter]="letter" class="third-template"></app-dashboard-letter-third>
+                <div class="icon-container">
+                  <button mat-icon-button aria-label="Edit">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Download PDF">
+                    <mat-icon>picture_as_pdf</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Duplicate">
+                    <mat-icon>file_copy</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Delete">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+    
+              </div>
+              
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

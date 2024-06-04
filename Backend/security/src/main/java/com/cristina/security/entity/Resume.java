@@ -26,6 +26,8 @@ public class Resume {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @Column(name = "template_id")
+    private Integer templateId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

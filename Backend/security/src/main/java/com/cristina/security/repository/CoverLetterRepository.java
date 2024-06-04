@@ -18,5 +18,7 @@ public interface CoverLetterRepository extends JpaRepository<CoverLetter, UUID> 
 
     @Query("SELECT r FROM CoverLetter r WHERE r.user.id = :userId ORDER BY r.id DESC")
     List<CoverLetter> findLatestByUserId(@Param("userId") Integer userId, Pageable pageable);
+    List<CoverLetter> findAllByUserId(Integer userId);
+
 }
 

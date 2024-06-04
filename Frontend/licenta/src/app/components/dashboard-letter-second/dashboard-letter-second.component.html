@@ -1,0 +1,34 @@
+<div class="cover-letter-container">
+    <div class="header">
+        <!-- Assuming the contact data is stored under 'contactUser' -->
+        <h1>{{ letter.contactUser?.firstName }} {{ letter.contactUser?.lastName }}</h1>
+        <h2>{{ letter.contactUser?.status }}</h2>
+        <div class="contact-info">
+            <div><span class="material-icons">email</span>{{ letter.contactUser.email }}</div>
+            <div><span class="material-icons">phone</span>{{ letter.contactUser.phone }}</div>
+            <div><span class="material-icons">place</span>{{ letter.contactUser.address }}, {{ letter.contactUser.city }}, {{ letter.contactUser.postalCode }}</div>
+        </div>
+    </div>
+    <p class="to-label">To:</p>
+    <div class="recipient-info">
+        <!-- Assuming the employer's data is stored under 'contactEmployer' -->
+        <p>{{ letter.contactEmployer?.firstName }} {{ letter.contactEmployer?.lastName }}</p>
+        <p>{{ letter.contactEmployer?.position }}</p>
+        <p>{{ letter.contactEmployer?.organisation }}</p>
+        <p>{{ letter.contactEmployer?.address }}</p>
+    </div>
+    <div class="line"></div>
+
+    <div class="body">
+        <p>{{ letter.contactEmployer?.title }} {{ letter.contactEmployer?.lastName }},</p>
+        <!-- Assuming the body content is under 'body' object -->
+        <p [innerHTML]="letter.body?.body"></p>
+    </div>
+    <div class="line"></div>
+
+    <div class="closure" *ngIf="letter.contactUser?.firstName && letter.contactUser?.lastName">
+        <p>Sincerely,</p>
+        <p>{{ letter.contactUser.firstName }} {{ letter.contactUser.lastName }}</p>
+        <!-- Assuming signature data is stored in a 'signature' variable -->
+    </div>
+</div>

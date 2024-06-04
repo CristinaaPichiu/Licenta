@@ -33,7 +33,7 @@ export class CreateCoverletterComponent implements OnInit {
     
     setTimeout(() => {
       this.loading = false; 
-      this.router.navigate(['/cover-letter-form']); 
+      this.router.navigate(['/select-template-cover-letter']); 
     }, 1000);
   }
   

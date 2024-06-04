@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.List;
 
 public class ResumeDTO {
+
+    private Integer templateId;
     private ContactDTO contactSection;
     private List<EducationDTO> educationSections;
     private List<ExperienceDTO> experienceSections;
@@ -89,6 +91,14 @@ public class ResumeDTO {
 
     public void setAboutSection(AboutDTO aboutSection) {
         this.aboutSection = aboutSection;
+    }
+
+    public Integer getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(Integer templateId) {
+        this.templateId = templateId;
     }
 
     @Override

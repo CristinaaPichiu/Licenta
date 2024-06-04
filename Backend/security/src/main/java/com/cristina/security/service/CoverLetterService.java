@@ -8,9 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.slf4j.Logger;
@@ -35,22 +38,31 @@ public class CoverLetterService {
     @Transactional
     public CoverLetter createCoverLetter(CoverLetterDTO coverLetterDTO) {
         String email = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        logger.info("Creating cover letter for user: {}", email);
+
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("User not found with email: " + email));
+
+        logger.info("User retrieved from database: {}", user);
+
 
         CoverLetter coverLetter = new CoverLetter();
         coverLetter.setId(UUID.randomUUID());
         coverLetter.setUser(user);
+        coverLetter.setTemplateId(coverLetterDTO.getTemplateId());
+
+        logger.info("Cover letter created with ID: {}", coverLetter.getId());
+
 
         CoverLetterContactUser contactUser = saveContactUser(coverLetterDTO.getContactUser(), user, coverLetter);
         CoverLetterContactEmployer contactEmployer = saveContactEmployer(coverLetterDTO.getContactEmployer(), user, coverLetter);
         CoverLetterBody body = saveCoverLetterBody(coverLetterDTO.getBody(), user, coverLetter);
-
         coverLetter.setCoverLetterContactUser(contactUser);
         coverLetter.setCoverLetterContactEmployer(contactEmployer);
         coverLetter.setCoverLetterBody(body);
 
         return coverLetterRepository.save(coverLetter);
+
     }
 
     private CoverLetterContactUser saveContactUser(CoverLetterContactUserDTO dto, User user, CoverLetter coverLetter) {
@@ -169,4 +181,68 @@ public class CoverLetterService {
         entity.setBody(dto.getBody());
         return entity;
     }
+
+    public List<CoverLetterDTO> getAllCoverLettersByUserId(Integer userId) {
+        List<CoverLetter> coverLetters = coverLetterRepository.findAllByUserId(userId);
+        return coverLetters.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private CoverLetterDTO convertToDTO(CoverLetter coverLetter) {
+        CoverLetterDTO dto = new CoverLetterDTO();
+        dto.setTemplateId(coverLetter.getTemplateId());
+        dto.setTemplateId(coverLetter.getTemplateId());
+        dto.setContactUser(convertContactUser(coverLetter.getCoverLetterContactUser()));
+        dto.setContactEmployer(convertContactEmployer(coverLetter.getCoverLetterContactEmployer()));
+        dto.setBody(convertBody(coverLetter.getCoverLetterBody()));
+        return dto;
+    }
+
+    private CoverLetterContactUserDTO convertContactUser(CoverLetterContactUser contactUser) {
+        if (contactUser == null) {
+            return null;
+        }
+        CoverLetterContactUserDTO dto = new CoverLetterContactUserDTO();
+        dto.setFirstName(contactUser.getFirstName());
+        dto.setLastName(contactUser.getLastName());
+        dto.setStatus(contactUser.getStatus());
+        dto.setAddress(contactUser.getAddress());
+        dto.setCity(contactUser.getCity());
+        dto.setPostalCode(contactUser.getPostalCode());
+        dto.setPhone(contactUser.getPhone());
+        dto.setEmail(contactUser.getEmail());
+        return dto;
+    }
+
+    private CoverLetterContactEmployerDTO convertContactEmployer(CoverLetterContactEmployer contactEmployer) {
+        if (contactEmployer == null) {
+            return null;
+        }
+        CoverLetterContactEmployerDTO dto = new CoverLetterContactEmployerDTO();
+        dto.setTitle(contactEmployer.getTitle());
+        dto.setFirstName(contactEmployer.getFirstName());
+        dto.setLastName(contactEmployer.getLastName());
+        dto.setPosition(contactEmployer.getPosition());
+        dto.setOrganisation(contactEmployer.getOrganisation());
+        dto.setAddress(contactEmployer.getAddress());
+        return dto;
+    }
+
+    private CoverLetterBodyDTO convertBody(CoverLetterBody body) {
+        if (body == null) {
+            return null;
+        }
+        CoverLetterBodyDTO dto = new CoverLetterBodyDTO();
+        dto.setBody(body.getBody());
+        return dto;
+    }
+
+
+
+
+
+
+
+
 }

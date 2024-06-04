@@ -1,0 +1,127 @@
+<div class="cv-container">
+    <header>
+      <div class="about">
+        <div class="nameAndStatus">
+          <h1>{{ resume.contactSection?.name }}</h1>
+          <h2>{{ resume.contactSection?.status }}</h2>
+        </div>
+        <div class="summary">
+          <p>{{ resume.aboutSection?.summary }}</p>
+        </div>
+      </div>
+      <div class="contact-info">
+        <span *ngIf="resume.contactSection?.phone"><mat-icon>phone</mat-icon> {{ resume.contactSection.phone }}</span>
+        <span *ngIf="resume.contactSection?.email"><mat-icon>email</mat-icon> {{ resume.contactSection.email }}</span>
+        <span *ngIf="resume.contactSection?.address">
+          <mat-icon>location_on</mat-icon> {{ resume.contactSection.address }}, {{ resume.contactSection.city }}, {{ resume.contactSection.postalCode }}
+        </span>
+        <div *ngIf="resume.linkSections?.length > 0">
+          <div *ngFor="let link of resume.linkSections" class="link-item">
+            <mat-icon>link</mat-icon> <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <div class="left-column">
+        <section class="work-experience" *ngIf="resume.experienceSections?.length > 0">
+          <div class="work-experience-header">
+            <mat-icon>work</mat-icon>
+            <h3>Work Experience</h3>
+            <span class="horizontal-line"></span>
+          </div>
+          <div class="work-experiences">
+            <div *ngFor="let job of resume.experienceSections" class="job-item">
+              <div class="job-header">
+                <h4>{{ job.jobTitle }}</h4>
+                <span class="job-period">{{ job.startDate | date:'mediumDate' }} - {{ job.endDate | date:'mediumDate' }} - {{ job.city }}</span>
+              </div>
+              <h4>{{ job.employer }}</h4>
+              <p>{{ job.description }}</p>
+            </div>
+          </div>
+        </section>
+        <section class="projects" *ngIf="resume.projectSections?.length > 0">
+          <div class="work-experience-header">
+            <mat-icon>assignment</mat-icon>
+            <h3>Projects</h3>
+            <span class="horizontal-line"></span>
+          </div>
+          <div *ngFor="let project of resume.projectSections" class="timeline-item">
+            <div class="timeline-content">
+              <div class="project-header">
+                <h4>{{ project.projectName }}</h4>
+                <span class="project-date">{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
+              </div>
+              <p>{{ project.description }}</p>
+              <div class="project-technologies">
+                Technologies Used: {{ project.technologiesUsed }}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="right-column">
+        <section class="volunteering" *ngIf="resume.volunteeringSections?.length > 0">
+          <div class="work-experience-header">
+            <mat-icon>people</mat-icon>
+            <h3>Volunteering</h3>
+            <span class="horizontal-line"></span>
+          </div>
+          <div *ngFor="let volunteer of resume.volunteeringSections" class="timeline-item">
+            <div class="timeline-content">
+              <div class="volunteer-header">
+                <h4>{{ volunteer.role }} at {{ volunteer.organization }}</h4>
+                <span class="date-and-city">
+                  {{ volunteer.startDate | date: 'longDate' }} - 
+                  {{ volunteer.endDate | date: 'longDate' }} | 
+                  {{ volunteer.city }}
+                </span>
+              </div>
+              <p>{{ volunteer.description }}</p>
+            </div>
+          </div>
+        </section>
+        <section class="education" *ngIf="resume.educationSections?.length > 0">
+          <div class="work-experience-header">
+            <mat-icon>school_outline</mat-icon>
+            <h3>Education</h3>
+            <span class="horizontal-line"></span>
+          </div>
+          <div *ngFor="let edu of resume.educationSections" class="education-entry">
+            <div class="degree-and-school">
+              <p class="degree">{{ edu.degree }} at {{ edu.school }}</p>
+              <p class="dates">
+                {{ edu.startDate ? (edu.startDate | date: 'yyyy') : '' }} -
+                {{ edu.endDate ? ((edu.startDate | date: 'yyyy') === (edu.endDate | date: 'yyyy') ? 'Present' : (edu.endDate | date: 'yyyy')) : 'Present' }}
+              </p>
+            </div>
+          </div>
+        </section>
+        <section class="skills" *ngIf="resume.skillsSections?.length > 0">
+          <div class="work-experience-header">
+            <mat-icon>grain</mat-icon>
+            <h3>Skills</h3>
+            <span class="horizontal-line"></span>
+          </div>
+          <div class="skills-container">
+            <div *ngFor="let skill of resume.skillsSections; let i = index" class="skill" [class.even]="i % 2 === 1">
+              <span>{{ skill.skillName }}</span>
+              <span class="yearsOfExperience">{{ skill.years }}</span>
+            </div>
+          </div>
+        </section>
+        <section class="custom-sections" *ngIf="resume.customSections?.length > 0">
+          <div *ngFor="let custom of resume.customSections" class="timeline-item">
+            <div class="timeline-content">
+              <div class="custom-header">
+                <h4>{{ custom.title }}</h4>
+              </div>
+              <p>{{ custom.description }}</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  

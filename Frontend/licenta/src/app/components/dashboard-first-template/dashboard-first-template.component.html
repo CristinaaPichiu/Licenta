@@ -1,0 +1,112 @@
+<div class="page-wrapper">
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="leftPanel">
+            <img src="assets/profile.png" alt="Avatar"/>
+            <div class="details">
+                <div class="item item-bottomLineSeparator">
+                    <h2 class="section-title">CONTACT</h2>
+                    <div class="smallText">
+                        <p *ngIf="resume.contactSection?.phone"><mat-icon class="icon">phone</mat-icon><span>{{ resume.contactSection.phone }}</span></p>
+                        <p *ngIf="resume.contactSection?.email"><mat-icon class="icon">email</mat-icon><span>{{ resume.contactSection.email }}</span></p>
+                        <p *ngIf="resume.contactSection?.address">
+                            <mat-icon class="icon">place</mat-icon><span>{{ resume.contactSection.address }}, {{ resume.contactSection.city }}, {{ resume.contactSection.postalCode }}</span>
+                        </p>
+                        <div *ngIf="resume.linkSections && resume.linkSections.length > 0">
+                            <div *ngFor="let link of resume.linkSections" class="link-item">
+                                <mat-icon class="icon">link</mat-icon> <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item item-bottomLineSeparator">
+                    <h2 class="section-title">SKILLS</h2>
+                    <div class="smallText">
+                        <div *ngFor="let skill of resume.skillsSections" class="skill">
+                            <span>{{ skill.skillName }}</span>
+                            <span class="yearsOfExperience">{{ skill.years }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <h2 class="section-title">EDUCATION</h2>
+                    <div *ngFor="let edu of resume.educationSections" class="education-entry">
+                        <p class="degree">{{ edu.degree }}</p>
+                        <p class="school">{{ edu.school }}</p>
+                        <p class="dates">
+                            {{ edu.startDate ? (edu.startDate | date: 'yyyy') : '' }} -
+                            {{ edu.endDate ? ((edu.startDate | date: 'yyyy') === (edu.endDate | date: 'yyyy') ? 'Present' : (edu.endDate | date: 'yyyy')) : (edu.startDate ? 'Present' : '') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Panel -->
+        <div class="rightPanel">
+            <div class="header-container">
+                <h1>{{ resume.contactSection?.name }}</h1>
+                <h3>{{ resume.contactSection?.status }}</h3>
+            </div>
+
+            <div *ngIf="resume.aboutSection?.summary && resume.aboutSection.summary.trim().length > 0">
+                <h2>About me</h2>
+                <p class="about">{{ resume.aboutSection.summary }}</p>
+            </div>
+            <div *ngIf="resume.experienceSections && resume.experienceSections.length > 0">
+                <div class="work-experience">
+                    <div class="work_">
+                        <h2>Work Experience</h2>
+                    </div>
+                        <div *ngFor="let job of resume.experienceSections" class="timeline-item">
+                                <div class="job-title">
+                                    <h3>{{ job.jobTitle }}</h3>
+                                    <span class="job-period">{{ job.startDate | date:'mediumDate' }} - {{ job.endDate | date:'mediumDate' }} - {{job.city}}</span>
+                                </div>
+                                <h4>{{ job.employer }}</h4>
+                                <p>{{ job.description }}</p>
+                        </div>
+                </div>
+            </div>
+            <div *ngIf="resume.projectSections && resume.projectSections.length > 0">
+                <h2>Projects</h2>
+                <div class="timeline">
+                    <div *ngFor="let project of resume.projectSections" class="timeline-item">
+                       
+                            <div class="project-header">
+                                <h3>{{ project.projectName }}</h3>
+                                <span class="project-date">{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
+                            </div>
+                            <p>{{ project.description }}</p>
+                            <div class="project-technologies">
+                                Technologies Used: {{ project.technologiesUsed }}
+                          
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="resume.volunteeringSections && resume.volunteeringSections.length > 0">
+                <h2>Volunteering</h2>
+                <div class="timeline">
+                    <div *ngFor="let volunteer of resume.volunteeringSections" class="timeline-item">
+                        <div class="volunteer-header">
+                            <h3>{{ volunteer.role }} at {{ volunteer.organization }}</h3>
+                            <div class="dates-and-city">
+                                <span class="date">{{ volunteer.startDate | date: 'longDate' }} - {{ volunteer.endDate | date: 'longDate' }}</span>
+                                <span class="city">{{ volunteer.city }}</span>
+                            </div>
+                        </div>
+                        <p>{{ volunteer.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="resume.customSections && resume.customSections.length > 0" class="custom-sections-container">
+                <div *ngFor="let custom of resume.customSections" class="timeline-item">
+                    <div class="custom-header">
+                        <h2>{{ custom.title }}</h2>
+                    </div>
+                    <p>{{ custom.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

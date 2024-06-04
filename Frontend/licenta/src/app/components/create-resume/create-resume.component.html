@@ -566,15 +566,17 @@
         </button>
 
     </div>
-    <div id="cv-template">
-      <app-template-cv *ngIf="selectedTemplate === 'app-template-cv'"></app-template-cv>
+    <div id="cv-template" [ngSwitch]="selectedTemplate">
 
-      <!-- Afișează al doilea template de CV dacă selectedTemplate este 'app-second-template-cv' -->
-      <app-second-template-cv *ngIf="selectedTemplate === 'app-second-template-cv'"></app-second-template-cv>
+      <!-- Afișează template-ul în funcție de ID -->
+      <app-template-cv *ngSwitchCase="1"></app-template-cv>
+      <app-second-template-cv *ngSwitchCase="2"></app-second-template-cv>
+      <app-third-template *ngSwitchCase="3"></app-third-template>
     
-      <!-- Afișează al treilea template de CV dacă selectedTemplate este 'app-third-template' -->
-      <app-third-template *ngIf="selectedTemplate === 'app-third-template'"></app-third-template>  </div>
+      <!-- Poți adăuga mai multe template-uri aici folosind *ngSwitchCase cu ID-uri corespunzătoare -->
     </div>
+    </div>
+    
     <div *ngIf="isPreviewMode" class="preview-overlay">
       <button class="close-preview-button" (click)="closePreview()">Close Preview</button>
       <div class="preview-template">

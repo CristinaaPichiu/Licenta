@@ -4,6 +4,7 @@ import SignaturePad from 'signature_pad';
 import { CoverLetterDataService } from 'src/app/services/cover-letter-data.service';
 import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.service';
 import * as html2pdf from 'html2pdf.js';
+import { SelectTemplateCvService } from 'src/app/services/select-template-cv.service';
 
 
 @Component({
@@ -26,14 +27,22 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
   coverLetterData: any = {};
   isPreviewMode = false;
   isEmailModalOpen = false;
+  selectedTemplate!: number;
 
   constructor(private fb: FormBuilder,
               private coverLetterDataService: CoverLetterDataService,
-              private saveCoverLetterService: SaveCoverLetterService) {}
+              private saveCoverLetterService: SaveCoverLetterService,
+              private templateService: SelectTemplateCvService
+            ) {}
 
   ngOnInit() {
     this.initializeForms();
-    this.loadCoverLetterData();
+    this.templateService.currentTemplate.subscribe(template => {
+      this.selectedTemplate = template;
+      console.log('Current template ID set:', this.selectedTemplate);
+      this.loadCoverLetterData();  // Mută apelul aici pentru a asigura că templateId este setat
+    });
+
 
     this.contactForm.valueChanges.subscribe(values => {
       this.coverLetterDataService.updateCoverLetterForm({ ...this.coverLetterDataService.getCurrentCoverLetterSnapshot(), contact: values });
@@ -144,9 +153,33 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
   }
 
   onSaveCoverLetter(): void {
-    const coverLetterData = this.buildCoverLetterObject();
-    console.log('Cover Letter Data:', coverLetterData);
+    const coverLetterData = {
+      ...this.buildCoverLetterObject(),
+      templateId: this.selectedTemplate  // Asigură-te că această linie există și este corectă
+    };
+  
+    console.log('Cover Letter Data:', coverLetterData);  // Loghează pentru a verifica structura datelor
+  
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      this.saveCoverLetterService.saveCoverLetter(token, coverLetterData).subscribe({
+        next: (response: any) => {
+          console.log('Cover letter saved successfully', response);
+          alert('Cover letter saved successfully!');
+          if (response && response.id) {
+            localStorage.setItem('currentCoverLetterId', response.id);
+          }
+        },
+        error: (error: any) => {
+          console.error('Failed to save cover letter', error);
+          alert('Failed to save cover letter: ' + error.message);
+        }
+      });
+    } else {
+      alert('Please log in to save your cover letter.');
+    }
   }
+  
 
   loadCoverLetterData() {
     const token = localStorage.getItem('auth_token');

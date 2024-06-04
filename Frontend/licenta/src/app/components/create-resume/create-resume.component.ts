@@ -11,11 +11,6 @@ import { GenerateSummaryService } from 'src/app/services/generate-summary.servic
 import { SelectTemplateCvService } from 'src/app/services/select-template-cv.service';
 
 
-
-
-
-
-
 @Component({
   selector: 'app-create-resume',
   templateUrl: './create-resume.component.html',
@@ -45,7 +40,7 @@ export class CreateResumeComponent implements OnInit {
   emailForm!: FormGroup;
   chatResponse!: string;
   isHovering: boolean = false;
-  selectedTemplate!: string; // Declară proprietatea aici
+  selectedTemplate!: number; // Declară proprietatea aici
 
 
 
@@ -145,6 +140,8 @@ closeAiResponse(chatResponse: any): void {
     this.templateService.currentTemplate.subscribe(template => {
       this.selectedTemplate = template;
     });
+    this.loadSelectedTemplate();
+
 
 
     
@@ -332,6 +329,7 @@ setActivePanel(index: number | null) {
 }
 
 
+
 addExperience(): void {
   this.experiences.push(this.fb.group({
     jobTitle: ['', Validators.required],
@@ -514,6 +512,14 @@ selectResume(resumeId: string): void {
   this.saveCurrentResumeId(resumeId);
 }
 
+loadSelectedTemplate() {
+  const templateId = localStorage.getItem('selectedTemplate');
+  if (templateId) {
+    this.selectedTemplate = +templateId;
+    this.templateService.changeTemplate(this.selectedTemplate);
+  }
+}
+
 loadResumeData() {
   const token = localStorage.getItem('auth_token');
   if (token) {
@@ -609,8 +615,11 @@ populateForms(resume: any) {
 
 
 onSaveResume(): void {
-  const resumeData = this.buildResumeObject();
-  console.log('Resume Data:', resumeData);
+  const resumeData = {
+    ...this.buildResumeObject(), // Construiește restul datelor pentru CV
+    templateId: this.selectedTemplate // Include ID-ul template-ului
+  };
+    console.log('Resume Data:', resumeData);
   const token = localStorage.getItem('auth_token');
   console.log(token); // Retrieve the JWT token from localStorage
 

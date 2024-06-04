@@ -46,6 +46,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ThirdTemplateComponent } from './components/third-template/third-template.component';
 import { SelectTemplateResumeComponent } from './components/select-template-resume/select-template-resume.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DashboardFirstTemplateComponent } from './components/dashboard-first-template/dashboard-first-template.component';
+import { DashboardSecondTemplateComponent } from './components/dashboard-second-template/dashboard-second-template.component';
+import { DashboardThirdTemplateComponent } from './components/dashboard-third-template/dashboard-third-template.component';
+import { CoverLetterSecondTemplateComponent } from './components/cover-letter-second-template/cover-letter-second-template.component';
+import { CoverLetterThirdTemplateComponent } from './components/cover-letter-third-template/cover-letter-third-template.component';
+import { SelectTemplateCoverLetterComponent } from './components/select-template-cover-letter/select-template-cover-letter.component';
+import { DashboardLetterFirstComponent } from './components/dashboard-letter-first/dashboard-letter-first.component';
+import { DashboardLetterSecondComponent } from './components/dashboard-letter-second/dashboard-letter-second.component';
+import { DashboardLetterThirdComponent } from './components/dashboard-letter-third/dashboard-letter-third.component';
 
 
 
@@ -73,7 +82,16 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     SecondTemplateCvComponent,
     LoadingDialogComponent,
     ThirdTemplateComponent,
-    SelectTemplateResumeComponent    
+    SelectTemplateResumeComponent,
+    DashboardFirstTemplateComponent,
+    DashboardSecondTemplateComponent,
+    DashboardThirdTemplateComponent,
+    CoverLetterSecondTemplateComponent,
+    CoverLetterThirdTemplateComponent,
+    SelectTemplateCoverLetterComponent,
+    DashboardLetterFirstComponent,
+    DashboardLetterSecondComponent,
+    DashboardLetterThirdComponent    
   ],
   imports: [
     BrowserModule,

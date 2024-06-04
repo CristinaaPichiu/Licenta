@@ -1,0 +1,297 @@
+/* General Styles */
+
+  .cv-container {
+    width: 200px;  /* Lățime fixă pentru container */
+    height: 300px; /* Înălțime fixă pentru container */
+    overflow: hidden; /* Ascunde orice conținut ce depășește dimensiunile containerului */
+    font-family: Arial, sans-serif; /* Font lizibil și compact */
+    background: white;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrează conținutul orizontal */
+    justify-content: space-between; /* Distribuie spațiul între elemente vertical */
+    padding: 2px; /* Minimizează padding-ul pentru a folosi spațiul eficient */
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+}
+
+.about {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    color: #333;
+    border: 2px solid #507d95;
+    position: relative; /* Make sure this is relative for positioning child elements */
+    overflow: visible; /* Allow child elements to display outside the box */
+    margin-bottom: 20px;;
+}
+
+.nameAndStatus {
+    background-color: white; /* Adjust the background color as needed */
+    border-radius: 10px 10px 0 0; /* Round top corners */
+    padding: 10px 20px; /* Adjust padding as needed */
+    position: absolute; /* Absolute position */
+    top: -25px; /* Adjust this value to move the tab up to the edge of the about container */
+    left: 200px; /* Adjust horizontal position */
+    color: black; /* Text color */
+    z-index: 10; /* Ensure it is above other content */
+    margin-bottom: 10px;;
+    display: flex; /* Transformă containerul într-un flex container */
+    flex-direction: column; /* Ordonează conținutul în coloană */
+    align-items: center;
+   
+}
+
+.about h1, .about h2 {
+    margin: 0; /* Remove default margins */
+}
+
+.summary {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: justify;
+    position: relative; /* To ensure it lays out correctly under the absolute positioned tab */
+    padding-top: 30px; /* Add padding to top to make space for the nameAndStatus block */
+}
+
+.contact-info {
+    margin-top:20px;
+    background-color: #507d95; /* Culoarea de fundal violet */
+    color: white; /* Text alb */
+    padding: 20px; /* Spațiu interior pentru conținut */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+    width: 93%; /* Ajustează conform nevoilor tale de design */
+    height: 80px; /* Înălțimea containerului */
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%); /* Formă personalizată */
+}
+
+.contact-info .link-item {
+    display: inline-flex; /* Displays link items inline but also as flex containers */
+    align-items: center;
+    margin-right: 10px; /* Add more space between links */
+
+  }
+
+
+
+.contact-info span, .contact-info a {
+    display: flex; /* Setează fiecare element ca un flex container */
+    align-items: center; /* Centrează conținutul pe verticală */
+    color: inherit; /* Moștenește culoarea de la containerul părinte */
+    margin: 5px 0; /* Margini subtile pentru a evita suprapunerea */
+}
+
+.contact-info mat-icon {
+    color: white; /* Asigură-te că iconițele sunt albe pentru vizibilitate */
+    margin-right: 5px; /* Spațiu între iconiță și text */
+}
+
+.contact-info a {
+    text-decoration: none; /* Elimină sublinierea linkurilor */
+    color: white; /* Setează culoarea textului linkurilor */
+}
+
+.contact-info a:hover {
+    text-decoration: underline; /* Subliniază linkurile la hover pentru a indica interactivitatea */
+}
+
+.work-experience-header {
+    display: flex;
+    align-items: center;  /* Alinează elementele vertical în centrul containerului lor */
+    white-space: nowrap;  /* Previne întreruperea textului și elementelor pe mai multe linii */
+    margin-bottom: 10px;  /* Adaugă un spațiu sub antet, ajustează conform necesităților tale */
+}
+
+mat-icon {
+    font-size: 24px;  /* Mărimea iconului, ajustează conform necesităților */
+    margin-right: 10px;  /* Spațiu între icon și text */
+}
+
+h3 {
+    margin: 0;  /* Elimină marginile implicite ale titlului pentru a preveni deplasările nedorite */
+    font-size: 18px;  /* Ajustează mărimea titlului după preferințe */
+    flex-grow: 0;  /* Previne extinderea titlului peste măsura necesară */
+    white-space: nowrap;  /* Asigură că titlul rămâne pe o singură linie */
+}
+
+.horizontal-line {
+    height: 2px;
+    background-color: #507d95;  /* Culoarea liniei, ajustează pentru a se potrivi cu designul tău */
+    flex-grow: 1;  /* Permite liniei să ocupe tot spațiul rămas */
+    margin-left: 10px;  /* Spațiu între titlu și linie */
+    position: relative;  /* Poziționează relativ pentru a permite adăugarea cercului */
+}
+
+.horizontal-line::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 8px;
+    background-color: #507d95;  /* Asigură-te că culoarea cercului se potrivește cu linia */
+    border-radius: 50%;
+    right: 0;  /* Plasează cercul la capătul drept al liniei */
+    top: -3px;  /* Centrarea cercului pe linia orizontală */
+}
+
+.job-item {
+    position: relative;
+    margin-bottom: 20px; /* Spațiu între intrările de job pentru claritate */
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between; /* Extinde conținutul pentru a umple spațiul orizontal */
+    align-items: center; /* Centrarea elementelor vertical */
+}
+
+.job-title {
+    margin: 0; /* Elimină marginile implicite */
+    flex-grow: 1; /* Permite titlului să ocupe orice spațiu disponibil */
+    font-weight: bold; /* Asigură că titlul este îngroșat */
+}
+
+.job-period {
+    margin: 0; /* Elimină marginile implicite */
+    white-space: nowrap; /* Asigură că data nu va trece pe linia următoare */
+    font-style: italic; /* Italicizează data dacă este necesar */
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.project-technologies{
+    margin-bottom: 20px;
+}
+
+.project-title {
+    margin: 0;
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+.project-date {
+    margin: 0;
+    white-space: nowrap;
+    font-style: italic;
+}
+
+
+.skills-container {
+    display: flex;
+    flex-wrap: nowrap;  /* Prevents skill elements from wrapping onto the next line */
+    overflow-x: auto;   /* Enables horizontal scrolling if there's not enough space */
+}
+
+.skill {
+    width: auto;  /* Adjusts each skill to take up only the needed space */
+    padding: 5px 10px; /* Adjusts padding for spacing within each skill, feel free to adjust */
+    box-sizing: border-box;
+}
+
+.skill span:first-child::before {
+    content: '•';  /* Unicode character for bullet point */
+    display: inline-block;
+    margin-right: 5px; /* Space between the bullet and the text */
+    color: black; /* Color of the bullet */
+    font-size: 20px; /* Adjust the font size to better fit on a single line */
+    line-height: 1; /* Adjust line height to align with text */
+}
+
+
+
+
+.education .degree-and-school {
+    display: flex;
+    justify-content: space-between; /* Asigură că gradul și datele sunt separate și aliniate pe aceeași linie */
+    align-items: center; /* Aliniază elementele vertical */
+    margin-bottom: 10px; /* Spațiu sub fiecare intrare de educație */
+}
+
+.degree {
+    margin: 0; /* Elimină marginile implicite */
+}
+
+.degree::first-letter {
+    text-transform: uppercase;
+  }
+.dates {
+    margin: 0; /* Elimină marginile implicite */
+    white-space: nowrap; /* Asigură că data nu va trece pe linia următoare */
+    font-style: italic; /* Italicizează data dacă este necesar */
+}
+
+
+
+
+.volunteering .volunteer-header {
+    margin-top:20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.volunteering .volunteer-header h4 {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.volunteering .date-and-city {
+    margin-bottom:20px;
+    margin: 0;
+    white-space: nowrap;
+    font-style: italic;
+}
+
+
+
+
+
+  
+  @media print {
+    .cv-container {
+      box-shadow: none;
+      margin: 0;
+      page-break-after: always;
+    }
+  }
+  
+  /* Printing Adjustments */
+  @media print {
+    .left-column, .right-column, .item {
+      page-break-inside: avoid;
+    }
+  
+    .item {
+      padding-bottom: 10px;
+    }
+  
+    p, h1, h2, h3, h4 {
+      margin: 5px 0;
+    }
+  
+    ul {
+      margin: 5px 0;
+      padding-left: 20px;
+    }
+  
+    li {
+      margin-bottom: 5px;
+    }
+  }
+
+
+  
+
+  
+  

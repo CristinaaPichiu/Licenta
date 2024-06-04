@@ -1,0 +1,157 @@
+.cover-letter-container {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    margin: 5px auto;
+    padding: 5px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.header {
+    background-color: #507d95;
+    color: white;
+    padding: 3px; /* Reduced padding */
+    font-size: 9px; /* Slightly smaller font size */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+}
+
+.profile-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.name-and-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 2px; /* Reduced bottom margin to close gap */
+}
+
+.name-title h1, .status h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 8px; /* Further reduced font size */
+    font-weight: bold;
+}
+
+.status {
+    color: #f0ad4e;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 7px; /* Further reduced font size */
+    margin: 0; /* No additional margin to keep elements close */
+}
+
+.material-icons {
+    font-size: 7px; /* Smaller icons */
+    color: #507d95;
+    margin-right: 2px;
+}
+
+.to-label {
+    font-style: italic; /* Keep the 'To:' in italic */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any padding to reduce space */
+    display: block; /* Ensures it's on its own line but can be closely aligned */
+    font-size: 5px;
+
+}
+
+.recipient-info {
+    text-align: left;
+    font-size: 5px;
+    line-height: 1.4;
+    color: #2c3e50; /* Dark blue for enhanced visibility */
+    margin: 0; /* Remove margin to close any gap with 'To:' */
+    padding-top: 0; /* Zero out top padding to close the gap */
+}
+
+.recipient-info p {
+    margin: 2px 0; /* Small margin for compact look */
+    font-weight: bold; /* Bold text for recipient details */
+    margin-left:10px;
+
+}
+
+.body {
+    margin-top: 10px;
+    font-size: 5px;
+    line-height: 1.5;
+    margin-left:30px;
+  }
+  .closure{
+    margin-left:30px;
+
+    font-size:5px;
+    margin-top: 2px;
+  }
+  
+  .signature-image {
+    position: absolute;
+    right: 20px; // Ajustează valoarea pentru a deplasa semnătura mai spre dreapta
+    bottom: 300px; // Ajustează valoarea pentru a deplasa semnătura mai jos
+    width: 300px; // Ajustează dimensiunea semnăturii după cum este necesar
+  }
+  .line {
+    position: relative;
+    margin: 20px auto;
+    width: 90%;
+    height: 1px;
+    background-color: transparent;
+}
+
+.line::before,
+.line::after {
+    margin-top: 5px;
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 1px;
+    background-color: #d6a65e;
+}
+
+.line::before {
+    left: 0;
+    width: 47.5%; /* Adjust width to create space for the diamond */
+}
+
+.line::after {
+    margin-top: 5px;
+    right: 0;
+    width: 47.5%; /* Adjust width to create space for the diamond */
+}
+
+.diamond {
+    margin-top: 10px;
+
+    position: absolute;
+    top: -4px; /* Slightly above the center of the line */
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background-color: #d6a65e;
+    transform: translate(-50%, -50%) rotate(45deg); /* Center and rotate the diamond */
+    z-index: 1;
+}
+
+@media (max-width: 480px) {
+    .cover-letter-container {
+        width: 100%;
+        padding: 3px; /* Adjusted padding for smaller devices */
+        font-size: 6px; /* Even smaller font size for ultra compact layout */
+    }
+}

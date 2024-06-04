@@ -71,8 +71,6 @@ public class ResumeService {
         System.out.print("Saved initial Resume with ID: {}" + resume.getEducationSections());
 
 
-
-
         resume.setAboutSection(saveAboutSection(resumeDTO.getAboutSection(), user, resume));
         resume.setContactSection(saveContactSection(resumeDTO.getContactSection(), user, resume));
         resume.setEducationSections(saveEducationSections(resumeDTO.getEducationSections(), user, resume));
@@ -82,6 +80,8 @@ public class ResumeService {
         resume.setSkillSection(saveSkillsSections(resumeDTO.getSkillsSections(), user, resume));
         resume.setVolunteeringSection(saveVolunteeringSections(resumeDTO.getVolunteeringSections(), user, resume));
         resume.setCustomSection(saveCustomSections(resumeDTO.getCustomSections(), user, resume));
+        resume.setTemplateId(resumeDTO.getTemplateId());  // Save the template ID
+
 
         System.out.print("AAAAAAAAAAAAAAAAAAAAAAA");
         System.out.print(resume.getId());
@@ -135,6 +135,10 @@ public class ResumeService {
         if (resumeDTO.getCustomSections() != null) {
             resume.getCustomSection().clear(); // Curăță colecția existentă
             resume.getCustomSection().addAll(saveCustomSections(resumeDTO.getCustomSections(), user, resume)); // Adaugă noile elemente
+        }
+
+        if (resumeDTO.getTemplateId() != null) {
+            resume.setTemplateId(resumeDTO.getTemplateId());
         }
 
         System.out.print("Pas3");
@@ -218,7 +222,7 @@ public class ResumeService {
     }
 
     // Save project sections
-    private List<ProjectSection> saveProjectSections(List<ProjectDTO> dtos, User user,Resume resume) {
+    private List<ProjectSection> saveProjectSections(List<ProjectDTO> dtos, User user, Resume resume) {
         return dtos.stream().map(dto -> {
             ProjectSection section = new ProjectSection();
             section.setProjectName(dto.getProjectName());
@@ -290,24 +294,97 @@ public class ResumeService {
         }
     }
 
-
-
-    /*
-    @Autowired
-    private AboutSectionRepository aboutRepository;
-
-    @Transactional
-    public AboutSection saveAbout(AboutDTO aboutDTO) {
-        AboutSection about = new AboutSection();
-        about.setSummary(aboutDTO.getSummary());
-        return aboutRepository.save(about);
+    public List<ResumeDTO> getAllResumesByUserId(Integer userId) {
+        List<Resume> resumes = resumeRepository.findAllByUserId(userId);
+        return resumes.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    private ResumeDTO convertToDTO(Resume resume) {
+        ResumeDTO dto = new ResumeDTO();
+        dto.setTemplateId(resume.getTemplateId());
+        dto.setContactSection(convertContactSection(resume.getContactSection()));
+        dto.setAboutSection(convertAboutSection(resume.getAboutSection()));
+        dto.setEducationSections(resume.getEducationSections().stream().map(this::convertEducationSection).collect(Collectors.toList()));
+        dto.setExperienceSections(resume.getExperienceSection().stream().map(this::convertExperienceSection).collect(Collectors.toList()));
+        dto.setSkillsSections(resume.getSkillSection().stream().map(this::convertSkillsSection).collect(Collectors.toList()));
+        dto.setProjectSections(resume.getProjectSection().stream().map(this::convertProjectSection).collect(Collectors.toList()));
+        dto.setVolunteeringSections(resume.getVolunteeringSection().stream().map(this::convertVolunteeringSection).collect(Collectors.toList()));
+        dto.setLinkSections(resume.getLinkSection().stream().map(this::convertLinkSection).collect(Collectors.toList()));
+        dto.setCustomSections(resume.getCustomSection().stream().map(this::convertCustomSection).collect(Collectors.toList()));
+        return dto;
+    }
+    private ContactDTO convertContactSection(ContactSection section) {
+        ContactDTO dto = new ContactDTO();
+        dto.setName(section.getName());
+        dto.setStatus(section.getStatus());
+        dto.setAddress(section.getAddress());
+        dto.setCity(section.getCity());
+        dto.setPostalCode(section.getPostalCode());
+        dto.setPhone(section.getPhone());
+        dto.setEmail(section.getEmail());
+        return dto;
+    }
+    private AboutDTO convertAboutSection(AboutSection section) {
+        AboutDTO dto = new AboutDTO();
+        dto.setSummary(section.getSummary());
+        return dto;
+    }
+    private EducationDTO convertEducationSection(EducationSection section) {
+        EducationDTO dto = new EducationDTO();
+        dto.setSchool(section.getSchool());
+        dto.setDegree(section.getDegree());
+        dto.setStartDate(section.getStartDate());
+        dto.setEndDate(section.getEndDate());
+        return dto;
+    }
+    private ExperienceDTO convertExperienceSection(ExperienceSection section) {
+        ExperienceDTO dto = new ExperienceDTO();
+        dto.setJobTitle(section.getJobTitle());
+        dto.setEmployer(section.getEmployer());
+        dto.setStartDate(section.getStartDate());
+        dto.setEndDate(section.getEndDate());
+        dto.setCity(section.getCity());
+        dto.setDescription(section.getDescription());
+        return dto;
+    }
+    private SkillsDTO convertSkillsSection(SkillsSection section) {
+        SkillsDTO dto = new SkillsDTO();
+        dto.setSkillName(section.getSkillName());
+        return dto;
+    }
+    private ProjectDTO convertProjectSection(ProjectSection section) {
+        ProjectDTO dto = new ProjectDTO();
+        dto.setProjectName(section.getProjectName());
+        dto.setTechnologiesUsed(section.getTechnologiesUsed());
+        dto.setStartDate(section.getStartDate());
+        dto.setEndDate(section.getEndDate());
+        dto.setDescription(section.getDescription());
+        return dto;
+    }
+    private VolunteeringDTO convertVolunteeringSection(VolunteeringSection section) {
+        VolunteeringDTO dto = new VolunteeringDTO();
+        dto.setRole(section.getRole());
+        dto.setOrganization(section.getOrganization());
+        dto.setStartDate(section.getStartDate());
+        dto.setEndDate(section.getEndDate());
+        dto.setCity(section.getCity());
+        dto.setDescription(section.getDescription());
+        return dto;
+    }
+    private LinkDTO convertLinkSection(LinkSection section) {
+        LinkDTO dto = new LinkDTO();
+        dto.setLabel(section.getLabel());
+        dto.setUrl(section.getUrl());
+        return dto;
+    }
+    private CustomSectionDTO convertCustomSection(CustomSection section) {
+        CustomSectionDTO dto = new CustomSectionDTO();
+        dto.setTitle(section.getTitle());
+        dto.setDescription(section.getDescription());
+        return dto;
     }
 
 
-     */
-
 
 }
-
-
-// Methods for Skills, Projects, Links, Volunteering, Custom Sections...

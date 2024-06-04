@@ -90,6 +90,10 @@ public class ProjectSection {
         this.user = user;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     // Constructors, getters, and setters
 }
 

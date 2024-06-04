@@ -1,0 +1,43 @@
+<div class="cover-letter-container">
+    <div class="header">
+        <div class="profile-section">
+            <div class="name-and-status">
+                <div class="name-title">
+                    <h1>{{ letter.contactUser?.firstName }} {{ letter.contactUser?.lastName }}</h1>
+                </div>
+                <div class="status">
+                    <h3>{{ letter.contactUser?.status }}</h3>
+                </div>
+            </div>
+            <div class="contact-details">
+                <div><span class="material-icons">phone</span>{{ letter.contactUser?.phone }}</div>
+                <div><span class="material-icons">email</span>{{ letter.contactUser?.email }}</div>
+                <div><span class="material-icons">place</span>{{ letter.contactUser?.address }}, {{ letter.contactUser?.city }}, {{ letter.contactUser?.postalCode }}</div>
+            </div>
+        </div>
+    </div>
+
+    <p class="to-label">To:</p>
+    <div class="recipient-info">
+        <p>{{ letter.contactEmployer?.firstName }} {{ letter.contactEmployer?.lastName }}</p>
+        <p>{{ letter.contactEmployer?.position }}</p>
+        <p>{{ letter.contactEmployer?.organisation }}</p>
+        <p>{{ letter.contactEmployer?.address }}</p>
+    </div>
+    <div class="line">
+        <div class="diamond"></div>
+    </div>
+
+    <div class="body">
+        <p>{{ letter.contactEmployer?.title }} {{ letter.contactEmployer?.lastName }},</p>
+        <p [innerHTML]="letter.body?.body"></p>
+    </div>
+    <div class="line">
+        <div class="diamond"></div>
+    </div>
+
+    <div class="closure">
+        <p>Sincerely,</p>
+        <p>{{ letter.contactUser.firstName }} {{ letter.contactUser.lastName }}</p>
+    </div>
+</div>

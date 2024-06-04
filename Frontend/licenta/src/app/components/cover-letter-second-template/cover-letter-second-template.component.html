@@ -1,0 +1,36 @@
+<div class="cover-letter-container">
+    <div class="header">
+      <h1>{{ resume.contact?.firstName }} {{ resume.contact?.lastName }}</h1>
+      <h2>{{ resume.contact?.status }}</h2>
+      <div class="contact-info">
+        <div><span class="material-icons">email</span>{{resume.contact.email}}</div>
+        <div><span class="material-icons">phone</span>{{resume.contact.phone}}</div>
+        <div><span class="material-icons">place</span>        {{ resume.contact.address }}, {{ resume.contact.city }}, {{ resume.contact.postalCode }}
+        </div>
+    </div>
+    
+    </div>
+    <p class="to-label">To:</p>
+    <div class="recipient-info">
+        <p>{{resume.information?.firstName}} {{resume.information?.lastName}}</p>
+        <p>{{resume.information?.position}}</p>
+        <p>{{resume.information?.organisation}}</p>
+        <p>{{resume.information?.address}}</p>
+      </div>
+      <div class = "line"></div>
+
+      <div class="body">
+        <p>{{resume.information?.title}} {{resume.information?.lastName}},</p>
+        <p [innerHTML]="resume.smtg?.body"></p>
+      </div>
+      <div class = "line"></div>
+
+      <div class="closure" *ngIf="resume.contact?.firstName && resume.contact?.lastName">
+        <p>Sincerely,</p>
+        <p>{{ resume.contact.firstName }} {{ resume.contact.lastName }}</p>
+        <img *ngIf="signature" [src]="signature" alt="Signature" class="signature-image">
+  
+      </div>
+
+  
+  </div>

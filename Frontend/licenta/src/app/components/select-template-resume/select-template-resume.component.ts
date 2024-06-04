@@ -22,13 +22,14 @@ export class SelectTemplateResumeComponent {
   constructor(private router: Router, private templateService: SelectTemplateCvService) {}
 
   selectedTemplate: string = 'default';  // Un template default sau null
-
   images = [
-    { url: '/assets/template10.png', description: 'Image 1', template: 'app-third-template' },
-    { url: '/assets/template6.png', description: 'Image 2', template: 'app-template-cv' },
-    { url: '/assets/template4.png', description: 'Image 3' ,  template: 'app-second-template-cv'},
-    // Add more images as needed
+    { url: '/assets/template10.png', description: 'Image 1', templateId: 3 },
+    { url: '/assets/template6.png', description: 'Image 2', templateId: 1 },
+    { url: '/assets/template4.png', description: 'Image 3', templateId: 2 },
+    // Continue with additional templates as needed
   ];
+  
+  
   currentIndex = 0;
 
   next() {
@@ -43,9 +44,13 @@ export class SelectTemplateResumeComponent {
     this.selectedTemplate = template;
   }
 
-  selectAndNavigate(template: string) {
-    this.templateService.changeTemplate(template); // actualizează template-ul folosind serviciul
+  selectAndNavigate(templateId: number) {
+    this.templateService.changeTemplate(templateId); // actualizează template-ul folosind serviciul
+    localStorage.setItem('selectedTemplate', templateId.toString()); // Salvează selecția în localStorage
     this.router.navigate(['/create-resume']); // navighează programatic
   }
+  
+  
+  
   
 }

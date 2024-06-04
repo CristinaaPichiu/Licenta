@@ -1,0 +1,175 @@
+.cover-letter-container {
+    font-family: 'Arial', sans-serif;
+    width: 100%; /* Full width for better alignment and spacing */
+    min-height: 29.7cm;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+}
+.status
+{
+    color: #d6a65e;
+}
+.header {
+    display: flex;
+    justify-content: space-between; /* Ensures profile and contact details are on opposite ends */
+    background-color: #507d95; /* Dark teal background for the header */
+    padding: 15px;
+    border-radius: 8px; /* Rounded corners */
+    align-items: center;
+    color: white;
+    width: 50%; /* Adjusted to take full width */
+    height: 30%;
+    margin-bottom: 20px;;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Allows it to take necessary space */
+    max-width: 50%; /* Limits width to prevent stretching */
+}
+
+.name-title h1, .name-title h2 {
+    margin: 0;
+    font-size: 24px; /* Larger font size for visibility */
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column; /* Stacks the contact info vertically */
+    align-items: flex-start; /* Aligns contact details to the start */
+    text-align: left;
+    position: absolute; /* Positioning relative to the header */
+    right: 70px; /* Right-aligned within the header */
+    top: 4%; /* Aligns at the top of the header */
+}
+
+.contact-details div {
+    margin: 5px 0; /* Adds vertical spacing between contact items */
+}
+
+.material-icons {
+    margin-right: 5px; /* Space between icon and text */
+    font-size: 20px;
+    color: #507d95;
+
+}
+
+.to-label {
+    font-style: italic; /* Keep the 'To:' in italic */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any padding to reduce space */
+    display: block; /* Ensures it's on its own line but can be closely aligned */
+}
+
+.recipient-info {
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #2c3e50; /* Dark blue for enhanced visibility */
+    margin: 0; /* Remove margin to close any gap with 'To:' */
+    padding-top: 0; /* Zero out top padding to close the gap */
+}
+
+.recipient-info p {
+    margin: 2px 0; /* Small margin for compact look */
+    font-weight: bold; /* Bold text for recipient details */
+    margin-left:30px;
+
+}
+
+.body {
+    margin-top: 30px;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-left:30px;
+  }
+  .closure{
+    margin-left:30px;
+
+    font-size:17px;
+    margin-top: 60px;
+  }
+  
+  .signature-image {
+    position: absolute;
+    right: 20px; // Ajustează valoarea pentru a deplasa semnătura mai spre dreapta
+    bottom: 300px; // Ajustează valoarea pentru a deplasa semnătura mai jos
+    width: 300px; // Ajustează dimensiunea semnăturii după cum este necesar
+  }
+  .line {
+    position: relative;
+    margin: 20px auto;
+    width: 90%;
+    height: 2px;
+    background-color: transparent;
+}
+
+.line::before,
+.line::after {
+    margin-top: 20px;
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 2px;
+    background-color: #d6a65e;
+}
+
+.line::before {
+    left: 0;
+    width: 47.5%; /* Adjust width to create space for the diamond */
+}
+
+.line::after {
+    margin-top: 20px;
+    right: 0;
+    width: 47.5%; /* Adjust width to create space for the diamond */
+}
+
+.diamond {
+    margin-top: 20px;
+
+    position: absolute;
+    top: -4px; /* Slightly above the center of the line */
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #d6a65e;
+    transform: translate(-50%, -50%) rotate(45deg); /* Center and rotate the diamond */
+    z-index: 1;
+}
+
+  
+  
+  @media (max-width: 768px) {
+    .cover-letter-container {
+      width: 100%;
+      padding: 20px;
+    }
+  
+    .header h1 {
+      font-size: 20px;
+    }
+  
+    .header h2 {
+      font-size: 16px;
+    }
+  
+    .contact-info {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Stacks the profile and contact info vertically on smaller screens */
+    }
+    .contact-details {
+        align-items: center;
+    }
+}

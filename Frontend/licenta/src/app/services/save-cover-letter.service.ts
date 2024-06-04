@@ -11,7 +11,6 @@ export class SaveCoverLetterService {
 
   constructor(private http: HttpClient) { }
 
-  // Salvarea datelor cover letter
   saveCoverLetter(token: string, coverLetterData: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -19,7 +18,8 @@ export class SaveCoverLetterService {
     });
 
     return this.http.post(`${this.baseUrl}/datas`, coverLetterData, { headers });
-  }
+}
+
 
    // Obținerea unei cover letter după ID
    getCoverLetterById(coverLetterId: string, token: string): Observable<any> {
@@ -45,5 +45,15 @@ export class SaveCoverLetterService {
       'Content-Type': 'application/json'
     });
     return this.http.put(`${this.baseUrl}/update/${coverLetterId}`, coverLetterData, { headers });
+  }
+
+  getAllCoverLetters(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    // Aici folosim endpoint-ul pentru a obține toate scrisorile
+    return this.http.get(`${this.baseUrl}/coverletters`, { headers });
   }
 }

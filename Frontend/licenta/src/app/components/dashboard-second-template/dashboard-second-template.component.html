@@ -1,0 +1,104 @@
+<div class="cv-container">
+    <header>
+      <h1>{{ resume.contactSection?.name }}</h1>
+      <h2>{{ resume.contactSection?.status }}</h2>
+      <div class="summary">
+        <p>{{ resume.aboutSection.summary }}</p>
+      </div>
+      <div class="contact-info">
+        <span *ngIf="resume.contactSection?.phone"><mat-icon>phone</mat-icon> {{ resume.contactSection.phone }}</span>
+        <span *ngIf="resume.contactSection?.email"><mat-icon>email</mat-icon> {{ resume.contactSection.email }}</span>
+        <span *ngIf="resume.contactSection?.address">
+          <mat-icon>location_on</mat-icon> {{ resume.contactSection.address }}, {{ resume.contactSection.city }}, {{ resume.contactSection.postalCode }}
+        </span>
+        <div *ngIf="resume.linkEntries?.length > 0">
+          <div *ngFor="let link of resume.linkEntries" class="link-item">
+            <mat-icon>link</mat-icon> <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <div class="left-column">
+        <section class="work-experience" *ngIf="resume.experienceSections?.length > 0">
+          <h3>Work Experience</h3>
+          <div *ngFor="let job of resume.experienceSections" class="timeline-item">
+            <div class="timeline-content">
+              <div class="job-title">
+                <h4>{{ job?.jobTitle }}</h4>
+                <span class="job-period">{{ job.startDate | date:'mediumDate' }} - {{ job.endDate | date:'mediumDate' }} - {{ job.city }}</span>
+              </div>
+              <h4>{{ job.employer }}</h4>
+              <p>{{ job.description }}</p>
+            </div>
+          </div>
+        </section>
+        <section class="projects" *ngIf="resume.projectSections?.length > 0">
+          <h3>Projects</h3>
+          <div *ngFor="let project of resume.projectSections" class="timeline-item">
+            <div class="timeline-content">
+              <div class="project-header">
+                <h4>{{ project.projectName }}</h4>
+                <span class="project-date">{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
+              </div>
+              <p>{{ project.description }}</p>
+              <div class="project-technologies">
+                Technologies Used: {{ project.technologiesUsed }}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="right-column">
+        <section class="skills" *ngIf="resume.skillsSections?.length > 0">
+          <h3>Skills</h3>
+          <div class="skills-container">
+            <div *ngFor="let skill of resume.skillsSections; let i = index" class="skill" [class.even]="i % 2 === 1">
+              <span>{{ skill.skillName }}</span>
+              <span class="yearsOfExperience">{{ skill.years }}</span>
+            </div>
+          </div>
+        </section>
+        <section class="volunteering" *ngIf="resume.volunteeringSections?.length > 0">
+          <h3>Volunteering</h3>
+          <div *ngFor="let volunteer of resume.volunteeringSections" class="timeline-item">
+            <div class="timeline-content">
+              <div class="volunteer-header">
+                <h4>{{ volunteer.role }} at {{ volunteer.organization }}</h4>
+                <span class="date-and-city">
+                  {{ volunteer.startDate | date: 'longDate' }} - 
+                  {{ volunteer.endDate | date: 'longDate' }} | 
+                  {{ volunteer.city }}
+                </span>
+              </div>
+              <p>{{ volunteer.description }}</p>
+            </div>
+          </div>
+        </section>
+        <section class="education" *ngIf="resume.educationSections?.length > 0">
+          <h3>Education</h3>
+          <div *ngFor="let edu of resume.educationSections" class="education-entry">
+            <div>
+              <p class="degree">{{ edu.degree }}</p>
+              <p class="school">{{ edu.school }}</p>
+            </div>
+            <p class="dates">
+              {{ edu.startDate ? (edu.startDate | date: 'yyyy') : '' }} -
+              {{ edu.endDate ? ((edu.startDate | date: 'yyyy') === (edu.endDate | date: 'yyyy') ? 'Present' : (edu.endDate | date: 'yyyy')) : (edu.startDate ? 'Present' : '') }}
+            </p>
+          </div>
+        </section>
+        <section class="custom-sections" *ngIf="resume.customSections?.length > 0">
+          <div *ngFor="let custom of resume.customSections" class="timeline-item">
+            <div class="timeline-content">
+              <div class="custom-header">
+                <h4>{{ custom.title }}</h4>
+              </div>
+              <p>{{ custom.description }}</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  

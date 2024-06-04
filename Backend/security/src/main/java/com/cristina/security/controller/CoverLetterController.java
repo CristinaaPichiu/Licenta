@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,6 +72,17 @@ public class CoverLetterController {
             return ResponseEntity.ok(updatedCoverLetter);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/coverletters")
+    public ResponseEntity<List<CoverLetterDTO>> getAllUserCoverLetters() {
+        Integer userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        try {
+            List<CoverLetterDTO> coverLetters = coverLetterService.getAllCoverLettersByUserId(userId);
+            return ResponseEntity.ok(coverLetters);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 

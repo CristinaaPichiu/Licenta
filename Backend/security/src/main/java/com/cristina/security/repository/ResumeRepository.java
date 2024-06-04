@@ -17,5 +17,7 @@ public interface ResumeRepository extends JpaRepository<Resume, UUID> {
 
     @Query("SELECT r FROM Resume r WHERE r.user.id = :userId ORDER BY r.id DESC")
     List<Resume> findLatestByUserId(@Param("userId") Integer userId, Pageable pageable);
+    List<Resume> findAllByUserId(Integer userId);
+
 
 }

@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -77,4 +78,22 @@ public class ResumeController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ResumeDTO>> getAllUserResumes() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        User user = (User) authentication.getPrincipal();
+        try {
+            List<ResumeDTO> resumes = resumeService.getAllResumesByUserId(user.getId());
+            return ResponseEntity.ok(resumes);
+        } catch (Exception e) {
+            logger.error("Failed to fetch resumes", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

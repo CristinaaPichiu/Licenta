@@ -12,6 +12,7 @@ import { CreateResumeComponent } from './components/create-resume/create-resume.
 import { CreateCoverletterComponent } from './components/create-coverletter/create-coverletter.component';
 import { CoverLetterFormComponent } from './components/cover-letter-form/cover-letter-form.component';
 import { SelectTemplateResumeComponent } from './components/select-template-resume/select-template-resume.component';
+import { SelectTemplateCoverLetterComponent } from './components/select-template-cover-letter/select-template-cover-letter.component';
 
 const routes: Routes = [
   {
@@ -62,7 +63,13 @@ const routes: Routes = [
   {
     path: 'select-template-resume',
     component: SelectTemplateResumeComponent
+  },
+  
+  {
+    path: 'select-template-cover-letter',
+    component: SelectTemplateCoverLetterComponent
   }
+
 
 
 

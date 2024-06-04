@@ -44,6 +44,14 @@ export class ResumeService {
     });
     return this.http.put(`${this.baseUrl}/update/${resumeId}`, resumeData, { headers });
   }
+
+  getAllUserResumes(token: string): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<any[]>(`${this.baseUrl}/all`, { headers });
+  }
   
 
   

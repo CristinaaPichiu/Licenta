@@ -1,0 +1,116 @@
+.cover-letter-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 200px;
+    height: 300px;
+    margin: 5px auto;
+    padding: 5px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+}
+
+.sidebar {
+    width: 30%;
+    background-color: #333;
+    color: white;
+    padding: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo {
+    width: 40px;
+    height: 40px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.contact p {
+    display: flex;
+    align-items: center;
+    margin: 2px 0; /* Reduced margin for compact spacing */
+    font-size: 5px; /* Smaller font size for the contact details */
+    line-height: 1; /* Reducing the line height to fit the small size */
+}
+
+.contact p span.material-icons {
+    font-size: 2px; /* Smaller icons to fit the text size */
+    margin-right: 2px; /* Smaller margin to keep icons close to the text */
+}
+.contact h3{
+    font-size: 10px;;
+    margin-left: 10px;
+}
+
+/* Adjustments for icons to ensure they don't take up unnecessary space */
+.material-icons {
+    display: inline-block; /* Makes icons behave like text */
+    vertical-align: middle; /* Aligns icons vertically to match text */
+    margin-top: -1px; /* Adjusts position to align better with text */
+}
+
+.content {
+    width: 70%;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header h1, .header h2 {
+    font-size: 9px; /* Smaller for header elements */
+    margin: -15px 0;
+}
+
+ .body p, .closure p {
+    font-size: 4px; /* Very small for content elements */
+    margin: -5px 0;
+}
+.date-and-address {
+    margin-top:20px;
+    display: flex;
+    justify-content: space-between; /* Asigură că elementele sunt aliniate la margini */
+    margin-bottom: 20px;;
+}
+
+.date-and-address p {
+    font-size: 4px; /* Poți ajusta dimensiunea textului după preferințe */
+    margin: 0; /* Elimină marginile */
+    line-height: 1; /* Redu spațiul dintre rânduri */
+}
+
+.body p {
+    margin-top: 20px;
+    font-size: 4px; /* Poți ajusta dimensiunea textului după preferințe */
+    margin: 0; /* Elimină marginile */
+    line-height: 1; /* Redu spațiul dintre rânduri */
+}
+
+
+
+@media (max-width: 768px) {
+    .cover-letter-container {
+        flex-direction: column;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .sidebar, .content {
+        width: 100%;
+    }
+
+    .header h1, .header h2 {
+        font-size: 10px;
+    }
+
+    .body p, .date-and-address p, .closure p {
+        font-size: 9px;
+    }
+}

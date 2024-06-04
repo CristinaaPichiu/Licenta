@@ -1,0 +1,48 @@
+<div class="cover-letter-container">
+    <div class="sidebar">
+        <div class="photo">
+            <img src="assets/profile.png" alt="Avatar" style="width:100%;">
+        </div>
+        <div class="contact">
+            <h3>Contact</h3>
+            <p *ngIf="letter.contactUser?.phone"><span class="material-icons">phone</span> {{ letter.contactUser.phone }}</p>
+            <p *ngIf="letter.contactUser?.email"><span class="material-icons">email</span> {{ letter.contactUser.email }}</p>
+            <p *ngIf="letter.contactUser?.address || letter.contactUser?.city || letter.contactUser?.postalCode">
+                <span class="material-icons">place</span>
+                {{ letter.contactUser.address }}, {{ letter.contactUser.city }}, {{ letter.contactUser.postalCode }}
+            </p>
+            <!-- Assuming linkEntries is directly under the letter object -->
+            <div *ngIf="letter.linkEntries && letter.linkEntries.length > 0">
+                <div *ngFor="let link of letter.linkEntries" class="link-item">
+                    <mat-icon>link</mat-icon> <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>{{ letter.contactUser?.firstName }} {{ letter.contactUser?.lastName }}</h1>
+            <h2>{{ letter.contactUser?.status }}</h2>
+        </div>
+        <div class="date-and-address">
+            <div class="address">
+                <p>{{letter.contactEmployer?.firstName}} {{letter.contactEmployer?.lastName}}</p>
+                <p>{{letter.contactEmployer?.position}}</p>
+                <p>{{letter.contactEmployer?.organisation}}</p>
+                <p>{{letter.contactEmployer?.address}}</p>
+            </div>
+            <div class="date">
+                <!-- Adjust the property if date is stored elsewhere -->
+                <p>{{ letter.date | date: 'MMMM d, yyyy' }}</p>
+            </div>
+        </div>
+        <div class="body">
+            <p>{{letter.contactEmployer?.title}} {{letter.contactEmployer?.lastName}},</p>
+            <p [innerHTML]="letter.body?.body"></p>
+        </div>
+        <div class="closure" *ngIf="letter.contactUser?.firstName && letter.contactUser?.lastName">
+            <p>Sincerely,</p>
+            <p>{{ letter.contactUser.firstName }} {{ letter.contactUser.lastName }}</p>
+        </div>
+    </div>
+</div>
