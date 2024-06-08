@@ -10,14 +10,14 @@
         </div>
       </div>
       <div class="contact-info">
-        <span *ngIf="resume.contactSection?.phone"><mat-icon>phone</mat-icon> {{ resume.contactSection.phone }}</span>
-        <span *ngIf="resume.contactSection?.email"><mat-icon>email</mat-icon> {{ resume.contactSection.email }}</span>
+        <span *ngIf="resume.contactSection?.phone"> {{ resume.contactSection.phone }}</span>
+        <span *ngIf="resume.contactSection?.email"> {{ resume.contactSection.email }}</span>
         <span *ngIf="resume.contactSection?.address">
-          <mat-icon>location_on</mat-icon> {{ resume.contactSection.address }}, {{ resume.contactSection.city }}, {{ resume.contactSection.postalCode }}
+           {{ resume.contactSection.address }}, {{ resume.contactSection.city }}, {{ resume.contactSection.postalCode }}
         </span>
         <div *ngIf="resume.linkSections?.length > 0">
           <div *ngFor="let link of resume.linkSections" class="link-item">
-            <mat-icon>link</mat-icon> <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+            <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
           </div>
         </div>
       </div>
@@ -53,7 +53,9 @@
                 <h4>{{ project.projectName }}</h4>
                 <span class="project-date">{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
               </div>
+              <div class = "project-description">
               <p>{{ project.description }}</p>
+              </div>
               <div class="project-technologies">
                 Technologies Used: {{ project.technologiesUsed }}
               </div>
@@ -78,7 +80,9 @@
                   {{ volunteer.city }}
                 </span>
               </div>
+              <div class = "description">
               <p>{{ volunteer.description }}</p>
+              </div>
             </div>
           </div>
         </section>

@@ -20,39 +20,54 @@
 .about {
     background: #ffffff;
     border-radius: 15px;
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-    color: #333;
-    border: 2px solid #507d95;
-    position: relative; /* Make sure this is relative for positioning child elements */
-    overflow: visible; /* Allow child elements to display outside the box */
-    margin-bottom: 20px;;
+    padding: 0px;  // Minimized padding to utilize space effectively
+    font-size: 3px;  // Small font size for content inside the container
+    max-width: 200px;  // Width adjusted to fit the maximum container width
+    max-height: 50px;  // Max height set to limit the vertical space usage
+    margin: auto;  // Centers the container within its parent
+    color: #333;  // Standard text color for readability
+    border: 2px solid #507d95;  // Adds a border with a specific color
+    position: relative;  // Necessary for positioning child elements absolutely within
+    overflow: visible;  // Allows children to display outside the box if needed
+    margin-bottom: 2px;  // Small bottom margin to separate from following content
 }
 
 .nameAndStatus {
-    background-color: white; /* Adjust the background color as needed */
-    border-radius: 10px 10px 0 0; /* Round top corners */
-    padding: 10px 20px; /* Adjust padding as needed */
-    position: absolute; /* Absolute position */
-    top: -25px; /* Adjust this value to move the tab up to the edge of the about container */
-    left: 200px; /* Adjust horizontal position */
-    color: black; /* Text color */
-    z-index: 10; /* Ensure it is above other content */
-    margin-bottom: 10px;;
-    display: flex; /* Transformă containerul într-un flex container */
-    flex-direction: column; /* Ordonează conținutul în coloană */
-    align-items: center;
-   
+    font-size: 4px;  // Very small font size for the name and status
+    width: 50px;  // Ensure the container is narrow
+    height: auto;  // Let height adjust based on content
+    background-color: white;  // Maintain background color
+    border-radius: 10px 10px 0 0;  // Rounded corners at the top
+    padding: 1px;  // Minimal padding
+    position: absolute;  // Positioned within `.about`
+    top: 2px;  // Minimal offset from top
+    left: 50%;  // Centered horizontally
+    transform: translateX(-50%);  // Adjust for centering
+    color: black;  // Text color
+    z-index: 10;  // Ensures it is layered above other content
+    display: flex;  // Flexible box layout
+    flex-direction: column;  // Stacks children vertically
+    align-items: center;  // Centers children horizontally
+    justify-content: center;  // Centers children vertically
+    margin: 0;  // No external margins
+    line-height: 1;  // Tight line height for close stacking
 }
+
+.nameAndStatus h1, .nameAndStatus h2 {
+    font-size: 4px;  // Uniform small font size
+    margin: 0;  // No margins to avoid extra space
+    padding: 0;  // No padding to avoid extra space
+    line-height: 1;  // Ensure text lines are close together
+}
+
 
 .about h1, .about h2 {
     margin: 0; /* Remove default margins */
 }
 
 .summary {
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: -10px;
+    font-size: 4px;
     line-height: 1.6;
     text-align: justify;
     position: relative; /* To ensure it lays out correctly under the absolute positioned tab */
@@ -60,129 +75,181 @@
 }
 
 .contact-info {
-    margin-top:20px;
-    background-color: #507d95; /* Culoarea de fundal violet */
-    color: white; /* Text alb */
-    padding: 20px; /* Spațiu interior pentru conținut */
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: auto;
-    width: 93%; /* Ajustează conform nevoilor tale de design */
-    height: 80px; /* Înălțimea containerului */
-    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%); /* Formă personalizată */
+    align-items: center; /* Ensures vertical centering */
+    justify-content: space-around; /* Evenly spaces the elements */
+    padding: 2px;
+    background-color: #507d95;
+    color: white;
+    width: 100%; /* Adjust width as necessary */
+    height: 20px; /* Controlled height for better layout management */
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%); /* Custom shape */
+    margin-top: 2px;
+    margin-bottom: 2px; /* Adds a small space below the container */
 }
 
-.contact-info .link-item {
-    display: inline-flex; /* Displays link items inline but also as flex containers */
+.contact-info > * {
+    display: flex;
     align-items: center;
-    margin-right: 10px; /* Add more space between links */
-
-  }
-
-
-
-.contact-info span, .contact-info a {
-    display: flex; /* Setează fiecare element ca un flex container */
-    align-items: center; /* Centrează conținutul pe verticală */
-    color: inherit; /* Moștenește culoarea de la containerul părinte */
-    margin: 5px 0; /* Margini subtile pentru a evita suprapunerea */
+    margin: 0;
+    padding: 0;
+    font-size: 3px;
 }
 
 .contact-info mat-icon {
-    color: white; /* Asigură-te că iconițele sunt albe pentru vizibilitate */
-    margin-right: 5px; /* Spațiu între iconiță și text */
+    margin-right: 2px; /* Small space after the icon */
 }
 
 .contact-info a {
-    text-decoration: none; /* Elimină sublinierea linkurilor */
-    color: white; /* Setează culoarea textului linkurilor */
+    text-decoration: none;
+    color: white;
 }
 
 .contact-info a:hover {
-    text-decoration: underline; /* Subliniază linkurile la hover pentru a indica interactivitatea */
+    text-decoration: underline; /* Underline on hover */
 }
 
+
 .work-experience-header {
+    margin-left: 90px;
+    font-size: 8px;  /* Reduced font size */
     display: flex;
-    align-items: center;  /* Alinează elementele vertical în centrul containerului lor */
-    white-space: nowrap;  /* Previne întreruperea textului și elementelor pe mai multe linii */
-    margin-bottom: 10px;  /* Adaugă un spațiu sub antet, ajustează conform necesităților tale */
+    align-items: center;
+    white-space: nowrap;
+    margin-bottom: 2px;  /* Minimal space to keep it compact */
 }
 
 mat-icon {
-    font-size: 24px;  /* Mărimea iconului, ajustează conform necesităților */
-    margin-right: 10px;  /* Spațiu între icon și text */
+    font-size: 3px;  /* Small icon size to match text */
+    margin-right: 5px;  /* Reduced spacing to fit the small layout */
 }
 
-h3 {
-    margin: 0;  /* Elimină marginile implicite ale titlului pentru a preveni deplasările nedorite */
-    font-size: 18px;  /* Ajustează mărimea titlului după preferințe */
-    flex-grow: 0;  /* Previne extinderea titlului peste măsura necesară */
-    white-space: nowrap;  /* Asigură că titlul rămâne pe o singură linie */
+h3, h4 {
+    font-size: 3px;  /* Uniform font size for headers */
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;  /* Prevents breaking into new line */
 }
 
 .horizontal-line {
-    height: 2px;
-    background-color: #507d95;  /* Culoarea liniei, ajustează pentru a se potrivi cu designul tău */
-    flex-grow: 1;  /* Permite liniei să ocupe tot spațiul rămas */
-    margin-left: 10px;  /* Spațiu între titlu și linie */
-    position: relative;  /* Poziționează relativ pentru a permite adăugarea cercului */
-}
-
-.horizontal-line::after {
-    content: '';
-    position: absolute;
-    width: 5px;
-    height: 8px;
-    background-color: #507d95;  /* Asigură-te că culoarea cercului se potrivește cu linia */
-    border-radius: 50%;
-    right: 0;  /* Plasează cercul la capătul drept al liniei */
-    top: -3px;  /* Centrarea cercului pe linia orizontală */
+    height: 0.1px;
+    background-color: #507d95;  /* Line color */
+    flex-grow: 0.6;
+    margin-left: 5px;
+    position: relative;
 }
 
 .job-item {
     position: relative;
-    margin-bottom: 20px; /* Spațiu între intrările de job pentru claritate */
+    margin-bottom: 2px;  /* Reduce spacing to keep everything tight */
 }
 
 .job-header {
+    margin-top: -10px;
+    width: 150px;
+    margin-left: 120px;
+    font-size: 3px;
     display: flex;
-    justify-content: space-between; /* Extinde conținutul pentru a umple spațiul orizontal */
-    align-items: center; /* Centrarea elementelor vertical */
+    align-items: center;
+}
+.work-experiences h4{
+    font-size: 3px;
+}
+.work-experiences p{
+    margin-top: -30px;
+    font-size: 3px;
+    margin-left: 120px;
+    line-height: 1;
+    width: 180px;
 }
 
 .job-title {
-    margin: 0; /* Elimină marginile implicite */
-    flex-grow: 1; /* Permite titlului să ocupe orice spațiu disponibil */
-    font-weight: bold; /* Asigură că titlul este îngroșat */
+    font-size: 3px;
+    font-weight: bold;
+    margin-right: 5px;  /* Space before the date */
 }
 
 .job-period {
-    margin: 0; /* Elimină marginile implicite */
-    white-space: nowrap; /* Asigură că data nu va trece pe linia următoare */
-    font-style: italic; /* Italicizează data dacă este necesar */
+    font-size: 3px;
+    font-style: italic;
+    white-space: nowrap;
+    margin-left: auto;  /* Forces the date to align to the right side of the container */
+}
+
+
+.job-description {
+    font-size: 3px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;  /* Compact line spacing */
+}
+
+
+.projects-header {
+    display: flex;
+    align-items: center;
+    font-size: 3px;
+    white-space: nowrap;
+    margin-bottom: 2px;
+}
+
+mat-icon {
+    font-size: 2px;
+    margin-right: 2px;
+}
+
+.projects h3 {
+    font-size: 3px;
+    flex-grow: 0;
+    white-space: nowrap;
+}
+
+.horizontal-line {
+    height: 0.1px;
+    background-color: #507d95;
+    flex-grow: 1;
+    margin-left: 2px;
+    position: relative;
 }
 
 .project-header {
+    width: 190px;
+    margin-left: 120px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.project-technologies{
-    margin-bottom: 20px;
+    justify-content: start;  // Aligns items to start from the left side
+    align-items: center;  // Vertically centers items within the container
+    font-size: 3px;
+    margin-top: -20px;  // Adjust as needed to align within your layout
 }
 
-.project-title {
-    margin: 0;
-    flex-grow: 1;
-    font-weight: bold;
+.project-title, .project-date {
+    white-space: nowrap;  // Ensures the text does not wrap to the next line
+    margin-right: 5px;  // Provides a small gap between the title and the date
+    font-style: normal;  // Style as normal or italic for the date based on your preference
+    font-size: 3px;  // Ensures text size is small enough to fit your design
 }
 
 .project-date {
-    margin: 0;
-    white-space: nowrap;
-    font-style: italic;
+    font-style: italic;  // Makes the date italic to differentiate from the title
+    margin-left: 90px;;  // Pushes the date to the end of the flex container
+}
+
+
+.timeline-content {
+    font-size: 3px;
+    line-height: 1;
+}
+
+.project-description {
+    margin-top: -10px;
+   font-size: 3px;
+   margin-left: 120px;
+}
+
+.project-technologies {
+    margin-left: 120px;
+    margin-top: -10px;
+    font-size: 3px;
 }
 
 
@@ -209,50 +276,66 @@ h3 {
 
 
 
-
-.education .degree-and-school {
+.education-entry {
+    margin-top: -20px;
+    margin-left: 120px;
     display: flex;
-    justify-content: space-between; /* Asigură că gradul și datele sunt separate și aliniate pe aceeași linie */
-    align-items: center; /* Aliniază elementele vertical */
-    margin-bottom: 10px; /* Spațiu sub fiecare intrare de educație */
+    justify-content: start;
+    align-items: center;
+    font-size: 3px;
+}
+
+.degree-and-school {
+    display: flex;
+    justify-content: space-between;  // Aligns the content on opposite ends
+    align-items: center;
+    width: 100%;
+    font-size: 3px;  // Ensures all text within this container uses 3px font size
 }
 
 .degree {
-    margin: 0; /* Elimină marginile implicite */
+    font-weight: bold;
+    white-space: nowrap;  // Ensures the degree name and school do not break onto new lines
+    flex-grow: 1;  // Allows the degree name to take up available space pushing the date rightwards
+    margin-right: 5px;  // Provides a small buffer between the degree and the dates
 }
 
-.degree::first-letter {
-    text-transform: uppercase;
-  }
 .dates {
-    margin: 0; /* Elimină marginile implicite */
-    white-space: nowrap; /* Asigură că data nu va trece pe linia următoare */
-    font-style: italic; /* Italicizează data dacă este necesar */
-}
-
-
-
-
-.volunteering .volunteer-header {
-    margin-top:20px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.volunteering .volunteer-header h4 {
-    margin: 0;
-    flex-grow: 1;
-}
-
-.volunteering .date-and-city {
-    margin-bottom:20px;
-    margin: 0;
-    white-space: nowrap;
     font-style: italic;
+    white-space: nowrap;  // Ensures dates are kept on a single line
+    margin-left: auto;  // Automatically adjusts the left margin to push the dates right next to the degree
 }
 
+
+
+
+
+
+.volunteer-header {
+    margin-top: -20px;
+    width: 190px;
+    margin-left: 120px;
+    display: flex;
+    justify-content: start;  // Align items from the left
+    align-items: center;  // Center items vertically
+    font-size: 3px;  // Small font size for all text within the header
+}
+
+.volunteer-header h4 {
+    margin-right: 5px;  // Small space between the name and the date
+    white-space: nowrap;  // Ensures text stays on one line
+    font-weight: bold;  // Emphasize the role and organization name
+}
+.description {
+    margin-left: 120px;
+}
+
+.date-and-city {
+    font-style: italic;  // Italicize the date for distinction
+    white-space: nowrap;  // Ensures date stays on one line
+    font-size: 3px;  // Keep date text small
+    margin-left: 70px;  // Pushes the date to the end of the flex container
+}
 
 
 

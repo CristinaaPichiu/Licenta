@@ -1,3 +1,5 @@
+<script src="https://sapling.ai/static/js/sapling-sdk-v1.0.6.min.js"></script>
+
 <div class="main-layout" [ngClass]="{'preview-mode': isPreviewMode}">
     <div class="right-container">
         <div class="progress-bar-container">
@@ -239,15 +241,15 @@
                   <p>Include up to 3 sentences that describe your general experience</p>
 
                     
-                    <mat-form-field appearance="outline" class="summary-field">
-                      <mat-label>Summary</mat-label>
-                      <textarea matInput placeholder="e.g. Accomplished Marketing Manager with expertise in developing campaigns, copywriting and advertising..." formControlName="summary"></textarea>
-                    </mat-form-field>
+                  <mat-form-field appearance="outline" class="summary-field">
+                    <mat-label>Summary</mat-label>
+                    <textarea matInput placeholder="e.g., Accomplished Marketing Manager with expertise in developing campaigns..." 
+                              formControlName="summary" id="summary-editor"></textarea>
+                  </mat-form-field>
 
                     <button mat-button class="ai-button" (click)="openDialog()">
                       <mat-icon>grain</mat-icon>
                       Phrases pre-written by AI
-
                     </button>
 
                     <div *ngIf="chatResponse" class="ai-response-container">

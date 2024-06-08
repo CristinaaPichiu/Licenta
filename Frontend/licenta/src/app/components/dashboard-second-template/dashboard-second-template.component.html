@@ -2,18 +2,22 @@
     <header>
       <h1>{{ resume.contactSection?.name }}</h1>
       <h2>{{ resume.contactSection?.status }}</h2>
+      
       <div class="summary">
+        <div class = "line"></div>
         <p>{{ resume.aboutSection.summary }}</p>
+        <div class = "line">         </div>
+
       </div>
       <div class="contact-info">
-        <span *ngIf="resume.contactSection?.phone"><mat-icon>phone</mat-icon> {{ resume.contactSection.phone }}</span>
-        <span *ngIf="resume.contactSection?.email"><mat-icon>email</mat-icon> {{ resume.contactSection.email }}</span>
+        <span *ngIf="resume.contactSection?.phone"> {{ resume.contactSection.phone }}</span>
+        <span *ngIf="resume.contactSection?.email"> {{ resume.contactSection.email }}</span>
         <span *ngIf="resume.contactSection?.address">
-          <mat-icon>location_on</mat-icon> {{ resume.contactSection.address }}, {{ resume.contactSection.city }}, {{ resume.contactSection.postalCode }}
+          {{ resume.contactSection.address }}, {{ resume.contactSection.city }}, {{ resume.contactSection.postalCode }}
         </span>
         <div *ngIf="resume.linkEntries?.length > 0">
           <div *ngFor="let link of resume.linkEntries" class="link-item">
-            <mat-icon>link</mat-icon> <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
+           <a href="{{ link.url }}" target="_blank" title="Go to {{ link.url }}">{{ link.label }}</a>
           </div>
         </div>
       </div>
@@ -28,7 +32,9 @@
                 <h4>{{ job?.jobTitle }}</h4>
                 <span class="job-period">{{ job.startDate | date:'mediumDate' }} - {{ job.endDate | date:'mediumDate' }} - {{ job.city }}</span>
               </div>
+              <div class = "employer">
               <h4>{{ job.employer }}</h4>
+              </div>
               <p>{{ job.description }}</p>
             </div>
           </div>

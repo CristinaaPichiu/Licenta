@@ -9,6 +9,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
 import { GenerateSummaryService } from 'src/app/services/generate-summary.service';
 import { SelectTemplateCvService } from 'src/app/services/select-template-cv.service';
+import { Renderer2, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+declare var Sapling: any;
 
 
 @Component({
@@ -46,13 +49,16 @@ export class CreateResumeComponent implements OnInit {
 
 
 
+
   constructor(
     private fb: FormBuilder,
     private resumeDataService: ResumeDataService,
     private resumeService: ResumeService,
     public dialog: MatDialog,
     private summaryService: GenerateSummaryService,
-    private templateService: SelectTemplateCvService
+    private templateService: SelectTemplateCvService, 
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document
 
   ) {}
 
@@ -141,6 +147,8 @@ closeAiResponse(chatResponse: any): void {
       this.selectedTemplate = template;
     });
     this.loadSelectedTemplate();
+    this.loadScript();
+
 
 
 
@@ -833,7 +841,28 @@ sendSummaryData() {
   );
 }
 
+loadScript() {
+  const script = this.renderer.createElement('script');
+  script.src = 'https://sapling.ai/static/js/sapling-sdk-v1.0.6.min.js';
+  script.onload = () => {
+    this.initSapling();
+  }
+  this.renderer.appendChild(this.document.body, script);
+}
 
+initSapling() {
+  Sapling.init({
+    key: 'ZC5NS79FWGS13RMKFOF401FZX6M3XUSH',
+    mode: 'dev',
+    autocomplete: true
+  });
+  const summaryElement = document.getElementById('summary-editor');
+  if (summaryElement) {
+    Sapling.observe(summaryElement);
+  } else {
+    console.error('Summary element not found');
+  }
+}
 
 
 

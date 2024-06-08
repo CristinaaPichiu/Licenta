@@ -216,7 +216,7 @@
 .ai-button {
   position: absolute;
   top: 70%; /* Centrarea verticală în raport cu containerul */
-  right: 40px; /* Plasează butonul la marginea dreaptă a field-ului */
+  right: 50px; /* Plasează butonul la marginea dreaptă a field-ului */
   transform: translateY(-50%); /* Ajustează vertical butonul pentru a fi centrat */
   z-index: 10; /* Asigură-te că butonul este deasupra textului */
 }

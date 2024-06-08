@@ -68,16 +68,19 @@
                         </div>
                 </div>
             </div>
-            <div *ngIf="resume.projectSections && resume.projectSections.length > 0">
+            <div *ngIf="resume.projectSections && resume.projectSections.length > 0" class = "main_projects">
+                <div class = "projects_">
                 <h2>Projects</h2>
+                </div>
                 <div class="timeline">
                     <div *ngFor="let project of resume.projectSections" class="timeline-item">
                        
                             <div class="project-header">
                                 <h3>{{ project.projectName }}</h3>
-                                <span class="project-date">{{ project.startDate | date:'longDate' }} - {{ project.endDate | date:'longDate' }}</span>
                             </div>
+                            <div class = "description_proj">
                             <p>{{ project.description }}</p>
+                            </div>
                             <div class="project-technologies">
                                 Technologies Used: {{ project.technologiesUsed }}
                           
@@ -85,19 +88,20 @@
                 </div>
             </div>
             <div *ngIf="resume.volunteeringSections && resume.volunteeringSections.length > 0">
+                <div class = "voluntariat">
                 <h2>Volunteering</h2>
-                <div class="timeline">
+                </div>
                     <div *ngFor="let volunteer of resume.volunteeringSections" class="timeline-item">
                         <div class="volunteer-header">
                             <h3>{{ volunteer.role }} at {{ volunteer.organization }}</h3>
                             <div class="dates-and-city">
-                                <span class="date">{{ volunteer.startDate | date: 'longDate' }} - {{ volunteer.endDate | date: 'longDate' }}</span>
-                                <span class="city">{{ volunteer.city }}</span>
                             </div>
                         </div>
+                        <div class=" description-vol">
                         <p>{{ volunteer.description }}</p>
                     </div>
-                </div>
+                    </div>
+                
             </div>
             <div *ngIf="resume.customSections && resume.customSections.length > 0" class="custom-sections-container">
                 <div *ngFor="let custom of resume.customSections" class="timeline-item">
