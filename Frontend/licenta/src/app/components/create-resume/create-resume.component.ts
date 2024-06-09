@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ResumeDataService } from 'src/app/services/resume-data.service';
 import { ResumeService } from 'src/app/services/save-resume.service';
@@ -11,7 +11,17 @@ import { GenerateSummaryService } from 'src/app/services/generate-summary.servic
 import { SelectTemplateCvService } from 'src/app/services/select-template-cv.service';
 import { Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ResumeTransferService } from 'src/app/services/resume-transfer.service';
+import { UploadFileService } from 'src/app/services/upload-file.service';
 declare var Sapling: any;
+
+
+enum FormMode {
+  DASHBOARD = 'dashboard',
+  CREATE = 'create',
+  UPLOAD = 'upload'
+}
 
 
 @Component({
@@ -44,6 +54,8 @@ export class CreateResumeComponent implements OnInit {
   chatResponse!: string;
   isHovering: boolean = false;
   selectedTemplate!: number; // Declară proprietatea aici
+  formMode: FormMode = FormMode.CREATE;
+
 
 
 
@@ -58,7 +70,14 @@ export class CreateResumeComponent implements OnInit {
     private summaryService: GenerateSummaryService,
     private templateService: SelectTemplateCvService, 
     private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private router: Router,
+    private route: ActivatedRoute,
+    private resumeTransferService: ResumeTransferService,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone,
+    private uploadService: UploadFileService
+
 
   ) {}
 
@@ -142,7 +161,7 @@ closeAiResponse(chatResponse: any): void {
   ngOnInit() {
     this.initializeForms();
     this.addSkillLevelDescriptions();
-    this.loadResumeData();
+    this.determineFormMode();
     this.templateService.currentTemplate.subscribe(template => {
       this.selectedTemplate = template;
     });
@@ -205,6 +224,45 @@ closeAiResponse(chatResponse: any): void {
   });
   }
 
+
+  private determineFormMode() {
+    const mode = localStorage.getItem('resumeCreationMode');
+
+    if (mode === 'create') {
+
+      this.formMode = FormMode.CREATE;
+      this.initializeFormsForCreate(); // Asigură-te că formularele sunt goale
+    }
+    if( mode == 'dashboard')
+      {
+        this.loadResumeData();
+        this.formMode = FormMode.DASHBOARD;
+      }
+      if( mode == 'upload')
+        {
+          this.loadResumeDataUpload();
+          this.formMode = FormMode.DASHBOARD;
+        }
+
+
+  
+  
+  }
+  private initializeFormsForCreate() {
+   
+    this.resumeForm.reset();
+    this.experienceForm.setControl('experiences', this.fb.array([]));
+    this.educationForm.setControl('educations', this.fb.array([]));
+    this.skillsForm.setControl('skills', this.fb.array([this.createSkillFormGroup()]));
+    this.aboutForm.reset();
+    this.volunteeringForm.setControl('volunteerExperiences', this.fb.array([]));
+    this.projectsForm.setControl('projectExperiences', this.fb.array([]));
+    this.linksForm.setControl('linkEntries', this.fb.array([]));
+    this.customSectionForm.setControl('customSections', this.fb.array([]));
+
+    
+  }
+  
 
   
 
@@ -528,20 +586,52 @@ loadSelectedTemplate() {
   }
 }
 
+loadResumeDataUpload(): void {
+  const resumeId = localStorage.getItem('resumeIdUpload');
+  const token = localStorage.getItem('auth_token'); // Presupunem că token-ul este stocat în localStorage
+
+  if (resumeId && token) {
+    this.uploadService.getProcessedResumeData(resumeId, token).subscribe({
+      next: (resumeData) => {
+        this.zone.run(() => {
+          this.populateForms(resumeData); // Asumând că există o metodă pentru a popula formularul cu date
+          this.cdr.detectChanges();
+        });
+      },
+      error: (error) => {
+        console.error('Failed to load resume data', error);
+        // Tratează erorile adecvat, de exemplu prin redirecționare sau afișarea unui mesaj
+      }
+    });
+  } else {
+    console.warn('No resume ID or token found in localStorage');
+    // O posibilă redirecționare înapoi sau afișarea unui mesaj de eroare
+  }
+}
+
+
 loadResumeData() {
+  const resumeId = this.router.getCurrentNavigation()?.extras.state?.['resumeId'] 
+                  || localStorage.getItem('currentResumeId'); // Recuperare din state sau localStorage
   const token = localStorage.getItem('auth_token');
-  if (token) {
-    this.resumeService.getCurrentUserResume(token).subscribe({
+
+  if (resumeId && token) {
+    this.resumeService.getResumeById(resumeId, token).subscribe({
       next: (resume: any) => {
-        console.log('Loaded current user resume data:', resume); // Log pentru datele încărcate ale CV-ului
+        console.log('Loaded resume data for ID:', resumeId, resume);
         this.populateForms(resume);
       },
       error: (error) => {
-        console.error('Failed to load current user resume', error);
+        console.error(`Failed to load resume with ID ${resumeId}`, error);
       }
     });
+  } else {
+    console.log('Resume ID or token not found, cannot load resume data');
   }
 }
+
+
+
 
 
 populateForms(resume: any) {

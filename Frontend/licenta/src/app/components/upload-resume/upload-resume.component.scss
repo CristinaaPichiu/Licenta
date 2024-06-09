@@ -1,0 +1,66 @@
+.upload-container {
+
+    font-family: Arial, sans-serif;
+    width: 500px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    margin-top: 150px;
+  }
+  
+  .drop-zone {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    margin: 10px 0;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .drop-zone:hover,
+  .drop-zone.dragover {
+    border-color: #778beb;
+  }
+  
+  .drop-zone label {
+    font-size: 16px;
+    color: #778beb;
+  }
+  
+  .browse {
+    color: #545454;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .support-text {
+    font-size: 12px;
+    color: #999;
+  }
+  
+  button {
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #778beb;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  button[disabled] {
+    background-color: #ccc;
+  }
+  
+  .back-button {
+    display: inline-block;
+    margin-top: 10px;
+    color: #778beb;
+    text-decoration: none;
+  }
+  
+  .back-button:hover {
+    text-decoration: underline;
+  }
+  

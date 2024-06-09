@@ -48,4 +48,16 @@ public class ProjectDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectDTO{" +
+                "projectName='" + projectName + '\'' +
+                ", technologiesUsed='" + technologiesUsed + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
 }

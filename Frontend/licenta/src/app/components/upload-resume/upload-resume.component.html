@@ -1,0 +1,28 @@
+<div class="upload-container">
+    <h2>Upload your resume</h2>
+    <div *ngIf="!fileToUpload; else uploadedTemplate">
+      <div class="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden accept=".doc, .docx, .pdf, .odt, .html, .rtf, .txt">
+        <label for="fileInput">
+          Drag & drop your file here or <span class="browse">Browse file</span>
+        </label>
+      </div>
+      <p class="support-text">Support pdf</p>
+      <button (click)="uploadPDF()" [disabled]="!fileToUpload">Upload</button>
+    </div>
+    <ng-template #uploadedTemplate>
+      <div class="file-info">
+        <mat-icon>pdf</mat-icon>
+        <div class="file-details">
+          <span>{{ fileToUpload?.name }}<br></span>
+          <span>Upload on {{ uploadDate | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <button class="remove-button" (click)="removeFile()">Delete</button>
+
+      </div>
+      <button class="remove-button" (click)="uploadPDF()">Finish</button>
+
+    </ng-template>
+    <button class="remove-button" (click)="navigateBack()">Back</button>
+</div>
+  

@@ -302,6 +302,7 @@ public class ResumeService {
     }
     private ResumeDTO convertToDTO(Resume resume) {
         ResumeDTO dto = new ResumeDTO();
+        dto.setId(resume.getId());
         dto.setTemplateId(resume.getTemplateId());
         dto.setContactSection(convertContactSection(resume.getContactSection()));
         dto.setAboutSection(convertAboutSection(resume.getAboutSection()));

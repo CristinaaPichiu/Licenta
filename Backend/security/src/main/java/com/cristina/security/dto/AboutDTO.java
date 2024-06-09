@@ -10,4 +10,11 @@ public class AboutDTO {
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+    @Override
+    public String toString() {
+        return "AboutDTO{" +
+                "summary='" + summary + '\'' +
+                '}';
+    }
 }

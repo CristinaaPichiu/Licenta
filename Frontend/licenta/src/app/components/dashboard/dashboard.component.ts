@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResumeService } from 'src/app/services/save-resume.service';
 import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,7 +20,17 @@ export class DashboardComponent implements OnInit {
     this.loadResumes()
 
   }
+  navigateToCreateResume(resume: any) {
+    console.log('Navigating to create-resume with resume data:', resume);
+    localStorage.setItem('currentResumeId', resume.id);  // Salvarea ID-ului în localStorage
+    localStorage.setItem('selectedTemplate', resume.templateId.toString()); // Salvează selecția în localStorage
+    localStorage.setItem('resumeCreationMode', 'dashboard');
 
+
+    this.router.navigate(['/create-resume'], { state: { resumeId: resume.id } });
+  }
+  
+  
 
 
   loadResumes() {

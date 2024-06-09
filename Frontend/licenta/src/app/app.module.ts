@@ -55,6 +55,7 @@ import { SelectTemplateCoverLetterComponent } from './components/select-template
 import { DashboardLetterFirstComponent } from './components/dashboard-letter-first/dashboard-letter-first.component';
 import { DashboardLetterSecondComponent } from './components/dashboard-letter-second/dashboard-letter-second.component';
 import { DashboardLetterThirdComponent } from './components/dashboard-letter-third/dashboard-letter-third.component';
+import { UploadResumeComponent } from './components/upload-resume/upload-resume.component';
 
 
 
@@ -91,7 +92,8 @@ import { DashboardLetterThirdComponent } from './components/dashboard-letter-thi
     SelectTemplateCoverLetterComponent,
     DashboardLetterFirstComponent,
     DashboardLetterSecondComponent,
-    DashboardLetterThirdComponent    
+    DashboardLetterThirdComponent,
+    UploadResumeComponent    
   ],
   imports: [
     BrowserModule,

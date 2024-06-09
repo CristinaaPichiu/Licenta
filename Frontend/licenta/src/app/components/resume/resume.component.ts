@@ -13,10 +13,28 @@ export class ResumeComponent {
 
   navigateToCreateResume() {
     this.loading = true; 
-    
+    localStorage.setItem('resumeCreationMode', 'create');
+
+  
+    // Curățăm Local Storage
+    localStorage.removeItem('currentResumeId');
+    localStorage.removeItem('selectedTemplate');
+    localStorage.removeItem('resumeData');
+  
+    // Resetăm state-ul intern dacă este necesar
+  
     setTimeout(() => {
       this.loading = false; 
       this.router.navigate(['/select-template-resume']); 
+    }, 1000);
+  }
+
+  navigateToUploadResume() {
+    this.loading = true; 
+    localStorage.setItem('resumeCreationMode', 'upload');
+    setTimeout(() => {
+      this.loading = false; 
+      this.router.navigate(['/upload-resume']); 
     }, 1000);
   }
   

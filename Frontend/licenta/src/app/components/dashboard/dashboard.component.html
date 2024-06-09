@@ -46,7 +46,7 @@
           <div class="template-container">
             <h3>Your Resumes:</h3>
             <div class="template-wrapper">
-              <div *ngFor="let resume of resumes" class="template-preview">
+              <div *ngFor="let resume of resumes" class="template-preview"  (click)="navigateToCreateResume(resume)">
                 <app-dashboard-first-template *ngIf="resume.templateId === 1" [resume]="resume" class="first-template"></app-dashboard-first-template>
                 <app-dashboard-second-template *ngIf="resume.templateId === 2" [resume]="resume" class="second-template"></app-dashboard-second-template>
                 <app-dashboard-third-template *ngIf="resume.templateId === 3" [resume]="resume" class="third-template"></app-dashboard-third-template>

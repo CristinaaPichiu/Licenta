@@ -6,8 +6,20 @@ import lombok.Setter;
 import java.util.List;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ResumeDTO {
+
+
+    private UUID id;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     private Integer templateId;
     private ContactDTO contactSection;
