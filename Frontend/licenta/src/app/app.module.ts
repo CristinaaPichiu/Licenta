@@ -56,6 +56,12 @@ import { DashboardLetterFirstComponent } from './components/dashboard-letter-fir
 import { DashboardLetterSecondComponent } from './components/dashboard-letter-second/dashboard-letter-second.component';
 import { DashboardLetterThirdComponent } from './components/dashboard-letter-third/dashboard-letter-third.component';
 import { UploadResumeComponent } from './components/upload-resume/upload-resume.component';
+import { JobBoardComponent } from './components/job-board/job-board.component';
+import { JobColumnComponent } from './components/job-column/job-column.component';
+import { JobCardComponent } from './components/job-card/job-card.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { JobDetailsComponent } from './components/job-details/job-details.component';
+
 
 
 
@@ -93,7 +99,11 @@ import { UploadResumeComponent } from './components/upload-resume/upload-resume.
     DashboardLetterFirstComponent,
     DashboardLetterSecondComponent,
     DashboardLetterThirdComponent,
-    UploadResumeComponent    
+    UploadResumeComponent,
+    JobBoardComponent,
+    JobColumnComponent,
+    JobCardComponent,
+    JobDetailsComponent    
   ],
   imports: [
     BrowserModule,
@@ -121,7 +131,8 @@ import { UploadResumeComponent } from './components/upload-resume/upload-resume.
     ToolbarModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    ScrollingModule
+    ScrollingModule,
+    DragDropModule
   ],
   providers: [ResumeDataService],
   bootstrap: [AppComponent],

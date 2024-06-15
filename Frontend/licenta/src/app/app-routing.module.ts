@@ -14,6 +14,8 @@ import { CoverLetterFormComponent } from './components/cover-letter-form/cover-l
 import { SelectTemplateResumeComponent } from './components/select-template-resume/select-template-resume.component';
 import { SelectTemplateCoverLetterComponent } from './components/select-template-cover-letter/select-template-cover-letter.component';
 import { UploadResumeComponent } from './components/upload-resume/upload-resume.component';
+import { JobBoardComponent } from './components/job-board/job-board.component';
+import { JobDetailsComponent } from './components/job-details/job-details.component';
 
 const routes: Routes = [
   {
@@ -73,7 +75,16 @@ const routes: Routes = [
   {
     path: 'upload-resume',
     component: UploadResumeComponent
+  },
+  {
+    path: 'job-board',
+    component: JobBoardComponent
+  },
+  {
+    path: 'job-details',
+    component: JobDetailsComponent
   }
+
 
 
 

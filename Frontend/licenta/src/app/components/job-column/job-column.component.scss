@@ -1,0 +1,76 @@
+/* job-column.component.css */
+.job-column {
+    background-color: white; /* Culoare de fundal pentru coloane */
+    border-radius: 8px; /* Margini rotunjite */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Umbra ușoară pentru efect de adâncime */
+    padding: 35px; /* Padding intern pentru spațiu în jurul conținutului */
+    margin: 10px; /* Margini externe pentru a separa coloanele între ele */
+    width: 200px; /* Lățime fixă pentru sidebar */
+    height: 80vh;
+    overflow-y: auto; /* Permite scroll vertical dacă conținutul depășește înălțimea */
+  }
+  
+  .column-title {
+    color: #333; /* Culoarea textului */
+    font-size: 15px; /* Mărimea textului, puțin mai mare pentru impact */
+    font-weight: bold; /* Textul mai gros pentru a atrage atenția */
+    text-align: center; /* Centrarea textului */
+    margin-bottom: 20px; /* Spațiu mai mare sub titlu pentru claritate */
+    text-transform: uppercase; /* Transformă textul în majuscule pentru un efect stilizat */
+    letter-spacing: 1px; /* Spațierea literelor pentru un look mai aerisit */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Umbră subtilă pentru a adăuga adâncime */
+  }
+
+  
+  .column-header {
+    display: flex;
+    flex-direction: column; /* Schimbă direcția pentru a aranja titlul și iconița vertical */
+    align-items: center; /* Centrează conținutul pe orizontală */
+  }
+  
+  .column-title {
+    /* Stiluri existente pentru titlu */
+    margin-bottom: 10px; /* Ajustează spațiul dacă este necesar */
+  }
+  
+  .icon-container {
+    display: flex; /* Utilizează Flexbox pentru alinierea butonului */
+    justify-content: center; /* Centrează butonul pe orizontală */
+    width: 100%; /* Se extinde pe toată lățimea disponibilă */
+  }
+  
+  .add-button {
+    color: white; /* Schimbă culoarea iconiței */
+    background-color: #D6E4F0;; /* Verde pentru buton */
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-button:hover {
+    background-color: #D6E4F0;; /* Verde mai închis la hover */
+  }
+
+  .job-item {
+    margin-top: 10px;
+    background-color: #ffffff; /* Fundal alb pentru card */
+    border: 1px solid #e0e0e0; /* Bordură subțire, de culoare deschisă */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Umbră discretă pentru efect tridimensional */
+    border-radius: 10px; /* Colțuri rotunjite pentru un aspect mai moale */
+    padding: 15px 20px; /* Padding intern pentru spațiu în jurul textului */
+    margin-bottom: 10px; /* Spațiu între carduri */
+    transition: box-shadow 0.3s ease-in-out; /* Tranziție pentru umbră, pentru un efect vizual plăcut */
+    cursor: pointer; /* Cursor sub formă de mână pentru a indica posibilitatea interacțiunii */
+    display: block; /* Asigură că fiecare job ocpă întreaga lățime disponibilă */
+    text-align: left; /* Aliniere text la stânga */
+    color: #333; /* Culoare text */
+    font-size: 14px; /* Mărimea fontului pentru text */
+}
+
+.job-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Umbră mai pronunțată la hover pentru efect vizual */
+    background-color: #f8f8f8; /* Schimbă culoarea de fundal la hover */
+}
+
+  
+  
+  

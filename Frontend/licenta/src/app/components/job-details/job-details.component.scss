@@ -1,0 +1,69 @@
+.job-detail-container {
+    display: flex;
+    flex-direction: row; /* Sidebar-ul pe stânga, conținutul pe dreapta */
+    background: #fff;
+    border-radius: 6px;
+    width: 100%; /* Utilizează întreaga lățime posibilă */
+    max-width: 1000px; /* Mărește lățimea maximă pentru a acomoda mai mult conținut */
+    height: auto;
+    margin: 20px auto;
+    overflow: hidden; /* Ascunde overflow-ul inestetic */
+}
+
+.sidebar {
+    width: 200px; /* Lățime fixă pentru sidebar */
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 1px solid #ccc; /* Linie subtilă de separație */
+}
+
+.sidebar button {
+    margin-bottom: 15px; /* Spațiu între butoane pentru o separare clară */
+    width: 100%;
+}
+
+.content {
+    flex-grow: 1; /* Ocupă restul spațiului disponibil */
+    padding: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ocupă întreaga lățime disponibilă a containerului de conținut */
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Spațiere între rânduri pentru claritate */
+}
+
+.mat-form-field {
+    flex: 1;
+    margin-right: 10px; /* Spațiere între câmpuri */
+}
+
+.half-width {
+    width: calc(50% - 10px); /* Ajustează pentru a considera margin-right */
+}
+
+.third-width {
+    width: calc(33.333% - 10px); /* Ajustează pentru trei coloane */
+}
+
+.full-width {
+    width: 100%; /* Câmpuri pe toată lățimea disponibilă */
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    min-width: 120px; /* Lățime minimă pentru butoane */
+}

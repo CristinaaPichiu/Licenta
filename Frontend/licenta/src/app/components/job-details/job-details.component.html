@@ -1,0 +1,88 @@
+<div class="job-detail-container">
+  <div class="sidebar">
+  <img [src]="currentImage" alt="Sidebar Image" class="sidebar-image">
+
+    <button mat-raised-button (click)="changeView('general')">
+      <mat-icon>business_center</mat-icon> General
+    </button>
+    <button mat-raised-button (click)="changeView('timeline')">
+      <mat-icon>timeline</mat-icon> Timeline
+    </button>
+    <button mat-raised-button (click)="changeView('documents')">
+      <mat-icon>folder</mat-icon> Documents
+    </button>
+  </div>
+
+  <div class="content">
+    <div *ngIf="currentView === 'general'" class="form-container">
+      <form [formGroup]="jobDetailsForm" (ngSubmit)="onSubmit()">
+        <!-- Row for Job Title and Company -->
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Job Title</mat-label>
+            <input matInput formControlName="jobTitle">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Company</mat-label>
+            <input matInput formControlName="company">
+          </mat-form-field>
+        </div>
+
+        <!-- Row for Date and Location -->
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Location</mat-label>
+            <input matInput formControlName="location">
+          </mat-form-field>
+        </div>
+
+        <!-- Row for Salary, Job Type, and Link -->
+        <div class="row">
+          <mat-form-field appearance="outline" class="third-width">
+            <mat-label>Salary</mat-label>
+            <input matInput type="number" formControlName="salary">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="third-width">
+            <mat-label>Job Type</mat-label>
+            <input matInput formControlName="jobType">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="third-width">
+            <mat-label>Link (URL)</mat-label>
+            <input matInput formControlName="link">
+          </mat-form-field>
+        </div>
+
+        <!-- Full width for Notes -->
+        <div class="row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit">Save</button>
+          <button mat-button (click)="close()" type="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="currentView === 'timeline'" class="content-section">
+      <p>Timeline information here</p>
+    </div>
+
+    <div *ngIf="currentView === 'documents'" class="content-section">
+      <p>Documents information here</p>
+    </div>
+  </div>
+</div>

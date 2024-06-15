@@ -9,4 +9,5 @@ imports: [RouterOutlet];
 })
 export class AppComponent {
   title = 'licenta';
+  
 }

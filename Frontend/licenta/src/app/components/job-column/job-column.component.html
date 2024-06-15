@@ -1,0 +1,16 @@
+<div class="job-column">
+  <div class="column-header">
+    <h3 class="column-title">{{ title }}</h3>
+    <button mat-icon-button class="add-button" (click)="onAddClick()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div *ngFor="let job of jobs" class="job-item">
+    <!-- Puteți ajusta afișarea detaliilor jobului aici -->
+    {{ job.jobTitle }} - {{ job.company }}
+  </div>
+  <!-- Afișează mesajul când showMessage este true -->
+  <div *ngIf="showMessage" class="message">
+    {{ message }}
+  </div>
+</div>

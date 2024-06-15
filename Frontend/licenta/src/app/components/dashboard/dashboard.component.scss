@@ -99,6 +99,7 @@ h3 {
 }
 
 .template-preview {
+  cursor: pointer;
   flex: 0 0 calc(25% - 20px); /* Adjusts width for 4 items per row, accounting for gap */
   height: auto; /* Height adjusts to content */
   min-height: 300px; /* Minimum height to maintain a decent size */

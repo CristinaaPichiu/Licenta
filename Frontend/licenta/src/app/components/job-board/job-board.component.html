@@ -1,0 +1,33 @@
+<div class="root">
+  <div class="job-board-header">
+    <div class="logo-container">
+      <div class="logo-with-icon">
+        <img src="/assets/logo.png" alt="Logo" class="logo">
+        <mat-icon class="header-icon" (click)="navigateToDashboard()" >grain</mat-icon>
+      </div>
+    </div>
+  <div class="board">
+    <div class="board-wrapper-outer">
++
+<div class="board-wrapper">
+  <div class="board-columns" cdkDropListGroup>
+    <div class="board-column" *ngFor="let column of board.columns">
+      <div class="column-title">{{ column.name }}</div>
+
+  <button mat-icon-button class="add-button" (click)="showAddJobForm(column)">
+    <mat-icon>add</mat-icon>
+  </button>
+            <div *ngIf="currentColumnToAddTask === column">
+    <input type="text" [(ngModel)]="newTask" placeholder="Enter a new task">
+    <button (click)="addTaskToColumn(column)">Add</button>
+    
+  </div>
+  <div class="tasks-container" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="drop($event)">
+    <div class="task" *ngFor="let item of column.tasks"  cdkDrag></div>
+  </div>
+</div>
+  </div>
+</div>
+</div>
+  </div>
+</div>
