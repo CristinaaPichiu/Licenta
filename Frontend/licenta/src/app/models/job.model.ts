@@ -2,7 +2,7 @@
 export class Job {
     constructor(
       public id: string,
-      public title: string,
+      public jobTitle: string,
       public company: string,
       public date: Date,
       public location: string,

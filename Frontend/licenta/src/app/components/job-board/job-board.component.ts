@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JobService, JobListKeys, JobColumn, Job } from 'src/app/services/job-tracker.service';
+import { JobService, JobListKeys, JobColumn } from 'src/app/services/job-tracker.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Board } from 'src/app/models/board.model';
 import { Column } from 'src/app/models/column.model';
 import { MatDialog } from '@angular/material/dialog';
 import { JobDetailsComponent } from '../job-details/job-details.component';
+import { Job } from 'src/app/models/job.model';
 @Component({
 selector: 'app-job-board',
 templateUrl: './job-board.component.html',
@@ -44,7 +45,7 @@ data: { column: column }
 dialogRef.afterClosed().subscribe(result => {
 console.log('Dialog output:', result); // Aici afișăm rezultatul în consola browserului
 if (result) {
-column.tasks.push(result); // Presupunând că 'tasks' este folosit pentru a stoca joburile
+column.jobs.push(result); // Presupunând că 'tasks' este folosit pentru a stoca joburile
 }
 });
 }
@@ -60,6 +61,7 @@ jobType: [''],
 link: [''],
 notes: ['']
 });
+
 }
 
 onSubmit() {
@@ -98,31 +100,48 @@ this.currentColumnToAddTask = column;
 }
 
 addTaskToColumn(column: Column) {
-if (this.newTask) {
-column.tasks.push(this.newTask);
-this.newTask = ''; // Clear the input after adding
-this.currentColumnToAddTask = null; // Hide the form
-}
-}
+    if (this.newTask) {
+      const newJob = new Job(
+        this.generateId(),      // Ensure this method exists to generate unique IDs
+        this.newTask,           // Assuming this string is the job title
+        'Unknown Company',      // Default company name
+        new Date(),             // Use current date or a default
+        'Unknown Location',     // Default location
+        0,                      // Default salary as 0
+        'Not specified',        // Default job type
+        '',                     // No link
+        ''                      // No notes
+      );
+      column.jobs.push(newJob); // Pushing the new Job object, not a string
+      this.newTask = '';        // Clearing the new task input
+      this.currentColumnToAddTask = null; // Resetting the form visibility
+    }
+  }
+  
+  generateId(): string {
+    return Math.random().toString(36).substring(2, 9);
+  }
+  
 
 board: Board = new Board('Test Board', [
-new Column('To Apply', []),
-new Column('Applied', []),
-new Column('Interview', []),
-new Column('Rejected', []),
-new Column('Offer', [])
+new Column('toApply', []),
+new Column('applied', []),
+new Column('interview', []),
+new Column('rejected', []),
+new Column('offer', [])
 ]);
 
-drop(event: CdkDragDrop<string[]>) {
-if (event.previousContainer === event.container) {
-moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-} else {
-transferArrayItem(event.previousContainer.data,
-event.container.data,
-event.previousIndex,
-event.currentIndex);
-}
-}
+drop(event: CdkDragDrop<Job[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+  }
+  
 showJobDetailsForm() {
 this.showJobDetails = true;
 }

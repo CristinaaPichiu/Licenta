@@ -22,9 +22,12 @@
     <button (click)="addTaskToColumn(column)">Add</button>
     
   </div>
-  <div class="tasks-container" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="drop($event)">
-    <div class="task" *ngFor="let item of column.tasks"  cdkDrag></div>
+  <div class="tasks-container" cdkDropList [cdkDropListData]="column.jobs" (cdkDropListDropped)="drop($event)">
+    <div class="task" *ngFor="let job of column.jobs" cdkDrag>
+      {{ job.jobTitle }} - {{ job.company }}
+    </div>
   </div>
+  
 </div>
   </div>
 </div>

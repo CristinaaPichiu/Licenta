@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Column } from 'src/app/models/column.model';
+import { JobService } from 'src/app/services/job-tracker.service';
+import { Job } from 'src/app/models/job.model';
 
 @Component({
   selector: 'app-job-details',
@@ -11,12 +12,13 @@ import { Column } from 'src/app/models/column.model';
 export class JobDetailsComponent implements OnInit {
   jobDetailsForm: FormGroup;
   currentView: string = 'general'; // Default view
-  currentImage: string = '/assets/job.png'; // Imaginea inițială
+  currentImage: string = '/assets/job.png'; // Initial image
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<JobDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { column: Column }
+    private jobService: JobService, // Inject the JobService
+    @Inject(MAT_DIALOG_DATA) public data: { column: any } // Adjust the type if needed based on the application structure
   ) {
     this.jobDetailsForm = this.fb.group({
       jobTitle: ['', Validators.required],
@@ -44,10 +46,11 @@ export class JobDetailsComponent implements OnInit {
         link: this.jobDetailsForm.value.link,
         notes: this.jobDetailsForm.value.notes
       };
-      this.dialogRef.close(jobData);
+      this.dialogRef.close(jobData); // Asigură-te că jobData este trimis înapoi
     }
   }
-
+  
+  
   close() {
     this.dialogRef.close();
   }
@@ -71,5 +74,10 @@ export class JobDetailsComponent implements OnInit {
       default:
         this.currentImage = '/assets/job.png';
     }
+  }
+
+  private generateId(): string {
+    // Implement ID generation logic or use a service/library
+    return Math.random().toString(36).substring(2, 9);
   }
 }
