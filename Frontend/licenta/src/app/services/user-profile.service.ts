@@ -57,7 +57,13 @@ changePassword(token: string, passwords: any): Observable<any> {
   return this.http.post(`${this.baseUrl}/change-password`, passwords, { headers, responseType: 'text' });
 }
 
-
+getUserId(token: string): Observable<number> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  // Se presupune că endpoint-ul /id returnează direct un număr (ID-ul utilizatorului)
+  return this.http.get<number>(`${this.baseUrl}/id`, { headers });
+}
 
 
 }

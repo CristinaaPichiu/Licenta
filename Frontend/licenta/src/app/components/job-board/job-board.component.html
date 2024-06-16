@@ -23,10 +23,13 @@
     
   </div>
   <div class="tasks-container" cdkDropList [cdkDropListData]="column.jobs" (cdkDropListDropped)="drop($event)">
-    <div class="task" *ngFor="let job of column.jobs" cdkDrag (click)="openJobDetails(job, column)">
-      {{ job.jobTitle }} - {{ job.company }}
+    <div *ngFor="let job of column.jobs" class="task" cdkDrag (click)="openJobDetails(job, column)">
+      <div>{{ job.title }} - {{ job.company }}</div>
+      <mat-icon class="trash-icon" (click)="openDeleteDialog($event, job)">delete</mat-icon>
     </div>
   </div>
+  
+  
   
   
 </div>

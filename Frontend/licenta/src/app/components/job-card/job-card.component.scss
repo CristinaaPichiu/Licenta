@@ -1,0 +1,45 @@
+/* Stilurile pentru dialogul de confirmare a ștergerii */
+.dialog-title {
+    color: #333; /* Schimbă culoarea titlului */
+    font-size: 24px; /* Mărimea fontului pentru titlu */
+  }
+  
+  .dialog-content {
+    padding: 20px; /* Spațiere internă pentru conținut */
+    font-size: 18px; /* Mărimea fontului pentru textul de întrebare */
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: center; /* Alinează butoanele la dreapta */
+    padding: 10px 20px; /* Spațiere în jurul butoanelor */
+  }
+  
+  .dialog-button {
+    margin-bottom: 20px;
+    margin-left: 10px; /* Spațiere între butoane */
+    border-radius: 4px; /* Colturi rotunjite pentru butoane */
+    padding: 10px 20px; /* Spațiere internă pentru butoane */
+    min-width: 80px; /* Lățime minimă pentru butoane */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Umbră ușoară pentru butoane */
+    transition: background-color 0.3s; /* Animație pentru culoarea de fundal la hover */
+  }
+  
+  .dialog-button-yes {
+    background-color: #dc3545; /* Culoare de fundal roșie pentru butonul Da */
+    color: white; /* Text alb pentru contrast */
+  }
+  
+  .dialog-button-yes:hover {
+    background-color: #c82333; /* Culoare mai închisă la hover pentru butonul Da */
+  }
+  
+  .dialog-button-no {
+    background-color: #28a745; /* Culoare de fundal verde pentru butonul Nu */
+    color: white; /* Text alb pentru contrast */
+  }
+  
+  .dialog-button-no:hover {
+    background-color: #218838; /* Culoare mai închisă la hover pentru butonul Nu */
+  }
+  

@@ -18,10 +18,10 @@ export class JobDetailsComponent implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<JobDetailsComponent>,
     private jobService: JobService, // Inject the JobService
-    @Inject(MAT_DIALOG_DATA) public data: { column: any } // Adjust the type if needed based on the application structure
+    @Inject(MAT_DIALOG_DATA) public data: { job: Job, column: any }
   ) {
     this.jobDetailsForm = this.fb.group({
-      jobTitle: ['', Validators.required],
+      title: ['', Validators.required],
       company: ['', Validators.required],
       date: ['', Validators.required],
       location: [''],
@@ -32,31 +32,48 @@ export class JobDetailsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Populează formularul dacă există date transmise prin dialog
+    if (this.data && this.data.job) {
+      this.jobDetailsForm.patchValue({
+        title: this.data.job.title || '',
+        company: this.data.job.company || '',
+        date: this.data.job.date || '',
+        location: this.data.job.location || '',
+        salary: this.data.job.salary || '',
+        jobType: this.data.job.jobType || '',
+        link: this.data.job.link || '',
+        notes: this.data.job.notes || ''
+      });
+    }
+  }
 
   onSubmit(): void {
     if (this.jobDetailsForm.valid) {
       const jobData = {
-        jobTitle: this.jobDetailsForm.value.jobTitle,
-        company: this.jobDetailsForm.value.company,
-        date: this.jobDetailsForm.value.date,
-        location: this.jobDetailsForm.value.location,
-        salary: this.jobDetailsForm.value.salary,
-        jobType: this.jobDetailsForm.value.jobType,
-        link: this.jobDetailsForm.value.link,
-        notes: this.jobDetailsForm.value.notes
+        ...this.jobDetailsForm.value,
+        columnName: this.data.column.name  // Include numele coloanei din obiectul Column
       };
       
-      console.log('Job Data:', jobData);
-      const token = localStorage.getItem('auth_token');
-      console.log('Token:', token); // Log the JWT token retrieved from localStorage
+
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+      console.log(this.data.column.name);
+      
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
   
+      const token = localStorage.getItem('auth_token');
       if (token) {
         this.jobService.saveJob(token, jobData).subscribe({
           next: (response: any) => {
             console.log('Job saved successfully', response);
             alert('Job saved successfully!');
-            this.dialogRef.close(response); // Close the dialog and pass the response
+            this.dialogRef.close(response);
+          },
+          error: (error) => {
+            console.error('Failed to save job', error);
+            alert('Failed to save job: ' + error.message);
           }
         });
       } else {
@@ -65,7 +82,6 @@ export class JobDetailsComponent implements OnInit {
       }
     }
   }
-  
   
   
   

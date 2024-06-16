@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { Job } from '../models/job.model';
 export type JobListKeys = 'toApply' | 'applied' | 'interview' | 'underReview' | 'rejected' | 'offer';
 
 export interface JobColumn {
@@ -10,17 +10,7 @@ export interface JobColumn {
     showMessage: boolean; // Flag to control message display
 }
 
-export interface Job {
-    id?: string; 
-    jobTitle: string;
-    company: string;
-    date: Date;
-    location: string;
-    salary: number;
-    jobType: string;
-    link: string;
-    notes: string;
-}
+
 
 @Injectable({
     providedIn: 'root'
@@ -40,15 +30,21 @@ export class JobService {
 
     constructor(private http: HttpClient) {}
 
-    
-      addJobToList(job: Job, listName: JobListKeys) {
+    addJobToList(job: Job, listName: JobListKeys): void {
         const column = this.jobLists[listName];
         if (column) {
           column.jobs.push(job);
-          this.jobListSource.next(this.jobLists);
+          this.jobListSource.next(this.jobLists); // Actualizează starea globală
         }
       }
-      
+    
+      clearJobs(): void {
+        // Golirea listelor pentru a evita duplicarea datelor
+        Object.keys(this.jobLists).forEach(key => {
+          this.jobLists[key as JobListKeys].jobs = [];
+        });
+        this.jobListSource.next(this.jobLists); // Anunță toate componentele despre resetarea listelor
+      }
     
     
     
@@ -105,9 +101,7 @@ export class JobService {
         return this.http.get<Job[]>(`${this.baseUrl}/user/${userId}`, { headers });
       }
 
-      clearJobs() {
-        Object.keys(this.jobLists).forEach(key => this.jobLists[key as JobListKeys].jobs = []);
-      }
+    
       
      
       

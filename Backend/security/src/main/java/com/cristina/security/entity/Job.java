@@ -28,6 +28,7 @@ public class Job {
     private String jobType;
     private String link;
     private String notes;
+    private String columnName;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

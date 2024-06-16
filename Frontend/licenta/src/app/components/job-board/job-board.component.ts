@@ -9,6 +9,8 @@ import { Column } from 'src/app/models/column.model';
 import { MatDialog } from '@angular/material/dialog';
 import { JobDetailsComponent } from '../job-details/job-details.component';
 import { Job } from 'src/app/models/job.model';
+import { UserProfileService } from 'src/app/services/user-profile.service';
+import { JobCardComponent } from '../job-card/job-card.component';
 @Component({
 selector: 'app-job-board',
 templateUrl: './job-board.component.html',
@@ -24,14 +26,19 @@ activeColumn: JobListKeys = 'toApply'; // Default or determined by user interact
 saveMessage: string = '';
 showMessage: boolean = false;
 jobStatuses: JobListKeys[] = ['toApply', 'applied', 'interview', 'underReview', 'rejected', 'offer']; // Lista de stări ale joburilor
-
+jobs: Job[] = [];
 showJobDetails = false;
+token: string | null = localStorage.getItem('auth_token');
+userId?: number;
+
+
 
 constructor(
 private router: Router,
 private fb: FormBuilder,
 private jobService: JobService,
 private dialog: MatDialog,
+private userService: UserProfileService
 
 ) {
 this.jobLists$ = this.jobService.currentJobLists; // Asigură-te că tipurile se potrivesc
@@ -51,20 +58,73 @@ column.jobs.push(result); // Presupunând că 'tasks' este folosit pentru a stoc
 }
 
 ngOnInit() {
+ 
 
-  
-this.jobDetailsForm = this.fb.group({
-jobTitle: ['', Validators.required],
-company: ['', Validators.required],
-date: ['', Validators.required],
-location: [''],
-salary: [''],
-jobType: [''],
-link: [''],
-notes: ['']
-});
-
+  this.token = localStorage.getItem('auth_token');
+  if (this.token) {
+    this.userService.getUserId(this.token).subscribe({
+      next: (id) => {
+        if (id != null && this.token) { // Ensure id and token are not null
+          this.userId = id;
+          this.loadJobs(id, this.token);
+        } else {
+          console.error('User ID not found or token is null');
+        }
+      },
+      error: (error) => console.error('Failed to get user ID', error)
+    });
+  } else {
+    console.error('Authentication token not found');
+  }
 }
+
+
+loadJobs(userId: number, token: string) {
+  this.jobService.getJobsByUser(token, userId).subscribe({
+    next: (jobs) => {
+      this.clearColumns(); // Curăță coloanele înainte de a le popula din nou
+      jobs.forEach(job => {
+        // Verifică dacă jobul are un nume de coloană valid, altfel atribuie-l la o coloană implicită
+        const targetColumn = job.columnName || 'toApply'; // Alege 'toApply' dacă columnName este null
+        const column = this.board.columns.find(c => c.name === targetColumn);
+        if (column) {
+          column.jobs.push(job);
+        } else {
+          // Opțional: gestionează cazul în care nu există o coloană corespunzătoare (loghează eroarea sau creează dinamic coloana)
+          console.error('No column found for name:', targetColumn);
+        }
+      });
+      console.log('Jobs loaded successfully', jobs);
+    },
+    error: (error) => {
+      console.error('Failed to load jobs', error);
+    }
+  });
+}
+
+clearColumns() {
+  this.board.columns.forEach(column => column.jobs = []);
+}
+deleteJob(job: Job) {
+console.log("deleteee"); 
+}
+
+openDeleteDialog(event: MouseEvent, job: any): void {
+  event.stopPropagation();  // Oprește propagarea evenimentului mai departe
+  const dialogRef = this.dialog.open(JobCardComponent, {
+    width: '300px',
+    data: { job: job }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === true) {
+      console.log('Confirm delete');
+      // Aici poți adăuga logica pentru a șterge job-ul efectiv
+    }
+  });
+}
+
+
 
 onSubmit() {
 if (this.jobDetailsForm.valid) {
@@ -102,23 +162,24 @@ this.currentColumnToAddTask = column;
 }
 
 addTaskToColumn(column: Column) {
-    if (this.newTask) {
+  if (this.newTask) {
       const newJob = new Job(
-        this.generateId(),      // Ensure this method exists to generate unique IDs
-        this.newTask,           // Assuming this string is the job title
-        'Unknown Company',      // Default company name
-        new Date(),             // Use current date or a default
-        'Unknown Location',     // Default location
-        0,                      // Default salary as 0
-        'Not specified',        // Default job type
-        '',                     // No link
-        ''                      // No notes
+          this.newTask,               // jobTitle
+          'Unknown Company',          // company
+          new Date(),                 // date
+          'Unknown Location',         // location
+          0,                          // salary
+          'Not specified',            // jobType
+          '',                         // link
+          '',                         // notes
+          this.generateId()           // id
       );
+      console.log(column.jobs);
       column.jobs.push(newJob); // Pushing the new Job object, not a string
       this.newTask = '';        // Clearing the new task input
       this.currentColumnToAddTask = null; // Resetting the form visibility
-    }
   }
+}
   
   generateId(): string {
     return Math.random().toString(36).substring(2, 9);

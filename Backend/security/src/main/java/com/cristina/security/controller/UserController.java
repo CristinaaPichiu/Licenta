@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -55,6 +56,21 @@ public class UserController {
         return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
     }
 
+    @GetMapping("/id")
+    public ResponseEntity<Integer> getUserId(Authentication authentication) {
+        // Obține emailul din obiectul Authentication
+        String email = authentication.getName();
+        // Caută utilizatorul în baza de date folosind emailul
+        Optional<User> user = userService.findByEmail(email);
+
+        if (user.isPresent()) {
+            // Returnează ID-ul utilizatorului dacă este găsit
+            return ResponseEntity.ok(user.get().getId());
+        } else {
+            // Returnează 404 Not Found dacă utilizatorul nu este găsit
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 

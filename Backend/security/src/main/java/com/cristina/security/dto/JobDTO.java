@@ -14,6 +14,15 @@ public class JobDTO {
     private String link;
     private String notes;
 
+    private String columnName;
+
+    public String getColumn() {
+        return columnName;
+    }
+
+    public void setColumn(String columnName) {
+        this.columnName = columnName;
+    }
 
     // Getteri și Setteri
     public Integer getId() {
