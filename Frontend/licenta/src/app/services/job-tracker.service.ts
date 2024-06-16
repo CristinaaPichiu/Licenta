@@ -1,5 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export type JobListKeys = 'toApply' | 'applied' | 'interview' | 'underReview' | 'rejected' | 'offer';
 
@@ -10,7 +11,7 @@ export interface JobColumn {
 }
 
 export interface Job {
-    id: string;
+    id?: string; 
     jobTitle: string;
     company: string;
     date: Date;
@@ -37,18 +38,17 @@ export class JobService {
     private jobListSource = new BehaviorSubject<Record<JobListKeys, JobColumn>>(this.jobLists);
     currentJobLists = this.jobListSource.asObservable();
 
-    constructor() { }
+    constructor(private http: HttpClient) {}
 
-    addJobToList(job: Job, listName: JobListKeys): void {
+    
+      addJobToList(job: Job, listName: JobListKeys) {
         const column = this.jobLists[listName];
         if (column) {
-            console.log(`Adding job to column: ${listName}`);
-            column.jobs.push(job);
-            this.jobListSource.next(this.jobLists);
-        } else {
-            console.error("Column not found: ", listName);
+          column.jobs.push(job);
+          this.jobListSource.next(this.jobLists);
         }
-    }
+      }
+      
     
     
     
@@ -82,4 +82,33 @@ export class JobService {
         const currentJobs = this.jobsSource.value;
         this.jobsSource.next([...currentJobs, job]);
     }
+
+
+
+    private baseUrl = 'http://localhost:8080/api/v1/jobs'; // URL-ul API-ului tău
+
+    saveJob(token: string, jobData: Job): Observable<Job> {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        });
+    
+        return this.http.post<Job>(this.baseUrl, jobData, { headers });
+      }
+    
+      // Obținerea joburilor după ID-ul utilizatorului
+      getJobsByUser(token: string, userId: number): Observable<Job[]> {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        });
+        return this.http.get<Job[]>(`${this.baseUrl}/user/${userId}`, { headers });
+      }
+
+      clearJobs() {
+        Object.keys(this.jobLists).forEach(key => this.jobLists[key as JobListKeys].jobs = []);
+      }
+      
+     
+      
 }

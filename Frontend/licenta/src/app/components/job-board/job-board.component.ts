@@ -51,6 +51,8 @@ column.jobs.push(result); // Presupunând că 'tasks' este folosit pentru a stoc
 }
 
 ngOnInit() {
+
+  
 this.jobDetailsForm = this.fb.group({
 jobTitle: ['', Validators.required],
 company: ['', Validators.required],
@@ -149,5 +151,22 @@ this.showJobDetails = true;
 closeJobDetailsForm() {
 this.showJobDetails = false;
 }
+
+openJobDetails(job: Job, column: Column) {
+    const dialogRef = this.dialog.open(JobDetailsComponent, {
+      width: '1000px',
+      data: { job: job, column: column } // Trimite jobul și coloana către dialog
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Actualizează jobul existent cu noile valori
+        Object.assign(job, result);
+        // Notifică serviciul de joburi să actualizeze listele dacă este necesar
+        this.jobService.updateJobLists();
+      }
+    });
+  }
+  
 
 }

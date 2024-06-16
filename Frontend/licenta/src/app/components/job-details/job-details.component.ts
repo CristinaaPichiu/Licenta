@@ -34,7 +34,7 @@ export class JobDetailsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.jobDetailsForm.valid) {
       const jobData = {
         jobTitle: this.jobDetailsForm.value.jobTitle,
@@ -46,9 +46,27 @@ export class JobDetailsComponent implements OnInit {
         link: this.jobDetailsForm.value.link,
         notes: this.jobDetailsForm.value.notes
       };
-      this.dialogRef.close(jobData); // Asigură-te că jobData este trimis înapoi
+      
+      console.log('Job Data:', jobData);
+      const token = localStorage.getItem('auth_token');
+      console.log('Token:', token); // Log the JWT token retrieved from localStorage
+  
+      if (token) {
+        this.jobService.saveJob(token, jobData).subscribe({
+          next: (response: any) => {
+            console.log('Job saved successfully', response);
+            alert('Job saved successfully!');
+            this.dialogRef.close(response); // Close the dialog and pass the response
+          }
+        });
+      } else {
+        console.error('Authentication token not found. Please log in.');
+        alert('Please log in to save your job.');
+      }
     }
   }
+  
+  
   
   
   close() {
