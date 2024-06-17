@@ -29,5 +29,9 @@ public class JobService {
         return jobRepository.findByUserId(userId);
     }
 
+    public void deleteJob(Integer id) {
+        jobRepository.deleteById(id);
+    }
+
     // Metode pentru update și delete
 }

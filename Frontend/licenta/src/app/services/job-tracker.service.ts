@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Job } from '../models/job.model';
+import { tap } from 'rxjs/operators';
+
 export type JobListKeys = 'toApply' | 'applied' | 'interview' | 'underReview' | 'rejected' | 'offer';
 
 export interface JobColumn {
@@ -101,8 +103,26 @@ export class JobService {
         return this.http.get<Job[]>(`${this.baseUrl}/user/${userId}`, { headers });
       }
 
-    
-      
+      // Șterge job pe baza ID-ului și actualizează starea locală
+deleteJob(token: string, jobId: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.delete(`${this.baseUrl}/${jobId}`, { headers }).pipe(
+      tap(() => {
+        // Aici, eliminăm job-ul din lista locală după confirmarea ștergerii
+        Object.keys(this.jobLists).forEach(key => {
+          this.jobLists[key as JobListKeys].jobs = this.jobLists[key as JobListKeys].jobs.filter(job => Number(job.id) !== jobId);
+        });
+        // Anunțăm componentele despre schimbare
+        this.jobListSource.next(this.jobLists);
+      })
+    );
+  }
+  
+
+  
      
       
 }

@@ -11,6 +11,8 @@ import { JobDetailsComponent } from '../job-details/job-details.component';
 import { Job } from 'src/app/models/job.model';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { JobCardComponent } from '../job-card/job-card.component';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
 selector: 'app-job-board',
 templateUrl: './job-board.component.html',
@@ -38,7 +40,8 @@ private router: Router,
 private fb: FormBuilder,
 private jobService: JobService,
 private dialog: MatDialog,
-private userService: UserProfileService
+private userService: UserProfileService,
+private cdr: ChangeDetectorRef
 
 ) {
 this.jobLists$ = this.jobService.currentJobLists; // Asigură-te că tipurile se potrivesc
@@ -105,24 +108,45 @@ loadJobs(userId: number, token: string) {
 clearColumns() {
   this.board.columns.forEach(column => column.jobs = []);
 }
-deleteJob(job: Job) {
-console.log("deleteee"); 
-}
 
-openDeleteDialog(event: MouseEvent, job: any): void {
-  event.stopPropagation();  // Oprește propagarea evenimentului mai departe
+
+// În JobBoardComponent
+openDeleteDialog(event: MouseEvent, job: Job): void {
+  event.stopPropagation(); // Opriți propagarea pentru a nu declanșa alte click events.
   const dialogRef = this.dialog.open(JobCardComponent, {
     width: '300px',
-    data: { job: job }
+    data: { job }
   });
 
   dialogRef.afterClosed().subscribe(result => {
     if (result === true) {
-      console.log('Confirm delete');
-      // Aici poți adăuga logica pentru a șterge job-ul efectiv
+      this.deleteJob(job);
     }
   });
 }
+
+deleteJob(job: Job): void {
+  if (this.token && this.userId != null) {
+    const jobId = Number(job.id);
+    if (!isNaN(jobId)) {
+      this.jobService.deleteJob(this.token, jobId).subscribe({
+        next: () => {
+          console.log('Job deleted successfully');
+          this.jobs = this.jobs.filter(j => j.id !== job.id);
+          this.cdr.detectChanges();  // Forțează detectarea schimbărilor
+        },
+        error: error => console.error('Failed to delete job', error)
+      });
+    } else {
+      console.error('Invalid job ID', jobId);
+    }
+  } else {
+    console.error('Token or User ID is undefined');
+  }
+}
+
+
+
 
 
 
