@@ -36,6 +36,7 @@ export class JobDetailsComponent implements OnInit {
     // Populează formularul dacă există date transmise prin dialog
     if (this.data && this.data.job) {
       this.jobDetailsForm.patchValue({
+        id: this.data.job.id || '',
         title: this.data.job.title || '',
         company: this.data.job.company || '',
         date: this.data.job.date || '',
@@ -52,36 +53,32 @@ export class JobDetailsComponent implements OnInit {
     if (this.jobDetailsForm.valid) {
       const jobData = {
         ...this.jobDetailsForm.value,
-        columnName: this.data.column.name  // Include numele coloanei din obiectul Column
+        id: this.data.job?.id, // Include ID-ul dacă este disponibil
+        columnName: this.data.column.name  // Include numele coloanei
       };
-      
-
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-      console.log(this.data.column.name);
-      
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
+  
+      console.log("Attempting to save or update job:", jobData);
   
       const token = localStorage.getItem('auth_token');
       if (token) {
-        this.jobService.saveJob(token, jobData).subscribe({
+        this.jobService.saveOrUpdateJob(token, jobData).subscribe({
           next: (response: any) => {
-            console.log('Job saved successfully', response);
-            alert('Job saved successfully!');
+            console.log('Job saved or updated successfully', response);
+            alert('Job saved or updated successfully!');
             this.dialogRef.close(response);
           },
           error: (error) => {
-            console.error('Failed to save job', error);
-            alert('Failed to save job: ' + error.message);
+            console.error('Failed to save or update job', error);
+            alert('Failed to save or update job: ' + error.message);
           }
         });
       } else {
         console.error('Authentication token not found. Please log in.');
-        alert('Please log in to save your job.');
+        alert('Please log in to save or update your job.');
       }
     }
   }
+  
   
   
   

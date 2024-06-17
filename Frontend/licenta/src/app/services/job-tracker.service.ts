@@ -85,7 +85,7 @@ export class JobService {
 
     private baseUrl = 'http://localhost:8080/api/v1/jobs'; // URL-ul API-ului tău
 
-    saveJob(token: string, jobData: Job): Observable<Job> {
+    saveOrUpdateJob(token: string, jobData: Job): Observable<Job> {
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

@@ -3,6 +3,7 @@ package com.cristina.security.controller;
 import com.cristina.security.entity.Job;
 import com.cristina.security.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,11 @@ public class JobController {
     private JobService jobService;
 
     @PostMapping
-    public Job addJob(@RequestBody Job job) {
-        return jobService.saveJob(job);
+    public ResponseEntity<Job> saveOrUpdateJob(@RequestBody Job job) {
+        Job savedJob = jobService.saveOrUpdateJob(job);
+        return new ResponseEntity<>(savedJob, HttpStatus.OK);
     }
+
 
     @GetMapping("/user/{userId}")
     public List<Job> getJobsByUser(@PathVariable Integer userId) {
