@@ -16,6 +16,24 @@ public class JobDTO {
 
     private String columnName;
 
+    private String color;
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public String getColumn() {
         return columnName;
     }

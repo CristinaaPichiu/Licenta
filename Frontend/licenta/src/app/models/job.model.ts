@@ -11,6 +11,7 @@ export class Job {
       public link: string,
       public notes: string,
       public columnName: string,
+      public color: string, // Adaugă culoarea ca un string, presupunând că este codul hex al culorii
       public id?: string
     ) {}
   }

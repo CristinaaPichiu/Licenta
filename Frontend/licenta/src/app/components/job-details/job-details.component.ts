@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { JobService } from 'src/app/services/job-tracker.service';
 import { Job } from 'src/app/models/job.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ColorPickerComponent } from '../color-picker/color-picker.component';
 
 @Component({
   selector: 'app-job-details',
@@ -11,10 +13,16 @@ import { Job } from 'src/app/models/job.model';
 })
 export class JobDetailsComponent implements OnInit {
   jobDetailsForm: FormGroup;
+  timelineForm!: FormGroup;
+
   currentView: string = 'general'; // Default view
   currentImage: string = '/assets/job.png'; // Initial image
+  selectedColor: string = '#7cdfc3'; // Culoare inițială, poate fi schimbată
+  colors: string[] = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffffff', '#000000'];
+
 
   constructor(
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<JobDetailsComponent>,
     private jobService: JobService, // Inject the JobService
@@ -28,10 +36,27 @@ export class JobDetailsComponent implements OnInit {
       salary: [''],
       jobType: [''],
       link: [''],
-      notes: ['']
+      notes: [''],
+      color: [this.selectedColor]
+      
     });
   }
 
+  openColorPicker(): void {
+    const dialogRef = this.dialog.open(ColorPickerComponent, {
+      width: '300px',
+      data: { selectedColor: this.selectedColor }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.selectedColor = result;
+        this.jobDetailsForm.get('color')!.setValue(this.selectedColor); // Utilizare operator non-null assertion
+      }
+    });
+    
+  }
+  
   ngOnInit(): void {
     // Populează formularul dacă există date transmise prin dialog
     if (this.data && this.data.job) {
@@ -44,7 +69,8 @@ export class JobDetailsComponent implements OnInit {
         salary: this.data.job.salary || '',
         jobType: this.data.job.jobType || '',
         link: this.data.job.link || '',
-        notes: this.data.job.notes || ''
+        notes: this.data.job.notes || '',
+        color: this.data.job.color || this.selectedColor
       });
     }
   }
@@ -106,6 +132,7 @@ export class JobDetailsComponent implements OnInit {
         this.currentImage = '/assets/job.png';
     }
   }
+  
 
   private generateId(): string {
     // Implement ID generation logic or use a service/library

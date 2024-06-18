@@ -29,6 +29,8 @@ public class Job {
     private String link;
     private String notes;
     private String columnName;
+    private String color;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

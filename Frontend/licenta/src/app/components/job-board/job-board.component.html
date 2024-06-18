@@ -4,35 +4,37 @@
       <div class="logo-with-icon">
         <img src="/assets/logo.png" alt="Logo" class="logo">
         <mat-icon class="header-icon" (click)="navigateToDashboard()" >grain</mat-icon>
+        <div class="nav-buttons">
+          <div class="nav-button" [class.active]="currentTab === 'resumes'" (click)="navigateTo('resumes')">Resumes</div>
+          <div class="nav-button" [class.active]="currentTab === 'coverLetters'" (click)="navigateTo('coverLetters')">Cover Letters</div>
+          <div class="nav-button" [class.active]="currentTab === 'jobTracker'" (click)="navigateTo('jobTracker')">Dashboard</div>
+        </div>
       </div>
+      
     </div>
   <div class="board">
     <div class="board-wrapper-outer">
-+
+
 <div class="board-wrapper">
   <div class="board-columns" cdkDropListGroup>
-    <div class="board-column" *ngFor="let column of board.columns">
-      <div class="column-title">{{ column.name }}</div>
+    <div class="board-column" *ngFor="let column of board.columns; let i = index" [attr.data-index]="i">
 
-  <button mat-icon-button class="add-button" (click)="showAddJobForm(column)">
-    <mat-icon>add</mat-icon>
-  </button>
-            <div *ngIf="currentColumnToAddTask === column">
-    <input type="text" [(ngModel)]="newTask" placeholder="Enter a new task">
-    <button (click)="addTaskToColumn(column)">Add</button>
-    
-  </div>
-  <div class="tasks-container" cdkDropList [cdkDropListData]="column.jobs" (cdkDropListDropped)="drop($event)">
-    <div *ngFor="let job of column.jobs" class="task" cdkDrag (click)="openJobDetails(job, column)">
-      <div>{{ job.title }} - {{ job.company }}</div>
-      <mat-icon class="trash-icon" (click)="openDeleteDialog($event, job)">delete</mat-icon>
+      <div class="column-title">{{ column.name }}</div>
+      <button mat-icon-button class="add-button" (click)="showAddJobForm(column)">
+        <mat-icon>add</mat-icon>
+      </button>
+      <div *ngIf="currentColumnToAddTask === column">
+        <input type="text" [(ngModel)]="newTask" placeholder="Enter a new task">
+        <button (click)="addTaskToColumn(column)">Add</button>
+      </div>
+      <div class="tasks-container" cdkDropList [cdkDropListData]="column.jobs" [cdkDropListConnectedTo]="connectedDropLists" [id]="'cdk-drop-list-' + i" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let job of column.jobs" class="task" cdkDrag (click)="openJobDetails(job, column)" [ngStyle]="{'border-left': '10px solid ' + job.color}">
+          <div>{{ job.title }} - {{ job.company }}</div>
+          <mat-icon class="trash-icon" (click)="openDeleteDialog($event, job)">delete</mat-icon>
+        </div>
+      </div>
     </div>
-  </div>
-  
-  
-  
-  
-</div>
+    
   </div>
 </div>
 </div>

@@ -67,3 +67,52 @@
 button {
     min-width: 120px; /* Lățime minimă pentru butoane */
 }
+.color-preview {
+    position: absolute;
+    right: 20px; /* Distanta de marginea dreaptă a input-ului */
+    top: 50%; /* Centrarea pe verticală */
+    transform: translateY(-50%); /* Ajustează centrarea perfectă */
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #ccc; /* O bordură subtilă, opțional */
+  }
+  
+  .color-swatch {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #fff; /* Border alb pentru a distinge culorile apropiate */
+  }
+  
+  .color-swatch.selected {
+    border: 2px solid black; /* Adaugă un border mai gros pentru culoarea selectată */
+  }
+  
+
+  
+  .upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Asigură-te că secțiunea ocupă întreaga înălțime a containerului */
+    text-align: center;
+  }
+  
+  .upload-container {
+    width: 500px;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  h1 {
+    margin-top: 20px;
+    font-size: 1.8em; /* Ajustează dimensiunea fontului pentru a se potrivi design-ului */
+    color: #507d95; /* Setează culoarea textului */
+    font-weight: bold; /* Îngroașă textul */
+  }
+  
+  
+  

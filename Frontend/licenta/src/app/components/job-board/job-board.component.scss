@@ -41,6 +41,36 @@
   transform: scale(1.5); /* Mărește iconul când este hover */
 }
 
+.nav-buttons {
+  margin-left: 400px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 30px;
+  padding: 5px;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  color: black; /* Culoarea textului */
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 600; /* Grosimea fontului */
+  text-transform: uppercase; /* Transformare text la majuscule */
+  font-size: 16px; /* Dimensiunea textului */
+  background-color: white; /* Culoarea de fundal a butonului */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Umbra butonului */
+  margin: 0 5px; /* Spațiu între butoane */
+}
+
+.nav-button:hover {
+  background-color: #D6E4F0;;
+}
+
+
+
+
 
 .app-name {
   font-size: 28px;
@@ -208,4 +238,53 @@
 
 .tasks-container.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+
+
+@media (max-width: 768px) {
+  .logo {
+    height: 80px;
+  }
+
+  .app-name {
+    font-size: 24px;
+  }
+
+  .board-column {
+    min-width: 80%;
+  }
+
+  .task {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .column-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    height: 60px;
+  }
+
+  .app-name {
+    font-size: 20px;
+  }
+
+  .board-column {
+    min-width: 100%;
+  }
+
+  .task {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .column-title {
+    font-size: 16px;
+  }
 }

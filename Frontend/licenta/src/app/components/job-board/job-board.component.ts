@@ -31,6 +31,8 @@ jobStatuses: JobListKeys[] = ['toApply', 'applied', 'interview', 'underReview', 
 jobs: Job[] = [];
 showJobDetails = false;
 token: string | null = localStorage.getItem('auth_token');
+connectedDropLists: string[] = [];
+
 userId?: number;
 
 
@@ -62,6 +64,7 @@ column.jobs.push(result); // Presupunând că 'tasks' este folosit pentru a stoc
 
 ngOnInit() {
  
+  this.connectedDropLists = this.board.columns.map((_, index) => `cdk-drop-list-${index}`);
 
   this.token = localStorage.getItem('auth_token');
   if (this.token) {
@@ -196,6 +199,7 @@ addTaskToColumn(column: Column) {
           'Not specified',            // jobType
           '',                         // link
           '',                         // notes
+          '#42A5F5',                  // color 
           this.generateId()           // id
       );
       console.log(column.jobs);
@@ -219,15 +223,37 @@ new Column('offer', [])
 ]);
 
 drop(event: CdkDragDrop<Job[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  } else {
+    transferArrayItem(event.previousContainer.data,
+                      event.container.data,
+                      event.previousIndex,
+                      event.currentIndex);
+
+    // Obține indexul noii coloane
+    const job = event.container.data[event.currentIndex];
+    const newColumnIndex = this.board.columns.findIndex(column => column.jobs === event.container.data);
+    if (newColumnIndex !== -1) {
+      const newColumnName = this.board.columns[newColumnIndex].name;
+      console.log('New Column Name:', newColumnName);
+      this.updateJobColumn(job, newColumnName);
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+      console.error('Failed to get new column index');
     }
   }
+}
+
+updateJobColumn(job: Job, newColumnName: string) {
+  if (this.token && job.id) {
+    job.columnName = newColumnName;
+    this.jobService.saveOrUpdateJob(this.token, job).subscribe({
+      next: () => console.log(`Job ${job.id} updated to column ${newColumnName}`),
+      error: error => console.error('Failed to update job column', error)
+    });
+  }
+}
+
   
 showJobDetailsForm() {
 this.showJobDetails = true;
@@ -252,6 +278,14 @@ openJobDetails(job: Job, column: Column) {
       }
     });
   }
+
+  currentTab: string = 'resumes';
+
+  navigateTo(tab: string) {
+    this.currentTab = tab;
+    // Poți adăuga aici logica pentru a naviga la alte componente sau rute
+  }
+
   
 
 }

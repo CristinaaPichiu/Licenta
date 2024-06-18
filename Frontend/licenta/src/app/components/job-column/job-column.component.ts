@@ -8,34 +8,12 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./job-column.component.scss']
 })
 export class JobColumnComponent {
-  @Input() title: string = '';
-  @Input() jobs: any[] = [];  
-  @Input() message: string = '';  
-  @Input() showMessage: boolean = false;  
-  @Input() connectedDropLists!: string[]; // IDs of all drop lists to connect this list with
+  colors: string[] = ['#FF5733', '#33FF57', '#3357FF', '#FFFF33', '#FF33FF', '#33FFFF']; // Adaugă mai multe culori după preferințe
 
-  @Output() addClicked = new EventEmitter<void>();  
-  @Output() jobDropped = new EventEmitter<CdkDragDrop<any[]>>();
+  @Output() colorSelected = new EventEmitter<string>();
 
-  onAddClick(): void {
-    this.addClicked.emit();
+  selectColor(color: string) {
+    this.colorSelected.emit(color);
   }
 
-  drop(event: CdkDragDrop<any[]>): void {
-    if (event.previousContainer === event.container) {
-      // Rearanjează în aceeași listă
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      // Transferă între liste diferite
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-      this.jobDropped.emit(event); // Anunță componenta părinte despre transfer
-    }
-  }
-  
-  
 }

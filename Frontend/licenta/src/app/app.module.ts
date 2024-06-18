@@ -61,6 +61,9 @@ import { JobColumnComponent } from './components/job-column/job-column.component
 import { JobCardComponent } from './components/job-card/job-card.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
+import { ColorPickerComponent } from './components/color-picker/color-picker.component';
+
+
 
 
 
@@ -103,7 +106,8 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
     JobBoardComponent,
     JobColumnComponent,
     JobCardComponent,
-    JobDetailsComponent    
+    JobDetailsComponent,
+    ColorPickerComponent    
   ],
   imports: [
     BrowserModule,

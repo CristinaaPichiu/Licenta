@@ -64,11 +64,19 @@
 
         <!-- Full width for Notes -->
         <div class="row">
-          <mat-form-field appearance="outline" class="full-width">
+          <mat-form-field appearance="outline" class="half-width">
             <mat-label>Notes</mat-label>
             <textarea matInput formControlName="notes"></textarea>
           </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Job Color</mat-label>
+            <input matInput placeholder="Color" (click)="openColorPicker()" readonly>
+            <span matSuffix class="color-preview" [style.background]="selectedColor"></span>
+          </mat-form-field>
         </div>
+
+      
 
         <div class="actions">
           <button mat-raised-button color="primary" type="submit">Save</button>
@@ -81,8 +89,13 @@
       <p>Timeline information here</p>
     </div>
 
-    <div *ngIf="currentView === 'documents'" class="content-section">
-      <p>Documents information here</p>
+    <div *ngIf="currentView === 'documents'" class="upload-section">
+      <h1>Upload documents by clicking on Upload button</h1>
+      <div class="upload-container">
+        <app-upload-resume></app-upload-resume>
+      </div>
     </div>
+    
+    
   </div>
 </div>
