@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/resume/**").permitAll()
                         .requestMatchers("/api/v1/chat/**").permitAll()
                         .requestMatchers("/api/v1/jobs/**").permitAll()
+                        .requestMatchers("/api/v1/todoItems/**").permitAll()
 
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session

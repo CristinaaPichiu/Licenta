@@ -5,6 +5,8 @@ import { JobService } from 'src/app/services/job-tracker.service';
 import { Job } from 'src/app/models/job.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
+import { AddActivityDialogComponent } from '../add-activity-dialog/add-activity-dialog.component';
+import { TodoitemService } from 'src/app/services/todoitem.service';
 
 @Component({
   selector: 'app-job-details',
@@ -19,9 +21,43 @@ export class JobDetailsComponent implements OnInit {
   currentImage: string = '/assets/job.png'; // Initial image
   selectedColor: string = '#7cdfc3'; // Culoare inițială, poate fi schimbată
   colors: string[] = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffffff', '#000000'];
+  hovering: boolean = true;
 
+  activities: any[] = [];
+  openAddActivityDialog(activity?: any): void {
+    const dialogRef = this.dialog.open(AddActivityDialogComponent, {
+      width: '800px',
+      data: { activity: activity, jobId: this.data.job.id } // Pasează activitatea și jobId la dialog
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.refreshActivities();  // Reîncarcă activitățile după închiderea dialogului
+      }
+    });
+  }
+  
+  
+  // src/app/components/job-details/job-details.component.ts
+refreshActivities(): void {
+  const token = localStorage.getItem('auth_token');
+  if (token && this.data && this.data.job && this.data.job.id) {
+    this.todoItemService.getActivitiesByJobId(Number(this.data.job.id), token).subscribe({
+      next: (activities) => {
+        this.activities = activities;
+        console.log('Activities refreshed successfully');
+      },
+      error: (err) => {
+        console.error('Error loading activities', err);
+      }
+    });
+  }
+}
+
+  
 
   constructor(
+    private todoItemService: TodoitemService,
     private dialog: MatDialog,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<JobDetailsComponent>,
@@ -40,6 +76,10 @@ export class JobDetailsComponent implements OnInit {
       color: [this.selectedColor]
       
     });
+    this.timelineForm = this.fb.group({
+      events: this.fb.array([])
+    });
+    
   }
 
   openColorPicker(): void {
@@ -71,6 +111,23 @@ export class JobDetailsComponent implements OnInit {
         link: this.data.job.link || '',
         notes: this.data.job.notes || '',
         color: this.data.job.color || this.selectedColor
+      });
+    }
+    this.loadActivities(Number(this.data.job.id));
+
+  }
+  
+
+  loadActivities(jobId: number): void {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      this.todoItemService.getActivitiesByJobId(jobId, token).subscribe({
+        next: (activities) => {
+          this.activities = activities;
+        },
+        error: (err) => {
+          console.error('Error loading activities', err);
+        }
       });
     }
   }
@@ -138,4 +195,6 @@ export class JobDetailsComponent implements OnInit {
     // Implement ID generation logic or use a service/library
     return Math.random().toString(36).substring(2, 9);
   }
+
+  
 }

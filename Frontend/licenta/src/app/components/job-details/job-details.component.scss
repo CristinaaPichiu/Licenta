@@ -113,6 +113,62 @@ button {
     color: #507d95; /* Setează culoarea textului */
     font-weight: bold; /* Îngroașă textul */
   }
+
+/* timeline.component.css */
+.add-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .activities-container {
+    max-width: 600px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .activity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
+  }
+  
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+  
+  .trash-icon {
+    visibility: hidden; /* Începe ascuns și devine vizibil la hover */
+    cursor: pointer;
+  }
+  
+  .activity-item:hover .trash-icon {
+    visibility: visible; /* Arată iconul când mouse-ul este peste item */
+  }
+  
+  .activity-checkbox {
+    margin-right: 15px; /* Spațiu între checkbox și text */
+    color: #507d95;
+  }
+  
+  .trash-icon {
+    visibility: hidden; /* Inițial ascuns */
+    cursor: pointer;
+  }
+  
+  .activity-item:hover .trash-icon {
+    visibility: visible; /* Devine vizibil la hover */
+  }
+  
+  
+  
+  
   
   
   

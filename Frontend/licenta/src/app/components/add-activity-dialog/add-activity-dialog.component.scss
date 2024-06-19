@@ -1,0 +1,69 @@
+.add-activity-form-container {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Limitați lățimea formularului pentru o mai bună lizibilitate */
+    margin: auto; /* Centrarea formularului */
+}
+
+h2 {
+    text-align: center;
+    color: #507d95;
+    margin-bottom: 10px; /* Reducem spațiul sub titlu */
+}
+
+.mat-form-field {
+    width: calc(50% - 10px); /* Ajustarea lățimii pentru a permite două câmpuri pe linie */
+    margin-bottom: 10px; /* Reducem spațiul sub fiecare câmp */
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: calc(50% - 10px); 
+    margin-right: 20px; 
+    
+}
+.description-field
+{
+    width:calc(100% - 20px)  
+    
+}
+
+.actions {
+    display: flex;
+    justify-content: center; /* Centrarea butoanelor de acțiune */
+    gap: 10px; /* Spațiu între butoane */
+    margin-top: 10px; /* Spațiu deasupra butoanelor */
+}
+
+button {
+    background-color: #507d95; /* Culoare de fond pentru butoane */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #2184b4; /* Culoare la hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+    background-color: #1a617f;
+}
+.form-container {
+    max-width: 600px; /* sau orice lățime preferi */
+    margin-left: 80px; /* Ajustează această valoare pentru a muta formularul la stânga */
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+  }
+  

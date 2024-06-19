@@ -1,0 +1,48 @@
+<!-- src/app/add-activity-dialog/add-activity-dialog.component.html -->
+<div class="form-container">
+
+<h2>Add a new activity</h2>
+<form [formGroup]="activityForm" (ngSubmit)="onSave()">
+    <div class="input-group">
+      <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Location</mat-label>
+        <input matInput formControlName="location">
+      </mat-form-field>
+      </div>
+      <div class="input-group">
+
+        <mat-form-field appearance="outline" class="input-field">
+                      
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" placeholder="Select Date" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class = "input-field">
+            <mat-label>Select Time</mat-label>
+            <input matInput type="time" formControlName="startTime">
+          </mat-form-field>
+        
+      </div>
+
+      <div class="input-group">
+
+        <mat-form-field appearance="outline" class = "description-field">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+          </mat-form-field>
+        
+      </div>
+
+
+    <div class="actions">
+      <button mat-raised-button type="submit" [disabled]="!activityForm.valid">Save</button>
+      <button mat-button (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+  </div>
