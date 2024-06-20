@@ -16,10 +16,10 @@ public class ToDoItemController {
     @Autowired
     private ToDoItemService toDoItemService;
 
-    @PostMapping("/saveItem")
-    public ResponseEntity<ToDoItem> createToDoItem(@RequestBody ToDoItemDTO toDoItemDTO) {
-        ToDoItem createdToDoItem = toDoItemService.createToDoItem(toDoItemDTO);
-        return ResponseEntity.ok(createdToDoItem);
+    @PostMapping("/saveOrUpdateItem")
+    public ResponseEntity<ToDoItem> saveOrUpdateToDoItem(@RequestBody ToDoItemDTO toDoItemDTO) {
+        ToDoItem savedToDoItem = toDoItemService.createOrUpdateToDoItem(toDoItemDTO);
+        return ResponseEntity.ok(savedToDoItem);
     }
 
     // Endpoint pentru a prelua toate ToDoItems asociate unui anumit job
@@ -30,5 +30,15 @@ public class ToDoItemController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(items);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteToDoItem(@PathVariable Integer id) {
+        try {
+            toDoItemService.deleteToDoItem(id);
+            return ResponseEntity.ok().build(); // Răspuns cu success, fără conținut
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build(); // Nu s-a găsit elementul pentru ștergere
+        }
     }
 }

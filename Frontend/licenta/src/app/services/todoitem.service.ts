@@ -11,15 +11,15 @@ export class TodoitemService {
 
   constructor(private http: HttpClient) { }
 
-  // Metoda pentru crearea unui ToDoItem
-  createTodoItem(token: string, todoItemData: any): Observable<any> {
+  saveOrUpdateTodoItem(token: string, todoItemData: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(`${this.baseUrl}/saveItem`, todoItemData, { headers });
+    return this.http.post(`${this.baseUrl}/saveOrUpdateItem`, todoItemData, { headers });
   }
+
 
   // În serviciul tău, de exemplu TodoItemService
 getActivitiesByJobId(jobId: number, token: string): Observable<any[]> {
@@ -28,6 +28,15 @@ getActivitiesByJobId(jobId: number, token: string): Observable<any[]> {
     'Content-Type': 'application/json'
   });
   return this.http.get<any[]>(`${this.baseUrl}/byJob/${jobId}`, { headers });
+}
+
+deleteTodoItem(id: number, token: string): Observable<void> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.delete<void>(`${this.baseUrl}/delete/${id}`, { headers });
 }
 
 }

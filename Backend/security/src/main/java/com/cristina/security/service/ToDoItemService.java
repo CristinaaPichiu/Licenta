@@ -20,19 +20,45 @@ public class ToDoItemService {
     private JobRepository jobRepository;
 
     @Transactional
-    public ToDoItem createToDoItem(ToDoItemDTO toDoItemDTO) {
-        Job job = jobRepository.findById(toDoItemDTO.getJobId()).orElseThrow(() -> new RuntimeException("Job not found"));
-        ToDoItem toDoItem = new ToDoItem();
+    public ToDoItem createOrUpdateToDoItem(ToDoItemDTO toDoItemDTO) {
+        ToDoItem toDoItem = null;
+
+        if (toDoItemDTO.getId() != null) {
+            // Cazul de update
+            toDoItem = toDoItemRepository.findById(toDoItemDTO.getId())
+                    .orElseThrow(() -> new RuntimeException("Activity not found with id: " + toDoItemDTO.getId()));
+        } else {
+            // Cazul de create
+            toDoItem = new ToDoItem();
+        }
+
+        // Setează câmpurile indiferent dacă este create sau update
         toDoItem.setName(toDoItemDTO.getName());
         toDoItem.setLocation(toDoItemDTO.getLocation());
         toDoItem.setStartDate(toDoItemDTO.getStartDate());
         toDoItem.setStartTime(toDoItemDTO.getStartTime());
         toDoItem.setDescription(toDoItemDTO.getDescription());
+        toDoItem.setChecked(toDoItemDTO.getIsChecked());
+
+
+        Job job = jobRepository.findById(toDoItemDTO.getJobId())
+                .orElseThrow(() -> new RuntimeException("Job not found with id: " + toDoItemDTO.getJobId()));
         toDoItem.setJob(job);
+
         return toDoItemRepository.save(toDoItem);
     }
 
+
     public List<ToDoItem> findToDoItemsByJobId(Integer jobId) {
         return toDoItemRepository.findByJobId(jobId);
+    }
+
+    // Metoda pentru ștergerea unui ToDoItem
+    @Transactional
+    public void deleteToDoItem(Integer id) {
+        if (!toDoItemRepository.existsById(id)) {
+            throw new RuntimeException("ToDoItem not found with id " + id);
+        }
+        toDoItemRepository.deleteById(id);
     }
 }

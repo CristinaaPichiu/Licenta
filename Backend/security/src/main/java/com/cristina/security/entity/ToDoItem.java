@@ -24,6 +24,8 @@ public class ToDoItem {
     private LocalDate startDate; // Stochează doar data
     private LocalTime startTime; // Stochează doar ora
     private String description;
+    private boolean isChecked; // Stare pentru checkbox
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { AddActivityDialogComponent } from '../add-activity-dialog/add-activity-dialog.component';
 import { TodoitemService } from 'src/app/services/todoitem.service';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-job-details',
@@ -36,24 +37,60 @@ export class JobDetailsComponent implements OnInit {
       }
     });
   }
-  
-  
-  // src/app/components/job-details/job-details.component.ts
-refreshActivities(): void {
-  const token = localStorage.getItem('auth_token');
-  if (token && this.data && this.data.job && this.data.job.id) {
-    this.todoItemService.getActivitiesByJobId(Number(this.data.job.id), token).subscribe({
-      next: (activities) => {
-        this.activities = activities;
-        console.log('Activities refreshed successfully');
-      },
-      error: (err) => {
-        console.error('Error loading activities', err);
-      }
-    });
+  deleteActivity(id: number): void {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      this.todoItemService.deleteTodoItem(id, token).subscribe({
+        next: () => {
+          console.log('Activity deleted successfully');
+          this.refreshActivities();  // Reîncarcă activitățile actualizate
+        },
+        error: (error) => {
+          console.error('Failed to delete activity', error);
+        }
+      });
+    } else {
+      console.error('Authentication token not found. Please log in.');
+    }
   }
+  toggleChecked(activity: any): void {
+    // Toggle the checked state
+    activity.checked = !activity.checked;
+
+    // Add jobId to the activity data if it's missing
+    const activityData = {
+        ...activity,
+        jobId: this.data.job.id  // Asigură-te că acest câmp este întotdeauna inclus
+    };
+
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+        console.log('Updating activity:', activityData);  // Verifică în consolă structura datelor trimise
+        this.todoItemService.saveOrUpdateTodoItem(token, activityData).subscribe({
+            next: () => this.refreshActivities(),
+            error: err => console.error('Failed to update the activity', err)
+        });
+    }
 }
 
+  
+  
+  
+
+  refreshActivities(): void {
+    const token = localStorage.getItem('auth_token');
+    if (token && this.data && this.data.job && this.data.job.id) {
+      this.todoItemService.getActivitiesByJobId(Number(this.data.job.id), token).subscribe({
+        next: (activities) => {
+          this.activities = activities;
+          console.log('Activities refreshed successfully');
+        },
+        error: (err) => {
+          console.error('Error loading activities', err);
+        }
+      });
+    }
+  }
   
 
   constructor(
@@ -121,16 +158,21 @@ refreshActivities(): void {
   loadActivities(jobId: number): void {
     const token = localStorage.getItem('auth_token');
     if (token) {
-      this.todoItemService.getActivitiesByJobId(jobId, token).subscribe({
-        next: (activities) => {
-          this.activities = activities;
-        },
-        error: (err) => {
-          console.error('Error loading activities', err);
-        }
-      });
+        this.todoItemService.getActivitiesByJobId(jobId, token).subscribe({
+            next: (activities) => {
+                this.activities = activities.map(activity => ({
+                    ...activity,
+                    checked: activity.checked || false  // Asigură-te că fiecare activitate are un câmp checked
+                }));
+                console.log('Activities loaded:', this.activities); // Adaugă un log pentru a verifica datele încărcate
+            },
+            error: (err) => console.error('Error loading activities', err)
+        });
     }
-  }
+}
+
+
+  
 
   onSubmit(): void {
     if (this.jobDetailsForm.valid) {

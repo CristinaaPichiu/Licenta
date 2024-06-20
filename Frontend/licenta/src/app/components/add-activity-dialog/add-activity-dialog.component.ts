@@ -37,34 +37,35 @@ export class AddActivityDialogComponent {
   }
 
   onSave(): void {
-    if (this.activityForm.valid) {
-      const activityData = {
-        ...this.activityForm.value,
-        jobId: this.data.jobId  // Include ID-ul jobului din datele injectate
-      };
-      
-      console.log("OBIECTTTT");
-      console.log(activityData);
-  
-      const token = localStorage.getItem('auth_token');  // Presupunem că tokenul este stocat în localStorage
-      if (token) {
-        this.todoItemService.createTodoItem(token, activityData).subscribe({
-          next: (response) => {
-            console.log('Activity created successfully', response);
-            this.dialogRef.close(response);  // Opțional: Închide dialogul cu răspunsul dacă este necesar
-          },
-          error: (error) => {
-            console.error('Error creating activity', error);
-            this.dialogRef.close();  // Închide dialogul fără date în caz de eroare
-          }
-        });
-      } else {
-        console.error('Authentication token not found. Please log in.');
-        this.dialogRef.close();  // Închide dialogul dacă nu există token
-      }
+  if (this.activityForm.valid) {
+    const activityData = {
+      ...this.activityForm.value,
+      jobId: this.data.jobId,  // Include ID-ul jobului din datele injectate
+      id: this.data.activity ? this.data.activity.id : null  // Include ID-ul activității dacă este o actualizare
+    };
+
+    console.log("OBIECTTTT");
+    console.log(activityData);
+
+    const token = localStorage.getItem('auth_token');  // Presupunem că tokenul este stocat în localStorage
+    if (token) {
+      this.todoItemService.saveOrUpdateTodoItem(token, activityData).subscribe({
+        next: (response) => {
+          console.log('Activity saved or updated successfully', response);
+          this.dialogRef.close(response);  // Închide dialogul cu răspunsul dacă este necesar
+        },
+        error: (error) => {
+          console.error('Error saving or updating activity', error);
+          this.dialogRef.close();  // Închide dialogul fără date în caz de eroare
+        }
+      });
+    } else {
+      console.error('Authentication token not found. Please log in.');
+      this.dialogRef.close();  // Închide dialogul dacă nu există token
     }
   }
-  
+}
+
 
   onCancel(): void {
     this.dialogRef.close();
