@@ -34,7 +34,8 @@ export class UploadFileService {
       })
     );
   }
-
+  
+  
   getProcessedResumeData(id: string, token: string): Observable<any> { // Schimbă tipul de return la any
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`

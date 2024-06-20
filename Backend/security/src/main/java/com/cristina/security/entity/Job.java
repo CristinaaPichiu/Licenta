@@ -33,6 +33,9 @@ public class Job {
     private String columnName;
     private String color;
 
+    private String filePath; // Calea fișierului încărcat
+
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

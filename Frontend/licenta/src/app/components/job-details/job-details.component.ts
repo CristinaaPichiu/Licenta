@@ -8,6 +8,8 @@ import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { AddActivityDialogComponent } from '../add-activity-dialog/add-activity-dialog.component';
 import { TodoitemService } from 'src/app/services/todoitem.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { UploadFileService } from 'src/app/services/upload-file.service';
+import { UploadResumeService } from 'src/app/services/upload-resume.service';
 
 @Component({
   selector: 'app-job-details',
@@ -23,6 +25,7 @@ export class JobDetailsComponent implements OnInit {
   selectedColor: string = '#7cdfc3'; // Culoare inițială, poate fi schimbată
   colors: string[] = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffffff', '#000000'];
   hovering: boolean = true;
+  uploadedFileName: string | null = null; // Adăugat pentru a stoca numele fișierului încărcat
 
   activities: any[] = [];
   openAddActivityDialog(activity?: any): void {
@@ -95,6 +98,7 @@ export class JobDetailsComponent implements OnInit {
 
   constructor(
     private todoItemService: TodoitemService,
+    private uploadService: UploadResumeService,
     private dialog: MatDialog,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<JobDetailsComponent>,
@@ -149,11 +153,31 @@ export class JobDetailsComponent implements OnInit {
         notes: this.data.job.notes || '',
         color: this.data.job.color || this.selectedColor
       });
+      this.loadFileName(Number(this.data.job.id)); // Încarcă numele fișierului pentru jobul curent
+
     }
     this.loadActivities(Number(this.data.job.id));
 
   }
+
+  loadFileName(jobId: number): void {
+
+    this.uploadService.getFileName(jobId).subscribe(fileName => {
+        this.uploadedFileName = fileName;
+        console.log('File loaded:', this.uploadedFileName); // Adaugă un log pentru a verifica datele încărcate
+
+    }, error => {
+        console.error('Failed to load file name', error);
+    });
+}
   
+downloadFile(fileName: string | null): void {
+  if (fileName) {
+    const url = this.uploadService.getDownloadUrl(fileName);
+    window.open(url, '_blank');
+  }
+}
+
 
   loadActivities(jobId: number): void {
     const token = localStorage.getItem('auth_token');
@@ -237,6 +261,90 @@ export class JobDetailsComponent implements OnInit {
     // Implement ID generation logic or use a service/library
     return Math.random().toString(36).substring(2, 9);
   }
+
+
+  fileToUpload: File | null = null;
+  uploadDate: Date | null = null;
+  loading: boolean = false;
+
+
+
+  onFileSelected(event: any): void {
+    const files = event.target.files;
+    if (files.length > 0) {
+      this.fileToUpload = files[0];
+      this.uploadDate = new Date();
+    }
+  }
+  uploadPDF(): void {
+    if (this.fileToUpload && this.data.job.id) {
+      this.uploadService.uploadFile(Number(this.data.job.id), this.fileToUpload).subscribe(
+        response => {
+          console.log('File uploaded successfully', response);
+          this.uploadDate = new Date(); // Setează data de upload
+          alert('File uploaded successfully: ' + response);
+        },
+        error => {
+          console.error('Error uploading file', error);
+          alert('Error uploading file: ' + error.message);
+        }
+      );
+    } else {
+      console.error('No file selected or job ID is missing');
+      alert('No file selected or job ID is missing');
+    }
+  }
+  deleteFile(): void {
+    const jobId = this.data.job.id;
+    console.log(`Attempting to delete file for job ID: ${jobId}`);
+    
+    const token = localStorage.getItem('auth_token'); // Assuming the token is stored in local storage
+    if (token) {
+      console.log('Authentication token found:', token);
+      
+      this.uploadService.deleteFile(Number(jobId), token).subscribe(response => {
+        console.log('File deleted successfully', response);
+        this.uploadedFileName = null;
+        this.uploadDate = null;
+        alert('File deleted successfully');
+      }, error => {
+        console.error('Error deleting file:', error);
+        alert('Error deleting file: ' + error.message);
+      });
+    } else {
+      console.error('Authentication token not found. Please log in.');
+      alert('Authentication token not found. Please log in.');
+    }
+  }
+  
+  
+
+  removeFile(): void {
+    this.fileToUpload = null;
+    this.uploadDate = null;
+    this.deleteFile(); // Calls deleteFile method to remove the file from backend and Google Cloud
+  }
+  
+
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    if (event.dataTransfer && event.dataTransfer.files.length) {
+      this.fileToUpload = event.dataTransfer.files[0];
+      this.uploadDate = new Date();
+    }
+  }
+
+  onDragOver(event: Event): void {
+    event.preventDefault();
+  }
+
+  onDragLeave(event: Event): void {
+    event.preventDefault();
+  }
+
+ 
+
 
   
 }
