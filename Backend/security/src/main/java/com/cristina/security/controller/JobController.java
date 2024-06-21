@@ -96,5 +96,8 @@ public class JobController {
     }
 
 
+
+
+
     // Endpoint-uri pentru update și delete
 }

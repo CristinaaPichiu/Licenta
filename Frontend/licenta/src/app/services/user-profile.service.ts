@@ -65,5 +65,31 @@ getUserId(token: string): Observable<number> {
   return this.http.get<number>(`${this.baseUrl}/id`, { headers });
 }
 
+uploadProfilePicture(file: File, token: string): Observable<string> {
+  const formData = new FormData();
+  formData.append('file', file, file.name);
+
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.post(`${this.baseUrl}/upload_profile_picture`, formData, { headers, responseType: 'text' });
+}
+
+getProfilePictureUrl(token: string): Observable<string> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  return this.http.get<string>(`${this.baseUrl}/profile_picture_url`, { headers, responseType: 'text' as 'json' });
+}
+
+deleteProfilePicture(token: string): Observable<any> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.delete(`${this.baseUrl}/delete_profile_picture`, { headers });
+}
+
 
 }

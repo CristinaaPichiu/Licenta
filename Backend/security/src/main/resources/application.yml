@@ -32,7 +32,8 @@ google:
   cloud:
     storage:
       bucket: bucket_documents_1
+      profile-bucket: pictures_bucket_skillmap # Adaugă acest rând
     credentials:
       file:
-        path: "C:/Users/Hp/Desktop/skillmap-427011-b788bb6aa337.json"
+        path: "C:/Users/Hp/Desktop/skillmap-427011-aa71d766d569.json"
 

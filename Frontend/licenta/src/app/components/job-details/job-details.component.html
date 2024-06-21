@@ -92,11 +92,12 @@
       <div class="activities-container"  (mouseenter)="hovering = true" (mouseleave)="hovering = false">
         <!-- src/app/components/job-details/job-details.component.html -->
         <div *ngFor="let activity of activities" class="activity-item" (click)="openAddActivityDialog(activity)">
-          <mat-checkbox class="activity-checkbox" [checked]="activity.checked"
-          (click)="$event.stopPropagation()" (change)="toggleChecked(activity)"></mat-checkbox>
+          <mat-checkbox class="activity-checkbox" [checked]="activity.isChecked"
+            (click)="$event.stopPropagation()" (change)="toggleChecked(activity)"></mat-checkbox>
           {{ activity.description }} - {{ activity.startDate | date: 'shortDate' }}
           <mat-icon class="trash-icon" (click)="deleteActivity(activity.id); $event.stopPropagation()">delete</mat-icon>
         </div>
+        
         
         
         

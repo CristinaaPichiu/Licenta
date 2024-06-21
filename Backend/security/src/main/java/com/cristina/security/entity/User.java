@@ -29,6 +29,8 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+    private String profilePictureUrl; // Adăugat pentru a stoca URL-ul pozei de profil
+
 
     @Enumerated(EnumType.STRING)
     private Role role;

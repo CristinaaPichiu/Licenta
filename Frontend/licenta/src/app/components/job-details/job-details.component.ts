@@ -57,43 +57,45 @@ export class JobDetailsComponent implements OnInit {
     }
   }
   toggleChecked(activity: any): void {
-    // Toggle the checked state
-    activity.checked = !activity.checked;
-
-    // Add jobId to the activity data if it's missing
+    activity.isChecked = !activity.isChecked;
+  
     const activityData = {
-        ...activity,
-        jobId: this.data.job.id  // Asigură-te că acest câmp este întotdeauna inclus
+      ...activity,
+      jobId: this.data.job.id
     };
-
+  
     const token = localStorage.getItem('auth_token');
     if (token) {
-        console.log('Updating activity:', activityData);  // Verifică în consolă structura datelor trimise
-        this.todoItemService.saveOrUpdateTodoItem(token, activityData).subscribe({
-            next: () => this.refreshActivities(),
-            error: err => console.error('Failed to update the activity', err)
-        });
-    }
-}
-
-  
-  
-  
-
-  refreshActivities(): void {
-    const token = localStorage.getItem('auth_token');
-    if (token && this.data && this.data.job && this.data.job.id) {
-      this.todoItemService.getActivitiesByJobId(Number(this.data.job.id), token).subscribe({
-        next: (activities) => {
-          this.activities = activities;
-          console.log('Activities refreshed successfully');
-        },
-        error: (err) => {
-          console.error('Error loading activities', err);
-        }
+      console.log('Updating activity:', activityData);
+      this.todoItemService.saveOrUpdateTodoItem(token, activityData).subscribe({
+        next: () => this.refreshActivities(),
+        error: err => console.error('Failed to update the activity', err)
       });
     }
   }
+  
+
+  
+  
+  
+refreshActivities(): void {
+  const token = localStorage.getItem('auth_token');
+  if (token && this.data && this.data.job && this.data.job.id) {
+    this.todoItemService.getActivitiesByJobId(Number(this.data.job.id), token).subscribe({
+      next: (activities) => {
+        this.activities = activities.map(activity => ({
+          ...activity,
+          isChecked: activity.isChecked // Ensure consistent naming
+        }));
+        console.log('Activities refreshed successfully', this.activities);
+      },
+      error: (err) => {
+        console.error('Error loading activities', err);
+      }
+    });
+  }
+}
+
   
 
   constructor(
@@ -186,7 +188,7 @@ downloadFile(fileName: string | null): void {
             next: (activities) => {
                 this.activities = activities.map(activity => ({
                     ...activity,
-                    checked: activity.checked || false  // Asigură-te că fiecare activitate are un câmp checked
+                    isChecked: activity.checked || false  // Asigură-te că fiecare activitate are un câmp checked
                 }));
                 console.log('Activities loaded:', this.activities); // Adaugă un log pentru a verifica datele încărcate
             },

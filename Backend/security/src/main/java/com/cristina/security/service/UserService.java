@@ -67,7 +67,16 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-
+    public void updateProfilePictureUrl(Integer userId, String profilePictureUrl) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setProfilePictureUrl(profilePictureUrl);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
+    }
 
 
 
