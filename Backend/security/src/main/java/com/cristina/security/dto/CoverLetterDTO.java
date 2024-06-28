@@ -11,10 +11,21 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CoverLetterDTO {
 
+    private UUID id;
+
+
     private Integer templateId;
     private CoverLetterContactUserDTO contactUser;
     private CoverLetterContactEmployerDTO contactEmployer;
     private CoverLetterBodyDTO body;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public Integer getTemplateId() {
         return templateId;

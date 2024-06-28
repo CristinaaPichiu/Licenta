@@ -80,7 +80,7 @@
           <div class="template-container">
             <h3>Your CoverLetters:</h3>
             <div class="template-wrapper">
-              <div *ngFor="let letter of letters" class="template-preview">
+              <div *ngFor="let letter of letters" class="template-preview"  (click)="navigateToCreateCoverLetter(letter)">
                 <app-dashboard-letter-first *ngIf="letter.templateId === 1" [letter]="letter" class="first-template"></app-dashboard-letter-first>
                 <app-dashboard-letter-second *ngIf="letter.templateId === 2" [letter]="letter" class="second-template"></app-dashboard-letter-second>
                 <app-dashboard-letter-third *ngIf="letter.templateId === 3" [letter]="letter" class="third-template"></app-dashboard-letter-third>

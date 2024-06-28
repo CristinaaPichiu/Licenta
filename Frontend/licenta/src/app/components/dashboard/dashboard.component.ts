@@ -29,6 +29,16 @@ export class DashboardComponent implements OnInit {
 
     this.router.navigate(['/create-resume'], { state: { resumeId: resume.id } });
   }
+
+  navigateToCreateCoverLetter(coverLetter: any) {
+    console.log('Navigating to create-coverLetter with data:', coverLetter);
+    localStorage.setItem('currentLetterId', coverLetter.id);
+    localStorage.setItem('selectedTemplateLetter', coverLetter.templateId.toString());
+    localStorage.setItem('letterCreationMode', 'dashboard');
+    
+    this.router.navigate(['/cover-letter-form'], { state: { coverLetterId: coverLetter.id } });
+  }
+  
   
   
 
@@ -55,7 +65,7 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.coverLetterService.getAllCoverLetters(token).subscribe({
         next: (letters) => {
-          console.log('Resumes loaded:', letters); // Afișează în consolă CV-urile încărcate
+          console.log('Cover letters loaded:', letters); // Afișează în consolă CV-urile încărcate
           this.letters = letters;
           this.loading = false;
         },

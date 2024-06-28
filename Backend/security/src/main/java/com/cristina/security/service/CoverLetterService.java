@@ -119,35 +119,55 @@ public class CoverLetterService {
         }
     }
 
+    @Transactional
     public CoverLetter updateCoverLetter(UUID coverLetterId, CoverLetterDTO coverLetterDTO) throws Exception {
         logger.info("Updating cover letter with ID: {}", coverLetterId);
 
-        CoverLetter coverLetter = coverLetterRepository.findById(coverLetterId)
+        CoverLetter existingCoverLetter = coverLetterRepository.findById(coverLetterId)
                 .orElseThrow(() -> new Exception("Cover letter not found with id: " + coverLetterId));
 
-        // Log existing cover letter
-        logger.info("Existing cover letter: {}", coverLetter);
+        logger.info("Existing cover letter: {}", existingCoverLetter);
 
-        // Transformăm DTO-urile în entități
-        CoverLetterContactUser contactUser = convertToEntity(coverLetterDTO.getContactUser());
-        CoverLetterContactEmployer contactEmployer = convertToEntity(coverLetterDTO.getContactEmployer());
-        CoverLetterBody body = convertToEntity(coverLetterDTO.getBody());
+        // Update ContactUser
+        CoverLetterContactUser contactUser = existingCoverLetter.getCoverLetterContactUser();
+        updateContactUserFromDTO(contactUser, coverLetterDTO.getContactUser());
+        coverLetterContactUserRepository.save(contactUser);
 
-        // Log DTOs
-        logger.info("DTOs: ContactUser - {}, ContactEmployer - {}, Body - {}", contactUser, contactEmployer, body);
+        // Update ContactEmployer
+        CoverLetterContactEmployer contactEmployer = existingCoverLetter.getCoverLetterContactEmployer();
+        updateContactEmployerFromDTO(contactEmployer, coverLetterDTO.getContactEmployer());
+        coverLetterContactEmployerRepository.save(contactEmployer);
 
-        // Verificăm utilizatorul asociat cu contactUser, contactEmployer și body
-        User user = coverLetter.getUser();
-        contactUser.setUser(user);
-        contactEmployer.setUser(user);
-        body.setUser(user);
+        // Update Body
+        CoverLetterBody body = existingCoverLetter.getCoverLetterBody();
+        updateBodyFromDTO(body, coverLetterDTO.getBody());
+        coverLetterBodyRepository.save(body);
 
-        // Actualizăm câmpurile scrisorii de intenție
-        coverLetter.setCoverLetterContactUser(contactUser);
-        coverLetter.setCoverLetterContactEmployer(contactEmployer);
-        coverLetter.setCoverLetterBody(body);
+        return existingCoverLetter;
+    }
 
-        return coverLetterRepository.save(coverLetter);
+    private void updateContactUserFromDTO(CoverLetterContactUser contactUser, CoverLetterContactUserDTO dto) {
+        contactUser.setFirstName(dto.getFirstName());
+        contactUser.setLastName(dto.getLastName());
+        contactUser.setStatus(dto.getStatus());
+        contactUser.setAddress(dto.getAddress());
+        contactUser.setCity(dto.getCity());
+        contactUser.setPostalCode(dto.getPostalCode());
+        contactUser.setPhone(dto.getPhone());
+        contactUser.setEmail(dto.getEmail());
+    }
+
+    private void updateContactEmployerFromDTO(CoverLetterContactEmployer contactEmployer, CoverLetterContactEmployerDTO dto) {
+        contactEmployer.setTitle(dto.getTitle());
+        contactEmployer.setFirstName(dto.getFirstName());
+        contactEmployer.setLastName(dto.getLastName());
+        contactEmployer.setPosition(dto.getPosition());
+        contactEmployer.setOrganisation(dto.getOrganisation());
+        contactEmployer.setAddress(dto.getAddress());
+    }
+
+    private void updateBodyFromDTO(CoverLetterBody body, CoverLetterBodyDTO dto) {
+        body.setBody(dto.getBody());
     }
 
 
@@ -191,6 +211,7 @@ public class CoverLetterService {
 
     private CoverLetterDTO convertToDTO(CoverLetter coverLetter) {
         CoverLetterDTO dto = new CoverLetterDTO();
+        dto.setId(coverLetter.getId());
         dto.setTemplateId(coverLetter.getTemplateId());
         dto.setTemplateId(coverLetter.getTemplateId());
         dto.setContactUser(convertContactUser(coverLetter.getCoverLetterContactUser()));

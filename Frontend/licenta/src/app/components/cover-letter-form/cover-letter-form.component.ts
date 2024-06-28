@@ -5,7 +5,11 @@ import { CoverLetterDataService } from 'src/app/services/cover-letter-data.servi
 import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.service';
 import * as html2pdf from 'html2pdf.js';
 import { SelectTemplateCvService } from 'src/app/services/select-template-cv.service';
-
+import { Router } from '@angular/router';
+enum FormMode {
+  DASHBOARD = 'dashboard',
+  CREATE = 'create'
+}
 
 @Component({
   selector: 'app-cover-letter-form',
@@ -28,20 +32,28 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
   isPreviewMode = false;
   isEmailModalOpen = false;
   selectedTemplate!: number;
+  selectedTemplateLetter!: number;
+  formMode: FormMode = FormMode.CREATE;
+
+
+  
 
   constructor(private fb: FormBuilder,
               private coverLetterDataService: CoverLetterDataService,
               private saveCoverLetterService: SaveCoverLetterService,
-              private templateService: SelectTemplateCvService
+              private templateService: SelectTemplateCvService,
+              private router: Router
             ) {}
 
   ngOnInit() {
     this.initializeForms();
+    this.determineFormMode();
     this.templateService.currentTemplate.subscribe(template => {
       this.selectedTemplate = template;
       console.log('Current template ID set:', this.selectedTemplate);
-      this.loadCoverLetterData();  // Mută apelul aici pentru a asigura că templateId este setat
     });
+
+    this.loadSelectedTemplate();
 
 
     this.contactForm.valueChanges.subscribe(values => {
@@ -181,20 +193,55 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
   }
   
 
-  loadCoverLetterData() {
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      this.saveCoverLetterService.getCurrentUserCoverLetter(token).subscribe({
-        next: (coverLetter: any) => {
-          console.log('Loaded current user cover letter data:', coverLetter);
-          this.populateForms(coverLetter);
-        },
-        error: (error) => {
-          console.error('Failed to load current user cover letter', error);
-        }
-      });
+  private determineFormMode() {
+    const mode = localStorage.getItem('letterCreationMode');
+  
+    if (mode === 'dashboard') {
+      this.formMode = FormMode.DASHBOARD;
+      this.loadCoverLetterData();
+    } else {
+      this.formMode = FormMode.CREATE; // Asumăm că default este CREATE
+      this.initializeFormsForCreate(); // Asigură-te că formularele sunt inițializate gol
     }
   }
+
+  
+loadSelectedTemplate() {
+  const templateId = localStorage.getItem('selectedTemplateLetter');
+  if (templateId) {
+    this.selectedTemplateLetter = +templateId;
+    this.templateService.changeTemplate(this.selectedTemplateLetter);
+  }
+}
+private initializeFormsForCreate() {
+
+  this.contactForm.reset();
+  this.informationForm.reset();
+  this.bodyForm.reset();
+  this.linksForm.setControl('linkEntries', this.fb.array([]));
+}
+
+loadCoverLetterData() {
+  // Attempt to retrieve the cover letter ID from navigation extras or from localStorage
+  const coverLetterId = this.router.getCurrentNavigation()?.extras.state?.['currentLetterId']
+                        || localStorage.getItem('currentLetterId');
+  const token = localStorage.getItem('auth_token');
+
+  if (coverLetterId && token) {
+    this.saveCoverLetterService.getCoverLetterById(coverLetterId, token).subscribe({
+      next: (coverLetter: any) => {
+        console.log('Loaded cover letter data for ID:', coverLetterId, coverLetter);
+        this.populateForms(coverLetter); // Populate the forms with the retrieved data
+      },
+      error: (error) => {
+        console.error(`Failed to load cover letter with ID ${coverLetterId}`, error);
+      }
+    });
+  } else {
+    console.log('Cover letter ID or token not found, cannot load cover letter data');
+  }
+}
+
 
   populateForms(coverLetter: any) {
     if (coverLetter.coverLetterContactUser) {
@@ -245,7 +292,7 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
   }
 
   getCurrentCoverLetterId(): string | null {
-    return localStorage.getItem('currentCoverLetterId');
+    return localStorage.getItem('currentLetterId');
   }
 
   goToPreviousSection() {
