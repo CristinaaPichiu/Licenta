@@ -1,0 +1,86 @@
+<!-- job-selection.component.html -->
+<app-sidebar></app-sidebar>
+<div class="main-content">
+    <mat-tab-group>
+        <mat-tab label="Search Jobs Manually">
+            <div class="manual-search">
+              
+                <form [formGroup]="jobSearchForm">
+                    <div class="input-group">
+                        <mat-form-field appearance="outline" class="keywords">
+                            <mat-label>Keywords</mat-label>
+                            <input matInput type="text" placeholder="Enter job keywords" formControlName="keywords">
+                        </mat-form-field>
+                    </div>
+
+                    
+
+                    <div class="input-group">
+                        <mat-form-field appearance="outline" class="location">
+                            <mat-label>Location</mat-label>
+                            <input matInput type="text" placeholder="Enter job location" formControlName="location">
+                        </mat-form-field>
+                    </div>
+                    <div class="keyword-examples">
+                        Examples of keywords:
+                    </div>
+                    <div class="keyword-suggestions">
+                        <span (click)="addKeyword('Software Engineer')">Software Engineer</span>
+                        <span (click)="addKeyword('Manager')">Manager</span>
+                        <span (click)="addKeyword('Data Scientist')">Data Scientist</span>
+                        <span (click)="addKeyword('Project Manager')">Project Manager</span>
+                        <span (click)="addKeyword('Developer')">Developer</span>
+                    </div>
+                    <button mat-raised-button class="submit-button"  (click)="searchJobsManually()">Search Jobs</button>
+
+                    
+                </form>
+
+                <div class="job-results" *ngIf="jobs.length > 0">
+                    <mat-card *ngFor="let job of jobs" class="job-card">
+                      <mat-card-header>
+                        <mat-card-title>{{ job.title }}</mat-card-title>
+                        <mat-card-subtitle>{{ job.company }} - {{ job.location }}</mat-card-subtitle>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <p [innerHTML]="sanitizeSnippet(job.snippet)"></p>
+                    </mat-card-content>
+                      <mat-card-actions>
+                        <a mat-button [href]="job.link" target="_blank">View More</a>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Search Jobs by Resumes">
+            <div class="template-container">
+                <h3 class="centered-text">Select one of your resumes below so we can suggest some jobs for you:</h3>
+
+                <div class="template-wrapper">
+                    <div *ngFor="let resume of resumes" class="template-preview" (click)="navigateToCreateResume(resume)">
+                        <app-dashboard-first-template *ngIf="resume.templateId === 1" [resume]="resume" class="first-template"></app-dashboard-first-template>
+                        <app-dashboard-second-template *ngIf="resume.templateId === 2" [resume]="resume" class="second-template"></app-dashboard-second-template>
+                        <app-dashboard-third-template *ngIf="resume.templateId === 3" [resume]="resume" class="third-template"></app-dashboard-third-template>
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-results" *ngIf="jobs.length > 0">
+                <mat-card *ngFor="let job of jobs" class="job-card">
+                  <mat-card-header>
+                    <mat-card-title>{{ job.title }}</mat-card-title>
+                    <mat-card-subtitle>{{ job.company }} - {{ job.location }}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p [innerHTML]="sanitizeSnippet(job.snippet)"></p>
+                </mat-card-content>
+                  <mat-card-actions>
+                    <a mat-button [href]="job.link" target="_blank">View More</a>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+        
+        </mat-tab>
+    </mat-tab-group>
+</div>

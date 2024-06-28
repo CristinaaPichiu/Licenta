@@ -1,0 +1,218 @@
+.main-content {
+    margin-left: 100px; /* Space for the sidebar */
+    padding: 20px;
+    margin-top: 20px; /* Adjust the margin-top to ensure it is below the sidebar */
+}
+
+h2 {
+    margin-top: 30px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: left; /* Align text to the left */
+    margin-left: 20px; /* Add some left margin if needed */
+}
+.centered-text {
+    margin-top: 40px;;
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    color: #4A4A4A; // sau orice culoare preferi
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-form-field {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+button {
+    width: 100%;
+    max-width: 200px;
+}
+
+.template-container {
+    padding: 20px;
+}
+
+.template-wrapper {
+    
+    display: flex;
+    margin-left: 300px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.template-preview {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.template-preview:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.icon-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.icon-container button {
+    color: #507d95;
+}
+
+.manual-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content vertically */
+    height: auto; /* Adjust height */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Max width for the form */
+    background: white; /* Background color */
+    padding: 40px; /* Padding inside the form */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for the form */
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.input-field input {
+    font-size: 16px; /* Font size for input fields */
+    padding: 10px; /* Padding for input fields */
+}
+
+.keywords, .location {
+    width: 1000px; /* Width for fields */
+}
+
+.keyword-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    span {
+        background-color: #507d95;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #406b85;
+        }
+    }
+}
+
+.keyword-examples {
+    font-size: 10px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+button.submit-button {
+    background-color: #507d95;
+    color: #fff;
+    max-width: 200px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #406b85;
+    }
+}
+
+.job-results {
+    margin-left: 50px;
+    margin-top: 1000px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Align the cards in the center */
+}
+
+.job-card {
+    width: calc(33.333% - 20px); /* Three columns */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.job-card mat-card {
+    height: 100%;
+}
+
+.job-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.job-card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.job-card p {
+    margin: 5px 0;
+}
+
+.job-card a {
+    color: #507d95;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 12px;
+        max-width: 150px;
+    }
+
+    .job-card {
+        width: calc(50% - 20px); /* Two columns on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        margin-left: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 8px;
+        max-width: 150px;
+    }
+
+    .job-card {
+        width: 100%; /* One column on small screens */
+    }
+}

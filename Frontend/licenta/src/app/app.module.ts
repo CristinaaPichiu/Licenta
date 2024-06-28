@@ -63,6 +63,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import { AddActivityDialogComponent } from './components/add-activity-dialog/add-activity-dialog.component';
+import { JobRecommendationComponent } from './components/job-recommendation/job-recommendation.component';
+import { GenerateCardJobComponent } from './components/generate-card-job/generate-card-job.component';
 
 
 
@@ -109,7 +111,9 @@ import { AddActivityDialogComponent } from './components/add-activity-dialog/add
     JobCardComponent,
     JobDetailsComponent,
     ColorPickerComponent,
-    AddActivityDialogComponent    
+    AddActivityDialogComponent,
+    JobRecommendationComponent,
+    GenerateCardJobComponent    
   ],
   imports: [
     BrowserModule,

@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 export class CreateCoverletterComponent implements OnInit {
   currentImageIndex = 0;
   images = [
-    'assets/cl1.png',
-    'assets/cl2.png',
-    'assets/cl3.png'
+    'assets/cvl1.png',
+    'assets/cvl2.png',
+    'assets/cvl3.png'
   ];
 
   ngOnInit() {

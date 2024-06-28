@@ -10,7 +10,7 @@
     <button class="button previous" (click)="previous()">❮</button>
     <div class="carousel-slide" *ngFor="let image of images; let i = index" [class.active]="i === currentIndex">
         <img [src]="image.url" [alt]="image.description" (click)="selectAndNavigate(image.templateId)">
-    </div>
+</div>
     
     
     <button class="button next" (click)="next()">❯</button>

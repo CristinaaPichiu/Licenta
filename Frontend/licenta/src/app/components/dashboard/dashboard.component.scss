@@ -42,14 +42,22 @@ body {
   margin-bottom: 20px;
 }
 
-.progress-container,
+
 .overview-container {
   flex: 1;
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-right: 10px; /* Reduced margin */
+}
+.progress-container{
+  flex: 1;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-right: 10px; /* Reduced margin */
+
 }
 
 h3 {
@@ -63,6 +71,11 @@ h3 {
 .overview-content {
   display: flex;
 }
+app-profile-card {
+  margin-top: -100px;  /* Muta componenta mai sus */
+  margin-left: -150px; /* Muta componenta mai la stânga */
+}
+
 
 .overview-content {
   display: flex;
@@ -79,11 +92,37 @@ h3 {
 .overview-label {
   font-weight: bold;
   color: #6c757d;
+  margin-right: 5px; /* Reduci spațiul dintre label și valoare */
+
 }
 
 .overview-value {
   color: #343a40;
+  margin-right: 5px; /* Reduci spațiul dintre label și valoare */
+
 }
+.overview-container {
+  display: flex;
+  justify-content: space-between; /* Alinează copiii pe orizontală */
+  align-items: flex-start; /* Aliniază copiii la partea de sus */
+}
+
+.overview-content {
+  margin-top: 50px;
+  flex: 1; /* Permite acestui element să umple spațiul disponibil, dar să lase loc pentru progress-chart */
+  display: flex;
+  flex-direction: column;
+}
+
+app-progress-chart {
+  margin-top: 50px;
+  /* Adaugă stiluri necesare pentru vizibilitate și dimensiune */
+  width: 300px; /* Sau orice altă dimensiune potrivită */
+  height: auto; /* Sau specifică o înălțime */
+  margin-left: 30px; /* Adaugă un spațiu în stânga graficului */
+
+}
+
 .template-container {
   width: 100%; /* Full width of the parent container */
   overflow-x: hidden; /* Prevent horizontal scrolling */

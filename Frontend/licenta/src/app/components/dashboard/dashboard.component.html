@@ -9,35 +9,42 @@
     <div class="main-content">
       <div class="info-container">
         <div class="progress-container">
-          <h3>Progress</h3>
+          <h3>Profile</h3>
           <div class="progress-chart">
-            <app-progress-chart></app-progress-chart>
+            <app-profile-card></app-profile-card>
           </div>
         </div>
         <div class="overview-container">
-          <h3>Resume Overview</h3>
+          <h3>Statistics</h3>
+
           <div class="overview-content">
             <div class="overview-item">
               <span class="overview-label">Resume last update:</span>
-              <span class="overview-value">June 12, 2023</span>
+              <span class="overview-value">June 12</span>
+            </div>
+            <div class="overview-item">
+              <span class="overview-label">Targeted jobs:</span>
+              <span class="overview-value">4</span>
             </div>
             <div class="overview-item">
               <span class="overview-label">Applied jobs:</span>
-              <span class="overview-value">20</span>
+              <span class="overview-value">10</span>
             </div>
             <div class="overview-item">
               <span class="overview-label">Interviews:</span>
-              <span class="overview-value">05</span>
+              <span class="overview-value">5</span>
             </div>
             <div class="overview-item">
-              <span class="overview-label">Skill update:</span>
-              <span class="overview-value">June 12, 2023</span>
+              <span class="overview-label">Offers:</span>
+              <span class="overview-value">5</span>
             </div>
             <div class="overview-item">
-              <span class="overview-label">Resume views:</span>
-              <span class="overview-value">10</span>
+              <span class="overview-label">Rejections:</span>
+              <span class="overview-value">2</span>
             </div>
           </div>
+          <app-progress-chart></app-progress-chart> <!-- Componenta nou adăugată -->
+
         </div>
       </div>
       

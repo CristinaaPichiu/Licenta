@@ -16,6 +16,7 @@ import { SelectTemplateCoverLetterComponent } from './components/select-template
 import { UploadResumeComponent } from './components/upload-resume/upload-resume.component';
 import { JobBoardComponent } from './components/job-board/job-board.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
+import { JobRecommendationComponent } from './components/job-recommendation/job-recommendation.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,11 @@ const routes: Routes = [
   {
     path: 'job-details',
     component: JobDetailsComponent
+  }
+  ,
+  {
+    path: 'job-recommendations',
+    component: JobRecommendationComponent
   }
 
 
