@@ -1,0 +1,38 @@
+/* Stiluri generale pentru butoane */
+button {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    margin: 0 30px; /* Spațiere între butoane */
+  }
+  
+  /* Stiluri specifice pentru butonul 'Cancel' */
+  .cancel-button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+  
+    &:hover {
+      background-color: #399441; /* Un verde mai închis la hover */
+    }
+  }
+  
+  /* Stiluri specifice pentru butonul 'Delete' */
+  .delete-button {
+    background-color: #f44336; /* Roșu */
+    color: white;
+  
+    &:hover {
+      background-color: #d32f2f; /* Un roșu mai închis la hover */
+    }
+  }
+  
+  /* Stiluri pentru alinierea butoanelor */
+  mat-dialog-actions {
+    display: flex;
+    justify-content: space-between; /* Aliniază butoanele pe laturi opuse */
+    padding: 20px; /* Spațiere consistentă în jurul butoanelor */
+  }
+  

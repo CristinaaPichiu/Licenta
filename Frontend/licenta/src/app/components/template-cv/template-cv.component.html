@@ -2,7 +2,23 @@
   <div class="container">
     <!-- Left Panel -->
     <div class="leftPanel">
-      <img src="assets/profile.png" alt="Avatar"/>
+      <div class="profile-upload">
+        <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*" />
+        <img [src]="imagePreview || 'assets/profile.png'" class="profile-picture" (click)="triggerFileInput()" />
+      </div>
+      
+
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+      <img [src]="temporaryImage" alt="Preview" class="modal-image">
+      <div class="modal-buttons">
+          <button (click)="saveImage()">Save</button>
+          <button (click)="closeModal()">Don't Save</button>
+      </div>
+  </div>
+</div>
+
+
       <div class="details">
         <div class="item bottomLineSeparator">
           <h2>CONTACT</h2>

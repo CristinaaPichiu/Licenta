@@ -29,6 +29,9 @@ public class Resume {
     @Column(name = "template_id")
     private Integer templateId;
 
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

@@ -65,6 +65,7 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
 import { AddActivityDialogComponent } from './components/add-activity-dialog/add-activity-dialog.component';
 import { JobRecommendationComponent } from './components/job-recommendation/job-recommendation.component';
 import { GenerateCardJobComponent } from './components/generate-card-job/generate-card-job.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -113,7 +114,8 @@ import { GenerateCardJobComponent } from './components/generate-card-job/generat
     ColorPickerComponent,
     AddActivityDialogComponent,
     JobRecommendationComponent,
-    GenerateCardJobComponent    
+    GenerateCardJobComponent,
+    ConfirmDialogComponent    
   ],
   imports: [
     BrowserModule,

@@ -53,23 +53,25 @@
           <div class="template-container">
             <h3>Your Resumes:</h3>
             <div class="template-wrapper">
-              <div *ngFor="let resume of resumes" class="template-preview"  (click)="navigateToCreateResume(resume)">
-                <app-dashboard-first-template *ngIf="resume.templateId === 1" [resume]="resume" class="first-template"></app-dashboard-first-template>
-                <app-dashboard-second-template *ngIf="resume.templateId === 2" [resume]="resume" class="second-template"></app-dashboard-second-template>
-                <app-dashboard-third-template *ngIf="resume.templateId === 3" [resume]="resume" class="third-template"></app-dashboard-third-template>
+              <div *ngFor="let resume of resumes" class="template-preview" >
+                <div (click)="navigateToCreateResume(resume, $event)" class="resume-content">
+                  <app-dashboard-first-template *ngIf="resume.templateId === 1" [resume]="resume" class="first-template"></app-dashboard-first-template>
+                  <app-dashboard-second-template *ngIf="resume.templateId === 2" [resume]="resume" class="second-template"></app-dashboard-second-template>
+                  <app-dashboard-third-template *ngIf="resume.templateId === 3" [resume]="resume" class="third-template"></app-dashboard-third-template>
+                </div>
                 <div class="icon-container">
-                  <button mat-icon-button aria-label="Edit">
+                  <button mat-icon-button aria-label="Edit" (click)="navigateToCreateResume(resume, $event)">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button mat-icon-button aria-label="Download PDF">
+                  <button mat-icon-button aria-label="Download PDF" id="cv-template"  (click)="downloadCV($event)">
                     <mat-icon>picture_as_pdf</mat-icon>
-                  </button>
-                  <button mat-icon-button aria-label="Duplicate">
-                    <mat-icon>file_copy</mat-icon>
-                  </button>
-                  <button mat-icon-button aria-label="Delete">
-                    <mat-icon>delete</mat-icon>
-                  </button>
+                </button>
+                
+                
+                <button mat-icon-button (click)="openConfirmDialog(resume, $event)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                
                 </div>
     
               </div>
@@ -91,9 +93,7 @@
                   <button mat-icon-button aria-label="Download PDF">
                     <mat-icon>picture_as_pdf</mat-icon>
                   </button>
-                  <button mat-icon-button aria-label="Duplicate">
-                    <mat-icon>file_copy</mat-icon>
-                  </button>
+                 
                   <button mat-icon-button aria-label="Delete">
                     <mat-icon>delete</mat-icon>
                   </button>

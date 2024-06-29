@@ -386,6 +386,26 @@ public class ResumeService {
         return dto;
     }
 
+    public void updateResumePictureUrl(UUID resumeId, String profilePictureUrl) {
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new RuntimeException("Resume not found with ID: " + resumeId));
+        resume.setProfilePictureUrl(profilePictureUrl);
+        resumeRepository.save(resume);
+    }
+
+    public Optional<Resume> findById(UUID id) {
+        return resumeRepository.findById(id);
+    }
+
+    public void deleteResume(UUID resumeId) {
+        // Verifică dacă resume-ul există
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new IllegalArgumentException("Resume not found"));
+
+        // Elimină resume-ul
+        resumeRepository.delete(resume);
+    }
+
 
 
 }
