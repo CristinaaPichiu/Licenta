@@ -118,9 +118,9 @@ mat-icon
   margin-left: 0;
 }
 .signup-link {
-  color: #90CAF9; /* Setează culoarea textului la albastru */
-  font-weight: bold; /* Face textul bold */
-  /* Alte stilizări aici */
+  color: #90CAF9;
+  font-weight: bold; 
+ 
 }
 
 // Media queries pentru responsivitate
@@ -155,7 +155,7 @@ mat-icon
   }
 
   .login-container {
-      margin-top: 90px; // Ajustează după nevoie
+      margin-top: 90px; 
   }
 }
 
@@ -165,7 +165,7 @@ mat-icon
   }
 
   .login-container {
-      margin-top: 180px; // Revin la margin-ul inițial pentru ecrane mari
+      margin-top: 180px; 
   }
 }
 

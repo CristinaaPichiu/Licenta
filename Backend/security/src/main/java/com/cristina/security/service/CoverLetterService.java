@@ -108,7 +108,7 @@ public class CoverLetterService {
 
     public Optional<CoverLetter> getLatestCoverLetterByUserId(Integer userId) {
         System.out.println("Fetching latest cover letter for user ID: " + userId);
-        Pageable topOne = PageRequest.of(0, 1); // Fetch only the first result
+        Pageable topOne = PageRequest.of(0, 1);
         List<CoverLetter> coverLetters = coverLetterRepository.findLatestByUserId(userId, topOne);
         if (coverLetters.isEmpty()) {
             return Optional.empty();
@@ -128,17 +128,14 @@ public class CoverLetterService {
 
         logger.info("Existing cover letter: {}", existingCoverLetter);
 
-        // Update ContactUser
         CoverLetterContactUser contactUser = existingCoverLetter.getCoverLetterContactUser();
         updateContactUserFromDTO(contactUser, coverLetterDTO.getContactUser());
         coverLetterContactUserRepository.save(contactUser);
 
-        // Update ContactEmployer
         CoverLetterContactEmployer contactEmployer = existingCoverLetter.getCoverLetterContactEmployer();
         updateContactEmployerFromDTO(contactEmployer, coverLetterDTO.getContactEmployer());
         coverLetterContactEmployerRepository.save(contactEmployer);
 
-        // Update Body
         CoverLetterBody body = existingCoverLetter.getCoverLetterBody();
         updateBodyFromDTO(body, coverLetterDTO.getBody());
         coverLetterBodyRepository.save(body);

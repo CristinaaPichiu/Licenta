@@ -1,0 +1,82 @@
+.job-dialog {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 700px; /* Lățime mai mare pentru a acomoda mai mult conținut */
+    margin: auto;
+  }
+  
+  .job-dialog h2 {
+    color: #507d95;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .job-dialog p {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  
+  .job-dialog div {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    white-space: pre-line; /* Respectă spațiile și rândurile noi din textul sursă */
+  }
+  
+  .job-dialog .dialog-actions {
+    display: flex;
+    justify-content: start; /* Alinează butoanele la începutul containerului */
+    align-items: center; /* Centrul vertical al butoanelor */
+    margin-top: 20px;
+}
+
+
+
+.job-dialog .btn {
+    margin-right: 10px;
+    padding: 8px 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    background-color: #507d95;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; /* Ajustează înălțimea după nevoie */
+}
+.job-dialog .job-image {
+    width: 5vw; /* Folosește un procent din lățimea viewport-ului */
+    max-width: 80px; /* Asigură că nu devine prea mare pe ecrane mari */
+  }
+  
+
+.job-dialog .btn:hover {
+    background-color: #406680; /* Efect la hover */
+}
+
+
+.job-dialog .view-more {
+    background-color: #507d95;
+    color: white;
+    margin-right: 10px; /* Adaugă un spațiu între butoane */
+}
+
+.job-dialog .save-job {
+    background-color: #4CAF50; /* Verde pentru diferențiere */
+    color: white;
+}
+
+.job-dialog .btn:hover {
+    opacity: 0.9; /* Adaugă un efect subtil la hover */
+}

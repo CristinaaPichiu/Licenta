@@ -6,18 +6,17 @@ import java.time.LocalTime;
 
 public class ToDoItemDTO {
 
-    private Integer id;  // Adaugă acest câmp dacă nu există
+    private Integer id;
 
     private String name;
     private String location;
     private LocalDate startDate;
     private LocalTime startTime;
     private String description;
-    private Integer jobId; // ID-ul job-ului căruia îi aparține to-do item-ul
+    private Integer jobId;
 
     private boolean isChecked;
 
-    // Getters și setters
     public boolean getIsChecked() {
         return isChecked;
     }

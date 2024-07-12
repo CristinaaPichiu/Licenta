@@ -10,6 +10,7 @@ import { TodoitemService } from 'src/app/services/todoitem.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { UploadResumeService } from 'src/app/services/upload-resume.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-job-details',
@@ -20,23 +21,23 @@ export class JobDetailsComponent implements OnInit {
   jobDetailsForm: FormGroup;
   timelineForm!: FormGroup;
 
-  currentView: string = 'general'; // Default view
-  currentImage: string = '/assets/job.png'; // Initial image
-  selectedColor: string = '#7cdfc3'; // Culoare inițială, poate fi schimbată
+  currentView: string = 'general'; 
+  currentImage: string = '/assets/job.png'; 
+  selectedColor: string = '#7cdfc3'; 
   colors: string[] = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffffff', '#000000'];
   hovering: boolean = true;
-  uploadedFileName: string | null = null; // Adăugat pentru a stoca numele fișierului încărcat
+  uploadedFileName: string | null = null; 
 
   activities: any[] = [];
   openAddActivityDialog(activity?: any): void {
     const dialogRef = this.dialog.open(AddActivityDialogComponent, {
       width: '800px',
-      data: { activity: activity, jobId: this.data.job.id } // Pasează activitatea și jobId la dialog
+      data: { activity: activity, jobId: this.data.job.id } 
     });
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.refreshActivities();  // Reîncarcă activitățile după închiderea dialogului
+        this.refreshActivities(); 
       }
     });
   }
@@ -46,7 +47,7 @@ export class JobDetailsComponent implements OnInit {
       this.todoItemService.deleteTodoItem(id, token).subscribe({
         next: () => {
           console.log('Activity deleted successfully');
-          this.refreshActivities();  // Reîncarcă activitățile actualizate
+          this.refreshActivities(); 
         },
         error: (error) => {
           console.error('Failed to delete activity', error);
@@ -85,7 +86,7 @@ refreshActivities(): void {
       next: (activities) => {
         this.activities = activities.map(activity => ({
           ...activity,
-          isChecked: activity.isChecked // Ensure consistent naming
+          isChecked: activity.isChecked
         }));
         console.log('Activities refreshed successfully', this.activities);
       },
@@ -104,7 +105,8 @@ refreshActivities(): void {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<JobDetailsComponent>,
-    private jobService: JobService, // Inject the JobService
+    private jobService: JobService, 
+    private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: { job: Job, column: any }
   ) {
     this.jobDetailsForm = this.fb.group({
@@ -134,14 +136,13 @@ refreshActivities(): void {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.selectedColor = result;
-        this.jobDetailsForm.get('color')!.setValue(this.selectedColor); // Utilizare operator non-null assertion
+        this.jobDetailsForm.get('color')!.setValue(this.selectedColor); 
       }
     });
     
   }
   
   ngOnInit(): void {
-    // Populează formularul dacă există date transmise prin dialog
     if (this.data && this.data.job) {
       this.jobDetailsForm.patchValue({
         id: this.data.job.id || '',
@@ -155,7 +156,7 @@ refreshActivities(): void {
         notes: this.data.job.notes || '',
         color: this.data.job.color || this.selectedColor
       });
-      this.loadFileName(Number(this.data.job.id)); // Încarcă numele fișierului pentru jobul curent
+      this.loadFileName(Number(this.data.job.id)); 
 
     }
     this.loadActivities(Number(this.data.job.id));
@@ -166,7 +167,7 @@ refreshActivities(): void {
 
     this.uploadService.getFileName(jobId).subscribe(fileName => {
         this.uploadedFileName = fileName;
-        console.log('File loaded:', this.uploadedFileName); // Adaugă un log pentru a verifica datele încărcate
+        console.log('File loaded:', this.uploadedFileName);
 
     }, error => {
         console.error('Failed to load file name', error);
@@ -188,9 +189,9 @@ downloadFile(fileName: string | null): void {
             next: (activities) => {
                 this.activities = activities.map(activity => ({
                     ...activity,
-                    isChecked: activity.checked || false  // Asigură-te că fiecare activitate are un câmp checked
+                    isChecked: activity.checked || false  
                 }));
-                console.log('Activities loaded:', this.activities); // Adaugă un log pentru a verifica datele încărcate
+                console.log('Activities loaded:', this.activities); 
             },
             error: (err) => console.error('Error loading activities', err)
         });
@@ -204,8 +205,8 @@ downloadFile(fileName: string | null): void {
     if (this.jobDetailsForm.valid) {
       const jobData = {
         ...this.jobDetailsForm.value,
-        id: this.data.job?.id, // Include ID-ul dacă este disponibil
-        columnName: this.data.column.name  // Include numele coloanei
+        id: this.data.job?.id, 
+        columnName: this.data.column.name  
       };
   
       console.log("Attempting to save or update job:", jobData);
@@ -215,7 +216,8 @@ downloadFile(fileName: string | null): void {
         this.jobService.saveOrUpdateJob(token, jobData).subscribe({
           next: (response: any) => {
             console.log('Job saved or updated successfully', response);
-            alert('Job saved or updated successfully!');
+            this.snackBar.open('Job saved or updated succesfully!', 'Close', { duration: 3000 });
+
             this.dialogRef.close(response);
           },
           error: (error) => {
@@ -260,7 +262,6 @@ downloadFile(fileName: string | null): void {
   
 
   private generateId(): string {
-    // Implement ID generation logic or use a service/library
     return Math.random().toString(36).substring(2, 9);
   }
 
@@ -270,20 +271,25 @@ downloadFile(fileName: string | null): void {
   loading: boolean = false;
 
 
-
   onFileSelected(event: any): void {
     const files = event.target.files;
     if (files.length > 0) {
       this.fileToUpload = files[0];
-      this.uploadDate = new Date();
+      this.uploadedFileName = files[0].name;  // Setează numele fișierului imediat după selecție
+      this.uploadDate = new Date();  // Setează data curentă imediat după selecție
     }
   }
+  
   uploadPDF(): void {
-    if (this.fileToUpload && this.data.job.id) {
+    if (this.fileToUpload && this.data.job.id) {  // Verifică dacă fileToUpload nu este null
       this.uploadService.uploadFile(Number(this.data.job.id), this.fileToUpload).subscribe(
         response => {
           console.log('File uploaded successfully', response);
-          this.uploadDate = new Date(); // Setează data de upload
+          // Asigură-te că fileToUpload nu este null înainte de a accesa .name
+          if (this.fileToUpload) {
+            this.uploadedFileName = this.fileToUpload.name; // Setează numele fișierului după încărcare
+          }
+          this.uploadDate = new Date(); 
           alert('File uploaded successfully: ' + response);
         },
         error => {
@@ -296,11 +302,12 @@ downloadFile(fileName: string | null): void {
       alert('No file selected or job ID is missing');
     }
   }
+  
   deleteFile(): void {
     const jobId = this.data.job.id;
     console.log(`Attempting to delete file for job ID: ${jobId}`);
     
-    const token = localStorage.getItem('auth_token'); // Assuming the token is stored in local storage
+    const token = localStorage.getItem('auth_token'); 
     if (token) {
       console.log('Authentication token found:', token);
       
@@ -324,7 +331,7 @@ downloadFile(fileName: string | null): void {
   removeFile(): void {
     this.fileToUpload = null;
     this.uploadDate = null;
-    this.deleteFile(); // Calls deleteFile method to remove the file from backend and Google Cloud
+    this.deleteFile(); 
   }
   
 

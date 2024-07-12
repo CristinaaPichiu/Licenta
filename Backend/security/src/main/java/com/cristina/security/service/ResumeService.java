@@ -54,12 +54,10 @@ public class ResumeService {
         String email = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("User not found with email: " + email));
-        // Generate a UUID for the resume
         UUID resumeUUID = UUID.randomUUID();
 
-        // Create a new Resume instance
         Resume resume = new Resume();
-        resume.setId(resumeUUID);  // Set the generated UUID
+        resume.setId(resumeUUID);
         resume.setUser(user);
         resumeRepository.save(resume);
         System.out.print("AAAAAAAAAAAAAAAAA");
@@ -80,7 +78,7 @@ public class ResumeService {
         resume.setSkillSection(saveSkillsSections(resumeDTO.getSkillsSections(), user, resume));
         resume.setVolunteeringSection(saveVolunteeringSections(resumeDTO.getVolunteeringSections(), user, resume));
         resume.setCustomSection(saveCustomSections(resumeDTO.getCustomSections(), user, resume));
-        resume.setTemplateId(resumeDTO.getTemplateId());  // Save the template ID
+        resume.setTemplateId(resumeDTO.getTemplateId());
 
 
         System.out.print("AAAAAAAAAAAAAAAAAAAAAAA");
@@ -88,20 +86,16 @@ public class ResumeService {
         return resumeRepository.save(resume);
     }
 
-    // Metoda pentru actualizarea unui CV existent
     @Transactional
     public Resume updateResume(UUID resumeId, ResumeDTO resumeDTO) throws Exception {
-        // Obțineți utilizatorul curent
         String email = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("User not found with email: " + email));
         System.out.print("Pas1");
 
-        // Găsiți CV-ul existent
         Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new Exception("Resume not found with id: " + resumeId));
         System.out.print("Pas2");
-        // Actualizați secțiunile CV-ului
         if (resumeDTO.getAboutSection() != null) {
             resume.setAboutSection(saveAboutSection(resumeDTO.getAboutSection(), user, resume));
         }
@@ -109,32 +103,32 @@ public class ResumeService {
             resume.setContactSection(saveContactSection(resumeDTO.getContactSection(), user, resume));
         }
         if (resumeDTO.getEducationSections() != null) {
-            resume.getEducationSections().clear(); // Curăță colecția existentă
-            resume.getEducationSections().addAll(saveEducationSections(resumeDTO.getEducationSections(), user, resume)); // Adaugă noile elemente
+            resume.getEducationSections().clear();
+            resume.getEducationSections().addAll(saveEducationSections(resumeDTO.getEducationSections(), user, resume));
         }
         if (resumeDTO.getExperienceSections() != null) {
-            resume.getExperienceSection().clear(); // Curăță colecția existentă
-            resume.getExperienceSection().addAll(saveExperienceSections(resumeDTO.getExperienceSections(), user, resume)); // Adaugă noile elemente
+            resume.getExperienceSection().clear();
+            resume.getExperienceSection().addAll(saveExperienceSections(resumeDTO.getExperienceSections(), user, resume));
         }
         if (resumeDTO.getLinkSections() != null) {
-            resume.getLinkSection().clear(); // Curăță colecția existentă
-            resume.getLinkSection().addAll(saveLinkSections(resumeDTO.getLinkSections(), user, resume)); // Adaugă noile elemente
+            resume.getLinkSection().clear();
+            resume.getLinkSection().addAll(saveLinkSections(resumeDTO.getLinkSections(), user, resume));
         }
         if (resumeDTO.getProjectSections() != null) {
-            resume.getProjectSection().clear(); // Curăță colecția existentă
-            resume.getProjectSection().addAll(saveProjectSections(resumeDTO.getProjectSections(), user, resume)); // Adaugă noile elemente
+            resume.getProjectSection().clear();
+            resume.getProjectSection().addAll(saveProjectSections(resumeDTO.getProjectSections(), user, resume));
         }
         if (resumeDTO.getSkillsSections() != null) {
-            resume.getSkillSection().clear(); // Curăță colecția existentă
-            resume.getSkillSection().addAll(saveSkillsSections(resumeDTO.getSkillsSections(), user, resume)); // Adaugă noile elemente
+            resume.getSkillSection().clear();
+            resume.getSkillSection().addAll(saveSkillsSections(resumeDTO.getSkillsSections(), user, resume));
         }
         if (resumeDTO.getVolunteeringSections() != null) {
-            resume.getVolunteeringSection().clear(); // Curăță colecția existentă
-            resume.getVolunteeringSection().addAll(saveVolunteeringSections(resumeDTO.getVolunteeringSections(), user, resume)); // Adaugă noile elemente
+            resume.getVolunteeringSection().clear();
+            resume.getVolunteeringSection().addAll(saveVolunteeringSections(resumeDTO.getVolunteeringSections(), user, resume));
         }
         if (resumeDTO.getCustomSections() != null) {
-            resume.getCustomSection().clear(); // Curăță colecția existentă
-            resume.getCustomSection().addAll(saveCustomSections(resumeDTO.getCustomSections(), user, resume)); // Adaugă noile elemente
+            resume.getCustomSection().clear();
+            resume.getCustomSection().addAll(saveCustomSections(resumeDTO.getCustomSections(), user, resume));
         }
 
         if (resumeDTO.getTemplateId() != null) {
@@ -144,7 +138,6 @@ public class ResumeService {
         System.out.print("Pas3");
 
 
-        // Salvați CV-ul actualizat
         return resumeRepository.save(resume);
     }
 
@@ -156,7 +149,7 @@ public class ResumeService {
             section.setResume(resume);
             System.out.println(section.getResume().getId());
             System.out.println("--------------------------");
-            System.out.println(resume.getId());// Asigură-te că resume-ul este setat corect
+            System.out.println(resume.getId());
             return aboutSectionRepository.save(section);
         }
         return null;
@@ -180,7 +173,6 @@ public class ResumeService {
         return null;
     }
 
-    // Implement similar methods for other sections...
 
     private List<EducationSection> saveEducationSections(List<EducationDTO> dtos, User user, Resume resume) {
         return dtos.stream().map(dto -> {
@@ -210,7 +202,6 @@ public class ResumeService {
         }).collect(Collectors.toList());
     }
 
-    // Save skills sections
     private List<SkillsSection> saveSkillsSections(List<SkillsDTO> dtos, User user, Resume resume) {
         return dtos.stream().map(dto -> {
             SkillsSection section = new SkillsSection();
@@ -221,7 +212,6 @@ public class ResumeService {
         }).collect(Collectors.toList());
     }
 
-    // Save project sections
     private List<ProjectSection> saveProjectSections(List<ProjectDTO> dtos, User user, Resume resume) {
         return dtos.stream().map(dto -> {
             ProjectSection section = new ProjectSection();
@@ -236,7 +226,6 @@ public class ResumeService {
         }).collect(Collectors.toList());
     }
 
-    // Save link sections
     private List<LinkSection> saveLinkSections(List<LinkDTO> dtos, User user, Resume resume) {
         return dtos.stream().map(dto -> {
             LinkSection section = new LinkSection();
@@ -248,7 +237,6 @@ public class ResumeService {
         }).collect(Collectors.toList());
     }
 
-    // Save volunteering sections
     private List<VolunteeringSection> saveVolunteeringSections(List<VolunteeringDTO> dtos, User user, Resume resume) {
         return dtos.stream().map(dto -> {
             VolunteeringSection section = new VolunteeringSection();
@@ -264,7 +252,6 @@ public class ResumeService {
         }).collect(Collectors.toList());
     }
 
-    // Save custom sections
     private List<CustomSection> saveCustomSections(List<CustomSectionDTO> dtos, User user, Resume resume) {
         return dtos.stream().map(dto -> {
             CustomSection section = new CustomSection();
@@ -283,7 +270,7 @@ public class ResumeService {
 
     public Optional<Resume> getLatestResumeByUserId(Integer userId) {
         System.out.println("Fetching latest resume for user ID: " + userId);
-        Pageable topOne = (Pageable) PageRequest.of(0, 1); // Fetch only the first result
+        Pageable topOne = (Pageable) PageRequest.of(0, 1);
         List<Resume> resumes = resumeRepository.findLatestByUserId(userId, topOne);
         if (resumes.isEmpty()) {
             return Optional.empty();
@@ -398,11 +385,9 @@ public class ResumeService {
     }
 
     public void deleteResume(UUID resumeId) {
-        // Verifică dacă resume-ul există
         Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new IllegalArgumentException("Resume not found"));
 
-        // Elimină resume-ul
         resumeRepository.delete(resume);
     }
 

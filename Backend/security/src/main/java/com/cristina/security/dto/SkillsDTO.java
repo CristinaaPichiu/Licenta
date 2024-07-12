@@ -12,6 +12,5 @@ public class SkillsDTO {
         this.skillName=skillName;
     }
 
-    // Constructori, getters și setters
 }
 

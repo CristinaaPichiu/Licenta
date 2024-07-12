@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/jobs")
@@ -34,15 +35,14 @@ public class JobController {
         try {
             Job job = jobService.findById(id);
             String fileName = file.getOriginalFilename();
-            String uploadDir = "temp-files/" + id; // Director temporar pentru a salva fișierele local
+            String uploadDir = "temp-files/" + id;
 
             FileUploadUtil.saveFile(uploadDir, fileName, file);
 
-            // Încarcă fișierul în Google Cloud Storage
             String filePath = uploadDir + "/" + fileName;
             String fileId = googleCloudStorageService.uploadFile(filePath, fileName);
 
-            job.setFilePath(fileId); // Salvează ID-ul fișierului sau calea completă
+            job.setFilePath(fileId);
             jobService.saveOrUpdateJob(job);
 
             return ResponseEntity.ok("File uploaded successfully to Google Cloud Storage: " + fileName);
@@ -94,10 +94,12 @@ public class JobController {
             return ResponseEntity.badRequest().body("Error deleting job: " + e.getMessage());
         }
     }
+    @GetMapping("/statistics/{userId}")
+    public ResponseEntity<Map<String, Integer>> getJobStatistics(@PathVariable Integer userId) {
+        Map<String, Integer> statistics = jobService.getJobStatisticsByUser(userId);
+        return ResponseEntity.ok(statistics);
+    }
 
 
 
-
-
-    // Endpoint-uri pentru update și delete
 }

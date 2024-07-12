@@ -25,16 +25,14 @@ public class PdfParserService {
             PDFTextStripper stripper = new PDFTextStripper();
             String text = stripper.getText(document);
 
-            // Log the full text for debugging
-            logger.info("Full extracted text: {}", text.substring(0, Math.min(text.length(), 500))); // Print first 500 characters to avoid too long logs
+            logger.info("Full extracted text: {}", text.substring(0, Math.min(text.length(), 500)));
 
-            // Extracția secțiunilor
             extractedData.put("Contact", extractAndLogSection(text, "Contact", "^(?:Contact Information|Contact)$", "^EDUCATION$"));
             extractedData.put("Education", extractAndLogSection(text, "Education", "^EDUCATION$", "^SKILLS$"));
             extractedData.put("Skills", extractAndLogSection(text, "Skills", "^SKILLS$", "^EXPERIENCE$"));
             extractedData.put("Experience", extractAndLogSection(text, "Experience", "^EXPERIENCE$", "^PROJECTS$"));
             extractedData.put("Projects", extractAndLogSection(text, "Projects", "^PROJECTS$", "^LANGUAGES$"));
-            extractedData.put("Languages", extractAndLogSection(text, "Languages", "^LANGUAGES$", null)); // Dacă e ultima secțiune
+            extractedData.put("Languages", extractAndLogSection(text, "Languages", "^LANGUAGES$", null));
 
             return extractedData;
         } finally {
@@ -44,8 +42,7 @@ public class PdfParserService {
 
     private String extractAndLogSection(String text, String sectionName, String startRegex, String endRegex) {
         String section = extractSection(text, startRegex, endRegex);
-        // Log the extracted section
-        logger.info("{} section extracted: {}", sectionName, section.substring(0, Math.min(section.length(), 500))); // Print first 500 characters
+        logger.info("{} section extracted: {}", sectionName, section.substring(0, Math.min(section.length(), 500)));
         return section;
     }
 

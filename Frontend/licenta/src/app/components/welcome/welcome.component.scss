@@ -72,7 +72,7 @@
 }
 
 @media (max-width: 768px) {
-    /* Fă ca imaginea să fie relativă și să apară deasupra textului */
+    
     .background-image {
         position: relative;
         top: 0;
@@ -80,10 +80,9 @@
         transform: none;
         width: 100%;
         margin: 0 auto;
-        order: -1; /* Acest lucru va muta imaginea deasupra textului */
+        order: -1; 
     }
 
-    /* Ajustează textul și elementele pentru a se potrivi mai bine */
     .welcome-text, .custom-header, .custom-paragraph, .custom-button {
         margin-left: 20px;
         margin-right: 20px;
@@ -92,22 +91,21 @@
     .custom-header {
         font-size: 2.5rem;
         line-height: 3rem;
-        text-align: center; /* Centrăm textul header-ului */
+        text-align: center; 
     }
 
     .custom-paragraph {
-        text-align: center; /* Centrăm paragraful */
+        text-align: center; 
     }
 
     .custom-button.get-started, .custom-button.demo-button {
         margin-left: auto;
         margin-right: auto;
-        display: block; /* Așează butoanele unul sub altul */
+        display: block; 
     }
 }
 
 @media (max-width: 480px) {
-    /* În continuarea stilurilor pentru tablete, doar că pentru telefoane */
     .welcome-text {
         font-size: 20px;
         margin-top: 20px;

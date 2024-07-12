@@ -42,7 +42,7 @@
   button {
     padding: 10px 20px;
     color: #fff;
-    background-color: #778beb;
+    background-color: #507d95;
     border: none;
     border-radius: 5px;
     margin-top: 10px;
@@ -53,14 +53,36 @@
     background-color: #ccc;
   }
   
-  .back-button {
-    display: inline-block;
-    margin-top: 10px;
-    color: #778beb;
-    text-decoration: none;
+  .button-container {
+    display: flex;
+    justify-content: space-between;
   }
+
   
   .back-button:hover {
     text-decoration: underline;
   }
+  .finish-button {
+    padding: 10px 20px;
+    background-color: #507d95;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  .upload-button{
+    margin-left: 20px;;
+
+  }
   
+  .back-button {
+    margin-left: 20px;;
+    padding: 10px 20px;
+    background-color: #507d95;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+ 

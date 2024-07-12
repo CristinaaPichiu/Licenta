@@ -14,6 +14,5 @@ public class UserDetailsDTO {
     private String language;
     private String skills;
     private String status;
-    // constructori, getteri și setteri
 }
 

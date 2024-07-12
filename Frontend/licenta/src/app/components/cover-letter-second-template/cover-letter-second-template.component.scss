@@ -1,40 +1,39 @@
 .cover-letter-container {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Ajustat la lățime completă */
-    min-height: 29.7cm; /* Menținută înălțimea minimă ca în exemplul tău */
+    width: 100%; 
+    min-height: 29.7cm;
     margin: auto;
-    padding: 40px; /* Menținut padding-ul original */
+    padding: 40px; 
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-    background-color: #fff; /* Menținută culoarea de fundal albă */
-    color: #333; /* Menținută culoarea textului gri închis */
-    border: 1px solid #ddd; /* Menținută bordura subțire */
+    background-color: #fff; 
+    color: #333; 
+    border: 1px solid #ddd; 
 }
 
-/* Celelalte clase au rămas nemodificate, conform instrucțiunilor tale */
 
 
 
   .to-label {
-    font-style: italic; /* Keep the 'To:' in italic */
-    margin: 0; /* Remove any default margin */
-    padding: 0; /* Remove any padding to reduce space */
-    display: block; /* Ensures it's on its own line but can be closely aligned */
+    font-style: italic; 
+    margin: 0; 
+    padding: 0; 
+    display: block; 
 }
 
 .recipient-info {
     text-align: left;
     font-size: 16px;
     line-height: 1.4;
-    color: #2c3e50; /* Dark blue for enhanced visibility */
-    margin: 0; /* Remove margin to close any gap with 'To:' */
-    padding-top: 0; /* Zero out top padding to close the gap */
+    color: #2c3e50; 
+    margin: 0; 
+    padding-top: 0; 
 }
 
 .recipient-info p {
-    margin: 2px 0; /* Small margin for compact look */
-    font-weight: bold; /* Bold text for recipient details */
+    margin: 2px 0; 
+    font-weight: bold; 
     margin-left:30px;
 
 }
@@ -52,12 +51,12 @@
   .header h1 {
     font-size: 26px;
     font-weight: bold;
-    color: #2c3e50; // Dark blue, similar to the sidebar in your first template
+    color: #2c3e50; 
   }
   
   .header h2 {
     font-size: 20px;
-    color: #507d95; // Green color for the subtitle
+    color: #507d95; 
     margin: 5px 0;
   }
   
@@ -78,25 +77,25 @@
   .contact-info {
     display: flex;
     align-items: center;
-    justify-content: space-around; // Ensures spacing is distributed evenly across the container
-    width: 100%; // Takes full width to accommodate all items
+    justify-content: space-around; 
+    width: 100%; 
   }
   
   .contact-info .column {
-    display: flex; // Makes items within the column also align in a row
+    display: flex; 
     align-items: center;
-    justify-content: start; // Aligns items to the start of the column
-    flex-wrap: nowrap; // Prevents wrapping into multiple lines
+    justify-content: start; 
+    flex-wrap: nowrap; 
   }
   
   .contact-info div {
     display: flex;
     align-items: center;
-    margin-right: 5px; // Adds space between each contact item
+    margin-right: 5px;
   }
   
   .contact-info span.material-icons {
-    color: #507d95; // Green icons to match the theme
+    color: #507d95; 
     margin-right: 10px;
     font-size: 20px;
   }
@@ -114,37 +113,37 @@
   
   .signature-image {
     position: absolute;
-    right: 20px; // Ajustează valoarea pentru a deplasa semnătura mai spre dreapta
-    bottom: 300px; // Ajustează valoarea pentru a deplasa semnătura mai jos
-    width: 300px; // Ajustează dimensiunea semnăturii după cum este necesar
+    right: 20px; 
+    bottom: 300px;
+    width: 300px; 
   }
   .line {
     position: relative;
-    margin: 20px auto; // Centers the line and provides space above and below
-    width: 90%; // Adjust the line width as needed
-    height: 2px; // Line thickness
-    background-color: #507d95; // Dark green line color
+    margin: 20px auto; 
+    width: 90%; 
+    height: 2px; 
+    background-color: #507d95; 
   
     &::before,
     &::after {
       content: '';
       position: absolute;
       top: 50%;
-      width: 10px; // Width of the diamond
-      height: 10px; // Height of the diamond
-      background-color: #507d95; // Dark green color
-      transform: translateY(-50%) rotate(45deg); // Rotate square to form diamond
+      width: 10px; 
+      height: 10px; 
+      background-color: #507d95; 
+      transform: translateY(-50%) rotate(45deg); 
       z-index: 1;
     }
   
     &::before {
-      left: 0; // Position at the left end of the line
-      transform: translateX(-50%) translateY(-50%) rotate(45deg); // Adjust position and rotate
+      left: 0; 
+      transform: translateX(-50%) translateY(-50%) rotate(45deg); 
     }
   
     &::after {
-      right: 0; // Position at the right end of the line
-      transform: translateX(50%) translateY(-50%) rotate(45deg); // Adjust position and rotate
+      right: 0; 
+      transform: translateX(50%) translateY(-50%) rotate(45deg); 
     }
   }
   

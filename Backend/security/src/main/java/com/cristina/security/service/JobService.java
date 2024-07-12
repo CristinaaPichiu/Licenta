@@ -5,11 +5,14 @@ import com.cristina.security.entity.ToDoItem;
 import com.cristina.security.entity.User;
 import com.cristina.security.repository.JobRepository;
 import com.cristina.security.repository.ToDoItemRepository;
-import com.cristina.security.repository.UserRepository; // Asigură-te că importul este corect
+import com.cristina.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -18,16 +21,16 @@ public class JobService {
     @Autowired
     private JobRepository jobRepository;
     @Autowired
-    private UserRepository userRepository;  // Injectare UserRepository
+    private UserRepository userRepository;
     @Autowired
-    private ToDoItemRepository toDoItemRepository;  // Presupunând că ai un repository pentru ToDoItem
+    private ToDoItemRepository toDoItemRepository;
 
     public Job saveOrUpdateJob(Job job) {
         User user;
         Job existingJob = null;
         if (job.getId() != null) {
             existingJob = jobRepository.findById(job.getId()).orElseThrow(() -> new RuntimeException("Job not found"));
-            user = existingJob.getUser();  // Păstrează utilizatorul existent
+            user = existingJob.getUser();
         } else {
             String email = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
             user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with email: " + email));
@@ -35,7 +38,6 @@ public class JobService {
         job.setUser(user);
 
         if (existingJob != null) {
-            // Actualizează proprietățile existente
             existingJob.setTitle(job.getTitle());
             existingJob.setCompany(job.getCompany());
             existingJob.setDate(job.getDate());
@@ -47,7 +49,6 @@ public class JobService {
             existingJob.setColor(job.getColor());
             existingJob.setColumnName(job.getColumnName());
 
-            // Sincronizează colecția de ToDoItems
             syncToDoItems(existingJob, job.getTodoItems());
 
             return jobRepository.save(existingJob);
@@ -58,17 +59,14 @@ public class JobService {
 
     private void syncToDoItems(Job existingJob, List<ToDoItem> newToDoItems) {
         if (newToDoItems == null) {
-            // Poți decide să ștergi toate elementele sau să nu faci nimic
             existingJob.getTodoItems().clear();
             return;
         }
 
-        // Elimină orfani
         existingJob.getTodoItems().removeIf(existingItem ->
                 newToDoItems.stream().noneMatch(newItem -> newItem.getId().equals(existingItem.getId()))
         );
 
-        // Adaugă sau actualizează elementele noi
         for (ToDoItem newItem : newToDoItems) {
             ToDoItem existingItem = existingJob.getTodoItems().stream()
                     .filter(e -> e.getId().equals(newItem.getId()))
@@ -107,5 +105,14 @@ public class JobService {
         }
     }
 
-    // Metode pentru update și delete
+    public Map<String, Integer> getJobStatisticsByUser(Integer userId) {
+        Map<String, Integer> statistics = new HashMap<>();
+        statistics.put("toApply", jobRepository.countJobsByUserAndColumnName(userId, "toApply"));
+        statistics.put("applied", jobRepository.countJobsByUserAndColumnName(userId, "applied"));
+        statistics.put("interview", jobRepository.countJobsByUserAndColumnName(userId, "interview"));
+        statistics.put("offer", jobRepository.countJobsByUserAndColumnName(userId, "offer"));
+        statistics.put("rejected", jobRepository.countJobsByUserAndColumnName(userId, "rejected"));
+        return statistics;
+    }
+
 }

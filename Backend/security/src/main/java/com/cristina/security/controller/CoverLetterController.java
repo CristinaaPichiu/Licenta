@@ -26,7 +26,7 @@ import java.util.UUID;
 public class CoverLetterController {
 
     private static final Logger logger = LoggerFactory.getLogger(ResumeController.class);
-    private final CoverLetterService coverLetterService; // Final to ensure it's included in the constructor
+    private final CoverLetterService coverLetterService;
 
 
     @PostMapping("/datas")
@@ -57,8 +57,8 @@ public class CoverLetterController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        User user = (User) authentication.getPrincipal(); // Cast directly to User as it implements UserDetails
-        Integer userId = user.getId(); // Extract ID directly from the User entity
+        User user = (User) authentication.getPrincipal();
+        Integer userId = user.getId();
 
         Optional<CoverLetter> coverLetter = coverLetterService.getLatestCoverLetterByUserId(userId);
         return coverLetter.map(ResponseEntity::ok)

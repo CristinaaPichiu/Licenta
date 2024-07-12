@@ -1,13 +1,12 @@
 <div class="chart-container">
-    <canvas id="progressChart"></canvas>
-    <div class="chart-legend">
-      <ul>
-        <li><span class="legend-color profile"></span> Targeted jobs 4/10</li>
-        <li><span class="legend-color skills"></span> Applied jobs 10/10</li>
-        <li><span class="legend-color education"></span> Interviews 5/10</li>
-        <li><span class="legend-color work-history"></span> Offers 5/10</li>
-        <li><span class="legend-color summary"></span> Rejections 2/10</li>
-      </ul>
-    </div>
+  <canvas id="progressChart"></canvas>
+  <div class="chart-legend">
+    <ul>
+      <li><span class="legend-color profile"></span> Targeted jobs {{statistics.toApply}}/10</li>
+      <li><span class="legend-color skills"></span> Applied jobs {{statistics.applied}}/10</li>
+      <li><span class="legend-color education"></span> Interviews {{statistics.interview}}/10</li>
+      <li><span class="legend-color work-history"></span> Offers {{statistics.offer}}/10</li>
+      <li><span class="legend-color summary"></span> Rejections {{statistics.rejected}}/10</li>
+    </ul>
   </div>
-  
+</div>

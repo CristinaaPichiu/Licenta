@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ResumeDataService {
-  private resume = new BehaviorSubject<any>({}); // Inițializează cu un obiect gol
+  private resume = new BehaviorSubject<any>({}); 
 
-  currentResume = this.resume.asObservable(); // Observable pentru a urmări schimbările
+  currentResume = this.resume.asObservable(); 
 
   constructor() {}
 

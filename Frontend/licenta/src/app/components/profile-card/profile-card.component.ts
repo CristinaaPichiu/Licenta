@@ -15,12 +15,11 @@ export class ProfileCardComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   imagePreview: SafeUrl | null = null;
   email: string | null = null;
-  selectedFile: File | null = null; // Add this line to store the selected file
-  loading: boolean = false; // Adaugă această linie pentru a gestiona starea de încărcare
+  selectedFile: File | null = null; 
+  loading: boolean = false; 
 
   
 
-  // Your form group and other properties go here
 
   constructor(private fb:
      FormBuilder, 
@@ -41,34 +40,30 @@ export class ProfileCardComponent implements OnInit {
     if (token) {
       this.userProfileService.getProfilePictureUrl(token).subscribe({
         next: (url) => {
-          // Verificăm dacă URL-ul primit este valid
           if (url) {
             this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(url);
           } else {
-            // Dacă URL-ul nu este valid, setează imaginea implicită
             this.imagePreview = this.sanitizer.bypassSecurityTrustUrl('assets/profile.png');
           }
         },
         error: (error) => {
           console.error('A apărut o eroare la obținerea URL-ului pozei de profil:', error);
-          // Setează imaginea implicită în caz de eroare
           this.imagePreview = this.sanitizer.bypassSecurityTrustUrl('assets/profile.png');
         }
       });
     } else {
       console.error('Nu s-a găsit niciun token de autorizare. Utilizatorul trebuie să se autentifice.');
-      // Setează imaginea implicită dacă nu există token
       this.imagePreview = this.sanitizer.bypassSecurityTrustUrl('assets/profile.png');
     }
   }
   
 
   private loadEmail(): void {
-    const token = localStorage.getItem('auth_token'); // Preia token-ul JWT
+    const token = localStorage.getItem('auth_token'); 
     if (token) {
       this.userProfileService.getUserEmail(token).subscribe({
         next: (email) => {
-          this.email = email; // Stochează email-ul primit în proprietatea componentei
+          this.email = email; 
         },
         error: (error) => {
           console.error('A apărut o eroare la obținerea adresei de email:', error);
@@ -81,15 +76,13 @@ export class ProfileCardComponent implements OnInit {
 
   onFileSelected(event: Event): void {
     const element = event.target as HTMLInputElement;
-    console.log("File input changed!", element.files); // Acesta este pentru debugging
+    console.log("File input changed!", element.files);
     if (element.files && element.files[0]) {
       const file = element.files[0];
-      this.selectedFile = file; // Store the selected file
-      // Generate a preview of the image
+      this.selectedFile = file;
       const url = URL.createObjectURL(file);
-      // Use the sanitizer to allow the image URL to be safe to use
       this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(url);
-      console.log("Image preview should be set:", this.imagePreview); // Acesta este pentru debugging
+      console.log("Image preview should be set:", this.imagePreview); 
     }
   }
 
@@ -105,7 +98,6 @@ export class ProfileCardComponent implements OnInit {
       this.userProfileService.uploadProfilePicture(this.selectedFile, token).subscribe({
         next: (response) => {
           console.log('Profile picture uploaded successfully', response);
-          // Reîncarcă URL-ul imaginii de profil pentru a obține versiunea actualizată
           this.refreshProfilePicture(token);
         },
         error: (error) => {
@@ -122,7 +114,7 @@ export class ProfileCardComponent implements OnInit {
   refreshProfilePicture(token: string): void {
     this.userProfileService.getProfilePictureUrl(token).subscribe({
       next: (url) => {
-        const newImageUrl = `${url}?timestamp=${new Date().getTime()}`; // Cache busting
+        const newImageUrl = `${url}?timestamp=${new Date().getTime()}`; 
         this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(newImageUrl);
         this.loading = false;
       },
@@ -141,18 +133,15 @@ export class ProfileCardComponent implements OnInit {
       this.userProfileService.deleteProfilePicture(token).subscribe({
         next: () => {
           console.log('Profile picture deleted successfully');
-          // Setează imaginea implicită imediat după ștergerea cu succes
           this.imagePreview = this.sanitizer.bypassSecurityTrustUrl('assets/profile.png');
         },
         error: (error) => {
           console.error('Failed to delete profile picture:', error);
-          // Poți alege să afișezi imaginea implicită și în caz de eroare
           this.imagePreview = this.sanitizer.bypassSecurityTrustUrl('assets/profile.png');
         }
       });
     } else {
       console.error('User not authenticated.');
-      // Setează imaginea implicită dacă utilizatorul nu este autentificat
       this.imagePreview = this.sanitizer.bypassSecurityTrustUrl('assets/profile.png');
     }
   }

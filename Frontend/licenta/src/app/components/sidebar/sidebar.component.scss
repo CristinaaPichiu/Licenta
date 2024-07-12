@@ -1,9 +1,8 @@
 .sidenav {
-  width: 100px; /* Fixed width for larger screens */
-  color: #fff;
+  width: 100px; 
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Use vh for full viewport height */
+  height: 100vh; 
   overflow: hidden;
 }
 
@@ -25,7 +24,7 @@ mat-nav-list {
 }
 
 .img {
-  width: 100px; /* Fixed width for larger screens */
+  width: 100px; 
   height: auto;
   margin-top: 20px;
   margin-left: -5px;
@@ -39,23 +38,22 @@ mat-nav-list {
   background-color: white; 
   border: none;
   padding: 10px;
-  width: 48px; // O lățime suficientă pentru iconiță
-  height: 48px; // O înălțime egală pentru a face butonul pătrat
-  transform: translateY(-50%); // Centrează butonul vertical pe ecran
+  width: 48px; 
+  height: 48px; 
+  transform: translateY(-50%); 
   border-radius: 0 0 5px 5px;
   box-shadow: 0 2px 5px #787D7D;
   display: flex;
-  align-items: center; // Acesta centrează iconița vertical în buton
-  justify-content: center; // Acesta centrează iconița orizontal în buton
+  align-items: center; 
+  justify-content: center; 
   
   mat-icon {
     margin-top: 0px;
-    font-size: 24px; // Mărimea iconiței
+    font-size: 24px; 
   }
 }
 
 
-/* Ajustări pentru ecrane mici */
 @media (max-width: 768px) {
   .sidenav {
     width: 75px;
@@ -89,20 +87,19 @@ mat-nav-list {
   }
 }
 
-/* Ascunde titlul elementelor pentru ecrane foarte mici */
 @media (max-width: 360px) {
   .sidenav {
-    width: 50px; /* Mai îngust pentru ecrane foarte mici */
+    width: 50px;
   }
   .mat-icon {
-    margin-top: 8px; /* Reducem spațiu suplimentar */
+    margin-top: 8px; 
   }
   .img {
-    width: 50px; /* Ajustează imaginea */
+    width: 50px;
     margin-top: 5px;
     margin-left: 0;
   }
   .nav-text {
-    display: none; /* Ascundem textul pentru a economisi spațiu */
+    display: none; 
   }
 }

@@ -15,10 +15,10 @@
 }
 
 .to-label {
-  font-style: italic; /* Keep the 'To:' in italic */
-  margin: 0; /* Remove any default margin */
-  padding: 0; /* Remove any padding to reduce space */
-  display: block; /* Ensures it's on its own line but can be closely aligned */
+  font-style: italic; 
+  margin: 0; 
+  padding: 0; 
+  display: block; 
   font-size: 5px;
 }
 
@@ -32,14 +32,14 @@
 .header h1 {
   font-size: 5px;
   font-weight: bold;
-  color: #2c3e50; /* Dark blue */
-  margin: 0 0 -25px 0; /* Eliminate bottom margin and slightly overlap with the next element */
+  color: #2c3e50; 
+  margin: 0 0 -25px 0; 
 }
 
 .header h2 {
   font-size: 5px;
-  color: #507d95; /* Greenish blue */
-  margin: 0; /* Remove default top and bottom margins */
+  color: #507d95; 
+  margin: 0; 
 }
 
 
@@ -70,49 +70,48 @@
 }
 .closure {
   font-size: 5px;
-  margin-top: 2px; /* Minimal top margin to reduce space */
-  text-align: left; /* Ensure the text is centered */
+  margin-top: 2px; 
+  text-align: left;
   margin-left: 10px;
 }
 
 .closure p {
-  margin: 0; /* Remove default margins to reduce space */
-  padding: 0; /* Remove any padding */
+  margin: 0;
+  padding: 0; 
 }
 
-/* Specifically target the 'Sincerely,' part if it's in a separate paragraph */
 .closure p:first-child {
-  margin-bottom: -3px; /* Negative margin to pull the name closer */
+  margin-bottom: -3px; 
 }
 
 
 .line {
   position: relative;
-  margin-left:20px; // Centers the line and provides space above and below
-  width: 80%; // Adjust the line width as needed
-  height: 2px; // Line thickness
-  background-color: #507d95; // Dark green line color
+  margin-left:20px; 
+  width: 80%; 
+  height: 2px; 
+  background-color: #507d95; 
 
   &::before,
   &::after {
     content: '';
     position: absolute;
     top: 50%;
-    width: 5px; // Width of the diamond
-    height: 5px; // Height of the diamond
-    background-color: #507d95; // Dark green color
-    transform: translateY(-50%) rotate(45deg); // Rotate square to form diamond
+    width: 5px; 
+    height: 5px; 
+    background-color: #507d95; 
+    transform: translateY(-50%) rotate(45deg); 
     z-index: 1;
   }
 
   &::before {
-    left: 0; // Position at the left end of the line
-    transform: translateX(-50%) translateY(-50%) rotate(45deg); // Adjust position and rotate
+    left: 0; 
+    transform: translateX(-50%) translateY(-50%) rotate(45deg); 
   }
 
   &::after {
-    right: 0; // Position at the right end of the line
-    transform: translateX(50%) translateY(-50%) rotate(45deg); // Adjust position and rotate
+    right: 0; 
+    transform: translateX(50%) translateY(-50%) rotate(45deg); 
   }
 }
 

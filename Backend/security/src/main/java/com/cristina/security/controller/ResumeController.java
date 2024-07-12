@@ -29,7 +29,7 @@ import java.util.UUID;
 public class ResumeController {
 
     private static final Logger logger = LoggerFactory.getLogger(ResumeController.class);
-    private final ResumeService resumeService; // Final to ensure it's included in the constructor
+    private final ResumeService resumeService;
     @Autowired
     private GoogleCloudStorageService googleCloudStorageService;
 
@@ -80,8 +80,8 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        User user = (User) authentication.getPrincipal(); // Cast directly to User as it implements UserDetails
-        Integer userId = user.getId(); // Extract ID directly from the User entity
+        User user = (User) authentication.getPrincipal();
+        Integer userId = user.getId();
 
         return resumeService.getLatestResumeByUserId(userId)
                 .map(ResponseEntity::ok)
@@ -140,11 +140,9 @@ public class ResumeController {
     @GetMapping("/{resumeId}/picture_url")
     public ResponseEntity<String> getResumePictureUrl(@PathVariable UUID resumeId) {
         try {
-            // Obține resume-ul folosind serviciul existent
             Resume resume = resumeService.findById(resumeId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resume not found"));
 
-            // Verifică dacă resume-ul are o imagine asociată
             if (resume.getProfilePictureUrl() != null && !resume.getProfilePictureUrl().isEmpty()) {
                 return ResponseEntity.ok(resume.getProfilePictureUrl());
             } else {
@@ -161,19 +159,15 @@ public class ResumeController {
 
 }
 
-// În clasa ResumeController
 
     @DeleteMapping("/{resumeId}")
     public ResponseEntity<?> deleteResume(@PathVariable UUID resumeId) {
         try {
-            // Verifică dacă resume-ul există
             Resume resume = resumeService.findById(resumeId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resume not found"));
 
-            // Procedează la ștergerea resume-ului
             resumeService.deleteResume(resumeId);
 
-            // Loghează acțiunea de succes și returnează un răspuns
             logger.info("Resume with ID: {} deleted successfully", resumeId);
             return ResponseEntity.ok().body("Resume deleted successfully");
         } catch (ResponseStatusException e) {

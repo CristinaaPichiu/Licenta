@@ -24,10 +24,10 @@ showDetails: boolean = false;
 currentView: string = 'general';
 jobLists$: Observable<Record<JobListKeys, JobColumn>>;
 jobDetailsForm!: FormGroup;
-activeColumn: JobListKeys = 'toApply'; // Default or determined by user interaction
+activeColumn: JobListKeys = 'toApply'; 
 saveMessage: string = '';
 showMessage: boolean = false;
-jobStatuses: JobListKeys[] = ['toApply', 'applied', 'interview', 'underReview', 'rejected', 'offer']; // Lista de stări ale joburilor
+jobStatuses: JobListKeys[] = ['toApply', 'applied', 'interview', 'underReview', 'rejected', 'offer']; 
 jobs: Job[] = [];
 showJobDetails = false;
 token: string | null = localStorage.getItem('auth_token');
@@ -46,7 +46,7 @@ private userService: UserProfileService,
 private cdr: ChangeDetectorRef
 
 ) {
-this.jobLists$ = this.jobService.currentJobLists; // Asigură-te că tipurile se potrivesc
+this.jobLists$ = this.jobService.currentJobLists; 
 }
 showAddJobForm(column: Column) {
 const dialogRef = this.dialog.open(JobDetailsComponent, {
@@ -55,9 +55,9 @@ data: { column: column }
 });
 
 dialogRef.afterClosed().subscribe(result => {
-console.log('Dialog output:', result); // Aici afișăm rezultatul în consola browserului
+console.log('Dialog output:', result); 
 if (result) {
-column.jobs.push(result); // Presupunând că 'tasks' este folosit pentru a stoca joburile
+column.jobs.push(result); 
 }
 });
 }
@@ -70,7 +70,7 @@ ngOnInit() {
   if (this.token) {
     this.userService.getUserId(this.token).subscribe({
       next: (id) => {
-        if (id != null && this.token) { // Ensure id and token are not null
+        if (id != null && this.token) { 
           this.userId = id;
           this.loadJobs(id, this.token);
         } else {
@@ -88,15 +88,13 @@ ngOnInit() {
 loadJobs(userId: number, token: string) {
   this.jobService.getJobsByUser(token, userId).subscribe({
     next: (jobs) => {
-      this.clearColumns(); // Curăță coloanele înainte de a le popula din nou
+      this.clearColumns(); 
       jobs.forEach(job => {
-        // Verifică dacă jobul are un nume de coloană valid, altfel atribuie-l la o coloană implicită
-        const targetColumn = job.columnName || 'toApply'; // Alege 'toApply' dacă columnName este null
+        const targetColumn = job.columnName || 'toApply'; 
         const column = this.board.columns.find(c => c.name === targetColumn);
         if (column) {
           column.jobs.push(job);
         } else {
-          // Opțional: gestionează cazul în care nu există o coloană corespunzătoare (loghează eroarea sau creează dinamic coloana)
           console.error('No column found for name:', targetColumn);
         }
       });
@@ -113,9 +111,8 @@ clearColumns() {
 }
 
 
-// În JobBoardComponent
 openDeleteDialog(event: MouseEvent, job: Job): void {
-  event.stopPropagation(); // Opriți propagarea pentru a nu declanșa alte click events.
+  event.stopPropagation(); 
   const dialogRef = this.dialog.open(JobCardComponent, {
     width: '300px',
     data: { job }
@@ -136,7 +133,7 @@ deleteJob(job: Job): void {
         next: () => {
           console.log('Job deleted successfully');
           this.jobs = this.jobs.filter(j => j.id !== job.id);
-          this.cdr.detectChanges();  // Forțează detectarea schimbărilor
+          this.cdr.detectChanges();  
         },
         error: error => console.error('Failed to delete job', error)
       });
@@ -156,7 +153,7 @@ deleteJob(job: Job): void {
 onSubmit() {
 if (this.jobDetailsForm.valid) {
 this.jobService.addJob(this.jobDetailsForm.value as Job);
-this.closeJobDetailsForm(); // Închide formularul și resetează vizualizarea
+this.closeJobDetailsForm(); 
 }
 }
 
@@ -164,21 +161,21 @@ navigateToDashboard() {
 this.loading = true;
 setTimeout(() => {
 this.loading = false;
-this.router.navigate(['/dashboard']); // Navighează înapoi la dashboard
+this.router.navigate(['/dashboard']); 
 }, 1000);
 }
 
 handleAddClick(column: JobListKeys): void {
-this.activeColumn = column; // Setează coloana activă pe baza selecției utilizatorului
-this.showDetails = true; // Deschide modalul cu detalii
+this.activeColumn = column; 
+this.showDetails = true; 
 }
 
 closeDetails(): void {
-this.showDetails = false; // Închide detalii
+this.showDetails = false; 
 }
 
 changeView(view: string): void {
-this.currentView = view; // Schimbă între General, Timeline și Documents
+this.currentView = view; 
 }
 
 currentColumnToAddTask: Column | null = null;
@@ -203,9 +200,9 @@ addTaskToColumn(column: Column) {
           this.generateId()           // id
       );
       console.log(column.jobs);
-      column.jobs.push(newJob); // Pushing the new Job object, not a string
-      this.newTask = '';        // Clearing the new task input
-      this.currentColumnToAddTask = null; // Resetting the form visibility
+      column.jobs.push(newJob); 
+      this.newTask = '';        
+      this.currentColumnToAddTask = null; 
   }
 }
   
@@ -231,7 +228,6 @@ drop(event: CdkDragDrop<Job[]>) {
                       event.previousIndex,
                       event.currentIndex);
 
-    // Obține indexul noii coloane
     const job = event.container.data[event.currentIndex];
     const newColumnIndex = this.board.columns.findIndex(column => column.jobs === event.container.data);
     if (newColumnIndex !== -1) {
@@ -266,14 +262,12 @@ this.showJobDetails = false;
 openJobDetails(job: Job, column: Column) {
     const dialogRef = this.dialog.open(JobDetailsComponent, {
       width: '1000px',
-      data: { job: job, column: column } // Trimite jobul și coloana către dialog
+      data: { job: job, column: column } 
     });
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Actualizează jobul existent cu noile valori
         Object.assign(job, result);
-        // Notifică serviciul de joburi să actualizeze listele dacă este necesar
         this.jobService.updateJobLists();
       }
     });
@@ -283,7 +277,8 @@ openJobDetails(job: Job, column: Column) {
 
   navigateTo(tab: string) {
     this.currentTab = tab;
-    // Poți adăuga aici logica pentru a naviga la alte componente sau rute
+    this.router.navigate(['/dashboard']);
+
   }
 
   

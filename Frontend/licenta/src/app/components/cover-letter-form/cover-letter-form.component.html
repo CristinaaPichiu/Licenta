@@ -222,12 +222,74 @@
             </mat-sidenav-content>
         </mat-sidenav-container>
     </div>
-
-    
+    <div class="cv-preview-container">
+        <div class="icon-buttons">
+          <button mat-icon-button (click)="downloadCoverLetter()">
+              <mat-icon>download</mat-icon>
+          </button>
+          <button mat-icon-button (click)="previewCoverLetter()">
+              <mat-icon>pageview</mat-icon>
+          </button>
+           <button mat-icon-button (click)="openEmailModal()">
+              <mat-icon>email</mat-icon>
+          </button>
+  
+      </div>
     
     <div class="cover-letter-preview-container" id="letter" [ngSwitch]="selectedTemplateLetter">
         <app-cover-letter-template *ngSwitchCase="1"></app-cover-letter-template>
         <app-cover-letter-second-template *ngSwitchCase="2"></app-cover-letter-second-template>
         <app-cover-letter-third-template *ngSwitchCase="3"></app-cover-letter-third-template>
      </div>
+     </div>
+
+     <div *ngIf="isPreviewMode" class="preview-overlay">
+        <button class="close-preview-button" (click)="closePreview()">Close Preview</button>
+        <div class="preview-template">
+   <div id="cv-template" [ngSwitch]="selectedTemplate">
+  
+    <app-cover-letter-template *ngSwitchCase="1"></app-cover-letter-template>
+    <app-cover-letter-second-template *ngSwitchCase="2"></app-cover-letter-second-template>
+    <app-cover-letter-third-template *ngSwitchCase="3"></app-cover-letter-third-template>
+      
+    </div>   
+    </div>
+    </div>
+
+    <div *ngIf="isEmailModalOpen" class="email-modal" >
+        <div class="email-modal-content">
+          <button class="close-email-modal-button" (click)="closeEmailModal()">Close</button>
+          <div class="email-modal-body">
+            <div class="email-image" #pdfContent>
+              <div  [ngSwitch]="selectedTemplate">
+    
+                <app-cover-letter-template *ngSwitchCase="1"></app-cover-letter-template>
+    <app-cover-letter-second-template *ngSwitchCase="2"></app-cover-letter-second-template>
+    <app-cover-letter-third-template *ngSwitchCase="3"></app-cover-letter-third-template>
+              
+              </div>  
+                     </div>
+            <div class="email-form">
+              <h2>Please enter the address where you want to send your resume</h2>
+              <form [formGroup]="emailForm" (ngSubmit)="sendEmail()">
+                <div class="input-group">
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label>To</mat-label>
+                  <input matInput type="to" placeholder="To" formControlName="to">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="input-field">
+                <mat-label>Subject</mat-label>
+                <input matInput type="subject" placeholder="Subject" formControlName="subject">
+            </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" class="body-field">
+              <mat-label>Body</mat-label>
+              <input matInput type="body" placeholder="Body" formControlName="body">
+          </mat-form-field>
+                <button type="submit" class = "send-button">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>

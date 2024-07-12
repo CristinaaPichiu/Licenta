@@ -1,10 +1,6 @@
 package com.cristina.security.email;
 
-// Java Program to Illustrate Creation Of
-// Service implementation class
 
-
-// Importing required classes
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 
@@ -18,10 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-// Annotation
 @Service
-// Class
-// Implementing EmailService interface
 public class EmailServiceImpl implements EmailService {
 
     @Autowired
@@ -50,15 +43,15 @@ public class EmailServiceImpl implements EmailService {
                 helper.addAttachment(file.getFilename(), file);
             }
 
-            // Trimiterea e-mailului
             javaMailSender.send(mimeMessage);
             return "Mail sent Successfully";
         } catch (jakarta.mail.MessagingException e) {
-            // Logarea și returnarea mesajului de eroare
             e.printStackTrace();
             return "Error while sending mail: " + e.getMessage();
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 }

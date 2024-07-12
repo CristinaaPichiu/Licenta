@@ -1,15 +1,15 @@
 .cv-container {
-  width: 200px;  /* Lățime fixă pentru container */
-  height: 300px; /* Înălțime fixă pentru container */
-  overflow: hidden; /* Ascunde orice conținut ce depășește dimensiunile containerului */
-  font-family: Arial, sans-serif; /* Font lizibil și compact */
+  width: 200px; 
+  height: 300px; 
+  overflow: hidden; 
+  font-family: Arial, sans-serif; 
   background: white;
   color: #333;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centrează conținutul orizontal */
-  justify-content: space-between; /* Distribuie spațiul între elemente vertical */
-  padding: 2px; /* Minimizează padding-ul pentru a folosi spațiul eficient */
+  align-items: center;
+  justify-content: space-between; 
+  padding: 2px; 
   box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 
@@ -22,8 +22,8 @@ header, .contact-info, .link-item {
 header h1 {
   font-size: 3px;
   font-weight: bold;
-  margin: 0; /* Elimină spațiul implicit de sus/jos */
-  padding: 0; /* Fără padding implicit */
+  margin: 0; 
+  padding: 0; 
 }
 header h2{
   margin-top: -27px;
@@ -32,35 +32,35 @@ header h2{
 }
 .summary {
   margin-top: -10px;
-  position: relative; /* Ensures the positioning context is set for the child elements */
-  width: 100%; /* Ensures the summary block spans the full container width */
-  display: block; /* Block display to manage spacing effectively */
-  text-align: center; /* Centers the text within the summary */
-  margin: 2px 0; /* Optional: Adjust this to manage vertical spacing outside the summary block */
+  position: relative; 
+  width: 100%;
+  display: block; 
+  text-align: center; 
+  margin: 2px 0;
 }
 
 .summary p {
   margin-top: 5px;
   margin-bottom: 15px;
-  font-size: 3px; /* Sets the summary text size */
-  line-height: 1; /* Ensures text lines are close together */
+  font-size: 3px; 
+  line-height: 1;
 }
 
 .line {
   margin-top: -10px;
-  border: none; /* Removes any border */
-  height: 1px; /* Sets the height of the line to be very thin */
-  background-color: #333; /* Dark color for the line */
-  width: 100%; /* Ensures the line extends across the width of the container */
+  border: none; 
+  height: 1px; 
+  background-color: #333; 
+  width: 100%; 
 }
 
 .contact-info {
   margin-top: 5px;;
   font-size: 3px;
   display: flex;
-  justify-content: space-evenly; /* Distribuie elementele pe orizontală */
-  width: 100%; /* Ocupă toată lățimea containerului */
-  flex-wrap: wrap; /* Permite elementelor să treacă pe rândul următor dacă nu încape */
+  justify-content: space-evenly; 
+  width: 100%; 
+  flex-wrap: wrap; 
   align-items: center;
 }
 
@@ -68,14 +68,14 @@ header h2{
   font-size: 3px;
 
   display: flex;
-  flex-direction: column; /* Alinează vertical iconița și textul */
-  align-items: center; /* Centrează elementele */
-  margin: 2px; /* Spațiu între grupuri */
+  flex-direction: column; 
+  align-items: center; 
+  margin: 2px; 
 }
 
 .mat-icon {
   font-size: 3px;
-  margin-bottom: 1px; /* Spațiu între icon și text */
+  margin-bottom: 1px; 
 }
 
 .link-item {
@@ -86,7 +86,6 @@ header h2{
   padding: 0;
 }
 
-/* Reduce spațiile implicite pentru elementele de listă */
 ul, li {
   padding: 0;
   margin: 0;
@@ -94,66 +93,66 @@ ul, li {
 }
 
 * {
-  margin: 0;  /* Eliminate margins for all elements */
-  padding: 0; /* Eliminate padding for all elements */
-  box-sizing: border-box; /* Content box sizing to avoid unexpected layouts */
+  margin: 0;  
+  padding: 0; 
+  box-sizing: border-box; 
 }
 
 .left-column, .right-column {
-  width: 50%; /* Assigns 50% width to each column */
-  display: inline-block; /* Inline-block for side-by-side alignment */
-  vertical-align: top; /* Aligns content to the top */
-  overflow: hidden; /* Ensures no overflow */
+  width: 50%; 
+  display: inline-block; 
+  vertical-align: top; 
+  overflow: hidden; 
 }
 .right-column {
-  padding-left: 2px; /* Adds padding to the left of the right column */
-  padding-right: 0; /* Ensures the right column does not have extra padding on the right */
+  padding-left: 2px; 
+  padding-right: 0; 
 }
 
 
 .work-experience {
-  width: 100%; /* Full width of the column to ensure it uses the entire left column */
-  font-size: 3px; /* Sets font size to 3px for all text within the section */
-  line-height: 1; /* Ensures there are no spaces between lines */
+  width: 100%; 
+  font-size: 3px;
+  line-height: 1; 
 }
 
 .work-experience h3, .work-experience h4, .work-experience p {
-  margin: 0; /* Removes margin */
-  padding: 0; /* Removes padding */
+  margin: 0; 
+  padding: 0; 
 }
 
 .work-experience h3 {
-  font-size: 5px; /* Smaller font size for "Work Experience" heading */
+  font-size: 5px; 
   font-weight: bold;
   margin: 0;
   padding: 0;
 }
 
-.work-experience h4 { /* Employer text */
-  font-size: 4px; /* Smaller font size for employer */
-  font-weight: normal; /* Normal weight for general text */
+.work-experience h4 { 
+  font-size: 4px; 
+  font-weight: normal; 
   margin: 0;
 }
 .work-experience .job-title h4, .work-experience h3 {
-  font-weight: bold; /* Bold for job titles and section heading */
+  font-weight: bold; 
 }
 
 .timeline-item {
-  margin: 0; /* No margin between items */
+  margin: 0;
 }
 
 .timeline-content {
   font-size: 3px;;
-  display: flex; /* Flexbox for inline positioning of elements */
-  flex-direction: column; /* Stacks job details vertically */
+  display: flex; 
+  flex-direction: column; 
 }
 
 .job-title {
   font-size: 3px;;
   display: flex;
-  flex-direction: row; /* Aligns job title and date on the same line */
-  justify-content: space-between; /* Spreads content across the line */
-  align-items: baseline; /* Aligns items along their baseline for neat text alignment */
+  flex-direction: row; 
+  justify-content: space-between; 
+  align-items: baseline;
 }
 
 .employer{
@@ -163,16 +162,16 @@ ul, li {
 }
 .job-title span.job-period {
   font-size: 3px;;
-  margin-left: 5px; /* Small margin for spacing between title and date */
+  margin-left: 5px; 
 }
 
 .job-title, .job-title h4 {
   font-size: 3px;;
-  flex: 1; /* Allows the job title to fill the space */
+  flex: 1; 
 }
 
 .projects h3 {
-  font-size: 5px; /* Smaller font size for "Projects" heading */
+  font-size: 5px; 
   font-weight: bold;
   margin: 0;
   padding: 0;
@@ -180,34 +179,34 @@ ul, li {
 
 .projects .project-header {
   display: flex;
-  align-items: center; /* Aligns items vertically */
+  align-items: center; 
   margin: 0;
   padding: 0;
 }
 
 .projects .project-header h4 {
-  font-size: 4px; /* Smaller font size for project titles */
+  font-size: 4px; 
   font-weight: bold;
   margin: 0;
   padding: 0;
-  flex-grow: 1; /* Allows the title to expand and take necessary space */
+  flex-grow: 1; 
 }
 
 .projects .project-header span {
-  font-size: 3px; /* Smaller font size for project dates */
-  margin-left: 5px; /* Space between project title and date */
-  margin: 0; /* Remove margin to reduce space */
-  white-space: nowrap; /* Keeps the date on the same line */
+  font-size: 3px;
+  margin-left: 5px; 
+  margin: 0; 
+  white-space: nowrap;
 }
 
 .projects p {
-  font-size: 3px; /* Uniform font size for project descriptions */
+  font-size: 3px; 
   margin: 0;
   padding: 0;
 }
 
 .projects .project-technologies {
-  font-size: 3px; /* Font size for technologies used */
+  font-size: 3px; 
   margin: 0;
   padding: 0;
 }
@@ -215,7 +214,7 @@ ul, li {
 .timeline-content {
   display: flex;
   flex-direction: column;
-  line-height: 1; /* Close line spacing */
+  line-height: 1; 
   margin: 0;
   padding: 0;
 }
@@ -224,36 +223,36 @@ ul, li {
 }
 
 .skills h3 {
-  font-size: 5px; /* Slightly larger for heading but still small */
-  margin-bottom: 10px; /* Space below the header */
-  font-weight: bold; /* Makes the header bold */
+  font-size: 5px; 
+  margin-bottom: 10px; 
+  font-weight: bold; 
 }
 
 .skills-container {
   display: flex;
-  flex-wrap: wrap; /* Allows skill elements to wrap onto the next line */
+  flex-wrap: wrap; 
 }
 
 .skill {
   font-size: 3px;
   box-sizing: border-box;
-  padding: 1px; /* Reduced padding for small font size */
-  position: relative; /* Needed for positioning the pseudo-element */
+  padding: 1px; 
+  position: relative; 
 }
 
 .skill.even {
-  padding-left: 2%; /* Reduced left padding to maintain proportion */
+  padding-left: 2%; 
 }
 
 .skill span:first-child::before {
-  content: '•'; /* Unicode character for bullet point */
+  content: '•'; 
   display: inline-block;
-  width: 7px; /* Reduced width for small layout */
-  margin-right: 1px; /* Reduced margin for small font size */
-  color: black; /* Color of the bullet */
-  font-size: 5px; /* Larger than text to make bullet noticeable */
-  line-height: 1; /* Adjust line height to better align with small text */
-  vertical-align: middle; /* Helps align bullet with text vertically */
+  width: 7px; 
+  margin-right: 1px; 
+  color: black; 
+  font-size: 5px; 
+  line-height: 1;
+  vertical-align: middle; 
 }
 
 
@@ -261,33 +260,33 @@ ul, li {
 .volunteering h3 {
   font-size: 5px;
   font-weight: bold;
-  margin-bottom: 5px;  // Adjust spacing below the section title if needed
+  margin-bottom: 5px; 
 }
 
 .volunteering .volunteer-header {
   margin-top: -20px;
  margin-bottom: -20px;;
   display: flex;
-  align-items: center;  // Align items vertically in the center
+  align-items: center;  
 }
 
 .volunteering .volunteer-header h4, .volunteering .date-and-city {
 
   font-size: 4px;
-  display: inline-block;  // Ensures items are in line
-  padding-right: 5px;  // Space after the role before the date
-  white-space: nowrap;  // Prevents wrapping to a new line
+  display: inline-block;  
+  padding-right: 5px;  
+  white-space: nowrap;  
 }
 
 .volunteering .date-and-city {
   margin-top: -15px;
-  font-size: 3px;  // Ensure the date is the same size as the role for uniformity
-  margin-left: 5px;  // Space between the role and the date
+  font-size: 3px;  
+  margin-left: 5px;  
 }
 
 .timeline-item {
   
-  display: flex;  // Ensures all content in a timeline item is aligned
+  display: flex; 
   flex-direction: column;
 }
 
@@ -307,9 +306,8 @@ ul, li {
 
 
 
-//* Education Section Styling */
 .education h3 {
-  font-size: 5px; /* Smaller font size for "Education" heading */
+  font-size: 5px; 
   font-weight: bold;
   margin: 0;
   padding: 0;
@@ -317,61 +315,59 @@ ul, li {
 
 .education-entry {
   display: flex;
-  flex-direction: column; /* Ensures all elements are stacked vertically */
+  flex-direction: column; 
   margin: 0;
   padding: 0;
 }
 
 .education-entry .degree, .education-entry .school, .education-entry .dates {
-  font-size: 3px; /* Uniform font size for all text in the entry */
-  line-height: 1; /* Ensures no additional space between lines */
+  font-size: 3px; 
+  line-height: 1; 
   margin: 0;
   padding: 0;
-  font-style: normal; /* Ensures consistent styling across elements */
+  font-style: normal; 
 }
 
 .education-entry .dates {
-  font-style: italic; /* Stylistic choice for dates */
+  font-style: italic; 
 }
 
-/* Custom Sections Styling */
 .custom-sections h3 {
-  font-size: 5px; /* Smaller font size for "Custom Sections" heading */
+  font-size: 5px; 
   font-weight: bold;
   margin: 0;
   padding: 0;
 }
 
 .custom-sections .custom-header {
-  font-size: 4px; /* Font size for custom section titles */
-  font-weight: bold; /* Bold for headers */
+  font-size: 4px;
+  font-weight: bold; 
   margin: 0;
   padding: 0;
 }
 
 .timeline-content p {
-  font-size: 3px; /* Uniform font size for descriptions */
-  line-height: 1; /* Close line spacing */
+  font-size: 3px; 
+  line-height: 1; 
   margin: 0;
   padding: 0;
 }
 
 .timeline-item {
-  margin: 0; /* No space between entries */
+  margin: 0; 
   padding: 0;
 }
 
-/* Custom Sections Styling */
 .custom-sections h3 {
-  font-size: 5px; /* Smaller font size for "Custom Sections" heading */
+  font-size: 5px; 
   font-weight: bold;
   margin: 0;
   padding: 0;
 }
 
 .custom-sections .custom-header h4 {
-  font-size: 4px; /* Font size for custom section titles */
-  font-weight: bold; /* Bold for titles, emphasizing the section headers */
+  font-size: 4px; 
+  font-weight: bold; 
   margin: 0;
   padding: 0;
 }
@@ -379,19 +375,19 @@ ul, li {
 .custom-sections .timeline-content {
   display: flex;
   flex-direction: column;
-  line-height: 1; /* Close line spacing */
+  line-height: 1; 
   margin: 0;
   padding: 0;
 }
 
 .custom-sections .timeline-content p {
-  font-size: 3px; /* Uniform font size for descriptions */
-  line-height: 1; /* Ensures compact text layout */
+  font-size: 3px; 
+  line-height: 1; 
   padding: 0;
 }
 
 .timeline-item {
-  margin: 0; /* No space between entries */
+  margin: 0; 
   padding: 0;
 }
 

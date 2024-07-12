@@ -20,6 +20,7 @@ public class JoobleController {
     public JsonNode searchJobs(@RequestBody Map<String, String> request) {
         String keywords = request.get("keywords");
         String location = request.get("location");
+        System.out.print(keywords + " " + location);
         return joobleService.searchJobs(keywords, location);
     }
 }

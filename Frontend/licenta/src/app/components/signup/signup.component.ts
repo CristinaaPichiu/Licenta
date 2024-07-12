@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service'; // Asigură-te că ai calea corectă aici
+import { AuthService } from 'src/app/services/auth.service'; 
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ export class SignupComponent implements OnInit {
 
   hidePassword = true;
   hideConfirmPassword = true;
-  passwordPattern = '^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$'; // Asigură-te că acest pattern este cel dorit
+  passwordPattern = '^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$'; 
   registerForm!: FormGroup;
   errorMessage: string = '';
 
@@ -32,9 +32,10 @@ export class SignupComponent implements OnInit {
     }, {validator: this.checkPasswords});
   }
 
-  checkPasswords(group: FormGroup) { // folosit pentru a valida dacă parolele introduse se potrivesc
-    const password = group.get('password')!.value;
-    const confirmPassword = group.get('confirmPassword')!.value;
+  checkPasswords(group: FormGroup): any {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    console.log("Password Check: ", password, confirmPassword); 
     return password === confirmPassword ? null : { notSame: true };
   }
 
@@ -52,17 +53,15 @@ export class SignupComponent implements OnInit {
       this.authService.register(firstname, lastname, email, password).subscribe({
         next: (response) => {
           console.log('User registered successfully', response);
-          this.router.navigate(['/welcome']); // Aici vei naviga către pagina de login după înregistrare
+          this.router.navigate(['/welcome']); 
         },
         error: (error) => {
           console.error('Registration error', error);
           this.errorMessage = 'Registration failed. Please try again later.';
-          // Poți să customizezi acest mesaj de eroare în funcție de eroarea primită de la backend
         }
       });
     } else {
       this.errorMessage = 'Please check your registration details and try again.';
-      // Afișează acest mesaj de eroare în template-ul tău pentru feedback utilizator
     }
   }
 }

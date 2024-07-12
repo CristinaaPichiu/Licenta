@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SaveCoverLetterService {
 
-  private baseUrl = 'http://localhost:8080/api/v1/letter'; // URL-ul pentru backend
+  private baseUrl = 'http://localhost:8080/api/v1/letter'; 
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,6 @@ export class SaveCoverLetterService {
 }
 
 
-   // Obținerea unei cover letter după ID
    getCoverLetterById(coverLetterId: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -30,7 +29,6 @@ export class SaveCoverLetterService {
     return this.http.get(`${this.baseUrl}/${coverLetterId}`, { headers });
   }
 
-  // Obținerea celei mai recente cover letter a utilizatorului curent
   getCurrentUserCoverLetter(token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -53,7 +51,6 @@ export class SaveCoverLetterService {
       'Content-Type': 'application/json'
     });
 
-    // Aici folosim endpoint-ul pentru a obține toate scrisorile
     return this.http.get(`${this.baseUrl}/coverletters`, { headers });
   }
 }

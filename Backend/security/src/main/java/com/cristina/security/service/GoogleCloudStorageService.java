@@ -57,7 +57,6 @@ public class GoogleCloudStorageService {
         return blob.getContent();
     }
 
-    // Metodă pentru ștergerea unui fișier
     public void deleteFile(String bucketName, String objectName) {
         try {
             Storage storage = getStorage();

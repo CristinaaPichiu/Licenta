@@ -22,7 +22,6 @@ public class ToDoItemController {
         return ResponseEntity.ok(savedToDoItem);
     }
 
-    // Endpoint pentru a prelua toate ToDoItems asociate unui anumit job
     @GetMapping("/byJob/{jobId}")
     public ResponseEntity<List<ToDoItem>> getToDoItemsByJobId(@PathVariable Integer jobId) {
         List<ToDoItem> items = toDoItemService.findToDoItemsByJobId(jobId);
@@ -36,9 +35,9 @@ public class ToDoItemController {
     public ResponseEntity<Void> deleteToDoItem(@PathVariable Integer id) {
         try {
             toDoItemService.deleteToDoItem(id);
-            return ResponseEntity.ok().build(); // Răspuns cu success, fără conținut
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.notFound().build(); // Nu s-a găsit elementul pentru ștergere
+            return ResponseEntity.notFound().build();
         }
     }
 }

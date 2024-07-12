@@ -24,15 +24,12 @@ public class ToDoItemService {
         ToDoItem toDoItem = null;
 
         if (toDoItemDTO.getId() != null) {
-            // Cazul de update
             toDoItem = toDoItemRepository.findById(toDoItemDTO.getId())
                     .orElseThrow(() -> new RuntimeException("Activity not found with id: " + toDoItemDTO.getId()));
         } else {
-            // Cazul de create
             toDoItem = new ToDoItem();
         }
 
-        // Setează câmpurile indiferent dacă este create sau update
         toDoItem.setName(toDoItemDTO.getName());
         toDoItem.setLocation(toDoItemDTO.getLocation());
         toDoItem.setStartDate(toDoItemDTO.getStartDate());
@@ -53,7 +50,6 @@ public class ToDoItemService {
         return toDoItemRepository.findByJobId(jobId);
     }
 
-    // Metoda pentru ștergerea unui ToDoItem
     @Transactional
     public void deleteToDoItem(Integer id) {
         if (!toDoItemRepository.existsById(id)) {

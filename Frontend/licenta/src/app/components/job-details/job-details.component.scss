@@ -1,61 +1,61 @@
 .job-detail-container {
     display: flex;
-    flex-direction: row; /* Sidebar-ul pe stânga, conținutul pe dreapta */
+    flex-direction: row; 
     background: #fff;
     border-radius: 6px;
-    width: 100%; /* Utilizează întreaga lățime posibilă */
-    max-width: 1000px; /* Mărește lățimea maximă pentru a acomoda mai mult conținut */
+    width: 100%;
+    max-width: 1000px; 
     height: auto;
     margin: 20px auto;
-    overflow: hidden; /* Ascunde overflow-ul inestetic */
+    overflow: hidden; 
 }
 
 .sidebar {
-    width: 200px; /* Lățime fixă pentru sidebar */
+    width: 200px; 
     align-self: center;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-right: 1px solid #ccc; /* Linie subtilă de separație */
+    border-right: 1px solid #ccc;
 }
 
 .sidebar button {
-    margin-bottom: 15px; /* Spațiu între butoane pentru o separare clară */
+    margin-bottom: 15px; 
     width: 100%;
 }
 
 .content {
-    flex-grow: 1; /* Ocupă restul spațiului disponibil */
+    flex-grow: 1;
     padding: 20px;
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Ocupă întreaga lățime disponibilă a containerului de conținut */
+    width: 100%; 
 }
 
 .row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px; /* Spațiere între rânduri pentru claritate */
+    margin-bottom: 20px; 
 }
 
 .mat-form-field {
     flex: 1;
-    margin-right: 10px; /* Spațiere între câmpuri */
+    margin-right: 10px; 
 }
 
 .half-width {
-    width: calc(50% - 10px); /* Ajustează pentru a considera margin-right */
+    width: calc(50% - 10px);
 }
 
 .third-width {
-    width: calc(33.333% - 10px); /* Ajustează pentru trei coloane */
+    width: calc(33.333% - 10px); 
 }
 
 .full-width {
-    width: 100%; /* Câmpuri pe toată lățimea disponibilă */
+    width: 100%;
 }
 
 .actions {
@@ -65,17 +65,17 @@
 }
 
 button {
-    min-width: 120px; /* Lățime minimă pentru butoane */
+    min-width: 120px; 
 }
 .color-preview {
     position: absolute;
-    right: 20px; /* Distanta de marginea dreaptă a input-ului */
-    top: 50%; /* Centrarea pe verticală */
-    transform: translateY(-50%); /* Ajustează centrarea perfectă */
+    right: 20px; 
+    top: 50%; 
+    transform: translateY(-50%); 
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 1px solid #ccc; /* O bordură subtilă, opțional */
+    border: 1px solid #ccc; 
   }
   
   .color-swatch {
@@ -83,11 +83,11 @@ button {
     height: 30px;
     margin: 5px;
     cursor: pointer;
-    border: 1px solid #fff; /* Border alb pentru a distinge culorile apropiate */
+    border: 1px solid #fff; 
   }
   
   .color-swatch.selected {
-    border: 2px solid black; /* Adaugă un border mai gros pentru culoarea selectată */
+    border: 2px solid black; 
   }
   
 
@@ -97,7 +97,7 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%; /* Asigură-te că secțiunea ocupă întreaga înălțime a containerului */
+    height: 100%; 
     text-align: center;
   }
   
@@ -109,12 +109,11 @@ button {
   
   h1 {
     margin-top: 20px;
-    font-size: 1.8em; /* Ajustează dimensiunea fontului pentru a se potrivi design-ului */
-    color: #507d95; /* Setează culoarea textului */
-    font-weight: bold; /* Îngroașă textul */
+    font-size: 1.8em; 
+    color: #507d95;
+    font-weight: bold;
   }
 
-/* timeline.component.css */
 .add-button-container {
     display: flex;
     justify-content: center;
@@ -144,26 +143,26 @@ button {
   }
   
   .trash-icon {
-    visibility: hidden; /* Începe ascuns și devine vizibil la hover */
+    visibility: hidden; 
     cursor: pointer;
   }
   
   .activity-item:hover .trash-icon {
-    visibility: visible; /* Arată iconul când mouse-ul este peste item */
+    visibility: visible;
   }
   
   .activity-checkbox {
-    margin-right: 15px; /* Spațiu între checkbox și text */
+    margin-right: 15px; 
     color: #507d95;
   }
   
   .trash-icon {
-    visibility: hidden; /* Inițial ascuns */
+    visibility: hidden;
     cursor: pointer;
   }
   
   .activity-item:hover .trash-icon {
-    visibility: visible; /* Devine vizibil la hover */
+    visibility: visible; 
   }
   
   
@@ -190,12 +189,12 @@ button {
   
   .drop-zone:hover,
   .drop-zone.dragover {
-    border-color: #778beb;
+    border-color: #507d95;
   }
   
   .drop-zone label {
     font-size: 16px;
-    color: #778beb;
+    color: #507d95;
   }
   
   .browse {
@@ -212,7 +211,7 @@ button {
   button {
     padding: 10px 20px;
     color: #fff;
-    background-color: #778beb;
+    background-color: #507d95;
     border: none;
     border-radius: 5px;
     margin-top: 10px;
@@ -226,14 +225,68 @@ button {
   .back-button {
     display: inline-block;
     margin-top: 10px;
-    color: #778beb;
+    color: #507d95;
     text-decoration: none;
   }
   
   .back-button:hover {
     text-decoration: underline;
   }
+  .download-button {
+    margin-right: 10px; 
+  }
   
   
+  .remove-button {
+    margin-left: 10px; 
+  }
   
+  
+  @media (max-width: 768px) {
+    .job-detail-container {
+        flex-direction: column; 
+        max-width: 600px; 
+    }
+
+    .sidebar {
+        width: 100%; 
+        border-right: none; 
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 15px;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .mat-form-field {
+        margin-right: 0;
+    }
+
+    .half-width, .third-width {
+        width: 100%; 
+    }
+}
+
+@media (max-width: 480px) {
+    .job-detail-container {
+        max-width: 100%;
+    }
+
+    .sidebar button {
+        font-size: 14px;  
+    }
+
+    .actions button {
+        width: 100%;  
+    }
+}
+
+.upload-container, .activities-container {
+    width: 100%;  
+}
+
+.add-button-container, .upload-section, .activities-container {
+    justify-content: center; 
+}
   

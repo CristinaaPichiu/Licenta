@@ -6,6 +6,9 @@ import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.servi
 import * as html2pdf from 'html2pdf.js';
 import { SelectTemplateCvService } from 'src/app/services/select-template-cv.service';
 import { Router } from '@angular/router';
+import { PdfEmailService } from 'src/app/services/pdf-email-service.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 enum FormMode {
   DASHBOARD = 'dashboard',
   CREATE = 'create'
@@ -17,7 +20,7 @@ enum FormMode {
   styleUrls: ['./cover-letter-form.component.scss']
 })
 export class CoverLetterFormComponent implements OnInit, AfterViewInit {
-  selectedSection: string | null = 'contact'; // Secțiunea implicită
+  selectedSection: string | null = 'contact';
 
   @ViewChild('canvas') canvasElement!: ElementRef<HTMLCanvasElement>;
   signaturePad!: SignaturePad;
@@ -42,7 +45,10 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
               private coverLetterDataService: CoverLetterDataService,
               private saveCoverLetterService: SaveCoverLetterService,
               private templateService: SelectTemplateCvService,
-              private router: Router
+              private router: Router,
+              private pdfEmailService: PdfEmailService,
+              private snackBar: MatSnackBar
+
             ) {}
 
   ngOnInit() {
@@ -167,17 +173,17 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
   onSaveCoverLetter(): void {
     const coverLetterData = {
       ...this.buildCoverLetterObject(),
-      templateId: this.selectedTemplate  // Asigură-te că această linie există și este corectă
+      templateId: this.selectedTemplate  
     };
   
-    console.log('Cover Letter Data:', coverLetterData);  // Loghează pentru a verifica structura datelor
+    console.log('Cover Letter Data:', coverLetterData);  
   
     const token = localStorage.getItem('auth_token');
     if (token) {
       this.saveCoverLetterService.saveCoverLetter(token, coverLetterData).subscribe({
         next: (response: any) => {
           console.log('Cover letter saved successfully', response);
-          alert('Cover letter saved successfully!');
+          this.snackBar.open('Cover letter saved successfully!', 'Close', { duration: 3000 });
           if (response && response.id) {
             localStorage.setItem('currentCoverLetterId', response.id);
           }
@@ -200,8 +206,8 @@ export class CoverLetterFormComponent implements OnInit, AfterViewInit {
       this.formMode = FormMode.DASHBOARD;
       this.loadCoverLetterData();
     } else {
-      this.formMode = FormMode.CREATE; // Asumăm că default este CREATE
-      this.initializeFormsForCreate(); // Asigură-te că formularele sunt inițializate gol
+      this.formMode = FormMode.CREATE; 
+      this.initializeFormsForCreate(); 
     }
   }
 
@@ -222,7 +228,6 @@ private initializeFormsForCreate() {
 }
 
 loadCoverLetterData() {
-  // Attempt to retrieve the cover letter ID from navigation extras or from localStorage
   const coverLetterId = this.router.getCurrentNavigation()?.extras.state?.['currentLetterId']
                         || localStorage.getItem('currentLetterId');
   const token = localStorage.getItem('auth_token');
@@ -231,7 +236,7 @@ loadCoverLetterData() {
     this.saveCoverLetterService.getCoverLetterById(coverLetterId, token).subscribe({
       next: (coverLetter: any) => {
         console.log('Loaded cover letter data for ID:', coverLetterId, coverLetter);
-        this.populateForms(coverLetter); // Populate the forms with the retrieved data
+        this.populateForms(coverLetter); 
       },
       error: (error) => {
         console.error(`Failed to load cover letter with ID ${coverLetterId}`, error);
@@ -330,6 +335,8 @@ loadCoverLetterData() {
   onSignature() {
     const signatureData = this.signaturePad.toDataURL();
     this.coverLetterDataService.updateSignature(signatureData);
+    // Asigură-te că starea este actualizată pentru a include semnătura în PDF
+    this.coverLetterData.signature = signatureData;
   }
 
   downloadCoverLetter() {
@@ -347,7 +354,7 @@ loadCoverLetterData() {
   }
 
 
-  previewCV() {
+  previewCoverLetter() {
     this.isPreviewMode = true;
     document.body.classList.add('preview-active');
   }
@@ -362,21 +369,71 @@ loadCoverLetterData() {
 
 openEmailModal() {
   this.isEmailModalOpen = true;
-  document.body.classList.add('no-scroll'); // Adaugă clasa pentru a dezactiva derularea
+  document.body.classList.add('no-scroll'); 
 }
 
 closeEmailModal() {
   this.isEmailModalOpen = false;
-  document.body.classList.remove('no-scroll'); // Elimină clasa pentru a reactiva derularea
+  document.body.classList.remove('no-scroll'); 
 }
 
 sendEmail() {
   if (this.emailForm.valid) {
     const emailData = this.emailForm.value;
-    // trimite emailul folosind un serviciu
+    const token = localStorage.getItem('auth_token'); 
+
+    if (!token) {
+      alert('No authentication token found. Please log in.');
+      return; 
+    }
+
+    this.generatePdf().then(pdfBlob => {
+      const formData = new FormData();
+      formData.append('file', pdfBlob, 'resume.pdf');
+      formData.append('recipient', emailData.to);
+      formData.append('subject', emailData.subject);
+      formData.append('body', emailData.body);
+
+      this.pdfEmailService.sendPdfEmail(formData, token).subscribe(
+        response => console.log('Email sent successfully', response),
+        error => console.error('Failed to send email', error)
+      );
+    }).catch(error => {
+      console.error('Error generating PDF', error);
+      alert('Failed to generate PDF. Please try again.');
+    });
+
     this.closeEmailModal();
   } else {
     alert('Please fill all required fields.');
   }
+}
+
+async generatePdf(): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const element = document.getElementById('letter');
+    if (!element) {
+      reject('PDF content element not available.');
+      return;
+    }
+
+    const options = {
+      margin: 1,
+      filename: 'CoverLetter.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf(element, options)
+      .output('blob')  // Aceasta generează blob-ul, fără a descărca PDF-ul
+      .then((blob: Blob) => {
+        resolve(blob);
+      })
+      .catch((err: any) => {
+        console.error('Error generating PDF:', err);
+        reject(err);
+      });
+  });
 }
 }

@@ -42,7 +42,6 @@ public class JobDTO {
         this.columnName = columnName;
     }
 
-    // Getteri și Setteri
     public Integer getId() {
         return id;
     }

@@ -4,12 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Job } from '../models/job.model';
 import { tap } from 'rxjs/operators';
 
+
 export type JobListKeys = 'toApply' | 'applied' | 'interview' | 'underReview' | 'rejected' | 'offer';
 
 export interface JobColumn {
-    jobs: Job[]; // Array to hold jobs of type Job
-    message: string; // Message to show for actions
-    showMessage: boolean; // Flag to control message display
+    jobs: Job[]; 
+    message: string; 
+    showMessage: boolean; 
 }
 
 
@@ -36,16 +37,15 @@ export class JobService {
         const column = this.jobLists[listName];
         if (column) {
           column.jobs.push(job);
-          this.jobListSource.next(this.jobLists); // Actualizează starea globală
+          this.jobListSource.next(this.jobLists); 
         }
       }
     
       clearJobs(): void {
-        // Golirea listelor pentru a evita duplicarea datelor
         Object.keys(this.jobLists).forEach(key => {
           this.jobLists[key as JobListKeys].jobs = [];
         });
-        this.jobListSource.next(this.jobLists); // Anunță toate componentele despre resetarea listelor
+        this.jobListSource.next(this.jobLists); 
       }
     
     
@@ -59,8 +59,7 @@ export class JobService {
         let fromJobs = this.jobLists[from].jobs;
         let toJobs = this.jobLists[to].jobs;
 
-        fromJobs = fromJobs.filter(j => j.id !== job.id); // Updated to compare job IDs
-        toJobs.push(job);
+        fromJobs = fromJobs.filter(j => j.id !== job.id); 
 
         this.jobLists[from].jobs = fromJobs;
         this.jobLists[to].jobs = toJobs;
@@ -69,7 +68,6 @@ export class JobService {
     }
 
     updateJobLists(): void {
-        // Emit the current state of jobLists to update subscribers
         this.jobListSource.next(this.jobLists);
     }
 
@@ -83,7 +81,7 @@ export class JobService {
 
 
 
-    private baseUrl = 'http://localhost:8080/api/v1/jobs'; // URL-ul API-ului tău
+    private baseUrl = 'http://localhost:8080/api/v1/jobs'; 
 
     saveOrUpdateJob(token: string, jobData: Job): Observable<Job> {
         const headers = new HttpHeaders({
@@ -94,7 +92,6 @@ export class JobService {
         return this.http.post<Job>(this.baseUrl, jobData, { headers });
       }
     
-      // Obținerea joburilor după ID-ul utilizatorului
       getJobsByUser(token: string, userId: number): Observable<Job[]> {
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`,
@@ -103,7 +100,6 @@ export class JobService {
         return this.http.get<Job[]>(`${this.baseUrl}/user/${userId}`, { headers });
       }
 
-      // Șterge job pe baza ID-ului și actualizează starea locală
 deleteJob(token: string, jobId: number): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -111,16 +107,21 @@ deleteJob(token: string, jobId: number): Observable<any> {
   
     return this.http.delete(`${this.baseUrl}/${jobId}`, { headers }).pipe(
       tap(() => {
-        // Aici, eliminăm job-ul din lista locală după confirmarea ștergerii
         Object.keys(this.jobLists).forEach(key => {
           this.jobLists[key as JobListKeys].jobs = this.jobLists[key as JobListKeys].jobs.filter(job => Number(job.id) !== jobId);
         });
-        // Anunțăm componentele despre schimbare
         this.jobListSource.next(this.jobLists);
       })
     );
   }
   
+  getJobStatistics(token: string, userId: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.get(`${this.baseUrl}/statistics/${userId}`, { headers });
+}
 
   
      

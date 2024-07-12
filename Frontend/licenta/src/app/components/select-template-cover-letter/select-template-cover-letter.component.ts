@@ -20,12 +20,11 @@ export class SelectTemplateCoverLetterComponent {
   
   constructor(private router: Router, private templateService: SelectTemplateCvService) {}
 
-  selectedTemplateLetter: string = 'default';  // Un template default sau null
+  selectedTemplateLetter: string = 'default';  
   images = [
     { url: '/assets/template14.png', description: 'Image 1', templateId: 3 },
     { url: '/assets/template15.png', description: 'Image 2', templateId: 1 },
     { url: '/assets/template13.png', description: 'Image 3', templateId: 2 },
-    // Continue with additional templates as needed
   ];
   
   
@@ -45,11 +44,10 @@ export class SelectTemplateCoverLetterComponent {
 
   selectAndNavigate(templateId: number) {
     this.templateService.changeTemplate(templateId); 
-    localStorage.setItem('selectedTemplateLetter', templateId.toString()); // Salvează selecția în localStorage
+    localStorage.setItem('selectedTemplateLetter', templateId.toString()); 
     localStorage.setItem('letterCreationMode', 'create');
 
-    // actualizează template-ul folosind serviciul
-    this.router.navigate(['/cover-letter-form']); // navighează programatic
+    this.router.navigate(['/cover-letter-form']); 
   }
   
   

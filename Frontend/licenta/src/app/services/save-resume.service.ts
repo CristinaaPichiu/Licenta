@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ResumeService {
-  private baseUrl = 'http://localhost:8080/api/v1/resume'; // URL-ul pentru backend
+  private baseUrl = 'http://localhost:8080/api/v1/resume'; 
 
   constructor(private http: HttpClient) { }
 
-  // Salvarea datelor resume
   saveResume(token: string, resumeData: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -36,7 +35,6 @@ export class ResumeService {
     return this.http.get(`${this.baseUrl}/current`, { headers });
   }
 
-   // Actualizarea datelor resume
    updateResume(resumeId: string, token: string, resumeData: any): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -69,7 +67,6 @@ export class ResumeService {
       'Authorization': `Bearer ${token}`
     });
   
-    // Castează 'text' ca 'json' pentru a evita erorile de tip
     return this.http.get<string>(`${this.baseUrl}/${resumeId}/picture_url`, {
       headers: headers,
       responseType: 'text' as 'json'
@@ -82,10 +79,9 @@ export class ResumeService {
       'Authorization': `Bearer ${token}`
     });
   
-    // Specificează că răspunsul așteptat este un text
     return this.http.delete(`${this.baseUrl}/${resumeId}`, {
       headers: headers,
-      responseType: 'text' // Adaugă această linie pentru a trata răspunsul ca text
+      responseType: 'text' 
     });
   }
   

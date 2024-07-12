@@ -4,7 +4,6 @@ public class PasswordChangeDTO {
     private String oldPassword;
     private String newPassword;
 
-    // Manual getters and setters
     public String getOldPassword() {
         return oldPassword;
     }

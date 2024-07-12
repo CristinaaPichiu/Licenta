@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ResumeDataService } from 'src/app/services/resume-data.service';
 import { ResumeService } from 'src/app/services/save-resume.service';
@@ -14,6 +14,9 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResumeTransferService } from 'src/app/services/resume-transfer.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { PdfEmailService } from 'src/app/services/pdf-email-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 declare var Sapling: any;
 
 
@@ -30,6 +33,8 @@ enum FormMode {
   styleUrls: ['./create-resume.component.scss']
 })
 export class CreateResumeComponent implements OnInit {
+  @ViewChild('pdfContent') pdfContent!: ElementRef<HTMLDivElement>;
+
 
   steps = ['Contact', 'Experience', 'Education', 'Skills', 'About', 'Finish it', 'Save'];
   skillLevels = ['Novice', 'Beginner', 'Skillful', 'Experienced', 'Expert'];
@@ -47,13 +52,13 @@ export class CreateResumeComponent implements OnInit {
   customSectionForm!: FormGroup;
   activeEducationPanel: number | null = null;
   selectedSection: string | null = null;
-  resumeData: any = {}; // Acesta va stoca toate datele CV-ului
+  resumeData: any = {}; 
   isPreviewMode = false;
   isEmailModalOpen = false;
   emailForm!: FormGroup;
   chatResponse!: string;
   isHovering: boolean = false;
-  selectedTemplate!: number; // Declară proprietatea aici
+  selectedTemplate!: number; 
   formMode: FormMode = FormMode.CREATE;
 
 
@@ -76,14 +81,15 @@ export class CreateResumeComponent implements OnInit {
     private resumeTransferService: ResumeTransferService,
     private cdr: ChangeDetectorRef,
     private zone: NgZone,
-    private uploadService: UploadFileService
+    private uploadService: UploadFileService,
+    private pdfEmailService: PdfEmailService,
+    private snackBar: MatSnackBar
 
 
   ) {}
 
 
   onSuggestionClick(text: string): void {
-    // Access the summary control and set its value to the provided text
     const summaryControl = this.aboutForm.get('summary');
     if (summaryControl) {
       summaryControl.setValue(text);
@@ -106,45 +112,41 @@ export class CreateResumeComponent implements OnInit {
     const summaryData = this.getSummaryData();
     console.log('Summary Data:', summaryData);
   
-    // Deschidem dialogul de încărcare
     const loadingDialogRef = this.dialog.open(LoadingDialogComponent, {
       panelClass: 'custom-dialog-overlay-pane',
       position: { top: '10vh', right: '18vw' },
       width: '400px',
       height: '400px',
-      disableClose: true  // opțional, dezactivează închiderea dialogului de încărcare
+      disableClose: true  
     });
   
-    // Trimiterea datelor la server și așteptarea răspunsului
     this.summaryService.sendSummaryData(summaryData).subscribe(
       response => {
         console.log('Summary data sent successfully', response);
-        this.displayChatResponse(response); // Afișează răspunsul în interfața utilizatorului
-        loadingDialogRef.close(); // Închide dialogul de încărcare după primirea răspunsului
+        this.displayChatResponse(response); 
+        loadingDialogRef.close(); 
       },
       error => {
         console.error('Failed to send summary data', error);
-        loadingDialogRef.close(); // Închide dialogul de încărcare chiar și în caz de eroare
+        loadingDialogRef.close(); 
       }
     );
   }
   
   
-  displayChatResponse(chatResponse: any): void {
-    this.chatResponse = chatResponse.content; // asigură-te că accesezi .content dacă răspunsul este un obiect
+displayChatResponse(chatResponse: any): void {
+    this.chatResponse = chatResponse.content; 
   }
 
-  // Adaugă această metodă în clasa componentei tale Angular
 
 closeAiResponse(chatResponse: any): void {
-  this.chatResponse = ''; // Resetează răspunsul AI pentru a ascunde containerul
+  this.chatResponse = ''; 
 }
 
   
   
   
   
-  // Metoda pentru deschiderea dialogului de loading
   private openLoadingDialog(): void {
     const dialogRef = this.dialog.open(LoadingDialogComponent, {
       panelClass: 'custom-dialog-overlay-pane', 
@@ -179,7 +181,7 @@ closeAiResponse(chatResponse: any): void {
   this.experienceForm.valueChanges.subscribe(values => {
     this.resumeDataService.updateResumeForm({
       ...this.resumeDataService.getCurrentResumeSnapshot(),
-      experiences: values.experiences // Aici folosește 'experiences', nu 'experience'
+      experiences: values.experiences 
     });
   });
   
@@ -231,7 +233,7 @@ closeAiResponse(chatResponse: any): void {
     if (mode === 'create') {
 
       this.formMode = FormMode.CREATE;
-      this.initializeFormsForCreate(); // Asigură-te că formularele sunt goale
+      this.initializeFormsForCreate(); 
     }
     if( mode == 'dashboard')
       {
@@ -347,7 +349,7 @@ closeAiResponse(chatResponse: any): void {
   }
 
   get currentStep() {
-    return this.steps[this.currentStepIndex]; // Returnează etapa curentă pe baza indexului
+    return this.steps[this.currentStepIndex]; 
   }
 
   setCurrentStep(step: string) {
@@ -404,16 +406,14 @@ addExperience(): void {
     endDate: ['', Validators.required],
     city: ['', Validators.required],
     description: ['', Validators.required],
-    isHidden: [false] // Noul panou va fi vizibil
+    isHidden: [false] 
   }));
   
-  // Setăm panoul recent adăugat ca activ
   this.setActivePanel(this.experiences.length - 1);
 }
 
 removeExperience(index: number): void {
   this.experiences.removeAt(index);
-  // Dacă panoul activ este șters, resetăm activePanel la null
   if (this.activeExperiencePanel === index) {
     this.setActivePanel(null);
   }
@@ -429,28 +429,23 @@ addEducation(): void {
     degree: ['', Validators.required],
     startDate: ['', Validators.required],
     endDate: ['', Validators.required],
-    isHidden: [false] // Folosit pentru a controla vizibilitatea panoului
+    isHidden: [false] 
   });
   this.educations.push(educationGroup);
-  // Opțional: Setează noul panou ca fiind cel activ
   this.setActiveEducationPanel(this.educations.length - 1);
 }
 
 removeEducation(index: number): void {
   this.educations.removeAt(index);
-  // Dacă panoul activ este șters, resetează activeEducationPanel la null
   if (this.activeEducationPanel === index) {
     this.activeEducationPanel = null;
   }
 }
 
-// Ajustează metoda setActiveEducationPanel pentru a verifica că indexul nu este null
-// înainte de a încerca să accesezi form group-ul din form array.
+
 setActiveEducationPanel(index: number | null): void {
-  // Close any previously open expansion panels
   if (this.activeEducationPanel !== null && this.activeEducationPanel !== index) {
     const currentActive = this.educations.at(this.activeEducationPanel);
-    // Ensure that currentActive is not null
     if (currentActive) {
       const isHiddenControl = currentActive.get('isHidden');
       if (isHiddenControl) {
@@ -459,10 +454,8 @@ setActiveEducationPanel(index: number | null): void {
     }
   }
 
-  // Open the new expansion panel
   if (index !== null) {
     const activePanel = this.educations.at(index);
-    // Ensure that activePanel is not null
     if (activePanel) {
       const isHiddenControl = activePanel.get('isHidden');
       if (isHiddenControl) {
@@ -588,31 +581,29 @@ loadSelectedTemplate() {
 
 loadResumeDataUpload(): void {
   const resumeId = localStorage.getItem('resumeIdUpload');
-  const token = localStorage.getItem('auth_token'); // Presupunem că token-ul este stocat în localStorage
+  const token = localStorage.getItem('auth_token'); 
 
   if (resumeId && token) {
     this.uploadService.getProcessedResumeData(resumeId, token).subscribe({
       next: (resumeData) => {
         this.zone.run(() => {
-          this.populateForms(resumeData); // Asumând că există o metodă pentru a popula formularul cu date
+          this.populateForms(resumeData);
           this.cdr.detectChanges();
         });
       },
       error: (error) => {
         console.error('Failed to load resume data', error);
-        // Tratează erorile adecvat, de exemplu prin redirecționare sau afișarea unui mesaj
       }
     });
   } else {
     console.warn('No resume ID or token found in localStorage');
-    // O posibilă redirecționare înapoi sau afișarea unui mesaj de eroare
   }
 }
 
 
 loadResumeData() {
   const resumeId = this.router.getCurrentNavigation()?.extras.state?.['resumeId'] 
-                  || localStorage.getItem('currentResumeId'); // Recuperare din state sau localStorage
+                  || localStorage.getItem('currentResumeId');
   const token = localStorage.getItem('auth_token');
 
   if (resumeId && token) {
@@ -714,20 +705,18 @@ populateForms(resume: any) {
 
 onSaveResume(): void {
   const resumeData = {
-    ...this.buildResumeObject(), // Construiește restul datelor pentru CV
-    templateId: this.selectedTemplate // Include ID-ul template-ului
+    ...this.buildResumeObject(), 
+    templateId: this.selectedTemplate 
   };
     console.log('Resume Data:', resumeData);
   const token = localStorage.getItem('auth_token');
-  console.log(token); // Retrieve the JWT token from localStorage
+  console.log(token); 
 
   if (token) {
     this.resumeService.saveResume(token, resumeData).subscribe({
       next: (response: any) => {
         console.log('Resume saved successfully', response);
-        alert('Resume saved successfully!');
-        // Presupunem că backend-ul tău returnează obiectul salvat cu un ID.
-        // Acest ID este salvat în localStorage pentru referințe viitoare.
+        this.snackBar.open('CV saved successfully!', 'Close', { duration: 3000 });
         if (response && response.id) {
           localStorage.setItem('currentResumeId', response.id);
           console.log('Current resume ID saved:', response.id);
@@ -745,9 +734,9 @@ onSaveResume(): void {
 }
 
 onUpdateResume(): void {
-  const resumeData = this.buildResumeObject(); // Construiește obiectul de date al CV-ului din formulare
-  const resumeId = this.getCurrentResumeId(); // Preluarea ID-ului CV-ului din localStorage
-  const token = localStorage.getItem('auth_token'); // Preluarea tokenului JWT din localStorage
+  const resumeData = this.buildResumeObject(); 
+  const resumeId = this.getCurrentResumeId(); 
+  const token = localStorage.getItem('auth_token'); 
 
   if (resumeId && token) {
     this.resumeService.updateResume(resumeId, token, resumeData).subscribe({
@@ -774,14 +763,10 @@ onUpdateResume(): void {
 
 
 
-
-
-// Other methods and logic for handling form data
-
 updateContactData() {
   if (this.resumeForm.valid) {
     this.resumeData.contact = this.resumeForm.value;
-    this.goToNextStep(); // Metodă pentru a naviga la următorul pas
+    this.goToNextStep(); 
   } else {
     alert('Please fill all required fields.');
   }
@@ -855,12 +840,10 @@ updateCustomSectionsData() {
 
 
 
-// Salvarea ID-ului CV-ului în localStorage
 saveCurrentResumeId(resumeId: string): void {
   localStorage.setItem('currentResumeId', resumeId);
 }
 
-// Recuperarea ID-ului CV-ului din localStorage
 getCurrentResumeId(): string | null {
   return localStorage.getItem('currentResumeId');
 }
@@ -895,23 +878,15 @@ downloadCV() {
 
 openEmailModal() {
   this.isEmailModalOpen = true;
-  document.body.classList.add('no-scroll'); // Adaugă clasa pentru a dezactiva derularea
+  document.body.classList.add('no-scroll'); 
 }
 
 closeEmailModal() {
   this.isEmailModalOpen = false;
-  document.body.classList.remove('no-scroll'); // Elimină clasa pentru a reactiva derularea
+  document.body.classList.remove('no-scroll'); 
 }
 
-sendEmail() {
-  if (this.emailForm.valid) {
-    const emailData = this.emailForm.value;
-    // trimite emailul folosind un serviciu
-    this.closeEmailModal();
-  } else {
-    alert('Please fill all required fields.');
-  }
-}
+
 
 getSummaryData() {
   const status = this.resumeForm.get('status')?.value || '';
@@ -952,6 +927,66 @@ initSapling() {
   } else {
     console.error('Summary element not found');
   }
+}
+
+sendEmail() {
+  if (this.emailForm.valid) {
+    const emailData = this.emailForm.value;
+    const token = localStorage.getItem('auth_token'); 
+
+    if (!token) {
+      alert('No authentication token found. Please log in.');
+      return; 
+    }
+
+    this.generatePdf().then(pdfBlob => {
+      const formData = new FormData();
+      formData.append('file', pdfBlob, 'resume.pdf');
+      formData.append('recipient', emailData.to);
+      formData.append('subject', emailData.subject);
+      formData.append('body', emailData.body);
+
+      this.pdfEmailService.sendPdfEmail(formData, token).subscribe(
+        response => console.log('Email sent successfully', response),
+        error => console.error('Failed to send email', error)
+      );
+    }).catch(error => {
+      console.error('Error generating PDF', error);
+      alert('Failed to generate PDF. Please try again.');
+    });
+
+    this.closeEmailModal();
+  } else {
+    alert('Please fill all required fields.');
+  }
+}
+
+async generatePdf(): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const element = document.getElementById('cv-template');
+    if (!element) {
+      reject('PDF content element not available.');
+      return;
+    }
+
+    const options = {
+      margin: 1,
+      filename: 'CV.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf(element, options)
+      .output('blob')  // Aceasta generează blob-ul, fără a descărca PDF-ul
+      .then((blob: Blob) => {
+        resolve(blob);
+      })
+      .catch((err: any) => {
+        console.error('Error generating PDF:', err);
+        reject(err);
+      });
+  });
 }
 
 

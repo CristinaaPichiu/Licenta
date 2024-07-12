@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class TodoitemService {
 
-  private baseUrl = 'http://localhost:8080/api/v1/todoItems'; // URL-ul pentru API-ul de ToDoItems
+  private baseUrl = 'http://localhost:8080/api/v1/todoItems'; 
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,6 @@ export class TodoitemService {
   }
 
 
-  // În serviciul tău, de exemplu TodoItemService
 getActivitiesByJobId(jobId: number, token: string): Observable<any[]> {
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`,

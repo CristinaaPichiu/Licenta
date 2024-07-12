@@ -1,8 +1,8 @@
 .main-layout {
     margin-top:20px;
     display: flex;
-    align-items: flex-start; // Aliniaza totul la inceputul paginii
-    justify-content: center; // Centrează containerul principal pe pagina
+    align-items: flex-start; 
+    justify-content: center; 
     padding-top: 20px;
   
     app-sidebar {
@@ -12,7 +12,7 @@
   
     .right-container {
       flex-grow: 1;
-      width: 50%; // Ajusteaza acest procentaj pentru a da mai mult spatiu preview-ului
+      width: 50%; 
  
       margin-left: -250px;
       padding-left: 250px;
@@ -89,11 +89,11 @@
 
   
   .star-icon {
-    font-size: 25px; /* Ajustează dimensiunea steluței */
+    font-size: 25px; 
     position: absolute;
     top: 20px;
     right: 0;
-    margin-right: 30px; /* Ajustează spațiul față de margine */
+    margin-right: 30px; 
   }
   
  
@@ -147,7 +147,7 @@
 }
 
 .summary-field textarea {
-  min-height: 150px;  /* Ajustează această valoare după preferințe */
+  min-height: 150px; 
 }
 .summary-container {
   position: relative;
@@ -215,15 +215,15 @@
 
 .ai-button {
   position: absolute;
-  top: 70%; /* Centrarea verticală în raport cu containerul */
-  right: 50px; /* Plasează butonul la marginea dreaptă a field-ului */
-  transform: translateY(-50%); /* Ajustează vertical butonul pentru a fi centrat */
-  z-index: 10; /* Asigură-te că butonul este deasupra textului */
+  top: 70%; 
+  right: 50px; 
+  transform: translateY(-50%); 
+  z-index: 10; 
 }
 .custom-dialog-overlay-pane {
   position: fixed;
-  top: 10vh !important; /* Schimbă aceste valori pentru ajustarea poziției verticale */
-  right: 10vw !important; /* Schimbă aceste valori pentru ajustarea poziției orizontale */
+  top: 10vh !important; 
+  right: 10vw !important; 
 }
 
 
@@ -243,19 +243,18 @@
 }
 
 .experience-accordion {
-  margin-bottom: 100px; // Acesta adaugă spațiu sub ultimul panou de expansiune
+  margin-bottom: 100px; 
 }
 .actions-container {
   display: flex;
-  justify-content: flex-start; // Asta va începe poziționarea elementelor din container de la stânga
-  margin-top: 20px; // Spațiu deasupra containerului de butoane
-
+  justify-content: flex-start; 
+  margin-top: 20px; 
   button {
-    margin-right: 10px; // Adaugă un spațiu între butoane
+    margin-right: 10px; 
   }
 
   .next-button {
-    margin-left: auto; // Acesta va împinge butonul "Next to Education" spre dreapta
+    margin-left: auto; 
   }
 }
 
@@ -264,48 +263,45 @@
 .button-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinează butoanele la stânga */
-  gap: 10px; /* Spațiu între butoane */
+  align-items: flex-start; 
+  gap: 10px; 
 }
 
 
 
-/* Stiluri generale pentru sidebar */
 .sidenav-container {
   height: 100vh;
-  width: 100%; /* Ajustează după nevoie */
-  background-color: transparent; /* Elimină orice fundal implicit */
+  width: 100%; 
+  background-color: transparent; 
 }
 
 .mat-drawer-container,
 .mat-drawer-content,
 .mat-drawer {
-  background-color: transparent; /* Asigură-te că toate elementele sidenav sunt transparente */
+  background-color: transparent; 
 }
 
-/* Stiluri pentru sidenav specific */
 .sidenav {
-  width: 60px; /* Latimea sidebar-ului */
-  border-right: 1px solid #ececec; /* Adaugă o linie subtilă de separare, dacă este necesar */
+  width: 60px; 
+  border-right: 1px solid #ececec; 
 }
 
 .mat-nav-list a {
   display: flex;
-  justify-content: center; /* Centrează iconițele */
+  justify-content: center; 
   align-items: center;
   padding: 10px;
   border-radius: 5px;
 }
 
 .mat-nav-list a:hover {
-  background-color: #f0f0f0; /* Adaugă un mic feedback la hover, ajustează culoarea după preferințe */
+  background-color: #f0f0f0; 
 }
 
 .mat-icon {
-  color: #666; /* Schimbă culoarea iconițelor, dacă este necesar */
+  color: #666; 
 }
 
-/* Elimină padding-ul implicit din mat-sidenav-content pentru a permite conținutului să umple spațiul */
 .mat-drawer-content {
   padding: 0;
 }
@@ -331,52 +327,45 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  background: #f9f9f9; /* Light grey background */
+  background: #f9f9f9; 
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .finish-message {
-  max-width: 600px; /* Limits the width of the text for better readability */
+  max-width: 600px; 
 }
 
 .congratulations-text {
-  font-size: 18px; /* Larger font size for better readability */
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Modern, clean font */
+  font-size: 18px; 
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
   text-align: center;
-  color: #333; /* Dark grey color for the text */
-  line-height: 1.6; /* Increased line height for better readability */
+  color: #333; 
+  line-height: 1.6; 
 }
 
 
 
 .button-save {
   display: block;
-  margin: 20px auto; /* Marginul pe partea de sus și de jos este de 20px, iar marginul pe stânga și dreapta este automat calculat pentru a centra butonul */
+  margin: 20px auto; 
   padding: 12px 30px;
   font-size: 16px;
-  background-color: #507d95; /* Bootstrap primary blue */
+  background-color: #507d95; 
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  outline: none; /* Remove focus outline */
+  outline: none;
 }
-
 
 
 
 
 .button-save:hover {
-  background-color: #0056b3; /* A slightly darker blue on hover */
+  background-color: #0056b3; 
 }
-
-
-
-
-
-
 
 
 
@@ -393,7 +382,7 @@
     right: 20px; 
 }
 .spacer {
-    margin-right: 10px; /* Ajustează dimensiunea marginei după preferințele tale */
+    margin-right: 10px; 
 }
 
 
@@ -437,7 +426,7 @@
 }
 .icon-buttons {
   display: flex;
-  gap: 5px; /* Adds space between the icons */
+  gap: 5px; 
 
 }
 
@@ -461,25 +450,23 @@
 }
 
 .main-layout.preview-mode {
-  filter: blur(5px); // Apply blur when in preview mode
+  filter: blur(5px); 
 }
 
-/* Ascunde bara de derulare a paginii principale atunci când este activă previzualizarea */
-/* Ascunde bara de derulare a paginii principale atunci când este activă previzualizarea */
+
 body.preview-active {
   overflow: hidden;
 }
 
-/* CSS pentru overlay */
 .preview-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
-  z-index: 1000; /* Asigură-te că este deasupra */
-  overflow-y: auto; /* Permite derularea pe verticală */
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
+  overflow-y: auto; 
 }
 
 .preview-overlay .close-preview-button {
@@ -492,27 +479,27 @@ body.preview-active {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 1001; /* Asigură-te că este deasupra overlay-ului */
+  z-index: 1001; 
 }
 
 .preview-overlay app-template-cv {
-  max-width: 90%; /* Asigură-te că previzualizarea nu ocupă prea mult din lățime */
-  margin: 20px auto; /* Centrează previzualizarea și adaugă margini de sus și jos */
-  background-color: white; /* Fundal alb pentru CV */
+  max-width: 90%; 
+  margin: 20px auto; 
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: scale(0.9); /* Scalează previzualizarea */
-  transform-origin: top center; /* Ancorează scalarea la centrul de sus */
+  transform: scale(0.9); 
+  transform-origin: top center; 
 }
 
 @media (max-width: 768px) {
   .preview-overlay app-template-cv {
-    transform: scale(0.8); /* Scalează mai mult pentru ecrane mai mici */
+    transform: scale(0.8); 
   }
 }
 
 body.no-scroll {
-  overflow: hidden; /* Dezactivează derularea */
+  overflow: hidden;
 }
 
  .email-modal {
@@ -521,9 +508,9 @@ body.no-scroll {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
-  z-index: 1000; /* Asigură-te că este deasupra */
-  overflow-y: auto; /* Permite derularea pe verticală */
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
+  overflow-y: auto; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -539,76 +526,80 @@ body.no-scroll {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 1001; /* Asigură-te că este deasupra overlay-ului */
+  z-index: 1001; 
 }
 
 .email-modal-content {
-  width: 80%; /* Lățimea modală */
-  height: 90%; /* Înălțimea modală */
-  background-color: white; /* Fundal alb pentru CV */
+  width: 90%; 
+  height: 90%; 
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Permite derularea pe verticală în interiorul modal */
+  overflow-y: auto; 
   padding: 20px;
   position: relative;
 }
 
+.email-modal-content {
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center; /* Alinează conținutul la centru */
+}
+
 .email-modal-body {
   display: flex;
-  flex-direction: row; /* Aranjează orizontal imaginea și formularul */
   width: 100%;
-  justify-content: space-between; /* Spațiu între imagine și formular */
+  align-items: center; /* Alinează vertical */
 }
 
 .email-image {
-  flex: 1;
+  flex: 0.8;  /* Micșorează zona de imagine */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  overflow: hidden; /* Ascunde orice depășește containerul */
 }
 
-.email-image app-template-cv {
-  margin-top: -350px;
-  margin-left: -200px;
-  transform: scale(0.5); /* Ajustează dimensiunea imaginii */
-  height: auto;
-  border-radius: 10px; /* Opțional, adaugă colțuri rotunjite imaginii */
+.email-image > div {
+  width: 100%; /* Asigură că imaginea se încadrează în container */
+  height: auto; /* Menține proporțiile imaginii */
+  transform: scale(0.5); /* Micșorează imaginea */
+  transform-origin: center; /* Centrul de scalare a imaginii */
 }
 
 .email-form {
-  margin-top: -500px;
-  margin-left: -100px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex: 0.6; /* Oferă mai mult spațiu formularului */
   padding: 20px;
 }
 
-.input-group {
-    display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping into multiple lines */
-    align-items: center; /* Align items vertically */
-    justify-content: space-between; /* Space out the fields evenly */
-    gap: 20px; /* Provides a gap between fields */
+
+
+.send-button {
+  align-self: center; /* Butonul de trimitere la centru */
+  padding: 10px 20px;
+  background-color: #507d95;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.input-field {
-    flex: 1 1 20%; /* Allows flexing but gives a reasonable minimum width */
-    min-width: 160px; /* Minimum width to ensure usability */
-}
 
-/* Specific adjustments if necessary, particularly for date pickers which might have wider default styles */
 .mat-datepicker {
-    width: auto; /* Override any default width */
+    width: auto; 
 }
-
 
 
 .full-width-field {
   width: 100%;
-  margin-bottom: 20px; /* Spațiu sub câmpul de text */
+  margin-bottom: 20px; 
 }
 
 mat-form-field {
@@ -617,7 +608,7 @@ mat-form-field {
 }
 
 mat-form-field .mat-input-element {
-  background: white; /* Setează fundalul câmpurilor de input la alb */
+  background: white; 
 }
 
 
@@ -632,19 +623,18 @@ mat-form-field .mat-input-element {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 1001; // Ensure it's on top of the overlay
+  z-index: 1001; 
 }
 
 .cv-preview-container {
-  transition: transform 0.3s ease; // Smooth transition for scaling
+  transition: transform 0.3s ease; 
 }
 
 .main-layout.preview-mode .cv-preview-container {
-  transform: scale(1.2); // Enlarge the preview
-  z-index: 1002; // Ensure it stays on top of everything
+  transform: scale(1.2); 
+  z-index: 1002;
 }
 
-/* Ensure the rest of your CSS remains unchanged */
 
 
 
@@ -670,34 +660,71 @@ mat-form-field .mat-input-element {
 
 
 button[type="button"] {
-    background-color: #507d95; /* A nice shade of blue */
-    color: white; /* White text */
-    padding: 10px 20px; /* Some padding around the text */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-weight: bold; /* Make the text bold */
-    text-transform: uppercase; /* Uppercase text */
-    font-size: 0.875rem; /* Slightly smaller text size */
-    letter-spacing: 0.05rem; /* Spacing between letters */
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+    background-color: #507d95; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    text-transform: uppercase;
+    font-size: 0.875rem; 
+    letter-spacing: 0.05rem; 
+    transition: background-color 0.3s, transform 0.3s; 
   
     &:hover {
-      background-color: #2184b4; /* A darker shade of blue for hover effect */
-      transform: translateY(-2px); /* Slight lift when hovered */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect on hover */
+      background-color: #2184b4; 
+      transform: translateY(-2px); 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     }
   
     &:active {
-      background-color: #1a617f; /* Even darker for the active state */
-      transform: translateY(1px); /* Pressed down effect */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Less shadow when pressed */
+      background-color: #1a617f; 
+      transform: translateY(1px); 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   
     &:focus {
-      outline: none; /* Remove the default focus outline */
-      box-shadow: 0 0 0 3px rgba(42, 159, 214, 0.5); /* Custom focus style with a light blue outer glow */
+      outline: none; 
+      box-shadow: 0 0 0 3px rgba(42, 159, 214, 0.5); 
     }
   }
   
+  @media (max-width: 768px) {
+    .right-container,
+    .cv-preview-container {
+        flex-direction: column;
+    }
+
+    .form-container,
+    .cv-preview-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .right-container,
+    .cv-preview-container {
+        flex-direction: column;
+    }
+
+    .form-container,
+    .cv-preview-container {
+        width: 100%;
+    }
+
+    .progress-bar {
+        flex-direction: column;
+    }
+}
+@media (max-width: 1024px) {
+  .main-layout {
+      flex-direction: column;  /* Stack vertically on smaller screens */
+  }
+
+  .form-container, .cv-preview-container {
+      width: 100%;  /* Full width on smaller screens */
+  }
+}
+
   

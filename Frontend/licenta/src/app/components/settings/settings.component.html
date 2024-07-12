@@ -126,6 +126,9 @@
                 <input matInput formControlName="confirmNewPassword" type="password">
               </mat-form-field>
               <button mat-button type="submit" class="fixed-button">Update Password</button>
+              <div *ngIf="saveSuccess" class="alert-success" role="alert">
+                Your password has been successfully updated.
+              </div>
 
             </form>
           </div>

@@ -12,7 +12,7 @@ public class LanguageToolController {
 
     private final LanguageToolService languageToolService;
 
-    @Autowired  // Injectare prin constructor
+    @Autowired
     public LanguageToolController(LanguageToolService languageToolService) {
         this.languageToolService = languageToolService;
     }

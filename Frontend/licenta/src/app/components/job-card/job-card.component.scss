@@ -1,45 +1,44 @@
-/* Stilurile pentru dialogul de confirmare a ștergerii */
 .dialog-title {
-    color: #333; /* Schimbă culoarea titlului */
-    font-size: 24px; /* Mărimea fontului pentru titlu */
+    color: #333; 
+    font-size: 24px; 
   }
   
   .dialog-content {
-    padding: 20px; /* Spațiere internă pentru conținut */
-    font-size: 18px; /* Mărimea fontului pentru textul de întrebare */
+    padding: 20px; 
+    font-size: 18px;
   }
   
   .dialog-actions {
     display: flex;
-    justify-content: center; /* Alinează butoanele la dreapta */
-    padding: 10px 20px; /* Spațiere în jurul butoanelor */
+    justify-content: center;
+    padding: 10px 20px; 
   }
   
   .dialog-button {
     margin-bottom: 20px;
-    margin-left: 10px; /* Spațiere între butoane */
-    border-radius: 4px; /* Colturi rotunjite pentru butoane */
-    padding: 10px 20px; /* Spațiere internă pentru butoane */
-    min-width: 80px; /* Lățime minimă pentru butoane */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Umbră ușoară pentru butoane */
-    transition: background-color 0.3s; /* Animație pentru culoarea de fundal la hover */
+    margin-left: 10px; 
+    border-radius: 4px; 
+    padding: 10px 20px;
+    min-width: 80px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    transition: background-color 0.3s; 
   }
   
   .dialog-button-yes {
-    background-color: #dc3545; /* Culoare de fundal roșie pentru butonul Da */
-    color: white; /* Text alb pentru contrast */
+    background-color: #dc3545;
+    color: white; 
   }
   
   .dialog-button-yes:hover {
-    background-color: #c82333; /* Culoare mai închisă la hover pentru butonul Da */
+    background-color: #c82333; 
   }
   
   .dialog-button-no {
-    background-color: #28a745; /* Culoare de fundal verde pentru butonul Nu */
-    color: white; /* Text alb pentru contrast */
+    background-color: #28a745; 
+    color: white; 
   }
   
   .dialog-button-no:hover {
-    background-color: #218838; /* Culoare mai închisă la hover pentru butonul Nu */
+    background-color: #218838; 
   }
   

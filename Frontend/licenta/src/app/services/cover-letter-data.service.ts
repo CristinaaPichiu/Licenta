@@ -5,11 +5,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class CoverLetterDataService {
-  private coverLetter = new BehaviorSubject<any>({}); // Inițializează cu un obiect gol
+  private coverLetter = new BehaviorSubject<any>({}); 
   private signature = new BehaviorSubject<string>('');
 
 
-  currentCoverLetter = this.coverLetter.asObservable(); // Observable pentru a urmări schimbările
+  currentCoverLetter = this.coverLetter.asObservable(); 
   currentSignature = this.signature.asObservable();
 
 

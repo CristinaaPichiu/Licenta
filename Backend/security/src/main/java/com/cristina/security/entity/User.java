@@ -29,14 +29,14 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String password;
-    private String profilePictureUrl; // Adăugat pentru a stoca URL-ul pozei de profil
+    private String profilePictureUrl;
 
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Resume> resumes; // Un utilizator poate avea mai multe CV-uri
+    private List<Resume> resumes;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CoverLetter> coverLetters;

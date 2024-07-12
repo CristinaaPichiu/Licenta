@@ -1,8 +1,8 @@
 .page-wrapper {
   display: flex;
   flex-direction: row;
-  width: 200px; /* Adjusted width */
-  height: 300px; /* Adjusted height */
+  width: 200px; 
+  height: 300px;
   margin: auto;
   background: white;
   border: 1px solid #ddd;
@@ -17,23 +17,23 @@
 }
 
 .leftPanel {
-  width: 30%; /* Full width */
+  width: 30%; 
   background-color: #484444;
   color: white;
-  padding: 5px; /* Adjusted padding */
+  padding: 5px; 
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Changed to left-align */
-  font-size: 5px; /* Reduced font size */
+  align-items: flex-start; 
+  font-size: 5px; 
 }
 
 .leftPanel img {
-  width: 50px; /* Smaller image */
-  height: 50px; /* Smaller image */
+  width: 50px; 
+  height: 50px; 
   border-radius: 50%;
   border: 2px solid white;
-  margin-bottom: 5px; /* Reduced margin */
-  align-self: center; /* Keeps the image centered */
+  margin-bottom: 5px; 
+  align-self: center; 
 }
 
 .details {
@@ -44,60 +44,60 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Left alignment for section titles */
+  align-items: flex-start; 
 }
 
 .smallText {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Left alignment for items */
+  align-items: flex-start;
 }
 
 .smallText p {
-  display: flex; /* Makes the icon and text inline */
-  align-items: center; /* Vertically centers the icon with the text */
-  margin: 0; /* Removes top and bottom margin */
-  justify-content: flex-start; /* Aligns content to the left */
+  display: flex; 
+  align-items: center; 
+  margin: 0; 
+  justify-content: flex-start; 
   margin-top: -15px;
 }
 
 .smallText .icon {
-  font-size: 5px; /* Matching icon size */
-  margin-right: -15px; /* Space between icon and text */
+  font-size: 5px; 
+  margin-right: -15px; 
 }
 
 .link-item {
   display: flex;
-  justify-content: flex-start; /* Left-aligns links */
-  width: 100%; /* Ensures alignment within the panel */
+  justify-content: flex-start; 
+  width: 100%; 
   margin-top: -15px;
 
 }
 
 .skill {
   display: flex;
-  justify-content: space-between; /* Even space between elements */
-  width: 100%; /* Full width for better alignment */
+  justify-content: space-between; 
+  width: 100%; 
   margin-top: -12px;
 
 }
 
 .education-entry {
   display: flex;
-  justify-content: space-between; /* Even space between elements */
+  justify-content: space-between;
   flex-direction: column;
-  align-items: flex-start; /* Left alignment */
+  align-items: flex-start; 
 }
 
 .education-entry p {
-  line-height: 0; /* Adjust value as needed (default is 1.2) */
+  line-height: 0; 
 }
 
 
 .section-title {
-  font-size: 8px; /* Slightly increased for visibility */
-  margin-bottom: 1px; /* Reduced margin */
+  font-size: 8px; 
+  margin-bottom: 1px;
   margin-top: -10px;
 }
 
@@ -123,22 +123,22 @@
 }
 
 .work-experience, .projects, .volunteering, .custom-sections-container {
-  margin-top: 3px; /* Slightly reduced spacing between sections */
+  margin-top: 3px;
 }
 
 .job-title h3 {
-  font-size: 5px; /* Reduced from earlier to harmonize with other texts */
+  font-size: 5px; 
 }
 
-h4 { /* Assuming h4 is used for the job employer's name */
-  font-size: 4px; /* Smaller font size for job employer */
+h4 { 
+  font-size: 4px;
 }
 
 
 
 
  .rightPanel h2, .rightPanel h3 {
-  margin-top: -30px;; // Asigură că nu există spațiu suplimentar în partea de sus a titlurilor
+  margin-top: -30px;; 
 }
 .rightPanel p{
   margin-top: -25px;;
@@ -152,7 +152,7 @@ h4 { /* Assuming h4 is used for the job employer's name */
   margin-top: -20px;;
 }
 .about, .work-experience p, .volunteering p, .custom-sections-container p {
-  line-height: 1; // Reduce spațiul dintre liniile de text
+  line-height: 1; 
   font-size: 3px;;
 }
 
@@ -160,7 +160,7 @@ h4 { /* Assuming h4 is used for the job employer's name */
 .header-container {
   display: flex;
   flex-direction: column;
-  align-items: start; // Alinează textele la stânga
+  align-items: start; 
 }
 
  .header-container h3 {
@@ -170,113 +170,106 @@ h4 { /* Assuming h4 is used for the job employer's name */
 .work_{
   margin-bottom: -40px;;
 }
-//* Container for job title and employer name */
-/* Container for job title and date */
+
 .job-title {
   display: flex;
-  justify-content: space-between; /* Așează conținutul pe axa orizontală la extremități */
-  width: 100%; /* Asigură-te că ocupă întreaga lățime disponibilă */
-  align-items: center; /* Aliniază elementele vertical */
+  justify-content: space-between; 
+  width: 100%; 
+  align-items: center; 
 }
 
-/* Job title and employer name */
 .job-title h3 {
   margin-bottom: 0;
   margin-top: 0;
-  padding-right: 5px; /* Alocă un spațiu între text și marginea containerului */
+  padding-right: 5px; 
 }
 
 
 
 
-/* Work experience paragraph adjustments */
 .work-experience p {
-  margin-top: -20px; /* Spațiu minim deasupra descrierii postului */
-  margin-bottom: 10px; /* Spațiu generos sub descrierea postului pentru a separa intrările */
-  line-height: 1.1; /* Menținem liniile de text apropiate */
+  margin-top: -20px; 
+  margin-bottom: 10px; 
+  line-height: 1.1; 
 }
 
-/* Additional styling to ensure separation and readability */
  .work-experience h4 {
-  margin-top: -40px; /* Elimină orice margini */
-  padding: 0; /* Elimină orice padding */
-  font-size: 3px; /* Setează mărimea fontului la 5px */
+  margin-top: -40px; 
+  padding: 0; 
+  font-size: 3px;
 }
 
 .job-title {
   display: flex;
-  flex-direction: column; /* Elementele sunt pe coloane pentru a fi unul sub altul */
-  align-items: flex-start; /* Aliniază la stânga */
+  flex-direction: column; 
+  align-items: flex-start; 
 }
 
 
 .job-title .job-period {
-  margin-left: auto; /* Împinge data spre dreapta */
-  font-size: 3px; /* Setează un font mai mic pentru data */
+  margin-left: auto; 
+  font-size: 3px; 
 }
 
 .projects_ {
   margin-top: 20px;
-  margin-bottom: 0; /* Ajustează spațiul sub secțiunea Projects */
+  margin-bottom: 0; 
 }
 
 .projects_ h2 {
-    font-size: 3px; /* Asigură vizibilitatea adecvată a titlului secțiunii */
-    margin-bottom: 10px; /* Spațiu redus sub titlul 'Projects' */
+    font-size: 3px; 
+    margin-bottom: 10px; 
 }
 
 .project-header {
-    margin-bottom: 5px; /* Spațiu redus sub headerul proiectului */
+    margin-bottom: 5px;
 }
 
 .project-header h3 {
-    margin-bottom: 0; /* Niciun spațiu sub titlul proiectului */
-    font-size: 3px; /* Mărimea fontului pentru titlul proiectului */
+    margin-bottom: 0; 
+    font-size: 3px; 
 }
 
 .project-date {
-    font-size: 3px; /* Dimensiunea fontului pentru date */
-    display: block; /* Asigură că datele sunt pe linia lor separată dacă este necesar */
+    font-size: 3px; 
+    display: block; 
 }
 
 .description_proj {
-    margin-top: -35px; /* Elimină orice spațiu deasupra descrierii */
-    font-size: 3px; /* Mărimea fontului adecvată pentru descriere */
+    margin-top: -35px; 
+    font-size: 3px; 
 }
 
 .project-technologies {
-    font-size: 3px; /* Mărimea fontului pentru tehnologiile folosite */
-    margin-top: -20px; /* Spațiu redus între descriere și tehnologii */
+    font-size: 3px;
+    margin-top: -20px; 
     margin-bottom: 50px;;
 }
 
-/* Resetare și stilizare globală pentru secțiunea Volunteering */
 .volunteering, .volunteering * {
-  font-size: 3px; /* Mărimea fontului foarte mică pentru toate textele */
+  font-size: 3px; 
   margin: 0;
   padding: 0;
-  line-height: 1; /* Reducem înălțimea liniilor pentru a elimina orice spațiu suplimentar */
+  line-height: 1; 
 }
 
-/* Stilizare pentru titlul secțiunii Volunteering */
 .volunteering h2 {
   margin-top: -20px;
-  margin-bottom: 2px; /* Spațiu minimal sub titlul secțiunii */
+  margin-bottom: 2px; 
 }
 .voluntariat{
   margin-top: -70px;
 }
 
-/* Stilizare pentru header-ul fiecărui element de voluntariat */
 .volunteer-header {
-  display: flex; /* Utilizăm flexbox pentru a aranja elementele pe o singură linie */
-  flex-direction: column; /* Elementele sunt aranjate vertical */
+  display: flex; 
+  flex-direction: column; 
 }
 
 .volunteer-header h3 {
   font-size: 3px;;
   margin-top: -40px;
-  margin-bottom: 1px; /* Spațiu redus sub titlul rolului */
+  margin-bottom: 1px;
 }
 .description-vol{
 font-size: 3px;;

@@ -62,7 +62,7 @@
   
   .create-button:hover,
   .upload-button:hover {
-    background-color: blue;
+    background-color: rgba(0, 86, 179, 0.4);;
     box-shadow: 0 8px 16px rgba(0, 86, 179, 0.4);
   }
   
@@ -75,21 +75,21 @@
   
   .image-panel .illustration {
     width: auto;
-    height: 650px; /* Increased height for better visibility */
-    max-height: 80vh; /* Ensures the image does not exceed the viewport height */
+    height: 650px;
+    max-height: 80vh;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
   
   h1 {
-    font-size: 48px; /* Set the font size */
-    font-weight: bold; /* Make the text bold */
-    color: #4a90e2; /* Set the text color */
-    text-align: center; /* Center the text */
-    margin-top: 20px; /* Add some margin on top */
-    margin-bottom: 20px; /* Add some margin on bottom */
-    font-family: 'Arial', sans-serif; /* Set the font family */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+    font-size: 48px; 
+    font-weight: bold; 
+    color: #4a90e2; 
+    text-align: center; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    font-family: 'Arial', sans-serif; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
   }
 
   .buttons-panel {
@@ -115,7 +115,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #FFF; /* Fundal alb */
+    background-color: #FFF;
     z-index: 9999;
     justify-content: center;
     align-items: center;
@@ -128,25 +128,46 @@
   }
   
   .loader {
-    border: 4px solid #f3f3f3; /* Culoarea exteriorului cercului într-o nuanță de gri deschis */
-    border-top: 4px solid #3498db; /* Albastru pentru partea de sus a cercului */
+    border: 4px solid #f3f3f3; 
+    border-top: 4px solid #3498db; 
     border-radius: 50%;
     width: 50px;
     height: 50px;
     animation: spin 2s linear infinite;
   }
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  @media (max-width: 768px) {
+    .main-container {
+      flex-direction: column;
+    }
+  
+    .content-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .text-panel,
+    .image-panel {
+      max-width: 100%;
+    }
+  
+    .text-panel {
+      text-align: center;
+      padding: 20px;
+    }
+  
+    .image-panel .illustration {
+      height: auto;
+      max-height: 50vh;
+    }
   }
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  // Clasa pentru a estompa conținutul când overlay-ul este activ
-  .content-blur {
-    filter: blur(5px);
+  @media (max-width: 480px) {
+    .text-panel h1 {
+      font-size: 1.5rem;
+    }
+    
+    .option-button {
+      width: 80%;
+    }
   }

@@ -1,17 +1,16 @@
-/* General Styles */
 
   .cv-container {
-    width: 200px;  /* Lățime fixă pentru container */
-    height: 300px; /* Înălțime fixă pentru container */
-    overflow: hidden; /* Ascunde orice conținut ce depășește dimensiunile containerului */
-    font-family: Arial, sans-serif; /* Font lizibil și compact */
+    width: 200px;  
+    height: 300px; 
+    overflow: hidden; 
+    font-family: Arial, sans-serif; 
     background: white;
     color: #333;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centrează conținutul orizontal */
-    justify-content: space-between; /* Distribuie spațiul între elemente vertical */
-    padding: 2px; /* Minimizează padding-ul pentru a folosi spațiul eficient */
+    align-items: center; 
+    justify-content: space-between;
+    padding: 2px; 
     box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 
@@ -20,49 +19,49 @@
 .about {
     background: #ffffff;
     border-radius: 15px;
-    padding: 0px;  // Minimized padding to utilize space effectively
-    font-size: 3px;  // Small font size for content inside the container
-    max-width: 200px;  // Width adjusted to fit the maximum container width
-    max-height: 50px;  // Max height set to limit the vertical space usage
-    margin: auto;  // Centers the container within its parent
-    color: #333;  // Standard text color for readability
-    border: 2px solid #507d95;  // Adds a border with a specific color
-    position: relative;  // Necessary for positioning child elements absolutely within
-    overflow: visible;  // Allows children to display outside the box if needed
-    margin-bottom: 2px;  // Small bottom margin to separate from following content
+    padding: 0px;  
+    font-size: 3px;  
+    max-width: 200px; 
+    max-height: 50px;  
+    margin: auto;  
+    color: #333;  
+    border: 2px solid #507d95; 
+    position: relative;  
+    overflow: visible;  
+    margin-bottom: 2px;  
 }
 
 .nameAndStatus {
-    font-size: 4px;  // Very small font size for the name and status
-    width: 50px;  // Ensure the container is narrow
-    height: auto;  // Let height adjust based on content
-    background-color: white;  // Maintain background color
-    border-radius: 10px 10px 0 0;  // Rounded corners at the top
-    padding: 1px;  // Minimal padding
-    position: absolute;  // Positioned within `.about`
-    top: 2px;  // Minimal offset from top
-    left: 50%;  // Centered horizontally
-    transform: translateX(-50%);  // Adjust for centering
-    color: black;  // Text color
-    z-index: 10;  // Ensures it is layered above other content
-    display: flex;  // Flexible box layout
-    flex-direction: column;  // Stacks children vertically
-    align-items: center;  // Centers children horizontally
-    justify-content: center;  // Centers children vertically
-    margin: 0;  // No external margins
-    line-height: 1;  // Tight line height for close stacking
+    font-size: 4px; 
+    width: 50px;  
+    height: auto; 
+    background-color: white;  
+    border-radius: 10px 10px 0 0;  
+    padding: 1px;  
+    position: absolute;  
+    top: 2px;  
+    left: 50%;  
+    transform: translateX(-50%);  
+    color: black;  
+    z-index: 10;  
+    display: flex; 
+    flex-direction: column;  
+    align-items: center;  
+    justify-content: center;  
+    margin: 0;  
+    line-height: 1;  
 }
 
 .nameAndStatus h1, .nameAndStatus h2 {
-    font-size: 4px;  // Uniform small font size
-    margin: 0;  // No margins to avoid extra space
-    padding: 0;  // No padding to avoid extra space
-    line-height: 1;  // Ensure text lines are close together
+    font-size: 4px; 
+    margin: 0;  
+    padding: 0;  
+    line-height: 1;  
 }
 
 
 .about h1, .about h2 {
-    margin: 0; /* Remove default margins */
+    margin: 0; 
 }
 
 .summary {
@@ -70,22 +69,22 @@
     font-size: 4px;
     line-height: 1.6;
     text-align: justify;
-    position: relative; /* To ensure it lays out correctly under the absolute positioned tab */
-    padding-top: 30px; /* Add padding to top to make space for the nameAndStatus block */
+    position: relative; 
+    padding-top: 30px; 
 }
 
 .contact-info {
     display: flex;
-    align-items: center; /* Ensures vertical centering */
-    justify-content: space-around; /* Evenly spaces the elements */
+    align-items: center; 
+    justify-content: space-around;
     padding: 2px;
     background-color: #507d95;
     color: white;
-    width: 100%; /* Adjust width as necessary */
-    height: 20px; /* Controlled height for better layout management */
-    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%); /* Custom shape */
+    width: 100%; 
+    height: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%); 
     margin-top: 2px;
-    margin-bottom: 2px; /* Adds a small space below the container */
+    margin-bottom: 2px; 
 }
 
 .contact-info > * {
@@ -97,7 +96,7 @@
 }
 
 .contact-info mat-icon {
-    margin-right: 2px; /* Small space after the icon */
+    margin-right: 2px; 
 }
 
 .contact-info a {
@@ -106,34 +105,34 @@
 }
 
 .contact-info a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline; 
 }
 
 
 .work-experience-header {
     margin-left: 90px;
-    font-size: 8px;  /* Reduced font size */
+    font-size: 8px;  
     display: flex;
     align-items: center;
     white-space: nowrap;
-    margin-bottom: 2px;  /* Minimal space to keep it compact */
+    margin-bottom: 2px;  
 }
 
 mat-icon {
-    font-size: 3px;  /* Small icon size to match text */
-    margin-right: 5px;  /* Reduced spacing to fit the small layout */
+    font-size: 3px;  
+    margin-right: 5px;  
 }
 
 h3, h4 {
-    font-size: 3px;  /* Uniform font size for headers */
+    font-size: 3px; 
     margin: 0;
     padding: 0;
-    white-space: nowrap;  /* Prevents breaking into new line */
+    white-space: nowrap;  
 }
 
 .horizontal-line {
     height: 0.1px;
-    background-color: #507d95;  /* Line color */
+    background-color: #507d95;  
     flex-grow: 0.6;
     margin-left: 5px;
     position: relative;
@@ -141,7 +140,7 @@ h3, h4 {
 
 .job-item {
     position: relative;
-    margin-bottom: 2px;  /* Reduce spacing to keep everything tight */
+    margin-bottom: 2px; 
 }
 
 .job-header {
@@ -166,14 +165,14 @@ h3, h4 {
 .job-title {
     font-size: 3px;
     font-weight: bold;
-    margin-right: 5px;  /* Space before the date */
+    margin-right: 5px;  
 }
 
 .job-period {
     font-size: 3px;
     font-style: italic;
     white-space: nowrap;
-    margin-left: auto;  /* Forces the date to align to the right side of the container */
+    margin-left: auto;  
 }
 
 
@@ -181,7 +180,7 @@ h3, h4 {
     font-size: 3px;
     margin: 0;
     padding: 0;
-    line-height: 1;  /* Compact line spacing */
+    line-height: 1;  
 }
 
 
@@ -216,22 +215,22 @@ mat-icon {
     width: 190px;
     margin-left: 120px;
     display: flex;
-    justify-content: start;  // Aligns items to start from the left side
-    align-items: center;  // Vertically centers items within the container
+    justify-content: start;  
+    align-items: center;  
     font-size: 3px;
-    margin-top: -20px;  // Adjust as needed to align within your layout
+    margin-top: -20px;  
 }
 
 .project-title, .project-date {
-    white-space: nowrap;  // Ensures the text does not wrap to the next line
-    margin-right: 5px;  // Provides a small gap between the title and the date
-    font-style: normal;  // Style as normal or italic for the date based on your preference
-    font-size: 3px;  // Ensures text size is small enough to fit your design
+    white-space: nowrap;  
+    margin-right: 5px;  
+    font-style: normal;  
+    font-size: 3px;  
 }
 
 .project-date {
-    font-style: italic;  // Makes the date italic to differentiate from the title
-    margin-left: 90px;;  // Pushes the date to the end of the flex container
+    font-style: italic;
+    margin-left: 90px;;  
 }
 
 
@@ -255,23 +254,23 @@ mat-icon {
 
 .skills-container {
     display: flex;
-    flex-wrap: nowrap;  /* Prevents skill elements from wrapping onto the next line */
-    overflow-x: auto;   /* Enables horizontal scrolling if there's not enough space */
+    flex-wrap: nowrap; 
+    overflow-x: auto;  
 }
 
 .skill {
-    width: auto;  /* Adjusts each skill to take up only the needed space */
-    padding: 5px 10px; /* Adjusts padding for spacing within each skill, feel free to adjust */
+    width: auto;  
+    padding: 5px 10px;
     box-sizing: border-box;
 }
 
 .skill span:first-child::before {
-    content: '•';  /* Unicode character for bullet point */
+    content: '•';  
     display: inline-block;
-    margin-right: 5px; /* Space between the bullet and the text */
-    color: black; /* Color of the bullet */
-    font-size: 20px; /* Adjust the font size to better fit on a single line */
-    line-height: 1; /* Adjust line height to align with text */
+    margin-right: 5px; 
+    color: black;
+    font-size: 20px; 
+    line-height: 1;
 }
 
 
@@ -287,23 +286,23 @@ mat-icon {
 
 .degree-and-school {
     display: flex;
-    justify-content: space-between;  // Aligns the content on opposite ends
+    justify-content: space-between;  
     align-items: center;
     width: 100%;
-    font-size: 3px;  // Ensures all text within this container uses 3px font size
+    font-size: 3px;  
 }
 
 .degree {
     font-weight: bold;
-    white-space: nowrap;  // Ensures the degree name and school do not break onto new lines
-    flex-grow: 1;  // Allows the degree name to take up available space pushing the date rightwards
-    margin-right: 5px;  // Provides a small buffer between the degree and the dates
+    white-space: nowrap;  
+    flex-grow: 1; 
+    margin-right: 5px;
 }
 
 .dates {
     font-style: italic;
-    white-space: nowrap;  // Ensures dates are kept on a single line
-    margin-left: auto;  // Automatically adjusts the left margin to push the dates right next to the degree
+    white-space: nowrap;  
+    margin-left: auto;  
 }
 
 
@@ -316,25 +315,25 @@ mat-icon {
     width: 190px;
     margin-left: 120px;
     display: flex;
-    justify-content: start;  // Align items from the left
-    align-items: center;  // Center items vertically
-    font-size: 3px;  // Small font size for all text within the header
+    justify-content: start;  
+    align-items: center; 
+    font-size: 3px;  
 }
 
 .volunteer-header h4 {
-    margin-right: 5px;  // Small space between the name and the date
-    white-space: nowrap;  // Ensures text stays on one line
-    font-weight: bold;  // Emphasize the role and organization name
+    margin-right: 5px;  
+    white-space: nowrap;  
+    font-weight: bold;  
 }
 .description {
     margin-left: 120px;
 }
 
 .date-and-city {
-    font-style: italic;  // Italicize the date for distinction
-    white-space: nowrap;  // Ensures date stays on one line
-    font-size: 3px;  // Keep date text small
-    margin-left: 70px;  // Pushes the date to the end of the flex container
+    font-style: italic;  
+    white-space: nowrap;  
+    font-size: 3px;  
+    margin-left: 70px;  
 }
 
 
@@ -349,7 +348,6 @@ mat-icon {
     }
   }
   
-  /* Printing Adjustments */
   @media print {
     .left-column, .right-column, .item {
       page-break-inside: avoid;

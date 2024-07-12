@@ -1,26 +1,24 @@
-/* loading-dialog.component.css */
 .content-container {
-    position: relative; /* Setează containerul ca referință pentru poziționarea absolută */
+    position: relative; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 24px; /* Spațiu în jurul conținutului */
-    min-height: 200px; /* Setează o înălțime minimă pentru vizualizare decentă */
+    padding: 24px; 
+    min-height: 200px; 
 }
-/* loading-dialog.component.css */
 
 .loading-dialog p {
-    margin-top: 80px;  /* Mărește această valoare pentru mai mult spațiu */
+    margin-top: 80px;  
     text-align: center;
-    color: #507d95;  /* Culoarea textului */
-    font-size: 16px;  /* Mărimea fontului */
+    color: #507d95;  
+    font-size: 16px; 
 }
 
 
 mat-dialog-content {
     display: flex;
-    flex-direction: column; /* Asigură-te că acțiunile sunt la baza conținutului */
+    flex-direction: column; 
 }
 
 mat-dialog-title {
@@ -29,11 +27,11 @@ mat-dialog-title {
 }
 
 mat-dialog-actions {
-    margin-top: auto; /* Împinge butonul de închidere în partea de jos a containerului */
+    margin-top: auto; 
     padding: 8px;
-    width: 100%; /* Asigură că butonul poate fi aliniat la dreapta */
+    width: 100%; 
     display: flex;
-    justify-content: flex-end; /* Aliniază butonul de închidere la dreapta */
+    justify-content: flex-end; 
 }
 
 .spinner{

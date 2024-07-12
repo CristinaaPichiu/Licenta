@@ -58,5 +58,4 @@ public class VolunteeringDTO {
         this.description = description;
     }
 
-    // Constructori, getters și setters
 }

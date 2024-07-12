@@ -21,10 +21,10 @@ public class ToDoItem {
 
     private String name;
     private String location;
-    private LocalDate startDate; // Stochează doar data
-    private LocalTime startTime; // Stochează doar ora
+    private LocalDate startDate;
+    private LocalTime startTime;
     private String description;
-    private boolean isChecked; // Stare pentru checkbox
+    private boolean isChecked;
 
 
 

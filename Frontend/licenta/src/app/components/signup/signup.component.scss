@@ -107,13 +107,11 @@ mat-icon
     color: #787D7D;
 }
 .login-link {
-    color: #90CAF9; /* Setează culoarea textului la albastru */
-    font-weight: bold; /* Face textul bold */
-    /* Alte stilizări aici */
+    color: #90CAF9;
+    font-weight: bold;
 }
 
 
-// Media queries pentru responsivitate
 @media (max-width: 600px) {
     .container {
         flex-direction: column;

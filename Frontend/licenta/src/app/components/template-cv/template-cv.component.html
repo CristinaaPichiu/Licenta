@@ -3,9 +3,9 @@
     <!-- Left Panel -->
     <div class="leftPanel">
       <div class="profile-upload">
-        <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*" />
-        <img [src]="imagePreview || 'assets/profile.png'" class="profile-picture" (click)="triggerFileInput()" />
+        <img src="assets/profile.png" class="profile-picture" >
       </div>
+      
       
 
 <div class="modal" *ngIf="showModal">

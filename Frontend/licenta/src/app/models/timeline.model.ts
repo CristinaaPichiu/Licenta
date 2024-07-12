@@ -8,7 +8,7 @@ export class TimelineEvent {
       public location: string,
       public notes: string,
       public completed: boolean,
-      public jobId: string // Referință la jobul asociat
+      public jobId: string 
     ) {}
   }
   

@@ -54,5 +54,4 @@ public class VolunteeringSection {
     @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
-    // Lombok will handle all the getter and setter methods automatically
 }

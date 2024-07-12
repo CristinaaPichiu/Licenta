@@ -16,55 +16,55 @@ h2 {
     display: flex;
     justify-content: center;
     overflow: hidden;
-    position: fixed; /* Poziționat fix, relativ la viewport */
-    bottom: 80px; /* 80px de la baza viewport-ului pentru a nu fi chiar la margine */
-    width: 100%; /* Lățimea completă a viewport-ului */
-    align-items: center; /* Centrarea verticală a conținutului din container */
+    position: fixed; 
+    bottom: 80px; 
+    width: 100%;
+    align-items: center; 
 }
 
 .carousel-slide img {
-    cursor: pointer; /* Afișează cursorul ca un pointer când mouse-ul este peste o imagine */
+    cursor: pointer; 
 }
 
 .carousel-slide {
-    flex: 0 0 20%; /* Flex basis de 20%, pentru a controla lățimea fiecărui slide */
-    transition: all 0.5s ease; /* Tranzitii fluide pentru efecte vizuale */
-    opacity: 0.5; /* Opacitate redusă pentru slide-urile inactive */
+    flex: 0 0 20%; 
+    transition: all 0.5s ease; 
+    opacity: 0.5;
 }
 
 .carousel-slide.active {
-    opacity: 1; /* Opacitate completă pentru slide-ul activ */
-    transform: scale(1.2); /* Scale up pentru a evidenția slide-ul activ */
+    opacity: 1; 
+    transform: scale(1.2); 
 }
 
 img {
-    width: 100%; /* Lățime completă în cadrul slide-ului său */
-    height: auto; /* Înălțime auto pentru a menține proporțiile imaginii */
+    width: 100%; 
+    height: auto;
 }
 
 button {
     position: absolute;
-    top: 50%; /* Centrat vertical */
-    transform: translateY(-50%); /* Ajustează poziționarea pentru centrare verticală */
+    top: 50%;
+    transform: translateY(-50%); 
     background-color: transparent;
     border: none;
     cursor: pointer;
-    font-size: 2em; /* Mărimea iconului săgeții */
-    color: #000; /* Culoare pentru săgeți */
+    font-size: 2em;
+    color: #000; 
     z-index: 1000;
 }
 
 button:first-child {
-    left: 150px; /* Ajustează astfel încât să fie vizibilă */
+    left: 150px; 
 }
 
 
 button:last-child {
-    right: 150px; /* Săgeata dreapta la 10px de la marginea dreaptă */
+    right: 150px; 
 }
 .parent-container {
-    overflow: visible; /* Permite elementelor copil să fie vizibile în afara containerului */
-    position: relative; /* Sau 'absolute' în funcție de structura ta */
+    overflow: visible; 
+    position: relative; 
 }
 
 

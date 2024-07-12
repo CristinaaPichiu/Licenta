@@ -1,0 +1,18 @@
+<div class="job-dialog">
+
+    <h2>{{ data.title }}</h2>
+    <p><strong>Location:</strong> {{ data.location }}</p>
+    <div [innerHTML]="data.snippet"></div>
+    <p><strong>Company:</strong> {{ data.company }}</p>
+    <p><strong>Updated:</strong> {{ data.updated | date:'longDate' }}</p>
+    <p *ngIf="data.salary"><strong>Salary:</strong> {{ data.salary }}</p>
+    <p *ngIf="data.type"><strong>Type:</strong> {{ data.type }}</p>
+    
+    <div class="dialog-actions">
+        <button (click)="openLink(data.link)" class="btn view-more">View More</button>
+        <button (click)="saveJobTracker()" class="btn save-job">Save to Job Tracker</button>
+
+
+    </div>
+</div>
+  

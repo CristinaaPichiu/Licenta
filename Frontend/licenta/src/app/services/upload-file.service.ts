@@ -14,7 +14,6 @@ export class UploadFileService {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
 
-    // Adaugă header-ul de autorizare
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -25,7 +24,6 @@ export class UploadFileService {
       observe: 'response'
     }).pipe(
       map(response => {
-        // Verificăm dacă răspunsul include un corp și un id, altfel aruncăm o eroare
         if (response.body && response.body.id) {
           return response.body.id;
         } else {
@@ -36,7 +34,7 @@ export class UploadFileService {
   }
   
   
-  getProcessedResumeData(id: string, token: string): Observable<any> { // Schimbă tipul de return la any
+  getProcessedResumeData(id: string, token: string): Observable<any> { 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

@@ -5,6 +5,8 @@ import { SaveCoverLetterService } from 'src/app/services/save-cover-letter.servi
 import * as html2pdf from 'html2pdf.js';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { UserProfileService } from 'src/app/services/user-profile.service';
+import { JobService } from 'src/app/services/job-tracker.service';
 
 
 
@@ -15,24 +17,30 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 })
 export class DashboardComponent implements OnInit {
 
-  resumes: any[] = []; // Aici stocăm CV-urile
+  resumes: any[] = []; 
   letters: any[] = [];
-  loading = true; // Stare pentru încărcare
+  loading = true; 
+  statistics: any;
+
   constructor(private router: Router, private resumeService: ResumeService, private coverLetterService:SaveCoverLetterService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userProfileService: UserProfileService,
+    private jobService: JobService
   ) { }
 
   ngOnInit() {
     this.loadLetters(),
-    this.loadResumes()
+    this.loadResumes(),
+    this.loadJobStatistics();
+
 
   }
   navigateToCreateResume(resume: any,  event: Event) {
     event.stopPropagation();
 
     console.log('Navigating to create-resume with resume data:', resume);
-    localStorage.setItem('currentResumeId', resume.id);  // Salvarea ID-ului în localStorage
-    localStorage.setItem('selectedTemplate', resume.templateId.toString()); // Salvează selecția în localStorage
+    localStorage.setItem('currentResumeId', resume.id);  
+    localStorage.setItem('selectedTemplate', resume.templateId.toString()); 
     localStorage.setItem('resumeCreationMode', 'dashboard');
 
 
@@ -58,7 +66,7 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.resumeService.getAllUserResumes(token).subscribe({
         next: (resumes) => {
-          console.log('Resumes loaded:', resumes); // Afișează în consolă CV-urile încărcate
+          console.log('Resumes loaded:', resumes);
           this.resumes = resumes;
           this.loading = false;
         },
@@ -75,7 +83,7 @@ export class DashboardComponent implements OnInit {
     if (token) {
       this.coverLetterService.getAllCoverLetters(token).subscribe({
         next: (letters) => {
-          console.log('Cover letters loaded:', letters); // Afișează în consolă CV-urile încărcate
+          console.log('Cover letters loaded:', letters);
           this.letters = letters;
           this.loading = false;
         },
@@ -89,7 +97,7 @@ export class DashboardComponent implements OnInit {
 
   downloadCV(event: Event): void {
     console.log('Download button clicked, preventing navigation');
-    event.stopPropagation(); // Oprește propagarea evenimentului
+    event.stopPropagation(); 
     console.log('Attempting to download CV');
   
     const element = document.querySelector('#cv-template');
@@ -124,29 +132,48 @@ export class DashboardComponent implements OnInit {
   
   
   deleteResume(resume: any, event: Event): void {
-    event.stopPropagation(); // Previn propagarea pentru a nu declanșa alte acțiuni, cum ar fi navigația
-    const token = localStorage.getItem('auth_token'); // Presupunând că token-ul este stocat în localStorage
+    event.stopPropagation(); 
+    const token = localStorage.getItem('auth_token'); 
   
     if (token) {
       this.resumeService.deleteResume(resume.id, token).subscribe({
         next: (response) => {
-          console.log('Response from server:', response); // Aici 'response' va fi un text simplu
+          console.log('Response from server:', response); 
       
-          // Actualizează lista de CV-uri eliminând CV-ul șters
           this.resumes = this.resumes.filter(item => item.id !== resume.id);
       
-          // Opțional: afișează un mesaj de succes sau actualizează alte părți ale UI-ului
           console.log('Resume deleted successfully');
         },
         error: (error) => {
           console.error('Failed to delete resume', error);
       
-          // Opțional: afișează un mesaj de eroare în UI
         }
       });
       
     } else {
       console.error('Authentication token not found. Please log in.');
+    }
+  }
+
+  loadJobStatistics() {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      this.userProfileService.getUserId(token).subscribe(userId => {
+        this.jobService.getJobStatistics(token, userId).subscribe(
+          stats => {
+            this.statistics = stats;
+            this.loading = false;
+            console.log('Job statistics loaded:', stats);
+          },
+          error => {
+            console.error('Error loading job statistics:', error);
+            this.loading = false;
+          }
+        );
+      },
+      error => {
+        console.error('Error fetching user ID:', error);
+      });
     }
   }
   

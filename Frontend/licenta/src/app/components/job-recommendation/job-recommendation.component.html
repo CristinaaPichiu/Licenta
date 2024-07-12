@@ -36,19 +36,21 @@
                     
                 </form>
 
-                <div class="job-results" *ngIf="jobs.length > 0">
-                    <mat-card *ngFor="let job of jobs" class="job-card">
-                      <mat-card-header>
-                        <mat-card-title>{{ job.title }}</mat-card-title>
-                        <mat-card-subtitle>{{ job.company }} - {{ job.location }}</mat-card-subtitle>
-                      </mat-card-header>
-                      <mat-card-content>
-                        <p [innerHTML]="sanitizeSnippet(job.snippet)"></p>
-                    </mat-card-content>
-                      <mat-card-actions>
-                        <a mat-button [href]="job.link" target="_blank">View More</a>
-                      </mat-card-actions>
-                    </mat-card>
+                <div class="job-results">
+                  <ng-container *ngIf="jobSearchService.jobs && jobSearchService.jobs.length > 0">
+                    <div *ngFor="let job of jobSearchService.jobs; trackBy: trackByJobId" class="job-card" (click)="openDialog(job)">
+                      <div class="job-card-header">
+                        <h3 class="job-card-title">{{ job?.title }}</h3>
+                        <p class="job-card-subtitle">{{ job?.company }} - {{ job?.location }}</p>
+                      </div>
+                      <div class="job-card-content">
+                        {{ job?.snippet }}
+                      </div>
+                      <div class="job-card-actions">
+                        <a [href]="job?.link" target="_blank">View More</a>
+                      </div>
+                    </div>
+                  </ng-container>
                   </div>
             </div>
         </mat-tab>
@@ -65,21 +67,25 @@
                     </div>
                 </div>
             </div>
+           <div class="job-results">
+            <ng-container *ngIf="jobSearchService.jobsByResume && jobSearchService.jobsByResume.length > 0">
+                <div *ngFor="let job of jobSearchService.jobsByResume; trackBy: trackByJobId" class="job-card">
+                    <div class="job-card-header">
+                        <h3 class="job-card-title">{{ job?.title }}</h3>
+                        <p class="job-card-subtitle">{{ job?.company }} - {{ job?.location }}</p>
+                    </div>
+                    <div class="job-card-content">
+                        <p [innerHTML]="sanitizeSnippet(job?.snippet)"></p>
+                    </div>
+                    <div class="job-card-actions">
+                        <a [href]="job?.link" target="_blank">View More</a>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+            
+            
 
-            <div class="job-results" *ngIf="jobs.length > 0">
-                <mat-card *ngFor="let job of jobs" class="job-card">
-                  <mat-card-header>
-                    <mat-card-title>{{ job.title }}</mat-card-title>
-                    <mat-card-subtitle>{{ job.company }} - {{ job.location }}</mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p [innerHTML]="sanitizeSnippet(job.snippet)"></p>
-                </mat-card-content>
-                  <mat-card-actions>
-                    <a mat-button [href]="job.link" target="_blank">View More</a>
-                  </mat-card-actions>
-                </mat-card>
-              </div>
         
         </mat-tab>
     </mat-tab-group>

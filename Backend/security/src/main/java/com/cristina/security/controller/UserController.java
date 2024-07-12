@@ -40,7 +40,6 @@ public class UserController {
     }
     @GetMapping("/email")
     public ResponseEntity<String> getUserEmail(Authentication authentication) {
-        // Presupunem că metoda `getUserEmail` din serviciul tău returnează doar email-ul
         String userEmail = userService.getUserEmail(authentication.getName());
         return ResponseEntity.ok(userEmail);
     }
@@ -48,7 +47,7 @@ public class UserController {
     @PostMapping("/update_profile")
     public ResponseEntity<User> updateUserDetails(@RequestBody UserResponseDTO userResponseDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName(); // Aceasta presupune că numele principal este adresa de email.
+        String email = authentication.getName();
 
         User user = userService.updateUserProfile(email, userResponseDTO);
         return ResponseEntity.ok(user);
@@ -56,7 +55,6 @@ public class UserController {
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDTO passwordChangeDto,
                                             Authentication authentication) {
-        // Email-ul utilizatorului autentificat
         String userEmail = authentication.getName();
         userService.changeUserPassword(userEmail, passwordChangeDto.getOldPassword(), passwordChangeDto.getNewPassword());
         return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
@@ -64,16 +62,12 @@ public class UserController {
 
     @GetMapping("/id")
     public ResponseEntity<Integer> getUserId(Authentication authentication) {
-        // Obține emailul din obiectul Authentication
         String email = authentication.getName();
-        // Caută utilizatorul în baza de date folosind emailul
         Optional<User> user = userService.findByEmail(email);
 
         if (user.isPresent()) {
-            // Returnează ID-ul utilizatorului dacă este găsit
             return ResponseEntity.ok(user.get().getId());
         } else {
-            // Returnează 404 Not Found dacă utilizatorul nu este găsit
             return ResponseEntity.notFound().build();
         }
 
@@ -94,21 +88,17 @@ public class UserController {
             }
 
             User user = optionalUser.get();
-            // Verifică dacă există deja o poză de profil
             if (user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
                 String existingFileName = user.getProfilePictureUrl().substring(user.getProfilePictureUrl().lastIndexOf('/') + 1);
-                // Șterge fișierul existent din Google Cloud Storage
                 googleCloudStorageService.deleteFile(existingFileName);
                 logger.info("Existing profile picture deleted successfully: {}", existingFileName);
             }
 
-            // Procesează și încarcă fișierul nou
             String fileName = file.getOriginalFilename();
             logger.info("Received file: {}", fileName);
             String tempDir = System.getProperty("java.io.tmpdir");
             String filePath = tempDir + "/profile-pictures/" + fileName;
 
-            // Salvează fișierul local temporar
             logger.info("Saving file temporarily at: {}", filePath);
             java.io.File tempFile = new java.io.File(filePath);
             java.io.File parentDir = tempFile.getParentFile();
@@ -117,12 +107,10 @@ public class UserController {
             }
             file.transferTo(tempFile);
 
-            // Încarcă fișierul în Google Cloud Storage
             String uploadedFileName = googleCloudStorageService.uploadProfilePicture(filePath, fileName);
             String profilePictureUrl = googleCloudStorageService.getProfilePictureUrl(uploadedFileName);
             logger.info("New profile picture uploaded to URL: {}", profilePictureUrl);
 
-            // Actualizează URL-ul pozei de profil pentru utilizatorul curent
             userService.updateProfilePictureUrl(user.getId(), profilePictureUrl);
 
             return ResponseEntity.ok("Profile picture uploaded successfully: " + profilePictureUrl);
@@ -140,7 +128,7 @@ public class UserController {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            String profilePictureUrl = user.getProfilePictureUrl(); // presupunând că ai acest câmp în entitatea User
+            String profilePictureUrl = user.getProfilePictureUrl();
             return ResponseEntity.ok(profilePictureUrl);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");

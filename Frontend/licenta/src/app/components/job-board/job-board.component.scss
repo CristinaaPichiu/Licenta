@@ -4,41 +4,41 @@
   height: 100%;
 }
 .job-board-header {
-  position: relative; /* Stabilește un context de poziționare relativă */
-  width: 100%; /* Asigură-te că header-ul acoperă lățimea paginii */
+  position: relative; 
+  width: 100%; 
 }
 
 .logo-container {
-  position: absolute; /* Poziționare absolută față de cel mai apropiat părinte relativ */
-  top: 5px; /* Spațiu de la marginea superioară a ecranului */
-  left: 50px; /* Spațiu de la marginea stângă a ecranului */
+  position: absolute; 
+  top: 5px; 
+  left: 50px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centrează conținutul pe verticală și orizontală */
+  align-items: center; 
 }
 
 .logo-with-icon {
   margin-left: 5px;;
   display: flex;
-  align-items: center; /* Alinează logo-ul și icon-ul pe aceeași linie */
+  align-items: center; 
 }
 
 .logo {
-  height: 100px; /* sau orice dimensiune este adecvată pentru logo */
+  height: 100px; 
   width: auto;
 }
 
 .header-icon {
-  margin-left: 0px; /* Spațiu între logo și icon */
-  color: #507d95; /* Culoarea iconului */
-  transition: transform 0.3s; /* Animație pentru efectul de hover */
-  cursor: pointer; /* Schimbă cursorul în mână pentru a indica interactivitatea */
+  margin-left: 0px; 
+  color: #507d95; 
+  transition: transform 0.3s; 
+  cursor: pointer;
 
 
 }
 
 .header-icon:hover {
-  transform: scale(1.5); /* Mărește iconul când este hover */
+  transform: scale(1.5); 
 }
 
 .nav-buttons {
@@ -52,16 +52,16 @@
 
 .nav-button {
   padding: 10px 20px;
-  color: black; /* Culoarea textului */
+  color: black; 
   cursor: pointer;
   border-radius: 25px;
   transition: background-color 0.3s, color 0.3s;
-  font-weight: 600; /* Grosimea fontului */
-  text-transform: uppercase; /* Transformare text la majuscule */
-  font-size: 16px; /* Dimensiunea textului */
-  background-color: white; /* Culoarea de fundal a butonului */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Umbra butonului */
-  margin: 0 5px; /* Spațiu între butoane */
+  font-weight: 600; 
+  text-transform: uppercase; 
+  font-size: 16px; 
+  background-color: white; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 5px;
 }
 
 .nav-button:hover {
@@ -90,9 +90,6 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-
-  // Override Automatic Minimum Size
-  // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
   min-width: 0;
   min-height: 0;
 
@@ -106,28 +103,25 @@
           color: white;
       }
   }
-/* Stilizează bara de defilare în ansamblu */
+
 .board-wrapper::-webkit-scrollbar {
-  height: 8px; /* Setează înălțimea barei de defilare */
-  background-color: #f9f9f9; /* Culoarea de fundal a barei de defilare */
+  height: 8px; 
+  background-color: #f9f9f9; 
 }
 
-/* Stilizează traseul (track) barei de defilare */
 .board-wrapper::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #507d95; /* Adaugă o umbră ușoară în interior */
-  border-radius: 10px; /* Rotunjește colțurile */
+  box-shadow: inset 0 0 5px #507d95;  
+  border-radius: 10px; 
 }
 
-/* Stilizează butonul de defilare (thumb) */
 .board-wrapper::-webkit-scrollbar-thumb {
-  background-color: #507d95; /* Culoarea butonului de defilare */
-  border-radius: 10px; /* Rotunjește colțurile butonului */
-  border: 2px solid white; /* Adaugă o bordură pentru a separa thumb-ul de track */
+  background-color: #507d95; 
+  border-radius: 10px; 
+  border: 2px solid white;
 }
 
-/* Efecte la hover pe butonul de defilare */
 .board-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #507d95; /* Schimbă culoarea la hover */
+  background: #507d95;
 }
 
  
@@ -135,8 +129,8 @@
   .board-wrapper {
     display: flex;
     flex-grow: 1;
-    overflow-x: auto; /* permite defilarea */
-    margin-bottom: -15px; /* elimină orice spațiu suplimentar generat de padding */
+    overflow-x: auto;
+    margin-bottom: -15px; 
 
       .board-columns {
           display: flex;
@@ -147,8 +141,8 @@
               display: flex;
               flex-direction: column;
               flex-grow: 1;
-              flex-basis: 0; // to force the columns to all be the same size, regardless of content
-
+              flex-basis: 0; 
+              min-height: 300px;
               min-width: 300px;
               margin: 50px;
               padding: 25px;
@@ -176,14 +170,14 @@
 
 .add-button {
   align-self: center;
-  color: black;/* Schimbă culoarea iconiței */
-  background-color: white;/* Verde pentru buton */
+  color: black;
+  background-color: white;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .add-button:hover {
-  background-color: #D6E4F0;; /* Verde mai închis la hover */
+  background-color: #D6E4F0;; 
 }
 
 .tasks-container {
@@ -196,7 +190,7 @@
 .task {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Ajustează conținutul pentru a face spațiu pentru icon */
+  justify-content: space-between; 
   padding: 15px;
   background: white;
   margin-bottom: 8px;
@@ -210,13 +204,13 @@
 }
 
 .trash-icon {
-  visibility: hidden; /* Ascunde iconul în mod implicit */
+  visibility: hidden;
   cursor: pointer;
-  color: black; /* Culoare roșu pentru iconul de delete */
+  color: black; 
 }
 
 .task:hover .trash-icon {
-  visibility: visible; /* Arată iconul la hover */
+  visibility: visible;
 }
 
 
@@ -286,5 +280,33 @@
 
   .column-title {
     font-size: 16px;
+  }
+}
+@media (max-width: 1024px) {
+  .board-columns {
+      flex-direction: column;  
+  }
+}
+
+@media (max-width: 768px) {
+  .board-column {
+      min-width: 100%;  
+  }
+  .nav-button {
+    flex-basis: 100%; 
+    margin: 5px 0;  
+  }
+  .nav-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-column {
+      padding: 10px;  
+      margin: 5px;  
+  }
+  .nav-buttons {
+    flex-direction: column;
   }
 }

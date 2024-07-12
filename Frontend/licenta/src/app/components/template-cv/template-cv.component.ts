@@ -14,7 +14,7 @@ export class TemplateCVComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput') fileInput!: ElementRef;
   resume: any;
   private subscription!: Subscription;
-  selectedFile: File | null = null; // Add this line to store the selected file
+  selectedFile: File | null = null; 
   imagePreview: SafeUrl | null = null;
   showModal: boolean = false;
   temporaryImage: string | ArrayBuffer | null = null;
@@ -28,14 +28,12 @@ export class TemplateCVComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadProfilePicture();
-    // Abonează-te la currentResume pentru a actualiza datele de previzualizare ale CV-ului
     this.subscription = this.resumeDataService.currentResume.subscribe(data => {
       this.resume = data;
     });
   }
 
   ngOnDestroy() {
-    // Dezabonează-te când componenta este distrusă pentru a preveni memory leaks
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -44,22 +42,20 @@ export class TemplateCVComponent implements OnInit, OnDestroy {
     const element = event.target as HTMLInputElement;
     if (element.files && element.files[0]) {
       const file = element.files[0];
-      this.selectedFile = file;  // Store the file for upload
+      this.selectedFile = file;  
   
-      // Create a FileReader to read the selected file
       const reader = new FileReader();
   
-      // When file is loaded, set the temporaryImage and showModal
       reader.onload = (e) => {
-        this.temporaryImage = reader.result; // Set temporaryImage to the result of FileReader
-        this.showModal = true;               // Open the modal with the image preview
+        this.temporaryImage = reader.result; 
+        this.showModal = true;               
       };
   
-      reader.readAsDataURL(file);  // Initiate file reading
+      reader.readAsDataURL(file); 
     } else {
       console.error('No file selected');
       this.selectedFile = null;
-      this.showModal = false;  // Ensure modal is closed if no file is selected
+      this.showModal = false;  
     }
   }
   
@@ -74,7 +70,7 @@ export class TemplateCVComponent implements OnInit, OnDestroy {
       this.resumeService.uploadResumePicture(resumeId, this.selectedFile, token).subscribe({
         next: (response) => {
           console.log('Image uploaded successfully:', response);
-          this.imagePreview = this.temporaryImage; // Update image preview to the newly uploaded image
+          this.imagePreview = this.temporaryImage; 
           this.closeModal();
         },
         error: (error) => {
@@ -103,12 +99,11 @@ export class TemplateCVComponent implements OnInit, OnDestroy {
     if (resumeId && token) {
       this.resumeService.getProfilePictureUrl(resumeId, token).subscribe({
         next: (url) => {
-          // Folosește DomSanitizer pentru securitate dacă este necesar
           this.imagePreview = this.sanitizer.bypassSecurityTrustUrl(url);
         },
         error: (error) => {
           console.error('Failed to load profile picture:', error);
-          this.imagePreview = 'assets/profile.png';  // Calea către o imagine implicită
+          this.imagePreview = 'assets/profile.png';  
         }
       });
     }

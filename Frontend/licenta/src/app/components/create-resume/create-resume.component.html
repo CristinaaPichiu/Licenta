@@ -13,9 +13,6 @@
         </div>
         <div class="form-container">
 
-
-
-
             <form *ngIf="currentStep === 'Contact'" [formGroup]="resumeForm" >
                 <h1>Please enter your <span> contact info</span></h1>
                 <p>It allows employers to see how they can contact you.</p>
@@ -219,7 +216,7 @@
                         </mat-form-field>
                        
                    
-                        <mat-icon (click)="removeSkill(i)">delete</mat-icon> <!-- Trash icon for removing skill -->
+                        <mat-icon (click)="removeSkill(i)">delete</mat-icon> 
                         
                       </div>
                     </div>
@@ -570,29 +567,39 @@
     </div>
     <div id="cv-template" [ngSwitch]="selectedTemplate">
 
-      <!-- Afișează template-ul în funcție de ID -->
       <app-template-cv *ngSwitchCase="1"></app-template-cv>
       <app-second-template-cv *ngSwitchCase="2"></app-second-template-cv>
       <app-third-template *ngSwitchCase="3"></app-third-template>
     
-      <!-- Poți adăuga mai multe template-uri aici folosind *ngSwitchCase cu ID-uri corespunzătoare -->
     </div>
     </div>
     
     <div *ngIf="isPreviewMode" class="preview-overlay">
       <button class="close-preview-button" (click)="closePreview()">Close Preview</button>
       <div class="preview-template">
-        <app-template-cv></app-template-cv>
-      </div>
+ <div id="cv-template" [ngSwitch]="selectedTemplate">
+
+      <app-template-cv *ngSwitchCase="1"></app-template-cv>
+      <app-second-template-cv *ngSwitchCase="2"></app-second-template-cv>
+      <app-third-template *ngSwitchCase="3"></app-third-template>
+    
+    </div>   
+     </div>
     </div>
   </div>
-  <div *ngIf="isEmailModalOpen" class="email-modal">
+  <div *ngIf="isEmailModalOpen" class="email-modal" >
     <div class="email-modal-content">
       <button class="close-email-modal-button" (click)="closeEmailModal()">Close</button>
       <div class="email-modal-body">
-        <div class="email-image">
-          <app-template-cv></app-template-cv>
-        </div>
+        <div class="email-image" #pdfContent>
+          <div  [ngSwitch]="selectedTemplate">
+
+            <app-template-cv *ngSwitchCase="1"></app-template-cv>
+            <app-second-template-cv *ngSwitchCase="2"></app-second-template-cv>
+            <app-third-template *ngSwitchCase="3"></app-third-template>
+          
+          </div>  
+                 </div>
         <div class="email-form">
           <h2>Please enter the address where you want to send your resume</h2>
           <form [formGroup]="emailForm" (ngSubmit)="sendEmail()">
@@ -610,7 +617,7 @@
           <mat-label>Body</mat-label>
           <input matInput type="body" placeholder="Body" formControlName="body">
       </mat-form-field>
-            <button type="submit" mat-raised-button color="primary">Send</button>
+            <button type="submit" class = "send-button">Send</button>
           </form>
         </div>
       </div>

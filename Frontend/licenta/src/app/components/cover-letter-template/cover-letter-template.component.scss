@@ -34,7 +34,7 @@
 
 .contact p span.material-icons {
   margin-right: 10px;
-  font-size: 18px; /* Adjust this size if necessary */
+  font-size: 18px; 
 }
 
 
@@ -72,16 +72,16 @@
   margin-top: 50px;
 }
 .cover-letter-container .content .body p {
-  max-width: 600px; /* Adjust this value to limit characters per line */
-  white-space: pre-wrap; /* Ensures that whitespace is preserved */
-  word-wrap: break-word; /* Breaks long words to avoid overflow */
+  max-width: 600px; 
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
 }
 
 .signature-image {
   position: absolute;
-  right: 20px; // Ajustează valoarea pentru a deplasa semnătura mai spre dreapta
-  bottom: 300px; // Ajustează valoarea pentru a deplasa semnătura mai jos
-  width: 300px; // Ajustează dimensiunea semnăturii după cum este necesar
+  right: 20px;
+  bottom: 300px; 
+  width: 300px; 
 }
 
 
@@ -105,7 +105,6 @@
   font-weight: bold;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .cover-letter-container {
       flex-direction: column;

@@ -16,12 +16,10 @@ export class ResumeComponent {
     localStorage.setItem('resumeCreationMode', 'create');
 
   
-    // Curățăm Local Storage
     localStorage.removeItem('currentResumeId');
     localStorage.removeItem('selectedTemplate');
     localStorage.removeItem('resumeData');
   
-    // Resetăm state-ul intern dacă este necesar
   
     setTimeout(() => {
       this.loading = false; 

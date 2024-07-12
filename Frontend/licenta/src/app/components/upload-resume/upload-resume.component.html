@@ -1,3 +1,5 @@
+<app-sidebar></app-sidebar>
+
 <div class="upload-container">
     <h2>Upload your resume</h2>
     <div *ngIf="!fileToUpload; else uploadedTemplate">
@@ -8,7 +10,7 @@
         </label>
       </div>
       <p class="support-text">Support pdf</p>
-      <button (click)="uploadPDF()" [disabled]="!fileToUpload">Upload</button>
+      <button class ="upload-button" (click)="uploadPDF()" [disabled]="!fileToUpload">Upload</button>
     </div>
     <ng-template #uploadedTemplate>
       <div class="file-info">
@@ -20,9 +22,9 @@
         <button class="remove-button" (click)="removeFile()">Delete</button>
 
       </div>
-      <button class="remove-button" (click)="uploadPDF()">Finish</button>
+      <button class="finish-button" (click)="uploadPDF()">Finish</button>
 
     </ng-template>
-    <button class="remove-button" (click)="navigateBack()">Back</button>
+    <button class="back-button" (click)="navigateBack()">Back</button>
 </div>
   

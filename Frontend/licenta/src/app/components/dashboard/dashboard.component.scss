@@ -49,14 +49,16 @@ body {
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-right: 10px; /* Reduced margin */
+  margin-right: 50px; 
 }
+
 .progress-container{
+
   flex: 1;
   background-color: #fff;
   padding: 10px;
   border-radius: 8px;
-  margin-right: 10px; /* Reduced margin */
+  margin-right: 10px; 
 
 }
 
@@ -64,16 +66,17 @@ h3 {
   margin-top: 0;
   font-size: 24px;
   margin-bottom: 10px;
-  color: #507d95; /* Adjust color as needed */
+  color: #507d95; 
 }
 
 .progress-chart,
 .overview-content {
+
   display: flex;
 }
 app-profile-card {
-  margin-top: -100px;  /* Muta componenta mai sus */
-  margin-left: -150px; /* Muta componenta mai la stânga */
+  margin-top: -100px; 
+  margin-left: -150px; 
 }
 
 
@@ -92,68 +95,69 @@ app-profile-card {
 .overview-label {
   font-weight: bold;
   color: #6c757d;
-  margin-right: 5px; /* Reduci spațiul dintre label și valoare */
+  margin-right: 5px; 
 
 }
 
 .overview-value {
   color: #343a40;
-  margin-right: 5px; /* Reduci spațiul dintre label și valoare */
+  margin-right: 5px; 
 
 }
 .overview-container {
   display: flex;
-  justify-content: space-between; /* Alinează copiii pe orizontală */
-  align-items: flex-start; /* Aliniază copiii la partea de sus */
+  justify-content: space-between;
+  align-items: flex-start; 
 }
 
 .overview-content {
   margin-top: 50px;
-  flex: 1; /* Permite acestui element să umple spațiul disponibil, dar să lase loc pentru progress-chart */
+  flex: 1; 
   display: flex;
   flex-direction: column;
 }
 
 app-progress-chart {
   margin-top: 50px;
-  /* Adaugă stiluri necesare pentru vizibilitate și dimensiune */
-  width: 300px; /* Sau orice altă dimensiune potrivită */
-  height: auto; /* Sau specifică o înălțime */
-  margin-left: 30px; /* Adaugă un spațiu în stânga graficului */
+  width: 300px; 
+  height: auto; 
+  margin-left: 30px; 
 
 }
 
+
+
 .template-container {
-  width: 100%; /* Full width of the parent container */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  padding: 20px 0; /* Top and bottom padding */
+  width: 100%; 
+  overflow-x: hidden; 
+  padding: 20px 0; 
 }
 
 .template-wrapper {
   display: flex;
-  flex-direction: row; /* Ensures horizontal layout */
-  flex-wrap: wrap; /* Allows wrapping to next line if needed */
-  justify-content: flex-start; /* Align items to the start of the line */
-  gap: 20px; /* Space between each template */
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  justify-content: flex-start; 
+  gap: 20px; 
 }
 
 .template-preview {
   cursor: pointer;
-  flex: 0 0 calc(25% - 20px); /* Adjusts width for 4 items per row, accounting for gap */
-  height: auto; /* Height adjusts to content */
-  min-height: 300px; /* Minimum height to maintain a decent size */
-  background-color: #fff; /* Background color for visibility */
-  border-radius: 8px; /* Rounded corners for aesthetics */
-  padding: 10px; /* Adds padding to ensure content does not touch the edges */
+  flex: 0 0 calc(25% - 20px); 
+  height: auto; 
+  min-height: 300px;
+  background-color: #fff; 
+  border-radius: 8px; 
+  padding: 10px; 
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures the footer text is aligned to the bottom */
-  transition: transform 0.3s ease; /* Smooth transition for transform */
+  justify-content: space-between; 
+  transition: transform 0.3s ease; 
 }
 
 .template-preview:hover {
-  transform: scale(1.05); /* Slightly enlarges the template on hover */
-  z-index: 10; /* Ensures the hovered element comes forward */
+  transform: scale(1.05);
+  z-index: 10; 
 }
 
 
@@ -166,22 +170,29 @@ app-progress-chart {
 
 
 @media (max-width: 1024px) {
-  /* For medium-sized screens, fit 3 items per row */
+  
   .template-preview {
-    flex: 0 0 calc(33.333% - 20px); /* Adjusts for 3 items per row */
+    flex: 0 0 calc(33.333% - 20px); 
   }
 }
 
 @media (max-width: 768px) {
-  /* For smaller screens, fit 2 items per row */
   .template-preview {
-    flex: 0 0 calc(50% - 20px); /* Adjusts for 2 items per row */
+    flex: 0 0 calc(50% - 20px);
   }
 }
 
 @media (max-width: 480px) {
-  /* For very small screens, fit 1 item per row */
   .template-preview {
-    flex: 0 0 100%; /* Full width for a single item */
+    flex: 0 0 100%; 
   }
 }
+
+@media (max-width: 768px) {
+  .info-container {
+    flex-direction: column;
+  }
+}
+
+
+

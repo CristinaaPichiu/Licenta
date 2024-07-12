@@ -45,7 +45,6 @@ public class UserService {
 
         user.setFirstName(userResponseDTO.getFirstName());
         user.setLastName(userResponseDTO.getLastName());
-        // Alte câmpuri dacă este necesar
 
         return userRepository.save(user);
     }
@@ -53,12 +52,10 @@ public class UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-        // Verifică dacă parola veche este corectă
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new IllegalArgumentException("Invalid old password");
         }
 
-        // Setează noua parolă
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
         return true;

@@ -2,6 +2,7 @@
   display: flex;
   padding: 20px;
   align-items: flex-start; 
+
   
 
   .tabs {
@@ -12,17 +13,21 @@
 
  
 
-  .form {
-
-    margin-left: 150px; 
-    margin-bottom: 30px;
-  }
-
   .card-and-form-container {
     display: flex;
-    justify-content: flex-end; 
-    width: 60%;
-    margin-left: 400px; 
+    width: 100%;
+    justify-content: space-between; 
+    align-items: flex-start;
+  }
+  
+  .card {
+    width: 30%; 
+    margin-left: -100px;;
+  }
+  
+  .form {
+    width: 68%; 
+    margin-left: 20%; 
   }
 
   .personal-info {
@@ -97,22 +102,21 @@ mat-form-field {
   margin-bottom: 16px;
 }
 .fixed-button {
-  position: fixed; /* Poziționare fixă pentru a rămâne în colțul dreapta jos */
-  bottom: 80px; /* Distanță de 20px de partea de jos a viewportului */
-  right: 100px; /* Distanță de 20px de partea dreaptă a viewportului */
-  padding: 10px 20px; /* Padding pentru buton */
-  background-color: #a3d1de; /* Culoarea de fundal inițială */
-  border: none; /* Fără bordură */
-  border-radius: 5px; /* Margini rotunjite */
-  color: white; /* Culoarea textului */
-  cursor: pointer; /* Schimbă cursorul în pointer când este deasupra butonului */
-  transition: background-color 0.3s ease; /* Tranziție lină pentru schimbarea culorii */
+  position: fixed; 
+  bottom: 80px;
+  right: 100px;
+  padding: 10px 20px; 
+  background-color: #a3d1de;
+  border: none; 
+  border-radius: 5px; 
+  color: white; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
 }
 
 .fixed-button:hover {
-  background-color: #7ba4db; /* Schimbă culoarea de fundal la hover */
+  background-color: #7ba4db; 
 }
-/* În fișierul tău de stiluri .scss sau .css */
 .alert-success {
   color: #155724;
   background-color: #d4edda;
@@ -129,29 +133,22 @@ mat-form-field {
 }
 
 
-
-
-
-
-/* Stilurile existente vor rămâne intacte, vom adăuga doar media queries la sfârșitul fișierului CSS */
-
-/* Pentru tablete și ecrane de dimensiuni medii */
 @media (max-width: 1024px) {
   .card-and-form-container {
     width:auto;
-    flex-direction: column; /* Schimbăm direcția de la row la column */
-    align-items: center; /* Centrăm elementele pe axa verticală */
-    margin-left: 0; /* Anulăm marginea stângă */
+    flex-direction: column; 
+    align-items: center; 
+    margin-left: 0; 
   }
 
   .card, .form {
-    margin-left: 0; /* Anulăm marginea stângă */
-    margin-bottom: 20px; /* Adăugăm o margine dedesubt pentru spațiu între elemente */
+    margin-left: 0;
+    margin-bottom: 20px; 
   }
 
   .personal-info {
-    width: 5px; /* Lățimea se va adapta la dimensiunea container-ului */
-    margin-top: 20px; /* Reducem spațiul de sus */
+    width: 5px; 
+    margin-top: 20px; 
   }
   .mat-form-field{
     width: 5px;
@@ -163,27 +160,43 @@ mat-form-field {
   
 }
 
-/* Pentru telefoane mobile și ecrane mici */
 @media (max-width: 768px) {
   .tabs {
-    width: 100%; /* Tabs să ocupe întreaga lățime */
-    margin-left: 0; /* Anulăm marginea stângă */
+    width: 100%;
+    margin-left: 0; 
   }
 
   .fixed-button {
-    right: 20px; /* Reducem distanța de la marginea dreaptă */
-    bottom: 20px; /* Reducem distanța de la marginea de jos */
+    right: 20px; 
+    bottom: 20px;
   }
 }
 
 @media (max-width: 480px) {
   .personal-info, .password-form-container {
-    padding: 0 10px; /* Adăugăm un padding mic pe laterale pentru a nu lipi de marginile ecranului */
+    padding: 0 10px; 
   }
 
   .fixed-button {
-    width: calc(100% - 40px); /* Butonul să ocupe întreaga lățime minus padding-ul */
-    left: 20px; /* Poziționăm butonul în mod corespunzător */
-    bottom: 10px; /* Reducem și mai mult distanța de la marginea de jos */
+    width: calc(100% - 40px); 
+    left: 20px; 
+    bottom: 10px; 
+  }
+}
+
+@media (max-width: 768px) {
+  .card-and-form-container {
+    flex-direction: column;
+  }
+
+  .card, .form {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .fixed-button {
+    position: static;
+    width: 100%;
+    margin-top: 20px;
   }
 }

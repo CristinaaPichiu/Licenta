@@ -66,6 +66,9 @@ import { AddActivityDialogComponent } from './components/add-activity-dialog/add
 import { JobRecommendationComponent } from './components/job-recommendation/job-recommendation.component';
 import { GenerateCardJobComponent } from './components/generate-card-job/generate-card-job.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { JobDialogComponent } from './components/job-dialog/job-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -115,7 +118,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     AddActivityDialogComponent,
     JobRecommendationComponent,
     GenerateCardJobComponent,
-    ConfirmDialogComponent    
+    ConfirmDialogComponent,
+    JobDialogComponent    
   ],
   imports: [
     BrowserModule,
@@ -144,7 +148,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatDialogModule,
     MatProgressSpinnerModule,
     ScrollingModule,
-    DragDropModule
+    DragDropModule,
+    MatSnackBarModule
   ],
   providers: [ResumeDataService],
   bootstrap: [AppComponent],

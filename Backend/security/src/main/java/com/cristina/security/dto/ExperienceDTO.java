@@ -71,6 +71,5 @@ public class ExperienceDTO {
                 ", description='" + description + '\'' +
                 '}';
     }
-    // Constructori, getters și setters
 }
 

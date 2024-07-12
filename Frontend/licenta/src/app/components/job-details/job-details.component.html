@@ -16,7 +16,6 @@
   <div class="content">
     <div *ngIf="currentView === 'general'" class="form-container">
       <form [formGroup]="jobDetailsForm" (ngSubmit)="onSubmit()">
-        <!-- Row for Job Title and Company -->
         <div class="row">
           <mat-form-field appearance="outline" class="half-width">
             <mat-label>Job Title</mat-label>
@@ -29,7 +28,6 @@
           </mat-form-field>
         </div>
 
-        <!-- Row for Date and Location -->
         <div class="row">
           <mat-form-field appearance="outline" class="half-width">
             <mat-label>Date</mat-label>
@@ -44,7 +42,6 @@
           </mat-form-field>
         </div>
 
-        <!-- Row for Salary, Job Type, and Link -->
         <div class="row">
           <mat-form-field appearance="outline" class="third-width">
             <mat-label>Salary</mat-label>
@@ -62,7 +59,6 @@
           </mat-form-field>
         </div>
 
-        <!-- Full width for Notes -->
         <div class="row">
           <mat-form-field appearance="outline" class="half-width">
             <mat-label>Notes</mat-label>
@@ -79,18 +75,18 @@
       
 
         <div class="actions">
-          <button mat-raised-button color="primary" type="submit">Save</button>
-          <button mat-button (click)="close()" type="button">Cancel</button>
+          <button mat-raised-button style="background-color: #507d95; color: white;" type="submit">Save</button>
+          <button mat-button style="color: #507d95; color: white;" type="button" (click)="close()">Cancel</button>
         </div>
+        
       </form>
     </div>
 
     <div *ngIf="currentView === 'timeline'" class="content-section">
       <div class="add-button-container">
-        <button mat-raised-button color="primary" (click)="openAddActivityDialog()">Add Activity</button>
+        <button mat-raised-button style="background-color: #507d95; color: white;" (click)="openAddActivityDialog()">Add Activity</button>
       </div>
       <div class="activities-container"  (mouseenter)="hovering = true" (mouseleave)="hovering = false">
-        <!-- src/app/components/job-details/job-details.component.html -->
         <div *ngFor="let activity of activities" class="activity-item" (click)="openAddActivityDialog(activity)">
           <mat-checkbox class="activity-checkbox" [checked]="activity.isChecked"
             (click)="$event.stopPropagation()" (change)="toggleChecked(activity)"></mat-checkbox>

@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SelectTemplateCvService {
 
-  private templateSource = new BehaviorSubject<number>(0); // Schimbă default la un ID de template implicit, de exemplu 0 sau oricare ar fi ID-ul default
+  private templateSource = new BehaviorSubject<number>(0); 
   currentTemplate = this.templateSource.asObservable();
 
   constructor() {}

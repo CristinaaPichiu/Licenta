@@ -28,52 +28,51 @@ body {
   }
   
   header {
-    text-align: left; /* Change from center to left */
+    text-align: left; 
     margin-bottom: 20px;
-    padding-left: 20px; /* Add padding for alignment */
+    padding-left: 20px; 
   }
   
   header h1, header h2 {
-    text-align: left; /* Ensure the name and status are left-aligned */
+    text-align: left; 
   }
   
   
   .summary {
     text-align: left;
     margin: 20px 0;
-    padding: 10px 20px; /* Add padding around the text */
-    border-top: 2px solid black; /* Top border */
-    border-bottom: 2px solid black; /* Bottom border */
+    padding: 10px 20px; 
+    border-top: 2px solid black; 
+    border-bottom: 2px solid black; 
   }
   
   header .contact-info {
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap to the next line if needed */
-    align-items: center; /* Centers items vertically */
-    justify-content: center; /* Centers items horizontally */
-    gap: 15px; /* Space between each item */
-    color: #333; /* Sets text color for all child elements */
+    flex-wrap: wrap; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 15px; 
+    color: #333; 
   }
   
   header .contact-info span, header .contact-info a {
     display: flex;
-    align-items: center; /* Center content of spans/a vertically */
-    white-space: nowrap; /* Prevents the text inside from wrapping */
-    color: inherit; /* Inherits color from parent, ensuring consistency */
-    text-decoration: none; /* Removes underline from links */
+    align-items: center; 
+    white-space: nowrap;
+    color: inherit; 
+    text-decoration: none; 
   }
   
-  /* Hover effect for links to indicate interactivity */
+ 
   header .contact-info a:hover {
-    text-decoration: underline; /* Optional: add underline on hover */
+    text-decoration: underline; 
   }
   
   
-  /* Specific styling for link items to ensure they display inline */
   .contact-info .link-item {
-    display: inline-flex; /* Displays link items inline but also as flex containers */
+    display: inline-flex; 
     align-items: center;
-    margin-right: 10px; /* Add more space between links */
+    margin-right: 10px; 
 
   }
   
@@ -97,14 +96,13 @@ body {
   }
   
   section h3 {
-    font-size: 18px;  /* Larger font size for section titles */
-    font-weight: bold;  /* Make the titles bold */
-    border-bottom: 2px solid #ddd;  /* Optional: add a light grey bottom border */
+    font-size: 18px;  
+    font-weight: bold;  
+    border-bottom: 2px solid #ddd;  
     padding-bottom: 5px;
     margin-bottom: 10px;
   }
   
-  /* Adjust the global h3 settings if they are used elsewhere and need this style */
   h3 {
     font-size: 18px;
     font-weight: bold;
@@ -122,12 +120,11 @@ body {
   }
   
   .job-title h4, .project-header h4 {
-    font-size: 16px;  /* Smaller than section headers */
-    font-weight: bold;  /* Still bold */
-    margin-bottom: 5px;  /* Space below the title */
+    font-size: 16px;  
+    font-weight: bold;  
+    margin-bottom: 5px;  
   }
   
-  /* Adjust the global h4 settings if they are used elsewhere and need this style */
   h4 {
     font-size: 16px;
     font-weight: bold;
@@ -135,20 +132,20 @@ body {
 
   .job-title {
     display: flex;
-    align-items: center;  /* Aligns items vertically in the center */
-    justify-content: space-between; /* Spreads the title and date apart */
-    flex-wrap: wrap;  /* Allows items to wrap onto the next line if not enough space */
+    align-items: center;  
+    justify-content: space-between; 
+    flex-wrap: wrap;  
   }
   
   .job-title h4 {
-    margin-right: 10px;  /* Adds some space between the title and the date */
-    flex-shrink: 0;  /* Prevents the title from shrinking */
+    margin-right: 10px;  
+    flex-shrink: 0;  
   }
   
   .job-period {
-    white-space: nowrap;  /* Ensures the date doesn't wrap */
+    white-space: nowrap;  
     text-align: right;
-    flex-grow: 1;  /* Allows the date to take up extra space on the right */
+    flex-grow: 1;  
   }
 
   .skills {
@@ -157,38 +154,38 @@ body {
   }
   
   .skills h3 {
-    margin-bottom: 10px;  /* Space below the header */
+    margin-bottom: 10px;  
   }
   
   .skills-container {
     display: flex;
-    flex-wrap: wrap;  /* Allows skill elements to wrap onto the next line */
+    flex-wrap: wrap;  
   }
   
   .skill {
-    width: 50%;  /* Each skill takes up half the width of the container */
+    width: 50%;  
     box-sizing: border-box;
-    padding: 5px; /* Adjusts padding for spacing within each skill */
-    position: relative; /* Needed for positioning the pseudo-element */
+    padding: 5px; 
+    position: relative; 
   }
   
   .skill.even {
-    padding-left: 5%;  /* Adds left padding to every second item to create a gutter */
+    padding-left: 5%;  
   }
   
   .skill span:first-child::before {
-    content: '•';  /* Unicode character for bullet point */
+    content: '•';  
     display: inline-block;
-    width: 20px; /* Adjust as needed */
-    margin-right: 5px; /* Space between the bullet and the text */
-    color: black; /* Color of the bullet */
-    font-size: 30px; /* Increase font size for larger bullets */
-    line-height: 1; /* Adjust line height to align with text */
+    width: 20px; 
+    margin-right: 5px; 
+    color: black; 
+    font-size: 30px; 
+    line-height: 1; 
   }
   
   
   .yearsOfExperience {
-    display: block;  /* Ensures years are displayed below the skill name */
+    display: block; 
   }
   
 

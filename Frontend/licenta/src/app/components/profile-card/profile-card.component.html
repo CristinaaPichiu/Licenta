@@ -1,6 +1,5 @@
 
 <mat-card class="example-card">
-    <!-- Profile upload div should be the first element inside the card -->
     <div class="profile-upload">
         <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*" />
         <mat-icon class="badge-icon" (click)="triggerFileInput()">camera_enhance</mat-icon>
@@ -12,7 +11,6 @@
 
     <mat-card-header>
         <div class="editable-title-container">
-          <!-- Aici afișezi email-ul în loc de a avea un câmp editabil -->
           <mat-card-title>{{ email }}</mat-card-title>
         </div>
       </mat-card-header>

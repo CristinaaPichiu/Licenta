@@ -94,6 +94,5 @@ public class ProjectSection {
         return description;
     }
 
-    // Constructors, getters, and setters
 }
 

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UploadResumeService {
 
-  private baseUrl = 'http://localhost:8080/api/v1/jobs'; // URL-ul pentru backend
+  private baseUrl = 'http://localhost:8080/api/v1/jobs'; 
   public bucketName = 'bucket_documents_1';
 
   constructor(private http: HttpClient) { }
@@ -20,7 +20,7 @@ export class UploadResumeService {
       headers: new HttpHeaders({
         'Accept': 'text/plain'
       }),
-      responseType: 'text' // Specifică tipul de răspuns ca text
+      responseType: 'text' 
     });
   }
   getFileName(jobId: number): Observable<string> {

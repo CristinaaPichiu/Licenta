@@ -9,18 +9,16 @@ import { UserProfileService } from 'src/app/services/user-profile.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  // Utilizăm operatorul de non-null assertion pentru că form-urile vor fi inițializate în ngOnInit.
   personalInfoForm!: FormGroup; 
   detailsInfoForm!: FormGroup; 
   passwordForm!: FormGroup;
   saveSuccess: boolean = false;
 
-  // De asemenea, utilizăm operatorul de non-null assertion pentru ViewChild.
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
-    private userProfileService: UserProfileService, // Injectează serviciul aici
+    private userProfileService: UserProfileService, 
     private router: Router
   ) {}
 
@@ -36,7 +34,7 @@ export class SettingsComponent implements OnInit {
     if (token) {
       this.userProfileService.getUserDetailsFromServer(token).subscribe({
         next: (details) => {
-          this.detailsInfoForm.patchValue(details); // Presupunând că structura obiectului `details` corespunde cu formularul
+          this.detailsInfoForm.patchValue(details); 
         },
         error: (err) => {
           console.error('Eroare la încărcarea detaliilor utilizatorului din server:', err);
@@ -44,12 +42,10 @@ export class SettingsComponent implements OnInit {
       });
     } else {
       console.error('Token de autorizare lipsă sau expirat.');
-      // Redirecționare la login sau afișarea unui mesaj de eroare
     }
   }
 
   loadUserProfile(): void {
-    // Presupunând că token-ul de autorizare este stocat în localStorage sub cheia 'auth_token'
     const token = localStorage.getItem('auth_token');
   
     if (token) {
@@ -59,18 +55,14 @@ export class SettingsComponent implements OnInit {
             firstName: details.firstName,
             lastName: details.lastName,
             email: details.email,
-            // completează restul câmpurilor dacă este necesar
           });
         },
         error: (err) => {
-          // Aici poți de asemenea să verifici erorile specifice legate de autentificare și să acționezi în consecință
           console.error('Eroare la încărcarea detaliilor utilizatorului:', err);
         }
       });
     } else {
-      // Tratează cazul în care token-ul nu există sau a expirat
       console.error('Nu s-a găsit niciun token de autorizare. Utilizatorul trebuie să se autentifice.');
-      // Aici poți să redirecționezi utilizatorul spre pagina de login sau să afișezi un mesaj corespunzător
     }
   }
 
@@ -84,7 +76,7 @@ export class SettingsComponent implements OnInit {
 
     this.detailsInfoForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^\\+?1?\\d{9,15}$')]], // Exemplu de pattern pentru telefon
+      phoneNumber: ['', [Validators.required, Validators.pattern('^\\+?1?\\d{9,15}$')]], 
       city: [''],
       address: [''],
       github: [''],
@@ -96,11 +88,11 @@ export class SettingsComponent implements OnInit {
       
     });
     this.passwordForm = this.fb.group({
-      currentPassword: ['', [Validators.required, Validators.minLength(6)]], // Validează ca parola curentă să fie introdusă și să aibă minim 6 caractere
-      newPassword: ['', [Validators.required, Validators.minLength(6)]], // Validează ca noua parolă să fie introdusă și să aibă minim 6 caractere
-      confirmNewPassword: ['', [Validators.required]] // Validează ca parola de confirmare să fie introdusă
+      currentPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]], 
+      confirmNewPassword: ['', [Validators.required]]
     }, {
-      validator: this.mustMatch('newPassword', 'confirmNewPassword') // Adaugă o validare personalizată pentru a verifica dacă parolele se potrivesc
+      validator: this.mustMatch('newPassword', 'confirmNewPassword') 
     });
   }
   mustMatch(passwordField: string, confirmPasswordField: string) {
@@ -109,11 +101,9 @@ export class SettingsComponent implements OnInit {
       const confirmPassword = formGroup.controls[confirmPasswordField];
 
       if (confirmPassword.errors && !confirmPassword.errors['mustMatch']) {
-        // return dacă un alt validator a găsit erori pe confirmPassword
         return;
       }
 
-      // Setează error pe confirmPassword dacă validarea eșuează
       if (password.value !== confirmPassword.value) {
         confirmPassword.setErrors({ mustMatch: true });
       } else {
@@ -126,9 +116,7 @@ export class SettingsComponent implements OnInit {
     const element = event.currentTarget as HTMLInputElement;
     let file = element.files ? element.files[0] : null;
     if (file) {
-      // Presupunând că vrei să salvezi doar numele fișierului, nu fișierul în sine.
       this.personalInfoForm.patchValue({ profileImage: file.name });
-      // Alte operații necesare cu fișierul selectat
     }
   }
 
@@ -146,16 +134,13 @@ export class SettingsComponent implements OnInit {
             this.saveSuccess = true;
             setTimeout(() => this.saveSuccess = false, 5000);
 
-            // Aici poți actualiza UI-ul sau naviga către o altă pagină
           },
           error: (error) => {
             console.error('Error updating profile', error);
-            // Aici poți afișa un mesaj de eroare
           }
         });
       } else {
         console.error('No authorization token found. User must log in.');
-        // Redirect to login or show an error message
       }
     } else {
       console.error('Personal Info Form is not valid');
@@ -167,7 +152,6 @@ export class SettingsComponent implements OnInit {
       const token = localStorage.getItem('auth_token');
       if (token) {
 
-        // Preia datele formularului
         const userDetails = this.detailsInfoForm.value;
         console.log(userDetails)
   
@@ -191,13 +175,11 @@ export class SettingsComponent implements OnInit {
       }
     } else {
       console.error('Formularul cu detaliile nu este valid.');
-      // Afișează mesaje de eroare sau validează din nou formularul
     }
   }
   
   onChangePassword(): void {
     if (this.passwordForm.valid) {
-      // Verificăm dacă parola nouă și confirmarea acesteia se potrivesc
       if (this.passwordForm.value.newPassword !== this.passwordForm.value.confirmNewPassword) {
         console.error('Parolele nu se potrivesc.');
         return;
@@ -212,8 +194,9 @@ export class SettingsComponent implements OnInit {
         this.userProfileService.changePassword(token, changePasswordRequest).subscribe({
           next: () => {
             console.log('Parola a fost schimbată cu succes.');
-            // Redirecționăm utilizatorul către pagina de login
-           // this.router.navigate(['/login']);
+            this.saveSuccess = true; // Set saveSuccess to true to show the success message
+            setTimeout(() => this.saveSuccess = false, 5000);
+            
           },
           error: (error) => {
             console.error('A apărut o eroare la schimbarea parolei', error);
@@ -221,11 +204,10 @@ export class SettingsComponent implements OnInit {
         });
       } else {
         console.error('Nu s-a găsit niciun token de autorizare. Utilizatorul trebuie să se autentifice.');
-        this.router.navigate(['/login']); // Îl redirecționăm pe utilizator către pagina de login
+        this.router.navigate(['/login']); 
       }
     } else {
       console.error('Formularul de schimbare a parolei nu este valid.');
-      // Aici poți să afișezi erori de validare specifice formularului dacă este cazul
     }
   }
   

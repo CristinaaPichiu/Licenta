@@ -8,7 +8,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./job-column.component.scss']
 })
 export class JobColumnComponent {
-  colors: string[] = ['#FF5733', '#33FF57', '#3357FF', '#FFFF33', '#FF33FF', '#33FFFF']; // Adaugă mai multe culori după preferințe
+  colors: string[] = ['#FF5733', '#33FF57', '#3357FF', '#FFFF33', '#FF33FF', '#33FFFF']; 
 
   @Output() colorSelected = new EventEmitter<string>();
 

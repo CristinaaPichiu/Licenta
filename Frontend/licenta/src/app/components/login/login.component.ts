@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service'; // Ajustează calea după caz
+import { AuthService } from 'src/app/services/auth.service'; 
 import { Router } from '@angular/router';
 
 @Component({
@@ -37,22 +37,22 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    this.errorMessage = ''; // Resetare mesaj de eroare la fiecare încercare de login
+    this.errorMessage = ''; 
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authService.authenticate(email, password).subscribe({
         next: (response) => {
           console.log('User logged in successfully', response);
-          this.router.navigate(['/dashboard']); // Ajustează calea după caz
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.error('Login error', error);
-          this.errorMessage = 'Login failed. Please check your email and password.';
-          // Poți să personalizezi mesajul de eroare bazat pe răspunsul serverului, dacă este necesar
+          this.errorMessage = error.message;
         }
       });
     } else {
       this.errorMessage = 'Please fill in all required fields.';
     }
   }
+  
 }

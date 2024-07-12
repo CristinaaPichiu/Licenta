@@ -19,31 +19,28 @@
 
           <div class="overview-content">
             <div class="overview-item">
-              <span class="overview-label">Resume last update:</span>
-              <span class="overview-value">June 12</span>
+              <span class="overview-label">To Apply:</span>
+              <span class="overview-value">{{ statistics.toApply }}</span>
             </div>
             <div class="overview-item">
-              <span class="overview-label">Targeted jobs:</span>
-              <span class="overview-value">4</span>
-            </div>
-            <div class="overview-item">
-              <span class="overview-label">Applied jobs:</span>
-              <span class="overview-value">10</span>
+              <span class="overview-label">Applied Jobs:</span>
+              <span class="overview-value">{{ statistics.applied }}</span>
             </div>
             <div class="overview-item">
               <span class="overview-label">Interviews:</span>
-              <span class="overview-value">5</span>
+              <span class="overview-value">{{ statistics.interview }}</span>
+            </div>
+          
+            <div class="overview-item">
+              <span class="overview-label">Rejected:</span>
+              <span class="overview-value">{{ statistics.rejected }}</span>
             </div>
             <div class="overview-item">
               <span class="overview-label">Offers:</span>
-              <span class="overview-value">5</span>
-            </div>
-            <div class="overview-item">
-              <span class="overview-label">Rejections:</span>
-              <span class="overview-value">2</span>
+              <span class="overview-value">{{ statistics.offer }}</span>
             </div>
           </div>
-          <app-progress-chart></app-progress-chart> <!-- Componenta nou adăugată -->
+          <app-progress-chart [statistics]="statistics"></app-progress-chart>
 
         </div>
       </div>

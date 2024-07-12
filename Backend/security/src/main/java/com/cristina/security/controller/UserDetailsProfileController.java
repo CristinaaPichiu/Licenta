@@ -25,7 +25,7 @@ public class UserDetailsProfileController {
     @PostMapping("/my_details")
     public ResponseEntity<UserDetailsProfile> saveUserDetails(@RequestBody UserDetailsDTO userDetailsDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName(); // Aceasta presupune că numele principal este adresa de email.
+        String email = authentication.getName();
 
         UserDetailsProfile userDetailsProfile = userDetailsProfileService.saveUserDetails(email, userDetailsDTO);
         return ResponseEntity.ok(userDetailsProfile);

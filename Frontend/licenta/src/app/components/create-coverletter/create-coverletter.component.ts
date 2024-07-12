@@ -21,7 +21,7 @@ export class CreateCoverletterComponent implements OnInit {
   startImageSlider() {
     setInterval(() => {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-    }, 2000); // Change image every 3 seconds
+    }, 2000); 
   }
 
   loading: boolean = false; 

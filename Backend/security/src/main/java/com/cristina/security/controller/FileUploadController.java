@@ -119,7 +119,6 @@ public class FileUploadController {
             contact.setAddress(addressInfo.get("address"));
             contact.setPostalCode(addressInfo.getOrDefault("postalCode", "700"));
         }
-        // Presupunem că există un câmp pentru name și status în structura de date
         contact.setName((String) data.get("name"));
         contact.setStatus((String) data.getOrDefault("status", "Student"));
 
@@ -141,7 +140,6 @@ public class FileUploadController {
 
     private List<ExperienceDTO> mapExperienceSections(Map<String, Object> data) {
         List<ExperienceDTO> experiences = new ArrayList<>();
-        // Presupunem că există o secțiune "experience" în răspunsul API-ului
         List<Map<String, Object>> experienceEntries = (List<Map<String, Object>>) data.get("experience");
         if (experienceEntries != null) {
             for (Map<String, Object> entry : experienceEntries) {
@@ -150,7 +148,6 @@ public class FileUploadController {
                 experience.setEmployer((String) entry.get("employer"));
                 experience.setDescription((String) entry.get("description"));
                 experience.setCity((String) entry.get("city"));
-                // Adaugă logica pentru conversia datelor date în LocalDate dacă e necesar
                 experiences.add(experience);
             }
         }
@@ -177,7 +174,6 @@ public class FileUploadController {
 
     private List<SkillsDTO> mapSkillSections(Map<String, Object> data) {
         List<SkillsDTO> skills = new ArrayList<>();
-        // Verificăm dacă datele pentru competențe sunt prezente și sunt o listă
         if (data.containsKey("skills") && data.get("skills") instanceof List) {
             List<Map<String, Object>> skillEntries = (List<Map<String, Object>>) data.get("skills");
             for (Map<String, Object> entry : skillEntries) {
@@ -193,7 +189,6 @@ public class FileUploadController {
 
     private AboutDTO mapAbout(Map<String, Object> data) {
         AboutDTO about = new AboutDTO();
-        // Verifică dacă cheia există și evită ClassCastException
         if (data.containsKey("about_me") && data.get("about_me") instanceof String) {
             about.setSummary((String) data.get("about_me"));
         }

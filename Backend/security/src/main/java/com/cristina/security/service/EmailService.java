@@ -11,13 +11,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-// Interface
+
 public interface EmailService {
 
-    // Method
-    // To send a simple email
+
     String sendMailWithAttachment(EmailDetails details);
+
 
 
 

@@ -15,14 +15,12 @@ export class ThirdTemplateComponent implements OnInit, OnDestroy {
   constructor(private resumeDataService: ResumeDataService) {}
 
   ngOnInit() {
-    // Abonează-te la currentResume pentru a actualiza datele de previzualizare ale CV-ului
     this.subscription = this.resumeDataService.currentResume.subscribe(data => {
       this.resume = data;
     });
   }
 
   ngOnDestroy() {
-    // Dezabonează-te când componenta este distrusă pentru a preveni memory leaks
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
